@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcome_navigation"
+    app:startDestination="@id/welcome_navigation_splash">
+
+    <fragment
+        android:id="@+id/welcome_navigation_splash"
+        android:name="com.memtrip.eosreach.app.welcome.splash.SplashFragment"
+        tools:layout="@layout/welcome_splash_fragment" />
+
+</navigation>

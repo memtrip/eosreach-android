@@ -1,0 +1,32 @@
+<template
+    name="MVI Fragment"
+    description="Init MVI Fragment package"
+    format="4"
+    revision="1">
+
+    <category
+        value="eosreach" />
+
+    <parameter
+        name="MVI Fragment name"
+        constraints="class|unique|nonempty"
+        default="MviFunction"
+        help="The prefix used for all implementation of mxandroid components"
+        id="className" type="string" />
+
+    <parameter
+        name="Fragment layout name"
+        constraints="layout|nonempty|unique"
+        default="blank_fragment"
+        help="xml layout name"
+        id="layoutName"
+        suggest="${classToResource(className)}_fragment"
+        type="string" />
+
+    <globals
+        file="globals.xml.ftl" />
+
+    <execute
+        file="recipe.xml.ftl" />
+
+</template>
