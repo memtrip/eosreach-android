@@ -40,6 +40,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-rc01'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc01'
 
+    /* java-aes-crypto */
+    implementation 'com.github.tozny:java-aes-crypto:1.1.0'
+
     /* MVI */
     implementation 'com.memtrip.mxandroid:mxandroid:1.0.0'
 

@@ -9,7 +9,7 @@ internal object StorageModule {
 
     @JvmStatic
     @Provides
-    fun getEosReachSharedPreferences(application: Application): EosReachSharedPreferences {
+    fun providesEosReachSharedPreferences(application: Application): EosReachSharedPreferences {
         return EosReachSharedPreferences(application)
     }
 }
