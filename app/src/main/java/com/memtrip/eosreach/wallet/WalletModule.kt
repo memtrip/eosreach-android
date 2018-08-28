@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.wallet
 
-import android.content.Context
+import android.app.Application
+
 import android.os.Build
 
 import dagger.Module
@@ -11,12 +12,12 @@ internal object WalletModule {
 
     @JvmStatic
     @Provides
-    fun providesWallet(context: Context): Wallet {
+    fun providesWallet(application: Application): Wallet {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
-            return WalletApi21(context)
+            return WalletApi21(application)
         } else {
             // TODO: API23+ wallet (AES)
-            return WalletApi21(context)
+            return WalletApi21(application)
         }
     }
 }

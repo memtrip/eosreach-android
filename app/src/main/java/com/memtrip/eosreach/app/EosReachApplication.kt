@@ -1,39 +1,36 @@
 package com.memtrip.eosreach.app
 
-import android.app.Activity
-
 import androidx.fragment.app.Fragment
-import androidx.multidex.MultiDexApplication
+
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-class EosReachApplication : MultiDexApplication(), HasActivityInjector, HasSupportFragmentInjector {
+class EosReachApplication : DaggerApplication(), HasSupportFragmentInjector {
 
     @Inject
-    lateinit var activityInjector: DispatchingAndroidInjector<Activity>
+    lateinit var supportFragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    override fun applicationInjector(): AndroidInjector<EosReachApplication> = daggerEosReachApplicationComponent
 
-    override fun activityInjector(): AndroidInjector<Activity> = activityInjector
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = supportFragmentInjector
 
     override fun onCreate() {
-        super.onCreate()
-
         if (LeakCanary.isInAnalyzerProcess(this)) { return }
 
         LeakCanary.install(this)
 
+        super.onCreate()
+    }
+
+    private val daggerEosReachApplicationComponent by lazy {
         DaggerEosReachApplicationComponent
             .builder()
             .application(this)
             .build()
-            .inject(this)
     }
 }

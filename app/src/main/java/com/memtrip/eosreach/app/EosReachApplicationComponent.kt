@@ -1,6 +1,9 @@
 package com.memtrip.eosreach.app
 
 import android.app.Application
+
+import com.memtrip.eosreach.api.AccountHistoryModule
+import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.app.account.AccountNavigationActivityModule
 import com.memtrip.eosreach.app.welcome.WelcomeNavigationActivityModule
 import com.memtrip.eosreach.storage.StorageModule
@@ -14,13 +17,17 @@ import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [
-    AndroidSupportInjectionModule::class,
-    WelcomeNavigationActivityModule::class,
-    AccountNavigationActivityModule::class,
-    StorageModule::class,
-    WalletModule::class
-])
+@Component(
+    modules = [
+        AndroidSupportInjectionModule::class,
+        WelcomeNavigationActivityModule::class,
+        AccountNavigationActivityModule::class,
+        StorageModule::class,
+        WalletModule::class,
+        ApiModule::class,
+        AccountHistoryModule::class
+    ]
+)
 interface EosReachApplicationComponent : AndroidInjector<EosReachApplication> {
 
     @Component.Builder

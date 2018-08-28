@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.wallet
 
 import android.annotation.TargetApi
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
@@ -24,9 +25,9 @@ import javax.security.auth.x500.X500Principal
 
 @Suppress("DEPRECATION")
 class WalletApi21(
-    private val context: Context,
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
-        context.getString(R.string.app_shared_preferences_package),
+    private val application: Application,
+    private val sharedPreferences: SharedPreferences = application.getSharedPreferences(
+        application.getString(R.string.app_shared_preferences_package),
         Context.MODE_PRIVATE),
     private val keyStore: KeyStore = with(KeyStore.getInstance("AndroidKeyStore")) {
         load(null)
@@ -35,10 +36,10 @@ class WalletApi21(
 ) : Wallet {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun create(walletName: String)  {
+    override fun create(walletName: String) {
 
         if (!keyStore.containsAlias(walletName)) {
-            val spec = KeyPairGeneratorSpec.Builder(context)
+            val spec = KeyPairGeneratorSpec.Builder(application)
                 .setAlias(walletName)
                 .setSubject(X500Principal("CN=$walletName"))
                 .setSerialNumber(BigInteger.TEN)
@@ -46,8 +47,7 @@ class WalletApi21(
                 .setEndDate(with (Calendar.getInstance()) {
                     add(Calendar.YEAR, 30)
                     this
-                }.time)
-                .build()
+                }.time).build()
 
             val keyPairGenerator = KeyPairGenerator.getInstance("RSA", "AndroidKeyStore")
             keyPairGenerator.initialize(spec)
