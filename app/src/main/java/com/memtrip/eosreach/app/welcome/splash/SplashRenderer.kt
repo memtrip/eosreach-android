@@ -6,25 +6,26 @@ import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class SplashRenderAction : MxRenderAction {
-    object OnProgress : SplashRenderAction()
-    object OnError : SplashRenderAction()
+    object Idle : SplashRenderAction()
+    object NavigateToCreateAccount : SplashRenderAction()
+    object NavigateToImportKey : SplashRenderAction()
 }
 
 interface SplashViewLayout : MxViewLayout {
-    fun showProgress()
-    fun showError()
+    fun navigateToCreateAccount()
+    fun navigateToImportKey()
 }
 
 class SplashViewRenderer @Inject internal constructor() : MxViewRenderer<SplashViewLayout, SplashViewState> {
     override fun layout(layout: SplashViewLayout, state: SplashViewState) = when (state.view) {
         SplashViewState.View.Idle -> {
-
+            print("ok")
         }
-        SplashViewState.View.OnProgress -> {
-            layout.showProgress()
+        SplashViewState.View.NavigateToCreateAccount -> {
+            layout.navigateToCreateAccount()
         }
-        SplashViewState.View.OnError -> {
-            layout.showError()
+        SplashViewState.View.NavigateToImportKeys -> {
+            layout.navigateToImportKey()
         }
     }
 }

@@ -4,32 +4,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
+import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.welcome_import_key_fragment.*
 import javax.inject.Inject
 
 internal class ImportKeyFragment
     : MviFragment<ImportKeyIntent, ImportKeyRenderAction, ImportKeyViewState, ImportKeyViewLayout>(), ImportKeyViewLayout {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory<ImportKeyViewModel>
+    lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
     lateinit var render: ImportKeyViewRenderer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.welcome_import_key_fragment, container, false)
-        return view
+        return inflater.inflate(R.layout.welcome_import_key_fragment, container, false)
     }
 
     override fun inject() {
         AndroidSupportInjection.inject(this)
     }
 
-    override fun intents(): Observable<ImportKeyIntent> = Observable.empty()
+    override fun intents(): Observable<ImportKeyIntent> {
+        return RxView.clicks(welcome_import_key_import_button).map {
+            ImportKeyIntent.ImportKey(welcome_import_key_private_key_value_input.text.toString())
+        }
+    }
 
     override fun layout(): ImportKeyViewLayout = this
 
@@ -38,10 +44,13 @@ internal class ImportKeyFragment
     override fun render(): ImportKeyViewRenderer = render
 
     override fun showProgress() {
+    }
 
+    override fun success() {
+        NavHostFragment.findNavController(this).navigate(
+            R.id.welcome_navigation_action_importKeyFragment_to_accountsListFragment)
     }
 
     override fun showError() {
-
     }
 }

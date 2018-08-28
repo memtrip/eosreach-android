@@ -12,12 +12,17 @@
         android:name=".app.EosReachApplication"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="com.memtrip.eosreach.app.welcome.WelcomeNavigationActivity">
+        <activity
+            android:name="com.memtrip.eosreach.app.welcome.WelcomeNavigationActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".app.account.AccountNavigationActivity" />
 
     </application>
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="viewTextInputLayoutPrimaryHint">#757575</color>
+
+    <color name="viewEditTextPrimaryBackground">@android:color/transparent</color>
+    <color name="viewEditTextPrimaryBorder">@color/colorAccent</color>
+    <color name="viewEditTextPrimaryBorderFocus">@color/colorSecondary</color>
+    <color name="viewEditTextPrimaryTextColor">#EEEEEE</color>
+    <color name="viewEditTextPrimaryErrorTextColor">#CF223F</color>
+
+</resources>

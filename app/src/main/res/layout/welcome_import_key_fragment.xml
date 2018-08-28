@@ -5,27 +5,65 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_guideline"
+        android:id="@+id/vertical_start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_guideline"
+        android:id="@+id/vertical_end_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_end="@dimen/padding_large" />
 
-    <ProgressBar
-        android:id="@+id/import_key_progress"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/start_guideline"
-        app:layout_constraintRight_toRightOf="@id/end_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/welcome_import_key_private_key_value_label"
+        style="@style/TextInputLayoutPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
+        android:layout_marginEnd="0dp"
+        android:hint="@string/welcome_import_key_private_key_hint"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorSecondary"
+        app:layout_constraintEnd_toEndOf="@+id/vertical_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/welcome_import_key_private_key_value_input"
+            style="@style/EditTextPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonPrimary"
+        android:id="@+id/welcome_import_key_import_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_import_key_import"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

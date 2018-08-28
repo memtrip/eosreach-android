@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="typography_body_14">14sp</dimen>
+    <dimen name="typography_caption_12">12sp</dimen>
+
+    <dimen name="typography_data_line_height">4dp</dimen>
+
+</resources>

@@ -6,7 +6,7 @@ data class SplashViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
-        object OnProgress : View()
-        object OnError : View()
+        object NavigateToCreateAccount : View()
+        object NavigateToImportKeys : View()
     }
 }

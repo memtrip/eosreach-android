@@ -26,9 +26,8 @@ class SplashViewModelTest : Spek({
 
             it("emits initialized ViewState") {
                 val states = state.values()
-                assertThat(states.size).isEqualTo(2)
+                assertThat(states.size).isEqualTo(1)
                 assertThat(states[0]).isEqualTo(SplashViewState(SplashViewState.View.Idle))
-                assertThat(states[1]).isEqualTo(SplashViewState(SplashViewState.View.OnProgress))
             }
         }
     }

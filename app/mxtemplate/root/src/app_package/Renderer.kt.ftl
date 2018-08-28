@@ -16,7 +16,7 @@ interface ${className}ViewLayout : MxViewLayout {
 }
 
 class ${className}ViewRenderer @Inject internal constructor() : MxViewRenderer<${className}ViewLayout, ${className}ViewState> {
-    override fun layout(layout: ${className}ViewLayout, state: ${className}ViewState) = when (state.view) {
+    override fun layout(layout: ${className}ViewLayout, state: ${className}ViewState): Unit = when (state.view) {
         ${className}ViewState.View.Idle -> {
 
         }

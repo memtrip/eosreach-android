@@ -7,10 +7,16 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.memtrip.eosreachreach"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode versions.versionCode
+        versionName versions.versionName
+
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -22,7 +28,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':brand')
+
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     /* Support libraries */
@@ -31,7 +39,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-rc01'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc01'
-    implementation 'com.google.android.material:material:1.0.0-rc01'
 
     /* MVI */
     implementation 'com.memtrip.mxandroid:mxandroid:1.0.0'
@@ -42,6 +49,11 @@ dependencies {
     implementation 'com.google.dagger:dagger-android:2.16'
     implementation 'com.google.dagger:dagger-android-support:2.16'
     kapt 'com.google.dagger:dagger-android-processor:2.16'
+
+    /* rx */
+    implementation 'io.reactivex:rxkotlin:1.0.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
 
     /* leak canary */
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

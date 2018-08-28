@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="viewButtonMinWidth">116dp</dimen>
+    <dimen name="viewButtonMinHeight">36dp</dimen>
+    <dimen name="viewButtonHorizontalPadding">32dp</dimen>
+    <dimen name="viewButtonBorderRadius">3dp</dimen>
+    <dimen name="viewButtonBorderStroke">1dp</dimen>
+
+</resources>

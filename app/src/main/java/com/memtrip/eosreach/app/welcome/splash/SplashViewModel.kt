@@ -13,18 +13,14 @@ class SplashViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: SplashIntent): Observable<SplashRenderAction> = when (intent) {
-        is SplashIntent.Init -> Observable.just(SplashRenderAction.OnProgress)
+        SplashIntent.Init -> Observable.just(SplashRenderAction.Idle)
+        SplashIntent.NavigateToCreateAccount -> Observable.just(SplashRenderAction.NavigateToCreateAccount)
+        SplashIntent.NavigateToImportKeys -> Observable.just(SplashRenderAction.NavigateToImportKey)
     }
 
-    override fun reducer(previousState: SplashViewState, renderAction: SplashRenderAction) = when (renderAction) {
-        SplashRenderAction.OnProgress -> previousState.copy(view = SplashViewState.View.OnProgress)
-        SplashRenderAction.OnError -> previousState.copy(view = SplashViewState.View.OnError)
+    override fun reducer(previousState: SplashViewState, renderAction: SplashRenderAction): SplashViewState = when (renderAction) {
+        SplashRenderAction.Idle -> previousState.copy(view = SplashViewState.View.Idle)
+        SplashRenderAction.NavigateToCreateAccount -> previousState.copy(view = SplashViewState.View.NavigateToCreateAccount)
+        SplashRenderAction.NavigateToImportKey -> previousState.copy(view = SplashViewState.View.NavigateToImportKeys)
     }
-
-    override fun filterIntents(intents: Observable<SplashIntent>): Observable<SplashIntent> = Observable.merge(
-        intents.ofType(SplashIntent.Init::class.java).take(1),
-        intents.filter {
-            !SplashIntent.Init::class.java.isInstance(it)
-        }
-    )
 }

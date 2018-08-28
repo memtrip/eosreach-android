@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">EOS REACH</string>
+    <string name="app_shared_preferences_package">com.memtrip.eosreach</string>
+</resources>

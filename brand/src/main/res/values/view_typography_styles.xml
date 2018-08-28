@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Typography.Medium" parent="@style/Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/typographyColorPrimary</item>
+    </style>
+
+    <style name="Typography.Body1" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/typographyColorPrimary</item>
+    </style>
+
+    <style name="Typography.Caption" parent="Base.TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/typographyColorPrimary</item>
+    </style>
+
+    <style name="Typography.Data" parent="Typography.Body1">
+        <item name="android:textColor">@color/typographyColorSecondary</item>
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:background">@color/typographyColorDataBackground</item>
+        <item name="android:lineSpacingExtra">@dimen/typography_data_line_height</item>
+    </style>
+
+</resources>

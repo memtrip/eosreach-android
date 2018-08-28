@@ -3,6 +3,7 @@ package ${packageName}
 import android.app.Application
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
+import javax.inject.Inject
 
 class ${className}ViewModel @Inject internal constructor(
     application: Application
@@ -15,7 +16,7 @@ class ${className}ViewModel @Inject internal constructor(
         is ${className}Intent.Init -> Observable.just(${className}RenderAction.OnProgress)
     }
 
-    override fun reducer(previousState: ${className}ViewState, renderAction: ${className}RenderAction) = when (renderAction) {
+    override fun reducer(previousState: ${className}ViewState, renderAction: ${className}RenderAction): ${className}ViewState = when (renderAction) {
         ${className}RenderAction.OnProgress -> previousState.copy(view = ${className}ViewState.View.OnProgress)
         ${className}RenderAction.OnError -> previousState.copy(view = ${className}ViewState.View.OnError)
     }

@@ -18,19 +18,19 @@ class SplashRendererTest : Spek({
 
         val renderer by memoized { SplashViewRenderer() }
 
-        on("ViewState is not initialized") {
-            renderer.layout(layout, SplashViewState(SplashViewState.View.OnProgress))
+        on("Navigate to create account") {
+            renderer.layout(layout, SplashViewState(SplashViewState.View.NavigateToCreateAccount))
 
-            it("shows the Progress") {
-                verify(layout).showProgress()
+            it("navigates to create account") {
+                verify(layout).navigateToCreateAccount()
             }
         }
 
-        on("ViewState is initialized") {
-            renderer.layout(layout, SplashViewState(SplashViewState.View.OnError))
+        on("Navigate to import key") {
+            renderer.layout(layout, SplashViewState(SplashViewState.View.NavigateToImportKeys))
 
-            it("hides the Progress") {
-                verify(layout).showError()
+            it("navigates to import key") {
+                verify(layout).navigateToImportKey()
             }
         }
     }

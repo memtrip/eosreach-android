@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.${layoutName}.*
 internal class ${className}Fragment
     : MviFragment<${className}Intent, ${className}RenderAction, ${className}ViewState, ${className}ViewLayout>(), ${className}ViewLayout {
 
-    @Inject lateinit var viewModelFactory: ViewModelFactory<${className}ViewModel>
+    @Inject lateinit var viewModelFactory: ViewModelFactory
 
     @Inject lateinit var render: ${className}ViewRenderer
 

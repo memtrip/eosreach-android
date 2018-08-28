@@ -8,10 +8,10 @@
         value="eosreach" />
 
     <parameter
-        name="MVI Fragment name"
+        name="MVI component name"
         constraints="class|unique|nonempty"
-        default="MviFunction"
-        help="The prefix used for all implementation of mxandroid components"
+        default="HelloWorld"
+        help="The name used for all implementation of mxandroid components"
         id="className" type="string" />
 
     <parameter

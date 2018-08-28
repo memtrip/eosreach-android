@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="viewButtonPrimaryBackground">@color/colorAccent</color>
+    <color name="viewButtonPrimaryBackgroundSelected">#55FFFFFF</color>
+    <color name="viewButtonPrimaryBorder">@color/colorAccent</color>
+    <color name="viewButtonPrimaryText">#FFFFFF</color>
+
+    <color name="viewButtonSecondaryBackgroundSelected">#55FFFFFF</color>
+    <color name="viewButtonSecondaryBorder">@color/colorSecondary</color>
+    <color name="viewButtonSecondaryText">@color/colorSecondary</color>
+
+</resources>

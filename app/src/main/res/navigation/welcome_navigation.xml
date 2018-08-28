@@ -4,11 +4,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/welcome_navigation"
-    app:startDestination="@id/welcome_navigation_splash">
+    app:startDestination="@id/welcome_navigation_accounts_list">
+
+    <fragment
+        android:id="@+id/welcome_navigation_accounts_list"
+        android:name="com.memtrip.eosreach.app.welcome.accountlist.AccountListFragment"
+        tools:layout="@layout/welcome_account_list_fragment">
+        <action
+            android:id="@+id/welcome_navigation_action_accountsListFragment_to_splashFragment"
+            app:popUpTo="@+id/welcome_navigation_accounts_list"
+            app:popUpToInclusive="true"
+            app:destination="@+id/welcome_navigation_splash" />
+    </fragment>
 
     <fragment
         android:id="@+id/welcome_navigation_splash"
         android:name="com.memtrip.eosreach.app.welcome.splash.SplashFragment"
         tools:layout="@layout/welcome_splash_fragment" />
+
+    <fragment
+        android:id="@+id/welcome_navigation_create_account"
+        android:name="com.memtrip.eosreach.app.welcome.createaccount.CreateAccountFragment"
+        tools:layout="@layout/welcome_create_account_fragment">
+        <action
+            android:id="@+id/welcome_navigation_action_createAccountFragment_to_accountsListFragment"
+            app:destination="@id/welcome_navigation_accounts_list"
+            app:popUpTo="@+id/welcome_navigation_splash"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcome_navigation_import_key"
+        android:name="com.memtrip.eosreach.app.welcome.importkey.ImportKeyFragment"
+        tools:layout="@layout/welcome_import_key_fragment">
+        <action
+            android:id="@+id/welcome_navigation_action_importKeyFragment_to_accountsListFragment"
+            app:destination="@id/welcome_navigation_accounts_list"
+            app:popUpTo="@+id/welcome_navigation_splash"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/welcome_navigation_key_imported"
+        android:name="com.memtrip.eosreach.app.welcome.keyimported.KeyImportedFragment"
+        tools:layout="@layout/welcome_key_imported_fragment" />
+
+    <activity
+        android:id="@+id/welcome_navigation_accounts_navigation"
+        android:name="com.memtrip.eosreach.app.account.AccountNavigationActivity"
+        tools:layout="@layout/account_navigation_activity" />
 
 </navigation>

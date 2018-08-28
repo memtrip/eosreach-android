@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="viewEditTextBorderStroke">1dp</dimen>
+    <dimen name="viewEditTextPrimaryBorder">2dp</dimen>
+    <dimen name="viewEditTextPrimaryHintPadding">8dp</dimen>
+
+</resources>

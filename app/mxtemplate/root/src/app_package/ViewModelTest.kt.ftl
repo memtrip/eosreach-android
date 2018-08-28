@@ -27,8 +27,8 @@ class ${className}ViewModelTest : Spek({
             it("emits initialized ViewState") {
                 val states = state.values()
                 assertThat(states.size).isEqualTo(2)
-                assertThat(states[0]).isEqualTo(ImportKeyViewState(${className}ViewState.View.Idle))
-                assertThat(states[1]).isEqualTo(ImportKeyViewState(${className}ViewState.View.OnProgress))
+                assertThat(states[0]).isEqualTo(${className}ViewState(${className}ViewState.View.Idle))
+                assertThat(states[1]).isEqualTo(${className}State(${className}ViewState.View.OnProgress))
             }
         }
     }

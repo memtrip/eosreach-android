@@ -5,27 +5,52 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/start_guideline"
+        android:id="@+id/vertical_start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/end_guideline"
+        android:id="@+id/vertical_end_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="16dp" />
+        app:layout_constraintGuide_end="@dimen/padding_large" />
 
-    <ProgressBar
-        android:id="@+id/splash_progress"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/start_guideline"
-        app:layout_constraintRight_toRightOf="@id/end_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonPrimary"
+        android:id="@+id/welcome_splash_create_account_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_medium"
+        android:text="@string/welcome_splash_button_create_account"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintBottom_toTopOf="@id/welcome_splash_import_private_key_button" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonSecondary"
+        android:id="@+id/welcome_splash_import_private_key_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_splash_button_import_key"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
