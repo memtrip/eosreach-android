@@ -51,6 +51,7 @@ internal class ImportKeyFragment
             R.id.welcome_navigation_action_importKeyFragment_to_accountsListFragment)
     }
 
-    override fun showError() {
+    override fun showError(error: String) {
+        welcome_import_key_private_key_value_label.error = error
     }
 }

@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.memtrip.eosreach">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

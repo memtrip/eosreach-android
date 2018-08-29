@@ -9,13 +9,13 @@ sealed class ImportKeyRenderAction : MxRenderAction {
     object Idle : ImportKeyRenderAction()
     object OnProgress : ImportKeyRenderAction()
     object OnSuccess : ImportKeyRenderAction()
-    object OnError : ImportKeyRenderAction()
+    data class OnError(val error: String) : ImportKeyRenderAction()
 }
 
 interface ImportKeyViewLayout : MxViewLayout {
     fun showProgress()
     fun success()
-    fun showError()
+    fun showError(error: String)
 }
 
 class ImportKeyViewRenderer @Inject internal constructor() : MxViewRenderer<ImportKeyViewLayout, ImportKeyViewState> {
@@ -27,8 +27,8 @@ class ImportKeyViewRenderer @Inject internal constructor() : MxViewRenderer<Impo
         ImportKeyViewState.View.OnSuccess -> {
             layout.success()
         }
-        ImportKeyViewState.View.OnError -> {
-            layout.showError()
+        is ImportKeyViewState.View.OnError -> {
+            layout.showError(state.view.error)
         }
     }
 }

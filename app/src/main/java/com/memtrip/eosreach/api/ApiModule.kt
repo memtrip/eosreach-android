@@ -2,7 +2,6 @@ package com.memtrip.eosreach.api
 
 import com.memtrip.eos.http.rpc.Api
 import com.memtrip.eos.http.rpc.HistoryApi
-
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -26,7 +25,7 @@ internal object ApiModule {
     @JvmStatic
     @Provides
     fun api(okHttpClient: OkHttpClient): Api {
-        return Api("http://localhost:8888/", okHttpClient)
+        return Api("http://10.0.2.2:8888/", okHttpClient)
     }
 
     @JvmStatic

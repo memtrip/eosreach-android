@@ -8,6 +8,6 @@ data class ImportKeyViewState(val view: View) : MxViewState {
         object Idle : View()
         object OnProgress : View()
         object OnSuccess : View()
-        object OnError : View()
+        data class OnError(val error: String) : View()
     }
 }

@@ -7,16 +7,14 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
+import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
+import io.reactivex.Single
 import java.io.ByteArrayInputStream
-
 import java.io.ByteArrayOutputStream
-
-import java.security.KeyPairGenerator
-
 import java.math.BigInteger
+import java.security.KeyPairGenerator
 import java.security.KeyStore
-
 import java.util.Calendar
 import javax.crypto.Cipher
 import javax.crypto.CipherInputStream
@@ -24,7 +22,8 @@ import javax.crypto.CipherOutputStream
 import javax.security.auth.x500.X500Principal
 
 @Suppress("DEPRECATION")
-class WalletApi21(
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+class EosKeyManagerApi21(
     private val application: Application,
     private val sharedPreferences: SharedPreferences = application.getSharedPreferences(
         application.getString(R.string.app_shared_preferences_package),
@@ -33,15 +32,20 @@ class WalletApi21(
         load(null)
         this
     }
-) : Wallet {
+) : EosKeyManager {
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun create(walletName: String) {
+    override fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String> {
+        val keyAlias = eosPrivateKey.publicKey.toString()
+        createRsaKeyPair(keyAlias)
+        encryptAndSavePrivateKey(keyAlias, eosPrivateKey)
+        return Single.just(keyAlias)
+    }
 
-        if (!keyStore.containsAlias(walletName)) {
+    private fun createRsaKeyPair(keyAlias: String) {
+        if (!keyStore.containsAlias(keyAlias)) {
             val spec = KeyPairGeneratorSpec.Builder(application)
-                .setAlias(walletName)
-                .setSubject(X500Principal("CN=$walletName"))
+                .setAlias(keyAlias)
+                .setSubject(X500Principal("CN=$keyAlias"))
                 .setSerialNumber(BigInteger.TEN)
                 .setStartDate(Calendar.getInstance().time)
                 .setEndDate(with (Calendar.getInstance()) {
@@ -53,38 +57,40 @@ class WalletApi21(
             keyPairGenerator.initialize(spec)
             keyPairGenerator.generateKeyPair()
         }
+
     }
 
-    override fun importKey(walletName: String, privateKey: ByteArray) {
-        val privateKeyEntry = keyStore.getEntry(walletName, null) as KeyStore.PrivateKeyEntry
+    private fun encryptAndSavePrivateKey(keyAlias: String, eosPrivateKey: EosPrivateKey) {
+
+        val rsaEncryptionKeyEntry = keyStore.getEntry(keyAlias, null) as KeyStore.PrivateKeyEntry
 
         val inputCipher = Cipher.getInstance(RSA_MODE, PROVIDER)
-        inputCipher.init(Cipher.ENCRYPT_MODE, privateKeyEntry.certificate.publicKey)
+        inputCipher.init(Cipher.ENCRYPT_MODE, rsaEncryptionKeyEntry.certificate.publicKey)
 
         val outputStream = ByteArrayOutputStream()
         val cipherOutputStream = CipherOutputStream(outputStream, inputCipher)
-        cipherOutputStream.write(privateKey)
+        cipherOutputStream.write(eosPrivateKey.bytes)
         cipherOutputStream.close()
 
         sharedPreferences
             .edit()
-            .putString("wallet-$walletName", Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT))
+            .putString(keyAlias, Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT))
             .apply()
     }
 
-    @Throws(Wallet.NotFoundException::class)
-    override fun getKey(walletName: String): ByteArray {
+    @Throws(EosKeyManager.NotFoundException::class)
+    override fun getPrivateKey(eosPublicKey: String): ByteArray {
 
-        val privateKey = sharedPreferences.getString("wallet-$walletName", null)
+        val encodedEncryptedPrivateKey = sharedPreferences.getString(eosPublicKey, null)
 
-        if (privateKey != null) {
+        if (encodedEncryptedPrivateKey != null) {
 
-            val encryptedPrivateKey = Base64.decode(privateKey, Base64.DEFAULT)
+            val encryptedPrivateKey = Base64.decode(encodedEncryptedPrivateKey, Base64.DEFAULT)
 
-            val privateKeyEntry = keyStore.getEntry(walletName, null) as KeyStore.PrivateKeyEntry
+            val rsaEncryptionKeyEntry = keyStore.getEntry(eosPublicKey, null) as KeyStore.PrivateKeyEntry
 
             val output = with (Cipher.getInstance(RSA_MODE, PROVIDER)) {
-                init(Cipher.DECRYPT_MODE, privateKeyEntry.privateKey)
+                init(Cipher.DECRYPT_MODE, rsaEncryptionKeyEntry.privateKey)
                 this
             }
 
@@ -100,8 +106,12 @@ class WalletApi21(
 
             return bytes
         } else {
-            throw Wallet.NotFoundException()
+            throw EosKeyManager.NotFoundException()
         }
+    }
+
+    override fun throwIfPublicKeyExists(eosPublicKey: String): Boolean {
+        return sharedPreferences.getString(eosPublicKey, null) != null
     }
 
     companion object {

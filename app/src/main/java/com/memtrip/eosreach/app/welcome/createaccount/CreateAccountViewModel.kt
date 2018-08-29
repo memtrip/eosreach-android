@@ -2,7 +2,7 @@ package com.memtrip.eosreach.app.welcome.createaccount
 
 import android.app.Application
 import com.memtrip.eosreach.storage.EosReachSharedPreferences
-import com.memtrip.eosreach.wallet.Wallet
+import com.memtrip.eosreach.wallet.EosKeyManager
 
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class CreateAccountViewModel @Inject internal constructor(
     private val eosReachSharedPreferences: EosReachSharedPreferences,
-    private val wallet: Wallet,
+    private val wallet: EosKeyManager,
     application: Application
 ) : MxViewModel<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState>(
     CreateAccountViewState(view = CreateAccountViewState.View.Idle),
@@ -41,7 +41,6 @@ class CreateAccountViewModel @Inject internal constructor(
             .saveAccountCreated()
             .toSingleDefault<CreateAccountRenderAction>(CreateAccountRenderAction.OnSuccess)
             .map {
-                wallet.create("hello")
                 it
             }
             .onErrorReturn { CreateAccountRenderAction.OnError }

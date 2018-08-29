@@ -12,12 +12,12 @@ internal object WalletModule {
 
     @JvmStatic
     @Provides
-    fun providesWallet(application: Application): Wallet {
+    fun providesWallet(application: Application): EosKeyManager {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
-            return WalletApi21(application)
+            return EosKeyManagerApi21(application)
         } else {
             // TODO: API23+ wallet (AES)
-            return WalletApi21(application)
+            return EosKeyManagerApi21(application)
         }
     }
 }
