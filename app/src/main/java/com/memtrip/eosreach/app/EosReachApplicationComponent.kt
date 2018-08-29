@@ -2,7 +2,7 @@ package com.memtrip.eosreach.app
 
 import android.app.Application
 import com.memtrip.eosreach.api.ApiModule
-import com.memtrip.eosreach.api.accountforkey.RequestModule
+import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountActivityModule
 import com.memtrip.eosreach.app.welcome.WelcomeNavigationActivityModule
 import com.memtrip.eosreach.db.DatabaseModule

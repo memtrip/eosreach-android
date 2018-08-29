@@ -58,6 +58,10 @@
     <activity
         android:id="@+id/welcome_navigation_account"
         android:name="com.memtrip.eosreach.app.account.AccountActivity"
-        tools:layout="@layout/account_activity" />
+        tools:layout="@layout/account_activity" >
+        <argument
+            android:name="accountName"
+            app:argType="string" />
+    </activity>
 
 </navigation>

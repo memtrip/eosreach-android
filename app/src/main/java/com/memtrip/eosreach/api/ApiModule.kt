@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.api
 
 import com.memtrip.eos.http.rpc.Api
+import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
 import dagger.Module
 import dagger.Provides
@@ -25,10 +26,14 @@ internal object ApiModule {
     @JvmStatic
     @Provides
     fun api(okHttpClient: OkHttpClient): Api {
-        return Api("http://10.0.2.2:8888/", okHttpClient)
+        return Api("http://ef19b3eb.ngrok.io/", okHttpClient)
     }
 
     @JvmStatic
     @Provides
     fun historyApi(api: Api): HistoryApi = api.history
+
+    @JvmStatic
+    @Provides
+    fun chainApi(api: Api): ChainApi = api.chain
 }

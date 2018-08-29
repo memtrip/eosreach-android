@@ -36,6 +36,9 @@ interface AccountDao {
     @Insert
     fun insertAll(pinyin: List<AccountEntity>)
 
+    @Query("DELETE FROM Account WHERE publicKey = :publicKey")
+    fun deleteBy(publicKey: String)
+
     @Query("SELECT DISTINCT uid, publicKey, accountName FROM Account WHERE publicKey = :publicKey ORDER BY uid ASC LIMIT 0, 100")
     fun getAccountsForPublicKey(publicKey: String): List<AccountEntity>
 
@@ -67,17 +70,18 @@ class InsertAccountsForPublicKey @Inject internal constructor(
     private val rxSchedulers: RxSchedulers
 ) {
 
-    fun insert(publicKey: String, accounts: List<String>): Single<List<AccountEntity>> {
+    fun replace(publicKey: String, accounts: List<String>): Single<List<AccountEntity>> {
 
-        val publicKeyAccountEntity = accounts.map { accountName ->
+        val publicKeyAccountEntities = accounts.map { accountName ->
             AccountEntity(publicKey, accountName)
         }
 
         return Completable
-            .fromAction { accountDao.insertAll(publicKeyAccountEntity) }
+            .fromAction { accountDao.deleteBy(publicKey) }
+            .andThen(Completable.fromAction { accountDao.insertAll(publicKeyAccountEntities) })
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
-            .toSingle { publicKeyAccountEntity }
+            .toSingle { publicKeyAccountEntities }
     }
 }
 

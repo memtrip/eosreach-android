@@ -3,12 +3,16 @@ package com.memtrip.eosreach.app.account
 import android.os.Bundle
 
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
 
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
 
 import io.reactivex.Observable
+import kotlinx.android.synthetic.main.account_activity.*
 
 import javax.inject.Inject
 
@@ -21,16 +25,21 @@ class AccountActivity
     @Inject
     lateinit var render: AccountViewRenderer
 
+    lateinit var accountName: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_activity)
+        accountName = AccountActivityArgs.fromBundle(intent.extras).accountName
     }
 
     override fun inject() {
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<AccountIntent> = Observable.empty()
+    override fun intents(): Observable<AccountIntent> {
+        return Observable.just(AccountIntent.Init(accountName))
+    }
 
     override fun layout(): AccountViewLayout = this
 
@@ -39,6 +48,12 @@ class AccountActivity
     override fun render(): AccountViewRenderer = render
 
     override fun showProgress() {
+        account_progressbar.visible()
+    }
+
+    override fun populate(eosAccount: EosAccount) {
+        account_progressbar.gone()
+        // populate!
     }
 
     override fun showError() {

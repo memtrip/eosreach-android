@@ -20,11 +20,11 @@ class ImportKeyUseCase @Inject constructor(
 ) {
 
     fun importKey(privateKey: String): Single<Result<AccountsForPublicKey, AccountForKeyError>> = try {
-        eosKeyManager.importPrivateKey(createEosPrivateKey(privateKey)).flatMap {
+        eosKeyManager.importPrivateKey(EosPrivateKey(privateKey)).flatMap {
             accountForKeyRequest.getAccountsForKey(it)
         }.flatMap { result ->
             if (result.success) {
-                insertAccountsForPublicKey.insert(
+                insertAccountsForPublicKey.replace(
                     result.response!!.publicKey,
                     result.response.accounts
                 ).map {
@@ -34,26 +34,9 @@ class ImportKeyUseCase @Inject constructor(
                 Single.just(result)
             }
         }.onErrorReturn {
-            it.printStackTrace()
             Result(AccountForKeyError.Generic)
         }
-    } catch (e: PrivateKeyAlreadyImported) {
-        Single.just(Result<AccountsForPublicKey, AccountForKeyError>(AccountForKeyError.PrivateKeyAlreadyImported))
     } catch (e: Exception) {
         Single.just(Result<AccountsForPublicKey, AccountForKeyError>(AccountForKeyError.InvalidPrivateKey))
     }
-
-    @Throws(Exception::class, PrivateKeyAlreadyImported::class)
-    private fun createEosPrivateKey(privateKey: String): EosPrivateKey {
-
-        val eosPrivateKey = EosPrivateKey(privateKey)
-
-        if (eosKeyManager.publicKeyExists(eosPrivateKey.publicKey.toString())) {
-            throw PrivateKeyAlreadyImported()
-        } else {
-            return eosPrivateKey
-        }
-    }
-
-    private class PrivateKeyAlreadyImported : Exception()
 }

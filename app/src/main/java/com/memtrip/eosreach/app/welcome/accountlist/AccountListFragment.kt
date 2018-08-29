@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountActivityArgs
 import com.memtrip.eosreach.db.AccountEntity
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -80,6 +81,7 @@ internal class AccountListFragment
     override fun navigateToAccount(accountName: String) {
         model().publish(AccountListIntent.Idle)
         NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_action_accountsList_to_account)
+            R.id.welcome_navigation_action_accountsList_to_account,
+            AccountActivityArgs.Builder(accountName).build().toBundle())
     }
 }
