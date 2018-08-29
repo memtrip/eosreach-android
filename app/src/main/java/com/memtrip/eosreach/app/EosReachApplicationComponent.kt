@@ -3,10 +3,10 @@ package com.memtrip.eosreach.app
 import android.app.Application
 import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.accountforkey.RequestModule
-import com.memtrip.eosreach.app.account.AccountNavigationActivityModule
+import com.memtrip.eosreach.app.account.AccountActivityModule
 import com.memtrip.eosreach.app.welcome.WelcomeNavigationActivityModule
-import com.memtrip.eosreach.storage.DatabaseModule
-import com.memtrip.eosreach.storage.StorageModule
+import com.memtrip.eosreach.db.DatabaseModule
+import com.memtrip.eosreach.db.StorageModule
 import com.memtrip.eosreach.utils.UtilModule
 import com.memtrip.eosreach.wallet.WalletModule
 import dagger.BindsInstance
@@ -20,7 +20,7 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         WelcomeNavigationActivityModule::class,
-        AccountNavigationActivityModule::class,
+        AccountActivityModule::class,
         DatabaseModule::class,
         StorageModule::class,
         WalletModule::class,

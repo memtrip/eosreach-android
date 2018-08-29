@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.app.welcome.createaccount
 
 import android.app.Application
-import com.memtrip.eosreach.storage.EosReachSharedPreferences
+import com.memtrip.eosreach.db.EosReachSharedPreferences
 import com.memtrip.eosreach.wallet.EosKeyManager
 
 import com.memtrip.mxandroid.MxViewModel

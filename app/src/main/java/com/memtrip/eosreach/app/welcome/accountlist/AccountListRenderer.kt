@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.app.welcome.accountlist
 
+import com.memtrip.eosreach.db.AccountEntity
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
@@ -9,14 +10,16 @@ sealed class AccountListRenderAction : MxRenderAction {
     object OnProgress : AccountListRenderAction()
     object NavigateToSplash : AccountListRenderAction()
     object OnError : AccountListRenderAction()
-    object OnSuccess : AccountListRenderAction()
+    data class OnSuccess(val accounts: List<AccountEntity>) : AccountListRenderAction()
+    data class NavigateToAccount(val accountName: String) : AccountListRenderAction()
 }
 
 interface AccountListViewLayout : MxViewLayout {
     fun showProgress()
     fun navigateToSplash()
-    fun showAccounts()
+    fun showAccounts(accounts: List<AccountEntity>)
     fun showError()
+    fun navigateToAccount(accountName: String)
 }
 
 class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<AccountListViewLayout, AccountListViewState> {
@@ -29,11 +32,14 @@ class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<Ac
         AccountListViewState.View.OnProgress -> {
             layout.showProgress()
         }
-        AccountListViewState.View.OnSuccess -> {
-            layout.showAccounts()
+        is AccountListViewState.View.OnSuccess -> {
+            layout.showAccounts(state.view.accounts)
         }
         AccountListViewState.View.OnError -> {
             layout.showError()
+        }
+        is AccountListViewState.View.NavigateToAccount -> {
+            layout.navigateToAccount(state.view.accountName)
         }
     }
 }

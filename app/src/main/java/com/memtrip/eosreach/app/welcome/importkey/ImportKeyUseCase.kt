@@ -6,7 +6,7 @@ import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.accountforkey.AccountForKeyError
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKey
-import com.memtrip.eosreach.storage.InsertAccountsForPublicKey
+import com.memtrip.eosreach.db.InsertAccountsForPublicKey
 import com.memtrip.eosreach.wallet.EosKeyManager
 
 import io.reactivex.Single
@@ -22,39 +22,38 @@ class ImportKeyUseCase @Inject constructor(
     fun importKey(privateKey: String): Single<Result<AccountsForPublicKey, AccountForKeyError>> = try {
         eosKeyManager.importPrivateKey(createEosPrivateKey(privateKey)).flatMap {
             accountForKeyRequest.getAccountsForKey(it)
-        }.map { result ->
+        }.flatMap { result ->
             if (result.success) {
                 insertAccountsForPublicKey.insert(
                     result.response!!.publicKey,
-                    result.response.accounts)
+                    result.response.accounts
+                ).map {
+                    result
+                }
+            } else {
+                Single.just(result)
             }
-            result
         }.onErrorReturn {
             it.printStackTrace()
             Result(AccountForKeyError.Generic)
         }
-    } catch (e: InvalidPrivateKey) {
-        Single.just(Result<AccountsForPublicKey, AccountForKeyError>(AccountForKeyError.InvalidPrivateKey))
     } catch (e: PrivateKeyAlreadyImported) {
         Single.just(Result<AccountsForPublicKey, AccountForKeyError>(AccountForKeyError.PrivateKeyAlreadyImported))
+    } catch (e: Exception) {
+        Single.just(Result<AccountsForPublicKey, AccountForKeyError>(AccountForKeyError.InvalidPrivateKey))
     }
 
-    @Throws(InvalidPrivateKey::class, PrivateKeyAlreadyImported::class)
+    @Throws(Exception::class, PrivateKeyAlreadyImported::class)
     private fun createEosPrivateKey(privateKey: String): EosPrivateKey {
-        try {
-            val eosPrivateKey = EosPrivateKey(privateKey)
-            eosKeyManager.throwIfPublicKeyExists(eosPrivateKey.publicKey.toString())
+
+        val eosPrivateKey = EosPrivateKey(privateKey)
+
+        if (eosKeyManager.publicKeyExists(eosPrivateKey.publicKey.toString())) {
+            throw PrivateKeyAlreadyImported()
+        } else {
             return eosPrivateKey
-        } catch (e: Exception) {
-            if (e is PrivateKeyAlreadyImported) {
-                throw PrivateKeyAlreadyImported()
-            } else {
-                throw InvalidPrivateKey()
-            }
         }
     }
-
-    private class InvalidPrivateKey : Exception()
 
     private class PrivateKeyAlreadyImported : Exception()
 }

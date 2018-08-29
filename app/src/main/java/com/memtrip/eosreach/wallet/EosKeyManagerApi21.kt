@@ -57,7 +57,6 @@ class EosKeyManagerApi21(
             keyPairGenerator.initialize(spec)
             keyPairGenerator.generateKeyPair()
         }
-
     }
 
     private fun encryptAndSavePrivateKey(keyAlias: String, eosPrivateKey: EosPrivateKey) {
@@ -110,7 +109,7 @@ class EosKeyManagerApi21(
         }
     }
 
-    override fun throwIfPublicKeyExists(eosPublicKey: String): Boolean {
+    override fun publicKeyExists(eosPublicKey: String): Boolean {
         return sharedPreferences.getString(eosPublicKey, null) != null
     }
 

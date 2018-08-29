@@ -11,10 +11,14 @@
         android:name="com.memtrip.eosreach.app.welcome.accountlist.AccountListFragment"
         tools:layout="@layout/welcome_account_list_fragment">
         <action
-            android:id="@+id/welcome_navigation_action_accountsListFragment_to_splashFragment"
+            android:id="@+id/welcome_navigation_action_accountsList_to_splash"
             app:popUpTo="@+id/welcome_navigation_accounts_list"
             app:popUpToInclusive="true"
             app:destination="@+id/welcome_navigation_splash" />
+        <action
+            android:id="@+id/welcome_navigation_action_accountsList_to_account"
+            app:launchSingleTop="true"
+            app:destination="@+id/welcome_navigation_account"/>
     </fragment>
 
     <fragment
@@ -27,7 +31,7 @@
         android:name="com.memtrip.eosreach.app.welcome.createaccount.CreateAccountFragment"
         tools:layout="@layout/welcome_create_account_fragment">
         <action
-            android:id="@+id/welcome_navigation_action_createAccountFragment_to_accountsListFragment"
+            android:id="@+id/welcome_navigation_action_createAccount_to_accountsList"
             app:destination="@id/welcome_navigation_accounts_list"
             app:popUpTo="@+id/welcome_navigation_splash"
             app:launchSingleTop="true"
@@ -39,7 +43,7 @@
         android:name="com.memtrip.eosreach.app.welcome.importkey.ImportKeyFragment"
         tools:layout="@layout/welcome_import_key_fragment">
         <action
-            android:id="@+id/welcome_navigation_action_importKeyFragment_to_accountsListFragment"
+            android:id="@+id/welcome_navigation_action_importKey_to_accountsList"
             app:destination="@id/welcome_navigation_accounts_list"
             app:popUpTo="@+id/welcome_navigation_splash"
             app:launchSingleTop="true"
@@ -52,8 +56,8 @@
         tools:layout="@layout/welcome_key_imported_fragment" />
 
     <activity
-        android:id="@+id/welcome_navigation_accounts_navigation"
-        android:name="com.memtrip.eosreach.app.account.AccountNavigationActivity"
-        tools:layout="@layout/account_navigation_activity" />
+        android:id="@+id/welcome_navigation_account"
+        android:name="com.memtrip.eosreach.app.account.AccountActivity"
+        tools:layout="@layout/account_activity" />
 
 </navigation>

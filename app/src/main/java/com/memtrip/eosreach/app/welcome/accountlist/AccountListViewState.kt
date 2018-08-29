@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.app.welcome.accountlist
 
+import com.memtrip.eosreach.db.AccountEntity
 import com.memtrip.mxandroid.MxViewState
 
 data class AccountListViewState(val view: View) : MxViewState {
@@ -8,7 +9,8 @@ data class AccountListViewState(val view: View) : MxViewState {
         object Idle : View()
         object NavigateToSplash : View()
         object OnProgress : View()
-        object OnSuccess : View()
+        data class OnSuccess(val accounts: List<AccountEntity>) : View()
         object OnError : View()
+        data class NavigateToAccount(val accountName: String) : View()
     }
 }

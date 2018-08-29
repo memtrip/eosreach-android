@@ -48,7 +48,7 @@ internal class CreateAccountFragment
 
     override fun success() {
         NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_action_createAccountFragment_to_accountsListFragment)
+            R.id.welcome_navigation_action_createAccount_to_accountsList)
     }
 
     override fun showError() {

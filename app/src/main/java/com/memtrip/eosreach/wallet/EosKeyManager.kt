@@ -6,7 +6,7 @@ import io.reactivex.Single
 interface EosKeyManager {
     fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String>
     fun getPrivateKey(eosPublicKey: String): ByteArray
-    fun throwIfPublicKeyExists(eosPublicKey: String): Boolean
+    fun publicKeyExists(eosPublicKey: String): Boolean
 
     class NotFoundException : RuntimeException()
 }

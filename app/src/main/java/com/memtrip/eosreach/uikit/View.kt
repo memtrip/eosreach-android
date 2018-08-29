@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.brand
+package com.memtrip.eosreach.uikit
 
 import android.view.View
 

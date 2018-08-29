@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.storage
+package com.memtrip.eosreach.db
 
 import android.app.Application
 import androidx.room.ColumnInfo
@@ -18,13 +18,13 @@ import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Database(entities = [PublicKeyAccountEntity::class], version = 1, exportSchema = false)
+@Database(entities = [AccountEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
 }
 
-@Entity(tableName = "PublicKeyAccount")
-data class PublicKeyAccountEntity(
+@Entity(tableName = "Account")
+data class AccountEntity(
     @ColumnInfo(name = "publicKey") val publicKey: String,
     @ColumnInfo(name = "accountName") val accountName: String,
     @PrimaryKey(autoGenerate = true) val uid: Int = 0
@@ -34,10 +34,16 @@ data class PublicKeyAccountEntity(
 interface AccountDao {
 
     @Insert
-    fun insertAll(pinyin: List<PublicKeyAccountEntity>)
+    fun insertAll(pinyin: List<AccountEntity>)
 
-    @Query("SELECT DISTINCT uid, publicKey, accountName FROM PublicKeyAccount WHERE publicKey = :publicKey ORDER BY uid ASC LIMIT 0, 100")
-    fun getAccountsForPublicKey(publicKey: String): List<PublicKeyAccountEntity>
+    @Query("SELECT DISTINCT uid, publicKey, accountName FROM Account WHERE publicKey = :publicKey ORDER BY uid ASC LIMIT 0, 100")
+    fun getAccountsForPublicKey(publicKey: String): List<AccountEntity>
+
+    @Query("SELECT DISTINCT uid, publicKey, accountName FROM Account ORDER BY uid ASC LIMIT 0, 100")
+    fun getAccounts(): List<AccountEntity>
+
+    @Query("SELECT COUNT(*) FROM Account")
+    fun count(): Int
 }
 
 @Module
@@ -61,10 +67,10 @@ class InsertAccountsForPublicKey @Inject internal constructor(
     private val rxSchedulers: RxSchedulers
 ) {
 
-    fun insert(publicKey: String, accounts: List<String>): Single<List<PublicKeyAccountEntity>> {
+    fun insert(publicKey: String, accounts: List<String>): Single<List<AccountEntity>> {
 
-        val publicKeyAccountEntity = accounts.map {
-            PublicKeyAccountEntity(publicKey, it)
+        val publicKeyAccountEntity = accounts.map { accountName ->
+            AccountEntity(publicKey, accountName)
         }
 
         return Completable
@@ -72,5 +78,29 @@ class InsertAccountsForPublicKey @Inject internal constructor(
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
             .toSingle { publicKeyAccountEntity }
+    }
+}
+
+class CountAccounts @Inject internal constructor(
+    private val accountDao: AccountDao,
+    private val rxSchedulers: RxSchedulers
+) {
+
+    fun count(): Single<Int> {
+        return Single.fromCallable { accountDao.count() }
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
+    }
+}
+
+class GetAccounts @Inject internal constructor(
+    private val accountDao: AccountDao,
+    private val rxSchedulers: RxSchedulers
+) {
+
+    fun select(): Single<List<AccountEntity>> {
+        return Single.fromCallable { accountDao.getAccounts() }
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
     }
 }

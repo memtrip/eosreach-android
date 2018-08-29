@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.storage
+package com.memtrip.eosreach.db
 
 import android.app.Application
 import android.content.Context

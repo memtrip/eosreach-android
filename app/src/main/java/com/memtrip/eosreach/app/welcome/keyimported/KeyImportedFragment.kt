@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviFragment
@@ -43,9 +41,5 @@ internal class KeyImportedFragment
     override fun render(): KeyImportedViewRenderer = render
 
     override fun done() {
-        NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_accounts_navigation,
-            null,
-            NavOptions.Builder().build())
     }
 }

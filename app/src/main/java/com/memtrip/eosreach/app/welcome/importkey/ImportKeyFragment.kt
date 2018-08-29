@@ -48,7 +48,7 @@ internal class ImportKeyFragment
 
     override fun success() {
         NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_action_importKeyFragment_to_accountsListFragment)
+            R.id.welcome_navigation_action_importKey_to_accountsList)
     }
 
     override fun showError(error: String) {
