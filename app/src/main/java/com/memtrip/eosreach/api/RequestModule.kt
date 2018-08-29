@@ -4,6 +4,8 @@ import com.memtrip.eosreach.api.account.EosAccountRequest
 import com.memtrip.eosreach.api.account.EosAccountRequestImpl
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
+import com.memtrip.eosreach.api.balance.AccountBalanceRequest
+import com.memtrip.eosreach.api.balance.AccountBalanceRequestImp
 import dagger.Binds
 import dagger.Module
 
@@ -19,4 +21,9 @@ internal abstract class RequestModule {
     internal abstract fun bindAccountRequest(
         accountRequest: EosAccountRequestImpl
     ): EosAccountRequest
+
+    @Binds
+    internal abstract fun bindAccountBalancesRequest(
+        accountBalanceRequest: AccountBalanceRequestImp
+    ): AccountBalanceRequest
 }

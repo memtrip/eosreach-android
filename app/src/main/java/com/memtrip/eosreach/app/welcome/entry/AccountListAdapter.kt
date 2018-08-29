@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.accountlist
+package com.memtrip.eosreach.app.welcome.entry
 
 import android.content.Context
 import android.view.View

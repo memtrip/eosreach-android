@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.accountlist
+package com.memtrip.eosreach.app.welcome.entry
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -19,7 +19,7 @@ class AccountListRendererTest : Spek({
         val renderer by memoized { AccountListViewRenderer() }
 
         on("ViewState is not initialized") {
-            renderer.layout(layout, AccountListViewState(AccountListViewState.View.OnProgress))
+            renderer.layout(layout, EntryViewState(EntryViewState.View.OnProgress))
 
             it("shows the Progress") {
                 verify(layout).showProgress()
@@ -27,7 +27,7 @@ class AccountListRendererTest : Spek({
         }
 
         on("ViewState is initialized") {
-            renderer.layout(layout, AccountListViewState(AccountListViewState.View.OnError))
+            renderer.layout(layout, EntryViewState(EntryViewState.View.OnError))
 
             it("hides the Progress") {
                 verify(layout).showError()

@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class AccountViewModel @Inject internal constructor(
-    private val eosAccountRequest: EosAccountRequest,
+    private val accountUseCase: AccountUseCase,
     application: Application
 ) : MxViewModel<AccountIntent, AccountRenderAction, AccountViewState>(
     AccountViewState(view = AccountViewState.View.Idle),
@@ -15,12 +15,17 @@ class AccountViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: AccountIntent): Observable<AccountRenderAction> = when (intent) {
-        is AccountIntent.Init -> getAccount(intent.accountName)
+        is AccountIntent.Init -> getAccount()
     }
 
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
         AccountRenderAction.OnProgress -> previousState.copy(view = AccountViewState.View.OnProgress)
-        is AccountRenderAction.OnSuccess -> previousState.copy(view = AccountViewState.View.OnSuccess(renderAction.eosAccount))
+        is AccountRenderAction.OnSuccess -> previousState.copy(
+            view = AccountViewState.View.OnSuccess(
+                renderAction.eosAccount,
+                renderAction.accountBalances
+            )
+        )
         AccountRenderAction.OnError -> previousState.copy(view = AccountViewState.View.OnError)
     }
 
@@ -31,10 +36,10 @@ class AccountViewModel @Inject internal constructor(
         }
     )
 
-    private fun getAccount(accountName: String): Observable<AccountRenderAction> {
-        return eosAccountRequest.getAccount(accountName).map {
+    private fun getAccount(): Observable<AccountRenderAction> {
+        return accountUseCase.getAccount("eosio.token").map {
             if (it.success) {
-                AccountRenderAction.OnSuccess(it.response!!)
+                AccountRenderAction.OnSuccess(it.eosAccount!!, it.balances!!)
             } else {
                 AccountRenderAction.OnError
             }

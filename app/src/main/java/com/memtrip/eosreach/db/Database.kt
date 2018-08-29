@@ -45,6 +45,9 @@ interface AccountDao {
     @Query("SELECT DISTINCT uid, publicKey, accountName FROM Account ORDER BY uid ASC LIMIT 0, 100")
     fun getAccounts(): List<AccountEntity>
 
+    @Query("SELECT * FROM Account ORDER BY uid ASC LIMIT 0, 1")
+    fun getLatestAccount(): List<AccountEntity>
+
     @Query("SELECT COUNT(*) FROM Account")
     fun count(): Int
 }
@@ -106,5 +109,18 @@ class GetAccounts @Inject internal constructor(
         return Single.fromCallable { accountDao.getAccounts() }
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
+    }
+}
+
+class GetLatestAccount @Inject internal constructor(
+    private val accountDao: AccountDao,
+    private val rxSchedulers: RxSchedulers
+) {
+
+    fun select(): Single<AccountEntity> {
+        return Single.fromCallable { accountDao.getLatestAccount() }
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
+            .map { it[0] }
     }
 }

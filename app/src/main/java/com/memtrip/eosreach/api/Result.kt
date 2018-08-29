@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.api
 
 class Result<T, E : ApiError>(
-    val response: T?,
+    val data: T?,
     val errorKind: E? = null,
     val success: Boolean = errorKind == null
 ) {

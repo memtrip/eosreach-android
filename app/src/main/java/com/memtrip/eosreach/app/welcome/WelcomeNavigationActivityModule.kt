@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.app.welcome
 
-import com.memtrip.eosreach.app.welcome.accountlist.AccountListFragment
-import com.memtrip.eosreach.app.welcome.accountlist.AccountListFragmentModule
+import com.memtrip.eosreach.app.welcome.entry.EntryFragment
+import com.memtrip.eosreach.app.welcome.entry.EntryFragmentModule
 import com.memtrip.eosreach.app.welcome.createaccount.CreateAccountFragment
 import com.memtrip.eosreach.app.welcome.createaccount.CreateAccountFragmentModule
 import com.memtrip.eosreach.app.welcome.importkey.ImportKeyFragment
@@ -31,6 +31,6 @@ abstract class WelcomeNavigationActivityModule {
     @ContributesAndroidInjector(modules = [SplashFragmentModule::class])
     internal abstract fun contributeSplashFragmentModule(): SplashFragment
 
-    @ContributesAndroidInjector(modules = [AccountListFragmentModule::class])
-    internal abstract fun contributeAccountListFragmentModule(): AccountListFragment
+    @ContributesAndroidInjector(modules = [EntryFragmentModule::class])
+    internal abstract fun contributeAccountListFragmentModule(): EntryFragment
 }

@@ -25,8 +25,8 @@ class ImportKeyUseCase @Inject constructor(
         }.flatMap { result ->
             if (result.success) {
                 insertAccountsForPublicKey.replace(
-                    result.response!!.publicKey,
-                    result.response.accounts
+                    result.data!!.publicKey,
+                    result.data.accounts
                 ).map {
                     result
                 }

@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.accountlist
+package com.memtrip.eosreach.app.welcome.entry
 
 import com.nhaarman.mockito_kotlin.mock
 
@@ -16,19 +16,19 @@ class AccountListViewModelTest : Spek({
 
     given("a AccountListViewModel") {
 
-        val viewModel by memoized { AccountListViewModel(mock()) }
+        val viewModel by memoized { EntryViewModel(mock()) }
 
         on("init") {
 
             val state = viewModel.states().test()
 
-            viewModel.processIntents(Observable.just(AccountListIntent.Init))
+            viewModel.processIntents(Observable.just(EntryIntent.Init))
 
             it("emits initialized ViewState") {
                 val states = state.values()
                 assertThat(states.size).isEqualTo(2)
-                assertThat(states[0]).isEqualTo(AccountListViewState(AccountListViewState.View.Idle))
-                assertThat(states[1]).isEqualTo(AccountListState(AccountListViewState.View.OnProgress))
+                assertThat(states[0]).isEqualTo(EntryViewState(EntryViewState.View.Idle))
+                assertThat(states[1]).isEqualTo(AccountListState(EntryViewState.View.OnProgress))
             }
         }
     }
