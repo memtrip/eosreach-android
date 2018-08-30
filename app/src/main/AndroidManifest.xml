@@ -14,10 +14,7 @@
         android:name=".app.EosReachApplication"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity
-            android:name="com.memtrip.eosreach.app.welcome.WelcomeNavigationActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
+        <activity android:name="com.memtrip.eosreach.app.welcome.WelcomeNavigationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,6 +22,8 @@
         </activity>
 
         <activity android:name=".app.account.AccountActivity" />
+
+        <activity android:name=".app.manage.ManageNavigationActivity" />
 
     </application>
 

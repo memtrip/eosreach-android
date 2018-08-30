@@ -52,12 +52,12 @@ internal class EntryFragment
     override fun navigateToSplash() {
         welcome_account_list_progressbar.gone()
         NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_action_accountsList_to_splash)
+            R.id.welcome_navigation_action_entry_to_splash)
     }
 
     override fun navigateToAccount() {
         welcome_account_list_progressbar.gone()
         NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_action_accountsList_to_account)
+            R.id.welcome_navigation_action_entry_to_account)
     }
 }

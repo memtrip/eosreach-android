@@ -1,13 +1,13 @@
-package com.memtrip.eosreach.app.welcome.importkey
+package com.memtrip.eosreach.app.issue.createaccount
 
 import com.memtrip.mxandroid.MxViewState
 
-data class ImportKeyViewState(val view: View) : MxViewState {
+data class CreateAccountViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
         object OnProgress : View()
         object OnSuccess : View()
-        data class OnError(val error: String) : View()
+        object OnError : View()
     }
 }

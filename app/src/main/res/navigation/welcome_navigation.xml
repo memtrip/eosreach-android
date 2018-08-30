@@ -4,21 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/welcome_navigation"
-    app:startDestination="@id/welcome_navigation_accounts_list">
+    app:startDestination="@id/welcome_navigation_entry">
 
     <fragment
-        android:id="@+id/welcome_navigation_accounts_list"
+        android:id="@+id/welcome_navigation_entry"
         android:name="com.memtrip.eosreach.app.welcome.entry.EntryFragment"
         tools:layout="@layout/welcome_account_list_fragment">
         <action
-            android:id="@+id/welcome_navigation_action_accountsList_to_splash"
-            app:popUpTo="@+id/welcome_navigation_accounts_list"
+            android:id="@+id/welcome_navigation_action_entry_to_splash"
+            app:popUpTo="@+id/welcome_navigation_entry"
             app:popUpToInclusive="true"
             app:destination="@+id/welcome_navigation_splash" />
         <action
-            android:id="@+id/welcome_navigation_action_accountsList_to_account"
+            android:id="@+id/welcome_navigation_action_entry_to_account"
             app:launchSingleTop="true"
-            app:popUpTo="@+id/welcome_navigation_accounts_list"
+            app:popUpTo="@+id/welcome_navigation_entry"
             app:popUpToInclusive="true"
             app:destination="@+id/welcome_navigation_account"/>
     </fragment>
@@ -30,11 +30,11 @@
 
     <fragment
         android:id="@+id/welcome_navigation_create_account"
-        android:name="com.memtrip.eosreach.app.welcome.createaccount.CreateAccountFragment"
-        tools:layout="@layout/welcome_create_account_fragment">
+        android:name="com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountFragment"
+        tools:layout="@layout/issue_create_account_fragment">
         <action
             android:id="@+id/welcome_navigation_action_createAccount_to_accountsList"
-            app:destination="@id/welcome_navigation_accounts_list"
+            app:destination="@id/welcome_navigation_entry"
             app:popUpTo="@+id/welcome_navigation_splash"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
@@ -42,11 +42,11 @@
 
     <fragment
         android:id="@+id/welcome_navigation_import_key"
-        android:name="com.memtrip.eosreach.app.welcome.importkey.ImportKeyFragment"
-        tools:layout="@layout/welcome_import_key_fragment">
+        android:name="com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyFragment"
+        tools:layout="@layout/issue_import_key_fragment">
         <action
             android:id="@+id/welcome_navigation_action_importKey_to_accountsList"
-            app:destination="@id/welcome_navigation_accounts_list"
+            app:destination="@id/welcome_navigation_entry"
             app:popUpTo="@+id/welcome_navigation_splash"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />

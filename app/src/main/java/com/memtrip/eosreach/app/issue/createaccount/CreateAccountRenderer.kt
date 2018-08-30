@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.createaccount
+package com.memtrip.eosreach.app.issue.createaccount
 
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout

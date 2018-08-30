@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.createaccount
+package com.memtrip.eosreach.app.issue.createaccount
 
 import android.app.Application
 import com.memtrip.eosreach.db.EosReachSharedPreferences

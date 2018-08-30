@@ -1,7 +1,6 @@
 package com.memtrip.eosreach.app.account
 
 import android.app.Application
-import com.memtrip.eosreach.api.account.EosAccountRequest
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -15,18 +14,27 @@ class AccountViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: AccountIntent): Observable<AccountRenderAction> = when (intent) {
-        is AccountIntent.Init -> getAccount()
+        AccountIntent.Init -> getAccount()
+        AccountIntent.Retry -> getAccount()
     }
 
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
         AccountRenderAction.OnProgress -> previousState.copy(view = AccountViewState.View.OnProgress)
         is AccountRenderAction.OnSuccess -> previousState.copy(
             view = AccountViewState.View.OnSuccess(
-                renderAction.eosAccount,
-                renderAction.accountBalances
+                renderAction.accountView
             )
         )
-        AccountRenderAction.OnError -> previousState.copy(view = AccountViewState.View.OnError)
+        is AccountRenderAction.OnErrorFetchingAccount -> previousState.copy(
+            view = AccountViewState.View.OnErrorFetchingAccount(
+                renderAction.accountName
+            )
+        )
+        is AccountRenderAction.OnErrorFetchingBalances -> previousState.copy(
+            view = AccountViewState.View.OnErrorFetchingAccount(
+                renderAction.accountName
+            )
+        )
     }
 
     override fun filterIntents(intents: Observable<AccountIntent>): Observable<AccountIntent> = Observable.merge(
@@ -37,12 +45,19 @@ class AccountViewModel @Inject internal constructor(
     )
 
     private fun getAccount(): Observable<AccountRenderAction> {
-        return accountUseCase.getAccount("eosio.token").map {
-            if (it.success) {
-                AccountRenderAction.OnSuccess(it.eosAccount!!, it.balances!!)
-            } else {
-                AccountRenderAction.OnError
+        return accountUseCase.getLatestAccount().flatMap { accountName ->
+            accountUseCase.getAccountDetails("eosio.token", accountName).map {
+                if (it.success) {
+                    AccountRenderAction.OnSuccess(it)
+                } else {
+                    onError(accountName, it.error!!)
+                }
             }
-        }.toObservable()
+        }.toObservable().startWith(AccountRenderAction.OnProgress)
+    }
+
+    private fun onError(accountName: String, error: AccountView.Error): AccountRenderAction = when (error) {
+        AccountView.Error.FetchingAccount -> AccountRenderAction.OnErrorFetchingAccount(accountName)
+        AccountView.Error.FetchingBalances -> AccountRenderAction.OnErrorFetchingBalances(accountName)
     }
 }

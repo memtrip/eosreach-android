@@ -1,20 +1,19 @@
-package com.memtrip.eosreach.app.welcome.createaccount
+package com.memtrip.eosreach.app.issue.createaccount
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.welcome_create_account_fragment.*
+import kotlinx.android.synthetic.main.issue_create_account_fragment.*
 import javax.inject.Inject
 
-internal class CreateAccountFragment
+abstract class CreateAccountFragment
     : MviFragment<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState, CreateAccountViewLayout>(), CreateAccountViewLayout {
 
     @Inject
@@ -24,7 +23,7 @@ internal class CreateAccountFragment
     lateinit var render: CreateAccountViewRenderer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.welcome_create_account_fragment, container, false)
+        return inflater.inflate(R.layout.issue_create_account_fragment, container, false)
     }
 
     override fun inject() {
@@ -32,8 +31,8 @@ internal class CreateAccountFragment
     }
 
     override fun intents(): Observable<CreateAccountIntent> {
-        return RxView.clicks(welcome_create_account_create_button).map {
-            CreateAccountIntent.CreateAccount(welcome_create_account_wallet_name_input.text.toString())
+        return RxView.clicks(issue_create_account_create_button).map {
+            CreateAccountIntent.CreateAccount(issue_create_account_wallet_name_input.text.toString())
         }
     }
 
@@ -46,11 +45,8 @@ internal class CreateAccountFragment
     override fun showProgress() {
     }
 
-    override fun success() {
-        NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_action_createAccount_to_accountsList)
-    }
-
     override fun showError() {
     }
+
+    abstract override fun success()
 }

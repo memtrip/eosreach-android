@@ -19,4 +19,13 @@
         <item name="android:paddingEnd">@dimen/viewButtonHorizontalPadding</item>
     </style>
 
+    <style name="ButtonTransparent" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/view_button_transparent_background</item>
+        <item name="android:textColor">@color/viewButtonTransparentText</item>
+        <item name="android:minWidth">@dimen/viewButtonMinWidth</item>
+        <item name="android:minHeight">@dimen/viewButtonMinHeight</item>
+        <item name="android:paddingStart">@dimen/viewButtonHorizontalPadding</item>
+        <item name="android:paddingEnd">@dimen/viewButtonHorizontalPadding</item>
+    </style>
+
 </resources>

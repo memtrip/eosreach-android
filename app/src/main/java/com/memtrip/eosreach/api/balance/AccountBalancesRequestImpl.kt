@@ -43,6 +43,6 @@ class AccountBalanceRequestImp @Inject internal constructor(
 
     private fun balanceFromString(balance: String): Balance {
         val parts = balance.split(" ")
-        return Balance(parts[0], parts[1])
+        return Balance(parts[0].toDouble(), parts[1])
     }
 }

@@ -2,6 +2,12 @@ package com.memtrip.eosreach.app.account
 
 import androidx.lifecycle.ViewModel
 import com.memtrip.eosreach.app.ViewModelKey
+import com.memtrip.eosreach.app.account.balance.BalanceFragment
+import com.memtrip.eosreach.app.account.balance.BalanceFragmentModule
+import com.memtrip.eosreach.app.account.resources.ResourcesFragment
+import com.memtrip.eosreach.app.account.resources.ResourcesFragmentModule
+import com.memtrip.eosreach.app.welcome.entry.EntryFragment
+import com.memtrip.eosreach.app.welcome.entry.EntryFragmentModule
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -17,4 +23,10 @@ abstract class AccountActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeAccountActivity(): AccountActivity
+
+    @ContributesAndroidInjector(modules = [BalanceFragmentModule::class])
+    internal abstract fun contributeBalanceFragmentModule(): BalanceFragment
+
+    @ContributesAndroidInjector(modules = [ResourcesFragmentModule::class])
+    internal abstract fun contributeResourcesFragmentModule(): ResourcesFragment
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.H4"
+        android:id="@+id/view_error_composite_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        tools:text="Something went wrong"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.Medium"
+        android:id="@+id/view_error_composite_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:gravity="center_horizontal"
+        tools:text="We could not fetch "
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_error_composite_title" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonPrimary"
+        android:id="@+id/view_error_composite_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/uikit_error_composite_view_retry"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_error_composite_body"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

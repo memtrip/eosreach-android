@@ -1,5 +1,8 @@
 package com.memtrip.eosreach.app.welcome.createaccount
 
+import com.memtrip.eosreach.app.issue.createaccount.CreateAccountIntent
+import com.memtrip.eosreach.app.issue.createaccount.CreateAccountViewModel
+import com.memtrip.eosreach.app.issue.createaccount.CreateAccountViewState
 import com.nhaarman.mockito_kotlin.mock
 
 import io.reactivex.Observable

@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.importkey
+package com.memtrip.eosreach.app.issue.importkey
 
 import com.memtrip.eos.core.crypto.EosPrivateKey
 

@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.importkey
+package com.memtrip.eosreach.app.issue.importkey
 
 import android.app.Application
 import com.memtrip.eosreach.R
@@ -42,23 +42,23 @@ class ImportKeyViewModel @Inject internal constructor(
                 if (it.success) {
                     ImportKeyRenderAction.OnSuccess
                 } else {
-                    errorKind(it.errorKind!!)
+                    onError(it.apiError!!)
                 }
             }
             .toObservable()
             .startWith(ImportKeyRenderAction.OnProgress)
     }
 
-    private fun errorKind(error: AccountForKeyError): ImportKeyRenderAction.OnError = when (error) {
+    private fun onError(error: AccountForKeyError): ImportKeyRenderAction.OnError = when (error) {
         AccountForKeyError.Generic -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.welcome_import_key_error_generic))
+            context().getString(R.string.issue_import_key_error_generic))
         AccountForKeyError.InvalidPrivateKey -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.welcome_import_key_error_invalid_private_key_format))
+            context().getString(R.string.issue_import_key_error_invalid_private_key_format))
         is AccountForKeyError.FailedRetrievingAccountList -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.welcome_import_key_error_generic))
+            context().getString(R.string.issue_import_key_error_generic))
         AccountForKeyError.NoAccounts -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.welcome_import_key_error_no_accounts))
+            context().getString(R.string.issue_import_key_error_no_accounts))
         AccountForKeyError.PrivateKeyAlreadyImported -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.welcome_import_key_private_key_already_imported))
+            context().getString(R.string.issue_import_key_private_key_already_imported))
     }
 }

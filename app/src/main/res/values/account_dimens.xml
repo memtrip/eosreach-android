@@ -1,0 +1,6 @@
+<resources>
+
+    <dimen name="account_toolbar_margin_top">32dp</dimen>
+    <dimen name="account_available_balance_header_height">96dp</dimen>
+
+</resources>

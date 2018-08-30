@@ -30,7 +30,7 @@ class AccountRendererTest : Spek({
             renderer.layout(layout, AccountViewState(AccountViewState.View.OnError))
 
             it("hides the Progress") {
-                verify(layout).showError()
+                verify(layout).showGetAccountError()
             }
         }
     }

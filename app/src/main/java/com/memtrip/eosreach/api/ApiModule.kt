@@ -26,7 +26,7 @@ internal object ApiModule {
     @JvmStatic
     @Provides
     fun api(okHttpClient: OkHttpClient): Api {
-        return Api("http://ef19b3eb.ngrok.io/", okHttpClient)
+        return Api("http://10.0.2.2:8888/", okHttpClient)
     }
 
     @JvmStatic

@@ -14,26 +14,28 @@ class AccountUseCase @Inject internal constructor(
     private val accountBalancesRequest: AccountBalanceRequest
 ) {
 
-    fun getAccount(contractName: String): Single<AccountView> {
+    fun getLatestAccount(): Single<String> {
         return getLatestAccount
             .select()
-            .flatMap {
-                eosAccountRequest.getAccount(it.accountName)
-            }.flatMap { eosAccount ->
-                if (eosAccount.success) {
-                    accountBalancesRequest
-                        .getBalance(contractName, eosAccount.data!!.accountName)
-                        .map { balances ->
-                            if (balances.success) {
-                                AccountView.success(eosAccount.data, balances.data)
-                            } else {
-                                AccountView.error(AccountView.Error.FetchingBalances)
-                            }
+            .map { it.accountName }
+    }
+
+    fun getAccountDetails(contractName: String, accountName: String): Single<AccountView> {
+        return eosAccountRequest.getAccount(accountName).flatMap { eosAccount ->
+            if (eosAccount.success) {
+                accountBalancesRequest
+                    .getBalance(contractName, eosAccount.data!!.accountName)
+                    .map { balances ->
+                        if (balances.success) {
+                            AccountView.success(eosAccount.data, balances.data)
+                        } else {
+                            AccountView.error(AccountView.Error.FetchingBalances)
                         }
-                } else {
-                    Single.just(AccountView.error(AccountView.Error.FetchingAccount))
-                }
+                    }
+            } else {
+                Single.just(AccountView.error(AccountView.Error.FetchingAccount))
             }
+        }
     }
 }
 

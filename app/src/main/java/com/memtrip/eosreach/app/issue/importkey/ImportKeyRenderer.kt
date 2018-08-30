@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.importkey
+package com.memtrip.eosreach.app.issue.importkey
 
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
@@ -14,8 +14,8 @@ sealed class ImportKeyRenderAction : MxRenderAction {
 
 interface ImportKeyViewLayout : MxViewLayout {
     fun showProgress()
-    fun success()
     fun showError(error: String)
+    fun success()
 }
 
 class ImportKeyViewRenderer @Inject internal constructor() : MxViewRenderer<ImportKeyViewLayout, ImportKeyViewState> {

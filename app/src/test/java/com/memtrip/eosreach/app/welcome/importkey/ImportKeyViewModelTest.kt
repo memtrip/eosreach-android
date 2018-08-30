@@ -1,5 +1,8 @@
 package com.memtrip.eosreach.app.welcome.importkey
 
+import com.memtrip.eosreach.app.issue.importkey.ImportKeyIntent
+import com.memtrip.eosreach.app.issue.importkey.ImportKeyViewModel
+import com.memtrip.eosreach.app.issue.importkey.ImportKeyViewState
 import com.nhaarman.mockito_kotlin.mock
 
 import io.reactivex.Observable

@@ -5,6 +5,12 @@
         <item name="android:textColor">@color/typographyColorPrimary</item>
     </style>
 
+    <style name="Typography.H4" parent="@style/Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/typographyColorPrimary</item>
+        <item name="android:textSize">@dimen/typography_h4</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Typography.Body1" parent="Base.TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/typographyColorPrimary</item>
     </style>

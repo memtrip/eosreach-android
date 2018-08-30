@@ -1,20 +1,19 @@
-package com.memtrip.eosreach.app.welcome.importkey
+package com.memtrip.eosreach.app.issue.importkey
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.welcome_import_key_fragment.*
+import kotlinx.android.synthetic.main.issue_import_key_fragment.*
 import javax.inject.Inject
 
-internal class ImportKeyFragment
+abstract class ImportKeyFragment
     : MviFragment<ImportKeyIntent, ImportKeyRenderAction, ImportKeyViewState, ImportKeyViewLayout>(), ImportKeyViewLayout {
 
     @Inject
@@ -24,7 +23,7 @@ internal class ImportKeyFragment
     lateinit var render: ImportKeyViewRenderer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.welcome_import_key_fragment, container, false)
+        return inflater.inflate(R.layout.issue_import_key_fragment, container, false)
     }
 
     override fun inject() {
@@ -32,8 +31,8 @@ internal class ImportKeyFragment
     }
 
     override fun intents(): Observable<ImportKeyIntent> {
-        return RxView.clicks(welcome_import_key_import_button).map {
-            ImportKeyIntent.ImportKey(welcome_import_key_private_key_value_input.text.toString())
+        return RxView.clicks(issue_import_key_import_button).map {
+            ImportKeyIntent.ImportKey(issue_import_key_private_key_value_input.text.toString())
         }
     }
 
@@ -46,12 +45,9 @@ internal class ImportKeyFragment
     override fun showProgress() {
     }
 
-    override fun success() {
-        NavHostFragment.findNavController(this).navigate(
-            R.id.welcome_navigation_action_importKey_to_accountsList)
+    override fun showError(error: String) {
+        issue_import_key_private_key_value_label.error = error
     }
 
-    override fun showError(error: String) {
-        welcome_import_key_private_key_value_label.error = error
-    }
+    abstract override fun success()
 }

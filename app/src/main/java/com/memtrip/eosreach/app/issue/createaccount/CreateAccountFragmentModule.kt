@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.createaccount
+package com.memtrip.eosreach.app.issue.createaccount
 
 import androidx.lifecycle.ViewModel
 import com.memtrip.eosreach.app.ViewModelKey
