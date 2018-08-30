@@ -21,6 +21,12 @@
             app:popUpTo="@+id/welcome_navigation_entry"
             app:popUpToInclusive="true"
             app:destination="@+id/welcome_navigation_account"/>
+        <action
+            android:id="@+id/welcome_navigation_action_entry_to_account_list"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/welcome_navigation_entry"
+            app:popUpToInclusive="true"
+            app:destination="@+id/welcome_navigation_account_list"/>
     </fragment>
 
     <fragment
@@ -61,5 +67,10 @@
         android:id="@+id/welcome_navigation_account"
         android:name="com.memtrip.eosreach.app.account.AccountActivity"
         tools:layout="@layout/account_activity" />
+
+    <activity
+        android:id="@+id/welcome_navigation_account_list"
+        android:name="com.memtrip.eosreach.app.accountlist.AccountListActivity"
+        tools:layout="@layout/accounts_list_activity" />
 
 </navigation>

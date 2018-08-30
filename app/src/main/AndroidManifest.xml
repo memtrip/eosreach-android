@@ -21,13 +21,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".app.accountlist.AccountListActivity" />
+        <activity
+            android:name=".app.accountlist.AccountListActivity"
+            android:launchMode="singleTop"/>
 
-        <activity android:name=".app.account.AccountActivity" />
+        <activity
+            android:name=".app.account.AccountActivity"
+            android:launchMode="singleTop"/>
 
-        <activity android:name=".app.manage.ManageNavigationActivity" />
+        <activity
+            android:name=".app.manage.ManageNavigationActivity"
+            android:launchMode="singleTop"/>
 
-        <activity android:name=".app.settings.SettingsActivity" />
+        <activity
+            android:name=".app.settings.SettingsActivity"
+            android:launchMode="singleTop"/>
 
     </application>
 

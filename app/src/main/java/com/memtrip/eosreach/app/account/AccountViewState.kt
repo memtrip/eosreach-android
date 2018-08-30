@@ -6,10 +6,11 @@ data class AccountViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
-        object OnProgress : View()
+        data class OnProgress(val accountName: String) : View()
         data class OnSuccess(val accountView: AccountView) : View()
-        data class OnErrorFetchingAccount(val accountName: String) : View()
-        data class OnErrorFetchingBalances(val accountName: String) : View()
+        object OnErrorFetchingAccount : View()
+        object OnErrorFetchingBalances : View()
+        object NavigateToAccountList : View()
         object NavigateToImportKey : View()
         object NavigateToCreateAccount : View()
         object NavigateToSettings : View()

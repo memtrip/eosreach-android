@@ -60,4 +60,10 @@ internal class EntryFragment
         NavHostFragment.findNavController(this).navigate(
             R.id.welcome_navigation_action_entry_to_account)
     }
+
+    override fun navigateToAccountList() {
+        welcome_account_list_progressbar.gone()
+        NavHostFragment.findNavController(this).navigate(
+            R.id.welcome_navigation_account_list)
+    }
 }

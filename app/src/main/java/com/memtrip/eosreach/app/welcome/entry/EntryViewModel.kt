@@ -2,8 +2,8 @@ package com.memtrip.eosreach.app.welcome.entry
 
 import android.app.Application
 import com.memtrip.eosreach.db.CountAccounts
-
-import com.memtrip.eosreach.db.GetAccounts
+import com.memtrip.eosreach.db.EosReachSharedPreferences
+import com.memtrip.eosreach.db.GetAccountByName
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -11,7 +11,8 @@ import javax.inject.Inject
 
 class EntryViewModel @Inject internal constructor(
     private val countAccounts: CountAccounts,
-    private val getAccounts: GetAccounts,
+    private val getAccountByName: GetAccountByName,
+    private val eosReachSharedPreferences: EosReachSharedPreferences,
     application: Application
 ) : MxViewModel<EntryIntent, AccountListRenderAction, EntryViewState>(
     EntryViewState(view = EntryViewState.View.Idle),
@@ -25,7 +26,8 @@ class EntryViewModel @Inject internal constructor(
     override fun reducer(previousState: EntryViewState, renderAction: AccountListRenderAction): EntryViewState = when (renderAction) {
         AccountListRenderAction.OnProgress -> previousState.copy(view = EntryViewState.View.Idle)
         AccountListRenderAction.NavigateToSplash -> previousState.copy(view = EntryViewState.View.NavigateToSplash)
-        AccountListRenderAction.NavigateToAccount -> previousState.copy(view = EntryViewState.View.NavigateToAccount)
+        AccountListRenderAction.NavigateToAccountList -> previousState.copy(view = EntryViewState.View.NavigateToAccountList)
+        is AccountListRenderAction.NavigateToAccount -> previousState.copy(view = EntryViewState.View.NavigateToAccount)
         AccountListRenderAction.OnError -> previousState.copy(view = EntryViewState.View.OnError)
     }
 
@@ -33,8 +35,13 @@ class EntryViewModel @Inject internal constructor(
         return countAccounts.count()
             .flatMap<AccountListRenderAction> { count ->
                 if (count > 0) {
-                    getAccounts.select().map {
-                        AccountListRenderAction.NavigateToAccount
+                    if (eosReachSharedPreferences.hasSelectedAccount()) {
+                        getAccountByName.select(eosReachSharedPreferences.getSelectedAccount())
+                            .map {
+                                AccountListRenderAction.NavigateToAccount(it)
+                            }
+                    } else {
+                        Single.just(AccountListRenderAction.NavigateToAccountList)
                     }
                 } else {
                     Single.just(AccountListRenderAction.NavigateToSplash)

@@ -6,11 +6,12 @@ import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class AccountRenderAction : MxRenderAction {
-    object OnProgress : AccountRenderAction()
-    data class OnSuccess(val accountView: AccountView) : AccountRenderAction()
-    data class OnErrorFetchingAccount(val accountName: String) : AccountRenderAction()
-    data class OnErrorFetchingBalances(val accountName: String) : AccountRenderAction()
     object Idle : AccountRenderAction()
+    data class OnProgress(val accountName: String) : AccountRenderAction()
+    data class OnSuccess(val accountView: AccountView) : AccountRenderAction()
+    object OnErrorFetchingAccount : AccountRenderAction()
+    object OnErrorFetchingBalances : AccountRenderAction()
+    object NavigateToAccountList : AccountRenderAction()
     object RefreshAccounts : AccountRenderAction()
     object NavigateToImportKey : AccountRenderAction()
     object NavigateToCreateAccount : AccountRenderAction()
@@ -18,10 +19,11 @@ sealed class AccountRenderAction : MxRenderAction {
 }
 
 interface AccountViewLayout : MxViewLayout {
-    fun showProgress()
+    fun showProgress(accountName: String)
     fun populate(accountView: AccountView)
-    fun showGetAccountError(accountName: String)
-    fun showGetBalancesError(accountName: String)
+    fun showGetAccountError()
+    fun showGetBalancesError()
+    fun navigateToAccountList()
     fun navigateToImportKey()
     fun navigateToCreateAccount()
     fun navigateToSettings()
@@ -31,17 +33,20 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
     override fun layout(layout: AccountViewLayout, state: AccountViewState): Unit = when (state.view) {
         AccountViewState.View.Idle -> {
         }
-        AccountViewState.View.OnProgress -> {
-            layout.showProgress()
+        is AccountViewState.View.OnProgress -> {
+            layout.showProgress(state.view.accountName)
         }
         is AccountViewState.View.OnSuccess -> {
             layout.populate(state.view.accountView)
         }
         is AccountViewState.View.OnErrorFetchingAccount -> {
-            layout.showGetAccountError(state.view.accountName)
+            layout.showGetAccountError()
         }
         is AccountViewState.View.OnErrorFetchingBalances -> {
-            layout.showGetBalancesError(state.view.accountName)
+            layout.showGetBalancesError()
+        }
+        AccountViewState.View.NavigateToAccountList -> {
+            layout.navigateToAccountList()
         }
         AccountViewState.View.NavigateToImportKey -> {
             layout.navigateToImportKey()

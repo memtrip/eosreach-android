@@ -14,9 +14,10 @@ class AccountViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: AccountIntent): Observable<AccountRenderAction> = when (intent) {
-        AccountIntent.Init -> getAccount()
-        AccountIntent.Retry -> getAccount()
+        is AccountIntent.Init -> getAccount(intent.accountBundle.accountName)
+        is AccountIntent.Retry -> getAccount(intent.accountBundle.accountName)
         AccountIntent.Idle -> Observable.just(AccountRenderAction.Idle)
+        AccountIntent.NavigateToAccountList -> Observable.just(AccountRenderAction.NavigateToAccountList)
         AccountIntent.RefreshAccounts -> Observable.just(AccountRenderAction.RefreshAccounts)
         AccountIntent.NavigateToImportKey -> Observable.just(AccountRenderAction.NavigateToImportKey)
         AccountIntent.NavigateToCreateAccount -> Observable.just(AccountRenderAction.NavigateToCreateAccount)
@@ -25,22 +26,15 @@ class AccountViewModel @Inject internal constructor(
 
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
         AccountRenderAction.Idle -> previousState.copy(view = AccountViewState.View.Idle)
-        AccountRenderAction.OnProgress -> previousState.copy(view = AccountViewState.View.OnProgress)
+        is AccountRenderAction.OnProgress -> previousState.copy(view = AccountViewState.View.OnProgress(renderAction.accountName))
         is AccountRenderAction.OnSuccess -> previousState.copy(
             view = AccountViewState.View.OnSuccess(
                 renderAction.accountView
             )
         )
-        is AccountRenderAction.OnErrorFetchingAccount -> previousState.copy(
-            view = AccountViewState.View.OnErrorFetchingAccount(
-                renderAction.accountName
-            )
-        )
-        is AccountRenderAction.OnErrorFetchingBalances -> previousState.copy(
-            view = AccountViewState.View.OnErrorFetchingAccount(
-                renderAction.accountName
-            )
-        )
+        AccountRenderAction.OnErrorFetchingAccount -> previousState.copy(view = AccountViewState.View.OnErrorFetchingAccount)
+        AccountRenderAction.OnErrorFetchingBalances -> previousState.copy(view = AccountViewState.View.OnErrorFetchingAccount)
+        AccountRenderAction.NavigateToAccountList -> previousState.copy(view = AccountViewState.View.NavigateToAccountList)
         AccountRenderAction.RefreshAccounts -> previousState.copy(view = AccountViewState.View.Idle)
         AccountRenderAction.NavigateToImportKey -> previousState.copy(view = AccountViewState.View.NavigateToImportKey)
         AccountRenderAction.NavigateToCreateAccount -> previousState.copy(view = AccountViewState.View.NavigateToCreateAccount)
@@ -54,20 +48,18 @@ class AccountViewModel @Inject internal constructor(
         }
     )
 
-    private fun getAccount(): Observable<AccountRenderAction> {
-        return accountUseCase.getLatestAccount().flatMap { accountName ->
-            accountUseCase.getAccountDetails("eosio.token", accountName).map {
-                if (it.success) {
-                    AccountRenderAction.OnSuccess(it)
-                } else {
-                    onError(accountName, it.error!!)
-                }
+    private fun getAccount(accountName: String): Observable<AccountRenderAction> {
+        return accountUseCase.getAccountDetails("eosio.token", accountName).map {
+            if (it.success) {
+                AccountRenderAction.OnSuccess(it)
+            } else {
+                onError(it.error!!)
             }
-        }.toObservable().startWith(AccountRenderAction.OnProgress)
+        }.toObservable().startWith(AccountRenderAction.OnProgress(accountName))
     }
 
-    private fun onError(accountName: String, error: AccountView.Error): AccountRenderAction = when (error) {
-        AccountView.Error.FetchingAccount -> AccountRenderAction.OnErrorFetchingAccount(accountName)
-        AccountView.Error.FetchingBalances -> AccountRenderAction.OnErrorFetchingBalances(accountName)
+    private fun onError(error: AccountView.Error): AccountRenderAction = when (error) {
+        AccountView.Error.FetchingAccount -> AccountRenderAction.OnErrorFetchingAccount
+        AccountView.Error.FetchingBalances -> AccountRenderAction.OnErrorFetchingBalances
     }
 }

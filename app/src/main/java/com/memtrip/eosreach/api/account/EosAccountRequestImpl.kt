@@ -31,7 +31,7 @@ class EosAccountRequestImpl @Inject internal constructor(
                                 account.net_limit.used,
                                 account.net_limit.available),
                             EosAccountResource(
-                                account.ram_usage.toLong(),
+                                account.ram_usage,
                                 account.ram_quota)
                         )
                     )

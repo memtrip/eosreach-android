@@ -1,5 +1,9 @@
 <resources>
 
+    <!--list -->
+    <string name="accounts_list_balance">%1$s %2$s</string>
+    <string name="accounts_list_balance_empty">-</string>
+
     <!-- account -->
     <string name="account_available_balance">Available Balance</string>
     <string name="account_page_balance">Balance</string>
@@ -14,7 +18,7 @@
     <string name="account_menu_settings">Settings</string>
 
     <!-- balance -->
-    <string name="balance_empty">This account does not have a balance, you must stake it resources using an existing account. We can alternatively stake the resources for you.</string>
+    <string name="balance_empty">This account does not have a balance, you must stake it resources using an existing account.</string>
     <string name="balance_create_account">Create an account</string>
 
     <!-- resources -->

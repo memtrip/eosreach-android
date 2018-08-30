@@ -1,11 +1,10 @@
 package com.memtrip.eosreach.app.welcome
 
 import com.memtrip.eosreach.app.issue.createaccount.CreateAccountFragmentModule
-import com.memtrip.eosreach.app.welcome.entry.EntryFragment
-import com.memtrip.eosreach.app.welcome.entry.EntryFragmentModule
-
 import com.memtrip.eosreach.app.issue.importkey.ImportKeyFragmentModule
 import com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountFragment
+import com.memtrip.eosreach.app.welcome.entry.EntryFragment
+import com.memtrip.eosreach.app.welcome.entry.EntryFragmentModule
 import com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyFragment
 import com.memtrip.eosreach.app.welcome.keyimported.KeyImportedFragment
 import com.memtrip.eosreach.app.welcome.keyimported.KeyImportedFragmentModule

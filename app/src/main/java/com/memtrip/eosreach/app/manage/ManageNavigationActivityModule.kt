@@ -2,7 +2,6 @@ package com.memtrip.eosreach.app.manage
 
 import com.memtrip.eosreach.app.issue.createaccount.CreateAccountFragmentModule
 
-
 import com.memtrip.eosreach.app.issue.importkey.ImportKeyFragmentModule
 
 import dagger.Module

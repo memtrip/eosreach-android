@@ -10,6 +10,8 @@ import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.memtrip.eosreach.api.accountforkey.AccountNameSystemBalance
+import com.memtrip.eosreach.utils.BalanceParser
 import com.memtrip.eosreach.utils.RxSchedulers
 import dagger.Module
 import dagger.Provides
@@ -27,6 +29,8 @@ abstract class AppDatabase : RoomDatabase() {
 data class AccountEntity(
     @ColumnInfo(name = "publicKey") val publicKey: String,
     @ColumnInfo(name = "accountName") val accountName: String,
+    @ColumnInfo(name = "balance") val balance: Double? = null,
+    @ColumnInfo(name = "symbol") val symbol: String? = null,
     @PrimaryKey(autoGenerate = true) val uid: Int = 0
 )
 
@@ -39,14 +43,14 @@ interface AccountDao {
     @Query("DELETE FROM Account WHERE publicKey = :publicKey")
     fun deleteBy(publicKey: String)
 
-    @Query("SELECT DISTINCT uid, publicKey, accountName FROM Account WHERE publicKey = :publicKey ORDER BY uid ASC LIMIT 0, 100")
+    @Query("SELECT DISTINCT uid, publicKey, accountName, balance, symbol FROM Account WHERE publicKey = :publicKey ORDER BY uid ASC LIMIT 0, 100")
     fun getAccountsForPublicKey(publicKey: String): List<AccountEntity>
 
-    @Query("SELECT DISTINCT uid, publicKey, accountName FROM Account ORDER BY uid ASC LIMIT 0, 100")
+    @Query("SELECT DISTINCT uid, publicKey, accountName, balance, symbol FROM Account ORDER BY uid ASC LIMIT 0, 100")
     fun getAccounts(): List<AccountEntity>
 
-    @Query("SELECT * FROM Account ORDER BY uid ASC LIMIT 0, 1")
-    fun getLatestAccount(): List<AccountEntity>
+    @Query("SELECT * FROM Account WHERE accountName = :accountName ORDER BY uid ASC LIMIT 0, 1")
+    fun getAccountByName(accountName: String): List<AccountEntity>
 
     @Query("SELECT COUNT(*) FROM Account")
     fun count(): Int
@@ -70,13 +74,25 @@ class DatabaseModule {
 
 class InsertAccountsForPublicKey @Inject internal constructor(
     private val accountDao: AccountDao,
-    private val rxSchedulers: RxSchedulers
+    private val rxSchedulers: RxSchedulers,
+    private val balanceParser: BalanceParser
 ) {
 
-    fun replace(publicKey: String, accounts: List<String>): Single<List<AccountEntity>> {
+    fun replace(publicKey: String, accounts: List<AccountNameSystemBalance>): Single<List<AccountEntity>> {
 
-        val publicKeyAccountEntities = accounts.map { accountName ->
-            AccountEntity(publicKey, accountName)
+        val publicKeyAccountEntities = accounts.map { accountNameSystemBalance ->
+            if (accountNameSystemBalance.systemBalance != null) {
+                val balance = balanceParser.pull(accountNameSystemBalance.systemBalance)
+                AccountEntity(
+                    publicKey,
+                    accountNameSystemBalance.accountName,
+                    balance.amount,
+                    balance.symbol)
+            } else {
+                AccountEntity(
+                    publicKey,
+                    accountNameSystemBalance.accountName)
+            }
         }
 
         return Completable
@@ -112,13 +128,13 @@ class GetAccounts @Inject internal constructor(
     }
 }
 
-class GetLatestAccount @Inject internal constructor(
+class GetAccountByName @Inject internal constructor(
     private val accountDao: AccountDao,
     private val rxSchedulers: RxSchedulers
 ) {
 
-    fun select(): Single<AccountEntity> {
-        return Single.fromCallable { accountDao.getLatestAccount() }
+    fun select(accountName: String): Single<AccountEntity> {
+        return Single.fromCallable { accountDao.getAccountByName(accountName) }
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
             .map { it[0] }

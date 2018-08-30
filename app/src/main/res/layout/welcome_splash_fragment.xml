@@ -44,7 +44,7 @@
         app:layout_constraintBottom_toTopOf="@id/welcome_splash_import_private_key_button" />
 
     <com.memtrip.eosreach.brand.ReachButton
-        style="@style/ButtonSecondary"
+        style="@style/ButtonTransparent"
         android:id="@+id/welcome_splash_import_private_key_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

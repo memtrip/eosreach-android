@@ -1,3 +1,4 @@
 ### TODO:
 - remove the homeUp finish from mxandroid
-- change ram_usage to Long
+- symbol should be nullable in GetCurrencyBalance
+- remove the args plugin if it ends up not being used

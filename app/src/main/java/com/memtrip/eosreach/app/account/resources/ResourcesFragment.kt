@@ -13,8 +13,6 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_resources_fragment.*
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ResourcesFragment

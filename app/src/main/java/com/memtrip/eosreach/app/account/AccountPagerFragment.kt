@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.account.balance.BalanceFragment
-import com.memtrip.eosreach.app.account.balance.BalanceIntent
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import java.util.Arrays.asList
 

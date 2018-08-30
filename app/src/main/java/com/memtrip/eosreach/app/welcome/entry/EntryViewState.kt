@@ -10,5 +10,6 @@ data class EntryViewState(val view: View) : MxViewState {
         object OnError : View()
         object NavigateToSplash : View()
         object NavigateToAccount : View()
+        object NavigateToAccountList : View()
     }
 }

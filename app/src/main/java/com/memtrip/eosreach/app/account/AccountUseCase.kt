@@ -4,21 +4,14 @@ import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.balance.AccountBalances
-import com.memtrip.eosreach.db.GetLatestAccount
+
 import io.reactivex.Single
 import javax.inject.Inject
 
 class AccountUseCase @Inject internal constructor(
-    private val getLatestAccount: GetLatestAccount,
     private val eosAccountRequest: EosAccountRequest,
     private val accountBalancesRequest: AccountBalanceRequest
 ) {
-
-    fun getLatestAccount(): Single<String> {
-        return getLatestAccount
-            .select()
-            .map { it.accountName }
-    }
 
     fun getAccountDetails(contractName: String, accountName: String): Single<AccountView> {
         return eosAccountRequest.getAccount(accountName).flatMap { eosAccount ->

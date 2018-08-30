@@ -37,14 +37,6 @@ class CreateAccountViewModel @Inject internal constructor(
     )
 
     private fun saveAccount(): Observable<CreateAccountRenderAction> {
-        return eosReachSharedPreferences
-            .saveAccountCreated()
-            .toSingleDefault<CreateAccountRenderAction>(CreateAccountRenderAction.OnSuccess)
-            .map {
-                it
-            }
-            .onErrorReturn { CreateAccountRenderAction.OnError }
-            .toObservable()
-            .startWith(CreateAccountRenderAction.OnProgress)
+        throw IllegalStateException("not implemented")
     }
 }
