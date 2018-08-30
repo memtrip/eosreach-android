@@ -13,12 +13,11 @@ class ResourcesViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: ResourcesIntent): Observable<ResourcesRenderAction> = when (intent) {
-        is ResourcesIntent.Init -> Observable.just(ResourcesRenderAction.OnProgress)
+        is ResourcesIntent.Init -> Observable.just(ResourcesRenderAction.Populate(intent.eosAccount))
     }
 
     override fun reducer(previousState: ResourcesViewState, renderAction: ResourcesRenderAction): ResourcesViewState = when (renderAction) {
-        ResourcesRenderAction.OnProgress -> previousState.copy(view = ResourcesViewState.View.OnProgress)
-        ResourcesRenderAction.OnError -> previousState.copy(view = ResourcesViewState.View.OnError)
+        is ResourcesRenderAction.Populate -> previousState.copy(view = ResourcesViewState.View.Populate(renderAction.eosAccount))
     }
 
     override fun filterIntents(intents: Observable<ResourcesIntent>): Observable<ResourcesIntent> = Observable.merge(

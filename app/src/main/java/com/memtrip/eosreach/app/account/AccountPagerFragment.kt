@@ -19,7 +19,7 @@ class AccountPagerFragment(
         Page.Resources(context.getString(R.string.account_page_resources))
     ),
     private val balanceFragment: BalanceFragment = BalanceFragment.newInstance(accountView.balances!!),
-    private val resourcesFragment: ResourcesFragment = ResourcesFragment.newInstance()
+    private val resourcesFragment: ResourcesFragment = ResourcesFragment.newInstance(accountView.eosAccount!!)
 ) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getPageTitle(position: Int): CharSequence? {

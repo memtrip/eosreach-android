@@ -1,29 +1,25 @@
 package com.memtrip.eosreach.app.account.resources
 
+import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class ResourcesRenderAction : MxRenderAction {
-    object OnProgress : ResourcesRenderAction()
-    object OnError : ResourcesRenderAction()
+    data class Populate(val eosAccount: EosAccount) : ResourcesRenderAction()
 }
 
 interface ResourcesViewLayout : MxViewLayout {
-    fun showProgress()
-    fun showError()
+    fun populate(eosAccount: EosAccount)
 }
 
 class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<ResourcesViewLayout, ResourcesViewState> {
     override fun layout(layout: ResourcesViewLayout, state: ResourcesViewState): Unit = when (state.view) {
         ResourcesViewState.View.Idle -> {
         }
-        ResourcesViewState.View.OnProgress -> {
-            layout.showProgress()
-        }
-        ResourcesViewState.View.OnError -> {
-            layout.showError()
+        is ResourcesViewState.View.Populate -> {
+            layout.populate(state.view.eosAccount)
         }
     }
 }

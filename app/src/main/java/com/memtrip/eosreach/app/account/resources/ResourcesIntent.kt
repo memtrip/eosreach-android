@@ -1,7 +1,8 @@
 package com.memtrip.eosreach.app.account.resources
 
+import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class ResourcesIntent : MxViewIntent {
-    object Init : ResourcesIntent()
+    data class Init(val eosAccount: EosAccount) : ResourcesIntent()
 }

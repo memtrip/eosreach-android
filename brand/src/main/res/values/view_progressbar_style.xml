@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ProgressBarHorizontalRam" parent="ProgressBarHorizontal">
+        <item name="android:progressDrawable">@drawable/view_progress_bar_horizontal_ram_background</item>
+    </style>
+
+    <style name="ProgressBarHorizontalCpu" parent="ProgressBarHorizontal">
+        <item name="android:progressDrawable">@drawable/view_progress_bar_horizontal_cpu_background</item>
+    </style>
+
+    <style name="ProgressBarHorizontalNet" parent="ProgressBarHorizontal">
+        <item name="android:progressDrawable">@drawable/view_progress_bar_horizontal_net_background</item>
+    </style>
+
+    <style name="ProgressBarHorizontal" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:maxHeight">@dimen/view_progressbar_height</item>
+        <item name="android:indeterminate">false</item>
+        <item name="android:max">100</item>
+    </style>
+
+</resources>

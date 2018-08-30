@@ -17,4 +17,15 @@
     <string name="balance_empty">This account does not have a balance, you must stake it resources using an existing account. We can alternatively stake the resources for you.</string>
     <string name="balance_create_account">Create an account</string>
 
+    <!-- resources -->
+    <string name="resources_ram_title">RAM</string>
+    <string name="resources_ram_values">%1$s kb / %2$s kb</string>
+
+    <string name="resources_cpu_title">CPU</string>
+    <string name="resources_cpu_values">%1$s / %2$s</string>
+    <string name="resource_cpu_unlimited">Unlimited</string>
+
+    <string name="resources_net_title">NET</string>
+    <string name="resources_net_values">%1$s / %2$s</string>
+
 </resources>
