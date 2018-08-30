@@ -26,10 +26,6 @@ abstract class ImportKeyFragment
         return inflater.inflate(R.layout.issue_import_key_fragment, container, false)
     }
 
-    override fun inject() {
-        AndroidSupportInjection.inject(this)
-    }
-
     override fun intents(): Observable<ImportKeyIntent> {
         return RxView.clicks(issue_import_key_import_button).map {
             ImportKeyIntent.ImportKey(issue_import_key_private_key_value_input.text.toString())
@@ -48,6 +44,8 @@ abstract class ImportKeyFragment
     override fun showError(error: String) {
         issue_import_key_private_key_value_label.error = error
     }
+
+    abstract override fun inject()
 
     abstract override fun success()
 }

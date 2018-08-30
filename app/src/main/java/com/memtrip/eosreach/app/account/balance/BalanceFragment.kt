@@ -9,6 +9,8 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.AccountBalances
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.manage.ManageNavigationActivity
+import com.memtrip.eosreach.app.manage.ManageNavigationActivity.Companion.manageNavigationIntent
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
@@ -35,7 +37,7 @@ class BalanceFragment
 
     override fun intents(): Observable<BalanceIntent> = Observable.merge(
         Observable.just(BalanceIntent.Init(fromBundle(arguments!!))),
-        RxView.clicks(balance_create_account).map { BalanceIntent.CreateAccount }
+        RxView.clicks(balance_create_account).map { BalanceIntent.NavigateToCreateAccount }
     )
 
     override fun layout(): BalanceViewLayout = this
@@ -53,7 +55,8 @@ class BalanceFragment
     }
 
     override fun navigateToCreateAccount() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        model().publish(BalanceIntent.Idle)
+        startActivity(manageNavigationIntent(ManageNavigationActivity.Screen.CREATE_ACCOUNT, context!!))
     }
 
     companion object {

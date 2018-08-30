@@ -72,6 +72,7 @@
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
+        style="@style/TabLayout"
         android:id="@+id/account_tablayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

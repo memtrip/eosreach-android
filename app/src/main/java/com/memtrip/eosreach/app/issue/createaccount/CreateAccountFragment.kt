@@ -26,10 +26,6 @@ abstract class CreateAccountFragment
         return inflater.inflate(R.layout.issue_create_account_fragment, container, false)
     }
 
-    override fun inject() {
-        AndroidSupportInjection.inject(this)
-    }
-
     override fun intents(): Observable<CreateAccountIntent> {
         return RxView.clicks(issue_create_account_create_button).map {
             CreateAccountIntent.CreateAccount(issue_create_account_wallet_name_input.text.toString())
@@ -47,6 +43,8 @@ abstract class CreateAccountFragment
 
     override fun showError() {
     }
+
+    abstract override fun inject()
 
     abstract override fun success()
 }

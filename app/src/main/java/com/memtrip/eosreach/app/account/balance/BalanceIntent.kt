@@ -6,5 +6,6 @@ import com.memtrip.mxandroid.MxViewIntent
 
 sealed class BalanceIntent : MxViewIntent {
     data class Init(val accountBalances: AccountBalances) : BalanceIntent()
-    object CreateAccount : BalanceIntent()
+    object Idle : BalanceIntent()
+    object NavigateToCreateAccount : BalanceIntent()
 }

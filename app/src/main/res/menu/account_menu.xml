@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/account_menu_refresh_accounts"
+        android:title="@string/account_menu_refresh_accounts"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/account_menu_import_key"
+        android:title="@string/account_menu_import_key"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/account_menu_create_account"
+        android:title="@string/account_menu_create_account"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/account_menu_settings"
+        android:title="@string/account_menu_settings"
+        app:showAsAction="never"/>
+
+</menu>

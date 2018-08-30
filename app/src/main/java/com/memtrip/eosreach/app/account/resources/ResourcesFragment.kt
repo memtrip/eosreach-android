@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.balance.AccountBalances
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -47,5 +49,17 @@ class ResourcesFragment
         fun newInstance(): ResourcesFragment {
             return ResourcesFragment()
         }
+
+        fun newInstance(eosAccount: AccountBalances): BalanceFragment = with (BalanceFragment()) {
+            arguments = toBundle(accountBalances)
+            this
+        }
+
+        private fun toBundle(accountBalances: AccountBalances): Bundle = with (Bundle()) {
+            putParcelable("accountBalances", accountBalances)
+            this
+        }
+
+        private fun fromBundle(bundle: Bundle): AccountBalances = bundle.getParcelable("accountBalances")
     }
 }

@@ -14,7 +14,8 @@ class BalanceViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: BalanceIntent): Observable<BalanceRenderAction> = when (intent) {
         is BalanceIntent.Init -> Observable.just(BalanceRenderAction.Populate(intent.accountBalances))
-        BalanceIntent.CreateAccount -> Observable.just(BalanceRenderAction.NavigateToCreateAccount)
+        BalanceIntent.Idle -> Observable.just(BalanceRenderAction.Idle)
+        BalanceIntent.NavigateToCreateAccount -> Observable.just(BalanceRenderAction.NavigateToCreateAccount)
     }
 
     override fun reducer(previousState: BalanceViewState, renderAction: BalanceRenderAction): BalanceViewState = when (renderAction) {

@@ -1,12 +1,11 @@
 package com.memtrip.eosreach.app.account
 
 import android.os.Bundle
-import android.os.Handler
+
 import androidx.core.content.ContextCompat
 
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.account.EosAccount
-import com.memtrip.eosreach.api.balance.AccountBalances
+
 import com.memtrip.eosreach.app.MviActivity
 
 import com.memtrip.eosreach.app.ViewModelFactory
@@ -18,6 +17,13 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_activity.*
 
 import javax.inject.Inject
+
+import android.view.Menu
+
+import com.memtrip.eosreach.app.manage.ManageNavigationActivity
+import com.memtrip.eosreach.app.manage.ManageNavigationActivity.Companion.manageNavigationIntent
+import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
+
 
 class AccountActivity
     : MviActivity<AccountIntent, AccountRenderAction, AccountViewState, AccountViewLayout>(), AccountViewLayout {
@@ -40,7 +46,7 @@ class AccountActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<AccountIntent> = Observable.merge(
+    override fun intents(): Observable<AccountIntent> = Observable.mergeArray(
         Observable.just(AccountIntent.Init),
         account_error_view.retryClick().map { AccountIntent.Retry }
     )
@@ -50,6 +56,32 @@ class AccountActivity
     override fun model(): AccountViewModel = getViewModel(viewModelFactory)
 
     override fun render(): AccountViewRenderer = render
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.account_menu, menu)
+
+        menu.findItem(R.id.account_menu_refresh_accounts).setOnMenuItemClickListener {
+            model().publish(AccountIntent.RefreshAccounts)
+            true
+        }
+
+        menu.findItem(R.id.account_menu_import_key).setOnMenuItemClickListener {
+            model().publish(AccountIntent.NavigateToImportKey)
+            true
+        }
+
+        menu.findItem(R.id.account_menu_create_account).setOnMenuItemClickListener {
+            model().publish(AccountIntent.NavigateToCreateAccount)
+            true
+        }
+
+        menu.findItem(R.id.account_menu_settings).setOnMenuItemClickListener {
+            model().publish(AccountIntent.NavigateToSettings)
+            true
+        }
+
+        return true
+    }
 
     override fun showProgress() {
         account_progressbar.visible()
@@ -90,5 +122,22 @@ class AccountActivity
             getString(R.string.account_error_get_balances_title),
             getString(R.string.account_error_get_balances_body)
         )
+    }
+
+    override fun navigateToImportKey() {
+        model().publish(AccountIntent.Idle)
+        startActivity(manageNavigationIntent(
+            ManageNavigationActivity.Screen.CREATE_ACCOUNT, this))
+    }
+
+    override fun navigateToCreateAccount() {
+        model().publish(AccountIntent.Idle)
+        startActivity(manageNavigationIntent(
+            ManageNavigationActivity.Screen.IMPORT_KEY, this))
+    }
+
+    override fun navigateToSettings() {
+        model().publish(AccountIntent.Idle)
+        startActivity(settingsIntent(this))
     }
 }

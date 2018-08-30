@@ -10,5 +10,8 @@ data class AccountViewState(val view: View) : MxViewState {
         data class OnSuccess(val accountView: AccountView) : View()
         data class OnErrorFetchingAccount(val accountName: String) : View()
         data class OnErrorFetchingBalances(val accountName: String) : View()
+        object NavigateToImportKey : View()
+        object NavigateToCreateAccount : View()
+        object NavigateToSettings : View()
     }
 }

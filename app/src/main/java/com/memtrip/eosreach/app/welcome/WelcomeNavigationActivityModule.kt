@@ -1,11 +1,12 @@
 package com.memtrip.eosreach.app.welcome
 
-import com.memtrip.eosreach.app.issue.createaccount.CreateAccountFragment
 import com.memtrip.eosreach.app.issue.createaccount.CreateAccountFragmentModule
 import com.memtrip.eosreach.app.welcome.entry.EntryFragment
 import com.memtrip.eosreach.app.welcome.entry.EntryFragmentModule
-import com.memtrip.eosreach.app.issue.importkey.ImportKeyFragment
+
 import com.memtrip.eosreach.app.issue.importkey.ImportKeyFragmentModule
+import com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountFragment
+import com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyFragment
 import com.memtrip.eosreach.app.welcome.keyimported.KeyImportedFragment
 import com.memtrip.eosreach.app.welcome.keyimported.KeyImportedFragmentModule
 import com.memtrip.eosreach.app.welcome.splash.SplashFragment
@@ -20,10 +21,10 @@ abstract class WelcomeNavigationActivityModule {
     internal abstract fun contributeWelcomeActivity(): WelcomeNavigationActivity
 
     @ContributesAndroidInjector(modules = [CreateAccountFragmentModule::class])
-    internal abstract fun contributeCreateAccountFragmentModule(): CreateAccountFragment
+    internal abstract fun contributeWelcomeCreateAccountFragmentModule(): WelcomeCreateAccountFragment
 
     @ContributesAndroidInjector(modules = [ImportKeyFragmentModule::class])
-    internal abstract fun contributeImportKeyFragmentModule(): ImportKeyFragment
+    internal abstract fun contributeWelcomeImportKeyFragmentModule(): WelcomeImportKeyFragment
 
     @ContributesAndroidInjector(modules = [KeyImportedFragmentModule::class])
     internal abstract fun contributeKeyImportedFragmentModule(): KeyImportedFragment

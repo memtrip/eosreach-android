@@ -10,6 +10,11 @@ sealed class AccountRenderAction : MxRenderAction {
     data class OnSuccess(val accountView: AccountView) : AccountRenderAction()
     data class OnErrorFetchingAccount(val accountName: String) : AccountRenderAction()
     data class OnErrorFetchingBalances(val accountName: String) : AccountRenderAction()
+    object Idle : AccountRenderAction()
+    object RefreshAccounts : AccountRenderAction()
+    object NavigateToImportKey : AccountRenderAction()
+    object NavigateToCreateAccount : AccountRenderAction()
+    object NavigateToSettings : AccountRenderAction()
 }
 
 interface AccountViewLayout : MxViewLayout {
@@ -17,6 +22,9 @@ interface AccountViewLayout : MxViewLayout {
     fun populate(accountView: AccountView)
     fun showGetAccountError(accountName: String)
     fun showGetBalancesError(accountName: String)
+    fun navigateToImportKey()
+    fun navigateToCreateAccount()
+    fun navigateToSettings()
 }
 
 class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<AccountViewLayout, AccountViewState> {
@@ -34,6 +42,15 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
         }
         is AccountViewState.View.OnErrorFetchingBalances -> {
             layout.showGetBalancesError(state.view.accountName)
+        }
+        AccountViewState.View.NavigateToImportKey -> {
+            layout.navigateToImportKey()
+        }
+        AccountViewState.View.NavigateToCreateAccount -> {
+            layout.navigateToCreateAccount()
+        }
+        AccountViewState.View.NavigateToSettings -> {
+            layout.navigateToSettings()
         }
     }
 }
