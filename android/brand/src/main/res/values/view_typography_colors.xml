@@ -2,7 +2,8 @@
 <resources>
 
     <color name="typographyColorPrimary">#EEEEEE</color>
-    <color name="typographyColorSecondary">#444444</color>
+    <color name="typographyColorSecondary">#e7eaf0</color>
+    <color name="typographyColorInverse">#444444</color>
 
     <color name="typographyColorDataBackground">#f9fafc</color>
     <color name="typographyColorDataBorder">#e7eaf0</color>

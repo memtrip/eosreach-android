@@ -2,6 +2,8 @@
 <resources>
 
     <dimen name="typography_h4">34dp</dimen>
+    <dimen name="typography_h5">24dp</dimen>
+    <dimen name="typography_h6">20dp</dimen>
     <dimen name="typography_body_14">14sp</dimen>
     <dimen name="typography_caption_12">12sp</dimen>
 

@@ -27,7 +27,9 @@
 
         <activity
             android:name=".app.account.AccountActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
+
+        <activity android:name=".app.account.actions.ActionsActivity" />
 
         <activity
             android:name=".app.manage.ManageNavigationActivity"

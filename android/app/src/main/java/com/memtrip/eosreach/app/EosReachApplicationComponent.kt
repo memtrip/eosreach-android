@@ -4,12 +4,13 @@ import android.app.Application
 import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountActivityModule
+import com.memtrip.eosreach.app.account.actions.ActionsActivityModule
 import com.memtrip.eosreach.app.accountlist.AccountListActivityModule
 import com.memtrip.eosreach.app.manage.ManageNavigationActivityModule
 import com.memtrip.eosreach.app.settings.SettingsActivityModule
 import com.memtrip.eosreach.app.welcome.WelcomeNavigationActivityModule
 import com.memtrip.eosreach.db.DatabaseModule
-import com.memtrip.eosreach.db.StorageModule
+
 import com.memtrip.eosreach.utils.UtilModule
 import com.memtrip.eosreach.wallet.WalletModule
 import dagger.BindsInstance
@@ -27,8 +28,8 @@ import javax.inject.Singleton
         ManageNavigationActivityModule::class,
         SettingsActivityModule::class,
         AccountListActivityModule::class,
+        ActionsActivityModule::class,
         DatabaseModule::class,
-        StorageModule::class,
         WalletModule::class,
         ApiModule::class,
         RequestModule::class,

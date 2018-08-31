@@ -20,7 +20,6 @@
         android:id="@+id/account_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/account_toolbar_margin_top"
         android:background="@color/colorWindowBackground"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -56,6 +55,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/account_balance_background">
 
         <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/account_available_balance_value"
             style="@style/Typography.H4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,6 +63,7 @@
             tools:text="$160.06" />
 
         <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/account_available_balance_label"
             style="@style/Typography.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

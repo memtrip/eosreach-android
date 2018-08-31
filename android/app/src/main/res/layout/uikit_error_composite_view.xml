@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <com.memtrip.eosreach.brand.ReachTextView
-        style="@style/Typography.H4"
+        style="@style/Typography.H5"
         android:id="@+id/view_error_composite_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:id="@+id/view_error_composite_body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_tiny"
         android:gravity="center_horizontal"
         tools:text="We could not fetch "
         app:layout_constraintLeft_toLeftOf="parent"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginTop="@dimen/padding_large"
         android:text="@string/uikit_error_composite_view_retry"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

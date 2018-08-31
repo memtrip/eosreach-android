@@ -1,6 +1,6 @@
 package com.memtrip.eosreach.app.welcome.entry
 
-import com.memtrip.eosreach.db.AccountEntity
+import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer

@@ -1,6 +1,8 @@
 package com.memtrip.eosreach.app.account.balance
 
-import com.memtrip.eosreach.api.balance.AccountBalances
+import com.memtrip.eosreach.api.balance.AccountBalance
+import com.memtrip.eosreach.api.balance.AccountBalanceList
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
@@ -8,14 +10,16 @@ import javax.inject.Inject
 
 sealed class BalanceRenderAction : MxRenderAction {
     object Idle : BalanceRenderAction()
-    data class Populate(val accountBalances: AccountBalances) : BalanceRenderAction()
+    data class Populate(val accountBalances: AccountBalanceList) : BalanceRenderAction()
     object NavigateToCreateAccount : BalanceRenderAction()
+    data class NavigateToActions(val accountBalance: AccountBalance) : BalanceRenderAction()
 }
 
 interface BalanceViewLayout : MxViewLayout {
-    fun showBalances(balances: AccountBalances)
+    fun showBalances(accountBalanceList: AccountBalanceList)
     fun showEmptyBalance()
     fun navigateToCreateAccount()
+    fun navigateToActions(accountBalance: AccountBalance)
 }
 
 class BalanceViewRenderer @Inject internal constructor() : MxViewRenderer<BalanceViewLayout, BalanceViewState> {
@@ -31,6 +35,9 @@ class BalanceViewRenderer @Inject internal constructor() : MxViewRenderer<Balanc
         }
         BalanceViewState.View.NavigateToCreateAccount -> {
             layout.navigateToCreateAccount()
+        }
+        is BalanceViewState.View.NavigateToActions -> {
+            layout.navigateToActions(state.view.accountBalance)
         }
     }
 }

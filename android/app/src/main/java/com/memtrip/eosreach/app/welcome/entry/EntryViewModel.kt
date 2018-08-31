@@ -1,9 +1,10 @@
 package com.memtrip.eosreach.app.welcome.entry
 
 import android.app.Application
-import com.memtrip.eosreach.db.CountAccounts
-import com.memtrip.eosreach.db.EosReachSharedPreferences
-import com.memtrip.eosreach.db.GetAccountByName
+import com.memtrip.eosreach.db.SelectedAccount
+import com.memtrip.eosreach.db.account.CountAccounts
+import com.memtrip.eosreach.db.account.GetAccountByName
+
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -12,7 +13,7 @@ import javax.inject.Inject
 class EntryViewModel @Inject internal constructor(
     private val countAccounts: CountAccounts,
     private val getAccountByName: GetAccountByName,
-    private val eosReachSharedPreferences: EosReachSharedPreferences,
+    private val selectedAccount: SelectedAccount,
     application: Application
 ) : MxViewModel<EntryIntent, AccountListRenderAction, EntryViewState>(
     EntryViewState(view = EntryViewState.View.Idle),
@@ -35,8 +36,8 @@ class EntryViewModel @Inject internal constructor(
         return countAccounts.count()
             .flatMap<AccountListRenderAction> { count ->
                 if (count > 0) {
-                    if (eosReachSharedPreferences.hasSelectedAccount()) {
-                        getAccountByName.select(eosReachSharedPreferences.getSelectedAccount())
+                    if (selectedAccount.exists()) {
+                        getAccountByName.select(selectedAccount.get())
                             .map {
                                 AccountListRenderAction.NavigateToAccount(it)
                             }

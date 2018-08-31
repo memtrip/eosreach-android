@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">eosreach</string>
     <string name="app_shared_preferences_package">com.memtrip.eosreach</string>
+    <string name="app_default_currency">USD</string>
 </resources>

@@ -10,7 +10,9 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountActivity.Companion.accountIntent
 import com.memtrip.eosreach.app.account.AccountBundle
-import com.memtrip.eosreach.db.AccountEntity
+
+import com.memtrip.eosreach.db.account.AccountEntity
+
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
@@ -60,6 +62,7 @@ internal class AccountListActivity
     override fun showProgress() {
         account_list_progressbar.visible()
         account_list_recyclerview.gone()
+        account_list_toolbar.gone()
     }
 
     override fun showError() {
@@ -68,6 +71,7 @@ internal class AccountListActivity
     override fun populate(accounts: List<AccountEntity>) {
         account_list_progressbar.gone()
         account_list_recyclerview.visible()
+        account_list_toolbar.visible()
         adapter.clear()
         adapter.populate(accounts)
     }

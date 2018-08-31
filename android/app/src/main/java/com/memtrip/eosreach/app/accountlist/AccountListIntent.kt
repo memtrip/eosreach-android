@@ -1,6 +1,6 @@
 package com.memtrip.eosreach.app.accountlist
 
-import com.memtrip.eosreach.db.AccountEntity
+import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class AccountListIntent : MxViewIntent {

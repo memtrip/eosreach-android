@@ -19,8 +19,12 @@ sealed class AccountRenderAction : MxRenderAction {
 }
 
 interface AccountViewLayout : MxViewLayout {
-    fun showProgress(accountName: String)
+    fun showProgress()
+    fun populateTitle(accountName: String)
     fun populate(accountView: AccountView)
+    fun showPrice(price: String)
+    fun showOutDatedPrice(price: String)
+    fun showPriceUnavailable()
     fun showGetAccountError()
     fun showGetBalancesError()
     fun navigateToAccountList()
@@ -30,14 +34,45 @@ interface AccountViewLayout : MxViewLayout {
 }
 
 class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<AccountViewLayout, AccountViewState> {
-    override fun layout(layout: AccountViewLayout, state: AccountViewState): Unit = when (state.view) {
+
+    override fun layout(layout: AccountViewLayout, state: AccountViewState) {
+
+        state.accountName?.let {
+            layout.populateTitle(it)
+        }
+
+        layoutState(layout, state)
+    }
+
+    private fun layoutState(layout: AccountViewLayout, state: AccountViewState): Unit = when (state.view) {
         AccountViewState.View.Idle -> {
         }
         is AccountViewState.View.OnProgress -> {
-            layout.showProgress(state.view.accountName)
+            layout.showProgress()
         }
         is AccountViewState.View.OnSuccess -> {
-            layout.populate(state.view.accountView)
+            val accountView = state.accountView!!
+            val balances = accountView.balances!!.balances
+            val eosPrice = accountView.eosPrice!!
+
+            layout.populate(accountView)
+
+            if (balances.isNotEmpty()) {
+                val eosBalance = balances[0].balance.amount
+                if (eosPrice.unavailable) {
+                    layout.showPriceUnavailable()
+                } else {
+                    val price = eosBalance * eosPrice.value
+                    val formattedPrice = "$price ${eosPrice.currency}"
+                    if (accountView.eosPrice.outOfDate) {
+                        layout.showOutDatedPrice(formattedPrice)
+                    } else {
+                        layout.showPrice(formattedPrice)
+                    }
+                }
+            } else {
+                layout.showPriceUnavailable()
+            }
         }
         is AccountViewState.View.OnErrorFetchingAccount -> {
             layout.showGetAccountError()

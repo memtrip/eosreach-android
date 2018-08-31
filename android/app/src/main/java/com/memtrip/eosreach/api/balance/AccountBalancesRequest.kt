@@ -11,7 +11,7 @@ interface AccountBalanceRequest {
     fun getBalance(
         contractName: String,
         accountName: String
-    ): Single<Result<AccountBalances, BalanceError>>
+    ): Single<Result<AccountBalanceList, BalanceError>>
 }
 
 sealed class BalanceError : ApiError {

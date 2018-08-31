@@ -81,10 +81,13 @@ class AccountActivity
         return true
     }
 
-    override fun showProgress(accountName: String) {
-        account_toolbar_account_name.text = accountName
+    override fun showProgress() {
         account_progressbar.visible()
         account_error_view.gone()
+    }
+
+    override fun populateTitle(accountName: String) {
+        account_toolbar_account_name.text = accountName
     }
 
     override fun populate(accountView: AccountView) {
@@ -101,6 +104,19 @@ class AccountActivity
         account_tablayout.setupWithViewPager(account_viewpager)
 
         account_viewpager.visible()
+    }
+
+    override fun showPrice(price: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showOutDatedPrice(price: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showPriceUnavailable() {
+        account_available_balance_value.text = getString(R.string.account_available_balance_unavailable_value)
+        account_available_balance_label.text = getString(R.string.account_available_balance_unavailable_label)
     }
 
     override fun showGetAccountError() {

@@ -41,15 +41,17 @@ dependencies {
     /* Support libraries */
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha05'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
-    implementation 'androidx.cardview:cardview:1.0.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-rc01'
-    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc01'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc02'
 
     /* eos-jvm */
     implementation "com.memtrip.eos-jvm:eos-http-rpc:1.0.2"
 
     /* okhttp */
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
+    /* moshi */
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.6.0'
 
     /* MVI */
     implementation 'com.memtrip.mxandroid:mxandroid:1.0.0'

@@ -26,11 +26,13 @@ class AccountViewModel @Inject internal constructor(
 
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
         AccountRenderAction.Idle -> previousState.copy(view = AccountViewState.View.Idle)
-        is AccountRenderAction.OnProgress -> previousState.copy(view = AccountViewState.View.OnProgress(renderAction.accountName))
+        is AccountRenderAction.OnProgress -> previousState.copy(
+            accountName = renderAction.accountName,
+            view = AccountViewState.View.OnProgress
+        )
         is AccountRenderAction.OnSuccess -> previousState.copy(
-            view = AccountViewState.View.OnSuccess(
-                renderAction.accountView
-            )
+            view = AccountViewState.View.OnSuccess,
+            accountView = renderAction.accountView
         )
         AccountRenderAction.OnErrorFetchingAccount -> previousState.copy(view = AccountViewState.View.OnErrorFetchingAccount)
         AccountRenderAction.OnErrorFetchingBalances -> previousState.copy(view = AccountViewState.View.OnErrorFetchingAccount)

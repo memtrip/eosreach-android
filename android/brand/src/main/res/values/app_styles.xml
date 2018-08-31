@@ -6,8 +6,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="buttonStyle">@style/ButtonPrimary</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
-        <item name="windowActionBarOverlay">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>

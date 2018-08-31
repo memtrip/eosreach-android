@@ -2,26 +2,80 @@ package com.memtrip.eosreach.db
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import com.memtrip.eosreach.R
 import javax.inject.Inject
 
-class EosReachSharedPreferences @Inject constructor(
+class SelectedAccount @Inject constructor(
     application: Application
-) {
+) : Item<String>(application) {
 
-    private val sharedPreferences = application.getSharedPreferences(
+    override val key = "SELECTED_ACCOUNT_KEY"
+
+    override fun put(value: String) {
+        prefs.edit().putString(key, value).apply()
+    }
+
+    override fun get(): String = prefs.getString(key, null)
+
+    override fun exists(): Boolean = prefs.contains(key)
+}
+
+class EosPriceValue @Inject constructor(
+    application: Application
+) : Item<Float>(application) {
+
+    override val key = "EOS_PRICE"
+
+    override fun put(value: Float) {
+        prefs.edit().putFloat(key, value).apply()
+    }
+
+    override fun get(): Float = prefs.getFloat(key, 0f)
+
+    override fun exists(): Boolean = prefs.contains(key)
+}
+
+class EosPriceCurrencyPair @Inject constructor(
+    private val application: Application
+) : Item<String>(application) {
+
+    override val key = "EOS_PRICE_CURRENCY_PAIR"
+
+    override fun put(value: String) {
+        prefs.edit().putString(key, value).apply()
+    }
+
+    override fun get(): String = prefs.getString(
+        key, application.getString(R.string.app_default_currency))
+
+    override fun exists(): Boolean = prefs.contains(key)
+}
+
+class EosPriceLastUpdated @Inject constructor(
+    application: Application
+) : Item<Long>(application) {
+
+    override val key = "EOS_PRICE_LAST_UPDATED"
+
+    override fun put(value: Long) {
+        prefs.edit().putLong(key, value).apply()
+    }
+
+    override fun get(): Long = prefs.getLong(key, -1)
+
+    override fun exists(): Boolean = prefs.contains(key)
+}
+
+
+abstract class Item<T>(
+    application: Application,
+    internal val prefs: SharedPreferences = application.getSharedPreferences(
         application.getString(R.string.app_shared_preferences_package),
         Context.MODE_PRIVATE)
-
-    fun getSelectedAccount(): String = sharedPreferences.getString(SELECTED_ACCOUNT_KEY, null)
-
-    fun hasSelectedAccount(): Boolean = sharedPreferences.contains(SELECTED_ACCOUNT_KEY)
-
-    fun setSelectedAccount(accountName: String) {
-        sharedPreferences.edit().putString(SELECTED_ACCOUNT_KEY, accountName).apply()
-    }
-
-    companion object {
-        private const val SELECTED_ACCOUNT_KEY = "SELECTED_ACCOUNT_KEY"
-    }
+) {
+    abstract val key: String
+    abstract fun put(value: T)
+    abstract fun get(): T
+    abstract fun exists(): Boolean
 }

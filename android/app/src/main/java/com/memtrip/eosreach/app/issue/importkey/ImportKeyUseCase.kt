@@ -6,7 +6,8 @@ import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.accountforkey.AccountForKeyError
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKey
-import com.memtrip.eosreach.db.InsertAccountsForPublicKey
+import com.memtrip.eosreach.db.account.InsertAccountsForPublicKey
+
 import com.memtrip.eosreach.wallet.EosKeyManager
 
 import io.reactivex.Single

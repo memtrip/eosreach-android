@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.memtrip.eosreach.R
-
-import com.memtrip.eosreach.db.AccountEntity
+import com.memtrip.eosreach.db.account.AccountEntity
 
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.SimpleAdapter
@@ -33,12 +32,12 @@ class AccountViewHolder(itemView: View) : SimpleAdapterViewHolder<AccountEntity>
 
         if (value.symbol != null && value.balance != null) {
             itemView.accounts_list_item_balance.text = itemView.context.getString(
-                R.string.accounts_list_balance,
+                R.string.accounts_list_item_balance,
                 value.balance.toString(),
                 value.symbol)
         } else {
             itemView.accounts_list_item_balance.text = itemView.context.getString(
-                R.string.accounts_list_balance_empty)
+                R.string.accounts_list_item_balance_empty)
         }
     }
 }

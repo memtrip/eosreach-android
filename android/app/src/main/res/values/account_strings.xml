@@ -1,8 +1,10 @@
 <resources>
 
     <!--list -->
-    <string name="accounts_list_balance">%1$s %2$s</string>
-    <string name="accounts_list_balance_empty">-</string>
+    <string name="accounts_list_balance_toolbar_logo_contentdescription">eosreach</string>
+    <string name="accounts_list_accounts_title">Accounts</string>
+    <string name="accounts_list_item_balance">%1$s %2$s</string>
+    <string name="accounts_list_item_balance_empty">-</string>
 
     <!-- account -->
     <string name="account_available_balance">Available Balance</string>
@@ -12,6 +14,10 @@
     <string name="account_error_get_account_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
     <string name="account_error_get_balances_title">Failed to fetch account balances</string>
     <string name="account_error_get_balances_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
+
+    <string name="account_available_balance_unavailable_value">-</string>
+    <string name="account_available_balance_unavailable_label">market rates are unavailable</string>
+
     <string name="account_menu_refresh_accounts">Refresh accounts</string>
     <string name="account_menu_import_key">Import Key</string>
     <string name="account_menu_create_account">Create account</string>

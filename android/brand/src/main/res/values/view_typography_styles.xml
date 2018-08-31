@@ -11,6 +11,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Typography.H5" parent="@style/Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/typographyColorPrimary</item>
+        <item name="android:textSize">@dimen/typography_h5</item>
+    </style>
+
+    <style name="Typography.H6" parent="@style/Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/typographyColorPrimary</item>
+        <item name="android:textSize">@dimen/typography_h6</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Typography.Body1" parent="Base.TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/typographyColorPrimary</item>
     </style>
@@ -20,7 +31,7 @@
     </style>
 
     <style name="Typography.Data" parent="Typography.Body1">
-        <item name="android:textColor">@color/typographyColorSecondary</item>
+        <item name="android:textColor">@color/typographyColorInverse</item>
         <item name="android:padding">@dimen/padding_large</item>
         <item name="android:background">@color/typographyColorDataBackground</item>
         <item name="android:lineSpacingExtra">@dimen/typography_data_line_height</item>

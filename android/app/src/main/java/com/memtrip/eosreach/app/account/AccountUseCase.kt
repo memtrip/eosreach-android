@@ -3,24 +3,43 @@ package com.memtrip.eosreach.app.account
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceRequest
-import com.memtrip.eosreach.api.balance.AccountBalances
+import com.memtrip.eosreach.api.balance.AccountBalanceList
+import com.memtrip.eosreach.api.eosprice.EosPrice
+import com.memtrip.eosreach.app.price.EosPriceUseCase
 
 import io.reactivex.Single
 import javax.inject.Inject
 
 class AccountUseCase @Inject internal constructor(
     private val eosAccountRequest: EosAccountRequest,
-    private val accountBalancesRequest: AccountBalanceRequest
+    private val accountBalancesRequest: AccountBalanceRequest,
+    private val eosPriceUseCase: EosPriceUseCase
 ) {
 
     fun getAccountDetails(contractName: String, accountName: String): Single<AccountView> {
+        return eosPriceUseCase.getPrice().flatMap { price ->
+            getAccount(contractName, accountName, price)
+        }.onErrorResumeNext {
+            getAccount(
+                contractName,
+                accountName,
+                EosPrice.unavailable()
+            )
+        }
+    }
+
+    private fun getAccount(
+        contractName: String,
+        accountName: String,
+        eosPrice: EosPrice
+    ): Single<AccountView> {
         return eosAccountRequest.getAccount(accountName).flatMap { eosAccount ->
             if (eosAccount.success) {
                 accountBalancesRequest
                     .getBalance(contractName, eosAccount.data!!.accountName)
                     .map { balances ->
                         if (balances.success) {
-                            AccountView.success(eosAccount.data, balances.data)
+                            AccountView.success(eosPrice, eosAccount.data, balances.data)
                         } else {
                             AccountView.error(AccountView.Error.FetchingBalances)
                         }
@@ -33,9 +52,10 @@ class AccountUseCase @Inject internal constructor(
 }
 
 data class AccountView(
+    val eosPrice: EosPrice?,
     val eosAccount: EosAccount?,
-    val balances: AccountBalances?,
-    val error: Error?,
+    val balances: AccountBalanceList?,
+    val error: Error? = null,
     val success: Boolean = error == null
 ) {
 
@@ -47,11 +67,11 @@ data class AccountView(
     companion object {
 
         fun error(type: Error): AccountView {
-            return AccountView(null, null, type)
+            return AccountView(null, null, null, type)
         }
 
-        fun success(eosAccount: EosAccount?, balances: AccountBalances?): AccountView {
-            return AccountView(eosAccount, balances, null)
+        fun success(eosPrice: EosPrice?, eosAccount: EosAccount?, balances: AccountBalanceList?): AccountView {
+            return AccountView(eosPrice, eosAccount, balances)
         }
     }
 }
