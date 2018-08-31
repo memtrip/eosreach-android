@@ -1,24 +1,23 @@
 package com.memtrip.eosreach.app.welcome.splash
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.app.MviFragment
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountActivity.Companion.welcomeCreateAccountIntent
+import com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyActivity.Companion.welcomeImportKeyIntent
+import dagger.android.AndroidInjection
 
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.welcome_splash_fragment.*
+import kotlinx.android.synthetic.main.welcome_splash_activity.*
 import javax.inject.Inject
 
-internal class SplashFragment
-    : MviFragment<SplashIntent, SplashRenderAction, SplashViewState, SplashViewLayout>(), SplashViewLayout {
+class SplashActivity
+    : MviActivity<SplashIntent, SplashRenderAction, SplashViewState, SplashViewLayout>(), SplashViewLayout {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -26,13 +25,13 @@ internal class SplashFragment
     @Inject
     lateinit var render: SplashViewRenderer
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.welcome_splash_fragment, container, false)
-        return view
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.welcome_splash_activity)
     }
 
     override fun inject() {
-        AndroidSupportInjection.inject(this)
+        AndroidInjection.inject(this)
     }
 
     override fun intents(): Observable<SplashIntent> = Observable.merge(
@@ -48,17 +47,15 @@ internal class SplashFragment
 
     override fun navigateToCreateAccount() {
         model().publish(SplashIntent.Init)
-        findNavController(this).navigate(
-            R.id.welcome_navigation_create_account,
-            null,
-            NavOptions.Builder().build())
+        startActivity(welcomeCreateAccountIntent(this))
     }
 
     override fun navigateToImportKey() {
         model().publish(SplashIntent.Init)
-        findNavController(this).navigate(
-            R.id.welcome_navigation_import_key,
-            null,
-            NavOptions.Builder().build())
+        startActivity(welcomeImportKeyIntent(this))
+    }
+
+    companion object {
+        fun splashIntent(context: Context): Intent = Intent(context, SplashActivity::class.java)
     }
 }

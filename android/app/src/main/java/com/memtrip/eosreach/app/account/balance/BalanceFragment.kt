@@ -12,9 +12,7 @@ import com.memtrip.eosreach.api.balance.AccountBalanceList
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
-
-import com.memtrip.eosreach.app.manage.ManageNavigationActivity
-import com.memtrip.eosreach.app.manage.ManageNavigationActivity.Companion.manageNavigationIntent
+import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.visible
@@ -74,7 +72,7 @@ class BalanceFragment
 
     override fun navigateToCreateAccount() {
         model().publish(BalanceIntent.Idle)
-        startActivity(manageNavigationIntent(ManageNavigationActivity.Screen.CREATE_ACCOUNT, context!!))
+        startActivity(manageCreateAccountIntent(context!!))
     }
 
     override fun navigateToActions(accountBalance: AccountBalance) {

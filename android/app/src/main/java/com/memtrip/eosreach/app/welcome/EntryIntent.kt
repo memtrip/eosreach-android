@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.entry
+package com.memtrip.eosreach.app.welcome
 
 import com.memtrip.mxandroid.MxViewIntent
 

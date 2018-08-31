@@ -12,8 +12,9 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.accountlist.AccountListActivity.Companion.accountListIntent
-import com.memtrip.eosreach.app.manage.ManageNavigationActivity
-import com.memtrip.eosreach.app.manage.ManageNavigationActivity.Companion.manageNavigationIntent
+import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
+import com.memtrip.eosreach.app.manage.ManageImportKeyActivity.Companion.manageImportKeyIntent
+
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
@@ -145,14 +146,12 @@ class AccountActivity
 
     override fun navigateToImportKey() {
         model().publish(AccountIntent.Idle)
-        startActivity(manageNavigationIntent(
-            ManageNavigationActivity.Screen.IMPORT_KEY, this))
+        startActivity(manageImportKeyIntent(this))
     }
 
     override fun navigateToCreateAccount() {
         model().publish(AccountIntent.Idle)
-        startActivity(manageNavigationIntent(
-            ManageNavigationActivity.Screen.CREATE_ACCOUNT, this))
+        startActivity(manageCreateAccountIntent(this))
     }
 
     override fun navigateToSettings() {

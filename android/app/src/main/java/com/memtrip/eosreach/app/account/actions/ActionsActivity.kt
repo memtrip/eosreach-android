@@ -3,15 +3,11 @@ package com.memtrip.eosreach.app.account.actions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.AccountBalance
-import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-
 import dagger.android.AndroidInjection
-
 import io.reactivex.Observable
 import javax.inject.Inject
 

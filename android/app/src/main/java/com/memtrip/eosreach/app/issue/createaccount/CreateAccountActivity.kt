@@ -1,19 +1,17 @@
 package com.memtrip.eosreach.app.issue.createaccount
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.app.MviFragment
+import com.memtrip.eosreach.app.MviActivity
+
 import com.memtrip.eosreach.app.ViewModelFactory
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.issue_create_account_fragment.*
+import kotlinx.android.synthetic.main.issue_create_account_activity.*
 import javax.inject.Inject
 
-abstract class CreateAccountFragment
-    : MviFragment<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState, CreateAccountViewLayout>(), CreateAccountViewLayout {
+abstract class CreateAccountActivity
+    : MviActivity<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState, CreateAccountViewLayout>(), CreateAccountViewLayout {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -21,8 +19,9 @@ abstract class CreateAccountFragment
     @Inject
     lateinit var render: CreateAccountViewRenderer
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.issue_create_account_fragment, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.issue_create_account_activity)
     }
 
     override fun intents(): Observable<CreateAccountIntent> {

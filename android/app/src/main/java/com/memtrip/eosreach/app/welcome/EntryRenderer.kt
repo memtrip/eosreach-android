@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.entry
+package com.memtrip.eosreach.app.welcome
 
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.mxandroid.MxRenderAction
@@ -18,7 +18,7 @@ interface AccountListViewLayout : MxViewLayout {
     fun showProgress()
     fun navigateToSplash()
     fun showError()
-    fun navigateToAccount()
+    fun navigateToAccount(accountEntity: AccountEntity)
     fun navigateToAccountList()
 }
 
@@ -36,7 +36,7 @@ class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<Ac
             layout.showError()
         }
         is EntryViewState.View.NavigateToAccount -> {
-            layout.navigateToAccount()
+            layout.navigateToAccount(state.view.accountEntity)
         }
         EntryViewState.View.NavigateToAccountList -> {
             layout.navigateToAccountList()

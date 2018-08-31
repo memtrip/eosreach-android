@@ -1,19 +1,16 @@
 package com.memtrip.eosreach.app.issue.importkey
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.app.MviFragment
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.issue_import_key_fragment.*
+import kotlinx.android.synthetic.main.issue_import_key_activity.*
 import javax.inject.Inject
 
-abstract class ImportKeyFragment
-    : MviFragment<ImportKeyIntent, ImportKeyRenderAction, ImportKeyViewState, ImportKeyViewLayout>(), ImportKeyViewLayout {
+abstract class ImportKeyActivity
+    : MviActivity<ImportKeyIntent, ImportKeyRenderAction, ImportKeyViewState, ImportKeyViewLayout>(), ImportKeyViewLayout {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -21,8 +18,9 @@ abstract class ImportKeyFragment
     @Inject
     lateinit var render: ImportKeyViewRenderer
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.issue_import_key_fragment, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.issue_import_key_activity)
     }
 
     override fun intents(): Observable<ImportKeyIntent> {

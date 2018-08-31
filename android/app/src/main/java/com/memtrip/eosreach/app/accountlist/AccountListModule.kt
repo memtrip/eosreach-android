@@ -8,7 +8,7 @@ import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class AccountListActivityModule {
+abstract class AccountListModule {
 
     @Binds
     @IntoMap

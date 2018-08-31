@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.welcome.entry
+package com.memtrip.eosreach.app.welcome
 
 import android.app.Application
 import com.memtrip.eosreach.db.SelectedAccount
@@ -28,7 +28,7 @@ class EntryViewModel @Inject internal constructor(
         AccountListRenderAction.OnProgress -> previousState.copy(view = EntryViewState.View.Idle)
         AccountListRenderAction.NavigateToSplash -> previousState.copy(view = EntryViewState.View.NavigateToSplash)
         AccountListRenderAction.NavigateToAccountList -> previousState.copy(view = EntryViewState.View.NavigateToAccountList)
-        is AccountListRenderAction.NavigateToAccount -> previousState.copy(view = EntryViewState.View.NavigateToAccount)
+        is AccountListRenderAction.NavigateToAccount -> previousState.copy(view = EntryViewState.View.NavigateToAccount(renderAction.accountEntity))
         AccountListRenderAction.OnError -> previousState.copy(view = EntryViewState.View.OnError)
     }
 

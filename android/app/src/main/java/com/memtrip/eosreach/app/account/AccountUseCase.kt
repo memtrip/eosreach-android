@@ -2,11 +2,10 @@ package com.memtrip.eosreach.app.account
 
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountRequest
-import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceList
+import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.eosprice.EosPrice
 import com.memtrip.eosreach.app.price.EosPriceUseCase
-
 import io.reactivex.Single
 import javax.inject.Inject
 

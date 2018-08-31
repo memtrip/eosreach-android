@@ -3,12 +3,12 @@ package com.memtrip.eosreach.app
 import android.app.Application
 import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.RequestModule
-import com.memtrip.eosreach.app.account.AccountActivityModule
-import com.memtrip.eosreach.app.account.actions.ActionsActivityModule
-import com.memtrip.eosreach.app.accountlist.AccountListActivityModule
-import com.memtrip.eosreach.app.manage.ManageNavigationActivityModule
-import com.memtrip.eosreach.app.settings.SettingsActivityModule
-import com.memtrip.eosreach.app.welcome.WelcomeNavigationActivityModule
+import com.memtrip.eosreach.app.account.AccountModule
+
+import com.memtrip.eosreach.app.accountlist.AccountListModule
+import com.memtrip.eosreach.app.manage.ManageModule
+import com.memtrip.eosreach.app.settings.SettingsModule
+import com.memtrip.eosreach.app.welcome.WelcomeModule
 import com.memtrip.eosreach.db.DatabaseModule
 
 import com.memtrip.eosreach.utils.UtilModule
@@ -23,12 +23,11 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
-        WelcomeNavigationActivityModule::class,
-        AccountActivityModule::class,
-        ManageNavigationActivityModule::class,
-        SettingsActivityModule::class,
-        AccountListActivityModule::class,
-        ActionsActivityModule::class,
+        WelcomeModule::class,
+        AccountModule::class,
+        ManageModule::class,
+        SettingsModule::class,
+        AccountListModule::class,
         DatabaseModule::class,
         WalletModule::class,
         ApiModule::class,

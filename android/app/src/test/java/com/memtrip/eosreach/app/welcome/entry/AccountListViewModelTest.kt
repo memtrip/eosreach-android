@@ -1,5 +1,8 @@
 package com.memtrip.eosreach.app.welcome.entry
 
+import com.memtrip.eosreach.app.welcome.EntryIntent
+import com.memtrip.eosreach.app.welcome.EntryViewModel
+import com.memtrip.eosreach.app.welcome.EntryViewState
 import com.nhaarman.mockito_kotlin.mock
 
 import io.reactivex.Observable
