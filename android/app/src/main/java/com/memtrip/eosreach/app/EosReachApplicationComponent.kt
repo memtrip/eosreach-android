@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.app
 
 import android.app.Application
+import com.memtrip.eosreach.api.ApiConfig
 import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountModule
@@ -42,6 +43,9 @@ interface EosReachApplicationComponent : AndroidInjector<EosReachApplication> {
 
         @BindsInstance
         fun application(application: Application): Builder
+
+        @BindsInstance
+        fun apiConfig(apiConfig: ApiConfig): Builder
 
         fun build(): EosReachApplicationComponent
     }

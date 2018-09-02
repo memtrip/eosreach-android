@@ -6,9 +6,8 @@ import com.memtrip.eosreach.api.accountforkey.AccountForKeyError
 
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import javax.inject.Inject
 
-class ImportKeyViewModel @Inject internal constructor(
+abstract class ImportKeyViewModel(
     private val importKeyUseCase: ImportKeyUseCase,
     application: Application
 ) : MxViewModel<ImportKeyIntent, ImportKeyRenderAction, ImportKeyViewState>(

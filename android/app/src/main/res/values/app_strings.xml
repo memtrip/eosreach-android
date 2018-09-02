@@ -2,4 +2,8 @@
     <string name="app_name">eosreach</string>
     <string name="app_shared_preferences_package">com.memtrip.eosreach</string>
     <string name="app_default_currency">USD</string>
+
+    <string name="app_default_utility_endpoint_root">http://localhost:8080/</string>
+    <string name="app_default_eos_endpoint_root">http://80cad324.ngrok.io/</string>
+
 </resources>

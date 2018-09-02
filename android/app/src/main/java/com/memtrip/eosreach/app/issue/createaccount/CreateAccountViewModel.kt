@@ -6,9 +6,7 @@ import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class CreateAccountViewModel @Inject internal constructor(
-    application: Application
-) : MxViewModel<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState>(
+abstract class CreateAccountViewModel(application: Application) : MxViewModel<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState>(
     CreateAccountViewState(view = CreateAccountViewState.View.Idle),
     application
 ) {

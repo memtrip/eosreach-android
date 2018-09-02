@@ -9,7 +9,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-class EosReachApplication : DaggerApplication(), HasSupportFragmentInjector {
+abstract class BaseEosReachApplication : DaggerApplication(), HasSupportFragmentInjector {
 
     @Inject
     lateinit var supportFragmentInjector: DispatchingAndroidInjector<Fragment>
@@ -31,10 +31,5 @@ class EosReachApplication : DaggerApplication(), HasSupportFragmentInjector {
         super.onCreate()
     }
 
-    private val daggerEosReachApplicationComponent by lazy {
-        DaggerEosReachApplicationComponent
-            .builder()
-            .application(this)
-            .build()
-    }
+    abstract val daggerEosReachApplicationComponent: EosReachApplicationComponent
 }

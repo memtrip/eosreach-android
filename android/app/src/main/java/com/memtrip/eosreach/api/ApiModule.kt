@@ -1,9 +1,11 @@
 package com.memtrip.eosreach.api
 
+import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.memtrip.eos.http.rpc.Api
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
+import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.eosprice.EosPriceApi
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -20,13 +22,18 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun okHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun okHttpClient(apiConfig: ApiConfig): OkHttpClient {
+        val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
-            .build()
+
+        apiConfig.interceptors.map {
+            okHttpClient.addInterceptor(it)
+        }
+
+        return okHttpClient.build()
     }
 
     @JvmStatic
@@ -37,9 +44,9 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun retrofit(okHttpClient: OkHttpClient, converterFactory: Converter.Factory): Retrofit {
+    fun retrofit(application: Application, okHttpClient: OkHttpClient, converterFactory: Converter.Factory): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://localhost:8080/")
+            .baseUrl(application.getString(R.string.app_default_utility_endpoint_root))
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(converterFactory)
@@ -48,8 +55,8 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun api(okHttpClient: OkHttpClient): Api {
-        return Api("http://f24357e7.ngrok.io/", okHttpClient)
+    fun api(application: Application, okHttpClient: OkHttpClient): Api {
+        return Api(application.getString(R.string.app_default_eos_endpoint_root), okHttpClient)
     }
 
     @JvmStatic

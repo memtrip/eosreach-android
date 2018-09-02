@@ -3,6 +3,7 @@ package com.memtrip.eosreach.app.account
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
+import java.util.Currency
 import javax.inject.Inject
 
 sealed class AccountRenderAction : MxRenderAction {
@@ -63,7 +64,8 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
                     layout.showPriceUnavailable()
                 } else {
                     val price = eosBalance * eosPrice.value
-                    val formattedPrice = "$price ${eosPrice.currency}"
+                    val currencySymbol = Currency.getInstance(eosPrice.currency).symbol
+                    val formattedPrice = "$currencySymbol$price"
                     if (accountView.eosPrice.outOfDate) {
                         layout.showOutDatedPrice(formattedPrice)
                     } else {

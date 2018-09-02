@@ -27,6 +27,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "api"
+    productFlavors {
+        stub {
+            dimension "api"
+        }
+        prod {
+            dimension "api"
+        }
+    }
     androidExtensions {
         experimental = true
     }
