@@ -1,9 +1,13 @@
 package com.memtrip.eosreach.app.account.resources
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.annotation.StringRes
 import com.memtrip.eos.core.utils.Pretty
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
@@ -45,30 +49,69 @@ class ResourcesFragment
     override fun render(): ResourcesViewRenderer = render
 
     override fun populate(eosAccount: EosAccount) {
-        resources_ram_progressbar.progress = resourcePercentage(eosAccount.ramResource).toInt()
-        resources_ram_values.text = getString(
+
+        render(
+            resources_ram_progressbar,
+            resources_ram_values,
             R.string.resources_ram_values,
-            pretty.ram(eosAccount.ramResource.used.toFloat()),
-            pretty.ram(eosAccount.ramResource.available.toFloat()))
+            eosAccount.ramResource
+        ) {
+            pretty.ram(it)
+        }
 
-        resources_cpu_progressbar.progress = resourcePercentage(eosAccount.cpuResource).toInt()
-        resources_cpu_values.text = getString(
+        render(
+            resources_cpu_progressbar,
+            resources_cpu_values,
             R.string.resources_cpu_values,
-            pretty.cpu(eosAccount.cpuResource.used.toFloat()),
-            pretty.cpu(eosAccount.cpuResource.available.toFloat()))
+            eosAccount.cpuResource
+        ) {
+            pretty.cpu(it)
+        }
 
-        resources_net_progressbar.progress = resourcePercentage(eosAccount.netResource).toInt()
-        resources_net_values.text = getString(
+        render(
+            resources_net_progressbar,
+            resources_net_values,
             R.string.resources_net_values,
-            pretty.net(eosAccount.netResource.used.toFloat()),
-            pretty.net(eosAccount.netResource.available.toFloat()))
+            eosAccount.netResource
+        ) {
+            pretty.net(it)
+        }
+    }
+
+    private fun render(
+        progressBar: ProgressBar,
+        valuesTextView: TextView,
+        @StringRes formattingStringRes: Int,
+        resource: EosAccountResource,
+        pretty: (value: Float) -> String
+    ) {
+        progressBar.progress = resourcePercentage(resource).toInt()
+
+        if (progressBar.progress == 0) {
+            progressBar.background = with (progressBar.progressDrawable) {
+                setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.MULTIPLY)
+                this
+            }
+        }
+
+        valuesTextView.text = getString(
+            formattingStringRes,
+            pretty(resourceRemaining(resource)),
+            pretty(resource.available.toFloat()))
+    }
+
+    private fun resourceRemaining(resource: EosAccountResource): Float {
+        return (resource.available - resource.used).toFloat()
     }
 
     private fun resourcePercentage(resource: EosAccountResource): Long {
         return if (resource.used <= 0) {
-            resource.available
+            100
+        } else if (resource.available == resource.used) {
+            0
         } else {
-            (resource.available / resource.used) * 100
+            val remaining = resource.available.toFloat() - resource.used.toFloat()
+            ((remaining * 100) / resource.available.toFloat()).toLong()
         }
     }
 

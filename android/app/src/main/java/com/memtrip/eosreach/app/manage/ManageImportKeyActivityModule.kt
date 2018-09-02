@@ -1,13 +1,9 @@
 package com.memtrip.eosreach.app.manage
 
 import androidx.lifecycle.ViewModel
-
 import com.memtrip.eosreach.app.ViewModelKey
-import com.memtrip.eosreach.app.issue.importkey.ImportKeyViewModel
-
 import dagger.Binds
 import dagger.Module
-
 import dagger.multibindings.IntoMap
 
 @Module

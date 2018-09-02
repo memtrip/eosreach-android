@@ -25,6 +25,5 @@ class EosPriceRequestImpl @Inject internal constructor(
                     }
                 }
             }
-
     }
 }

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
-        <shape>
-            <solid
-                android:color="@color/viewProgressBarHorizontalNetBackground" />
-            <corners
-                android:radius="@dimen/view_progressbar_corner_radius" />
+        <shape android:shape="rectangle">
+
+            <stroke
+                android:width="@dimen/viewButtonBorderStroke"
+                android:color="@color/viewButtonTransparentBorder" />
+
+            <solid android:color="@color/viewButtonTransparentBackground"/>
+
+            <corners android:radius="@dimen/viewButtonBorderRadius" />
+
         </shape>
     </item>
 
@@ -13,7 +18,7 @@
         <clip>
             <shape>
                 <solid
-                    android:color="@color/viewProgressBarHorizontalNetProgress" />
+                    android:color="@color/viewProgressBarHorizontalNetBackground" />
                 <corners
                     android:radius="@dimen/view_progressbar_corner_radius" />
             </shape>

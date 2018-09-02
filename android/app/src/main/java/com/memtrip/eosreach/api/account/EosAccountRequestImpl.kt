@@ -25,11 +25,11 @@ class EosAccountRequestImpl @Inject internal constructor(
                         EosAccount(
                             account.account_name,
                             EosAccountResource(
-                                account.cpu_limit.used,
-                                account.cpu_limit.available),
-                            EosAccountResource(
                                 account.net_limit.used,
                                 account.net_limit.available),
+                            EosAccountResource(
+                                account.cpu_limit.used,
+                                account.cpu_limit.available),
                             EosAccountResource(
                                 account.ram_usage,
                                 account.ram_quota)

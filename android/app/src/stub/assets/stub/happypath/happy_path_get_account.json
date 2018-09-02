@@ -9,16 +9,16 @@
   "net_weight": 10000,
   "cpu_weight": 110000,
   "net_limit": {
-    "used": 0,
+    "used": 3488624936000,
     "available": "4488624936000",
     "max": "4488624936000"
   },
   "cpu_limit": {
-    "used": 0,
+    "used": 854398497600,
     "available": "854398497600",
     "max": "854398497600"
   },
-  "ram_usage": 2996,
+  "ram_usage": 14170938,
   "permissions": [{
     "perm_name": "active",
     "parent": "owner",

@@ -40,11 +40,9 @@ class ActionsActivity
     override fun render(): ActionsViewRenderer = render
 
     override fun showProgress() {
-
     }
 
     override fun showError() {
-
     }
 
     companion object {

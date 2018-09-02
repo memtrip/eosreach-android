@@ -1,10 +1,8 @@
 package com.memtrip.eosreach.app.issue.createaccount
 
 import android.app.Application
-
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import javax.inject.Inject
 
 abstract class CreateAccountViewModel(application: Application) : MxViewModel<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState>(
     CreateAccountViewState(view = CreateAccountViewState.View.Idle),

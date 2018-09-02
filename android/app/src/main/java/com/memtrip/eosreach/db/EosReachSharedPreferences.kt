@@ -67,7 +67,6 @@ class EosPriceLastUpdated @Inject constructor(
     override fun exists(): Boolean = prefs.contains(key)
 }
 
-
 abstract class Item<T>(
     application: Application,
     internal val prefs: SharedPreferences = application.getSharedPreferences(

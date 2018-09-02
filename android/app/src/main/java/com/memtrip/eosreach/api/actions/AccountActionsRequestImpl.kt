@@ -6,8 +6,6 @@ class AccountActionsRequestImpl(
     private val historyApi: HistoryApi
 ) : AccountActionsRequest {
 
-
     fun getActionsForAccountName(accountName: String) {
-
     }
 }
