@@ -29,13 +29,6 @@ class AccountListViewModel @Inject internal constructor(
         is AccountListRenderAction.NavigateToAccount -> previousState.copy(view = AccountListViewState.View.NavigateToAccount(renderAction.accountEntity))
     }
 
-    override fun filterIntents(intents: Observable<AccountListIntent>): Observable<AccountListIntent> = Observable.merge(
-        intents.ofType(AccountListIntent.Init::class.java).take(1),
-        intents.filter {
-            !AccountListIntent.Init::class.java.isInstance(it)
-        }
-    )
-
     private fun getAccounts(): Observable<AccountListRenderAction> {
         return getAccounts.select().map<AccountListRenderAction> {
             AccountListRenderAction.OnSuccess(it)
