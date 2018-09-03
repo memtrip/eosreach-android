@@ -1,17 +1,15 @@
-package com.memtrip.eosreach.api.actions
+package com.memtrip.eosreach.api.actions.model
 
-import org.json.JSONObject
-import org.threeten.bp.LocalDateTime
+import com.memtrip.eos.http.rpc.model.history.response.HistoricAccountAction
+import com.memtrip.eosreach.api.balance.Balance
+import com.memtrip.eosreach.utils.BalanceParser
 
-data class TransferAccountAction(
-    val from: String,
-    val to: String,
-    val quantity: String,
-    val memo: String,
-    override val transactionId: String,
-    override val receiverAccountName: String,
-    override val actAccountName: String,
-    override val actionType: String,
-    override val actionData: JSONObject,
-    override val date: LocalDateTime
-) : AccountAction()
+class TransferAccountAction(
+    accountName: String,
+    action: HistoricAccountAction
+) : AccountAction(accountName, action) {
+    val from: String = actionData["from"].toString()
+    val to: String = actionData["to"].toString()
+    val quantity: Balance = BalanceParser.pull(actionData["quantity"].toString())
+    val memo: String = actionData["memo"].toString()
+}

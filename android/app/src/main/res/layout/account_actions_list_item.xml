@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ItemButtonTransparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/padding_large"
+    android:layout_marginTop="@dimen/padding_large"
+    android:layout_marginRight="@dimen/padding_large"
+    android:padding="@dimen/padding_medium"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="72dp" />
+
+    <ImageView
+        android:id="@+id/account_actions_list_item_icon"
+        android:layout_width="@dimen/account_actions_icon_size"
+        android:layout_height="@dimen/account_actions_icon_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.H6"
+        android:id="@+id/account_actions_list_item_interaction_account_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="memtripissue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/account_actions_list_item_date_created"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_actions_list_item_interaction_account_name"
+        tools:text="30th July 2017 08:42" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

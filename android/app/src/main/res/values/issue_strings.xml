@@ -5,11 +5,20 @@
     <string name="issue_create_account_create">Create</string>
 
     <!-- issue_import_key -->
+    <string name="issue_import_key_toolbar_title">Import existing key</string>
+    <string name="issue_import_key_instructions">
+        The private key you enter will be RSA encrypted, it will never leave this device. If you
+        have trust issues (we don\'t blame you), build this app from source.
+    </string>
+    <string name="issue_import_key_github_url_button">View source on github</string>
+    <string name="issue_import_key_github_source_url">https://github.com/memtrip/eosreach</string>
     <string name="issue_import_key_private_key_hint">Private key</string>
     <string name="issue_import_key_import">Import</string>
     <string name="issue_import_key_error_generic">Could not import private key, please check your connection and try again.</string>
     <string name="issue_import_key_error_invalid_private_key_format">Invalid private key format.</string>
     <string name="issue_import_key_error_no_accounts">Failed to find any accounts associated with this private key.</string>
-    <string name="issue_import_key_private_key_already_imported">You have already imported this private key, sync your accounts to update the details for this key.</string>
+    <string name="issue_import_key_private_key_already_imported">
+        You have already imported this private key, sync your accounts to update the details for this key.
+    </string>
 
 </resources>

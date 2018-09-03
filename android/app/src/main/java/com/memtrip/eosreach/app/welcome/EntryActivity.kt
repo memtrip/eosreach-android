@@ -54,6 +54,7 @@ class EntryActivity
     override fun navigateToSplash() {
         welcome_account_list_progressbar.gone()
         startActivity(splashIntent(this))
+        finish()
     }
 
     override fun navigateToAccount(accountEntity: AccountEntity) {

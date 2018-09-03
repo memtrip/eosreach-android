@@ -17,8 +17,4 @@ internal object UtilModule {
             override fun background(): Scheduler = Schedulers.io()
         }
     }
-
-    @JvmStatic
-    @Provides
-    fun balanceParser(): BalanceParser = BalanceParser()
 }

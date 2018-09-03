@@ -10,17 +10,22 @@ sealed class ImportKeyRenderAction : MxRenderAction {
     object OnProgress : ImportKeyRenderAction()
     object OnSuccess : ImportKeyRenderAction()
     data class OnError(val error: String) : ImportKeyRenderAction()
+    object NavigateToGithubSource : ImportKeyRenderAction()
 }
 
 interface ImportKeyViewLayout : MxViewLayout {
+    fun showDefaults()
     fun showProgress()
     fun showError(error: String)
     fun success()
+    fun navigateToGithubSource()
 }
 
 class ImportKeyViewRenderer @Inject internal constructor() : MxViewRenderer<ImportKeyViewLayout, ImportKeyViewState> {
     override fun layout(layout: ImportKeyViewLayout, state: ImportKeyViewState): Unit = when (state.view) {
-        ImportKeyViewState.View.Idle -> {}
+        ImportKeyViewState.View.Idle -> {
+            layout.showDefaults()
+        }
         ImportKeyViewState.View.OnProgress -> {
             layout.showProgress()
         }
@@ -29,6 +34,9 @@ class ImportKeyViewRenderer @Inject internal constructor() : MxViewRenderer<Impo
         }
         is ImportKeyViewState.View.OnError -> {
             layout.showError(state.view.error)
+        }
+        ImportKeyViewState.View.NavigateToGithubSource -> {
+            layout.navigateToGithubSource()
         }
     }
 }

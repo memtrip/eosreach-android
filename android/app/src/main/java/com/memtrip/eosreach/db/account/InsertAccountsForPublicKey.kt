@@ -9,15 +9,14 @@ import javax.inject.Inject
 
 class InsertAccountsForPublicKey @Inject internal constructor(
     private val accountDao: AccountDao,
-    private val rxSchedulers: RxSchedulers,
-    private val balanceParser: BalanceParser
+    private val rxSchedulers: RxSchedulers
 ) {
 
     fun replace(publicKey: String, accounts: List<AccountNameSystemBalance>): Single<List<AccountEntity>> {
 
         val publicKeyAccountEntities = accounts.map { accountNameSystemBalance ->
             if (accountNameSystemBalance.systemBalance != null) {
-                val balance = balanceParser.pull(accountNameSystemBalance.systemBalance)
+                val balance = BalanceParser.pull(accountNameSystemBalance.systemBalance)
                 AccountEntity(
                     publicKey,
                     accountNameSystemBalance.accountName,

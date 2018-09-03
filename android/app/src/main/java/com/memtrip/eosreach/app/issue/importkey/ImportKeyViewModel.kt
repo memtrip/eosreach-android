@@ -18,6 +18,7 @@ abstract class ImportKeyViewModel(
     override fun dispatcher(intent: ImportKeyIntent): Observable<ImportKeyRenderAction> = when (intent) {
         is ImportKeyIntent.Init -> Observable.just(ImportKeyRenderAction.Idle)
         is ImportKeyIntent.ImportKey -> importKey(intent.privateKey)
+        ImportKeyIntent.ViewSource -> Observable.just(ImportKeyRenderAction.NavigateToGithubSource)
     }
 
     override fun reducer(previousState: ImportKeyViewState, renderAction: ImportKeyRenderAction): ImportKeyViewState = when (renderAction) {
@@ -25,14 +26,8 @@ abstract class ImportKeyViewModel(
         ImportKeyRenderAction.OnProgress -> previousState.copy(view = ImportKeyViewState.View.OnProgress)
         ImportKeyRenderAction.OnSuccess -> previousState.copy(view = ImportKeyViewState.View.OnSuccess)
         is ImportKeyRenderAction.OnError -> previousState.copy(view = ImportKeyViewState.View.OnError(renderAction.error))
+        ImportKeyRenderAction.NavigateToGithubSource -> previousState.copy(view = ImportKeyViewState.View.NavigateToGithubSource)
     }
-
-    override fun filterIntents(intents: Observable<ImportKeyIntent>): Observable<ImportKeyIntent> = Observable.merge(
-        intents.ofType(ImportKeyIntent.Init::class.java).take(1),
-        intents.filter {
-            !ImportKeyIntent.Init::class.java.isInstance(it)
-        }
-    )
 
     private fun importKey(privateKey: String): Observable<ImportKeyRenderAction> {
         return importKeyUseCase

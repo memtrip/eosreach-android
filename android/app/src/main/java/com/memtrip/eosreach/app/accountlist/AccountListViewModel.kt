@@ -1,6 +1,8 @@
 package com.memtrip.eosreach.app.accountlist
 
 import android.app.Application
+import com.memtrip.eosreach.db.SelectedAccount
+import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.db.account.GetAccounts
 
 import com.memtrip.mxandroid.MxViewModel
@@ -9,6 +11,7 @@ import javax.inject.Inject
 
 class AccountListViewModel @Inject internal constructor(
     private val getAccounts: GetAccounts,
+    private val selectedAccount: SelectedAccount,
     application: Application
 ) : MxViewModel<AccountListIntent, AccountListRenderAction, AccountListViewState>(
     AccountListViewState(view = AccountListViewState.View.Idle),
@@ -18,7 +21,7 @@ class AccountListViewModel @Inject internal constructor(
     override fun dispatcher(intent: AccountListIntent): Observable<AccountListRenderAction> = when (intent) {
         is AccountListIntent.Init -> getAccounts()
         AccountListIntent.Idle -> Observable.just(AccountListRenderAction.Idle)
-        is AccountListIntent.AccountSelected -> Observable.just(AccountListRenderAction.NavigateToAccount(intent.accountName))
+        is AccountListIntent.AccountSelected -> accountSelected(intent.accountName)
     }
 
     override fun reducer(previousState: AccountListViewState, renderAction: AccountListRenderAction): AccountListViewState = when (renderAction) {
@@ -35,5 +38,10 @@ class AccountListViewModel @Inject internal constructor(
         }.toObservable()
             .onErrorReturn { AccountListRenderAction.OnError }
             .startWith(AccountListRenderAction.OnProgress)
+    }
+
+    private fun accountSelected(accountEntity: AccountEntity): Observable<AccountListRenderAction> {
+        selectedAccount.put(accountEntity.accountName)
+        return Observable.just(AccountListRenderAction.NavigateToAccount(accountEntity))
     }
 }

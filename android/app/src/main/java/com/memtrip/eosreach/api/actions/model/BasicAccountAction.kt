@@ -1,12 +1,8 @@
-package com.memtrip.eosreach.api.actions
+package com.memtrip.eosreach.api.actions.model
 
-import org.threeten.bp.LocalDateTime
+import com.memtrip.eos.http.rpc.model.history.response.HistoricAccountAction
 
 class BasicAccountAction(
-    override val transactionId: String,
-    override val receiverAccountName: String,
-    override val actAccountName: String,
-    override val actionType: String,
-    override val actionData: Any,
-    override val date: LocalDateTime
-) : AccountAction()
+    accountName: String,
+    action: HistoricAccountAction
+) : AccountAction(accountName, action)

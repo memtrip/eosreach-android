@@ -38,4 +38,11 @@
     <string name="resources_net_title">NET</string>
     <string name="resources_net_values">%1$s / %2$s</string>
 
+    <!-- actions -->
+    <string name="account_actions_generic_error_title">Failed to fetch actions</string>
+    <string name="account_actions_generic_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
+
+    <string name="account_actions_empty_title">No actions</string>
+    <string name="account_actions_empty_body">This account does not have any actions.</string>
+
 </resources>

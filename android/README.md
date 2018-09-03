@@ -6,4 +6,7 @@
 - pull to refresh on each data screen
 
 ### Bugs:
-Navigating back to the Accounts activity is clearing the balance fragment
+- Navigating back to the Accounts activity is clearing the balance fragment
+
+### Features:
+- Top up CPU

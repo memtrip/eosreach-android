@@ -21,7 +21,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/acocunt_list_logo_container_size"
+                android:layout_height="@dimen/accounts_list_logo_container_size"
                 app:layout_collapseMode="parallax">
 
             </FrameLayout>

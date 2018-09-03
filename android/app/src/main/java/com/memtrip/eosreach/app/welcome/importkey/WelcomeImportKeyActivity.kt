@@ -19,6 +19,8 @@ class WelcomeImportKeyActivity : ImportKeyActivity() {
         finish()
     }
 
+    override fun showGithubViewSource(): Boolean = true
+
     companion object {
 
         fun welcomeImportKeyIntent(context: Context): Intent {

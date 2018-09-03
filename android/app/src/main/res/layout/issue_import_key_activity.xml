@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -32,12 +33,20 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/padding_large" />
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/issue_import_key_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/issue_import_key_private_key_value_label"
         style="@style/TextInputLayoutPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_medium"
         android:layout_marginEnd="0dp"
         android:hint="@string/issue_import_key_private_key_hint"
         app:errorEnabled="true"
@@ -45,7 +54,7 @@
         app:passwordToggleTint="@color/colorSecondary"
         app:layout_constraintEnd_toEndOf="@+id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline">
+        app:layout_constraintTop_toBottomOf="@+id/issue_import_key_toolbar">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/issue_import_key_private_key_value_input"
@@ -56,6 +65,29 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/issue_import_key_instructions_label"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/issue_import_key_instructions"
+        app:layout_constraintEnd_toEndOf="@+id/vertical_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_import_key_private_key_value_label"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/issue_import_key_github_button"
+        style="@style/ButtonTransparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding_medium"
+        android:text="@string/issue_import_key_github_url_button"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_import_key_instructions_label"/>
+
     <com.memtrip.eosreach.brand.ReachButton
         style="@style/ButtonPrimary"
         android:id="@+id/issue_import_key_import_button"
@@ -65,5 +97,15 @@
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
+
+    <ProgressBar
+        android:id="@+id/issue_import_key_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/issue_import_key_import_button"
+        app:layout_constraintTop_toTopOf="@id/issue_import_key_import_button"
+        app:layout_constraintRight_toRightOf="@id/issue_import_key_import_button"
+        app:layout_constraintBottom_toBottomOf="@id/issue_import_key_import_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

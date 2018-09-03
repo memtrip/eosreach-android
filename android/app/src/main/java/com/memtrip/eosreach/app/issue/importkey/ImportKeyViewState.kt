@@ -9,5 +9,6 @@ data class ImportKeyViewState(val view: View) : MxViewState {
         object OnProgress : View()
         object OnSuccess : View()
         data class OnError(val error: String) : View()
+        object NavigateToGithubSource : View()
     }
 }

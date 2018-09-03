@@ -4,6 +4,8 @@ import com.memtrip.eosreach.api.account.EosAccountRequest
 import com.memtrip.eosreach.api.account.EosAccountRequestImpl
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
+import com.memtrip.eosreach.api.actions.AccountActionsRequest
+import com.memtrip.eosreach.api.actions.AccountActionsRequestImpl
 import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceRequestImp
 import com.memtrip.eosreach.api.eosprice.EosPriceRequest
@@ -28,6 +30,11 @@ internal abstract class RequestModule {
     internal abstract fun bindAccountBalancesRequest(
         accountBalanceRequest: AccountBalanceRequestImp
     ): AccountBalanceRequest
+
+    @Binds
+    internal abstract fun bindAccountActionsRequest(
+        accountActionsRequest: AccountActionsRequestImpl
+    ): AccountActionsRequest
 
     @Binds
     internal abstract fun bindEosPriceRequest(

@@ -1,8 +1,10 @@
 <resources>
 
-    <dimen name="account_list_logo_size">64dp</dimen>
-    <dimen name="acocunt_list_logo_container_size">96dp</dimen>
+    <dimen name="accounts_list_logo_size">64dp</dimen>
+    <dimen name="accounts_list_logo_container_size">96dp</dimen>
 
     <dimen name="account_available_balance_header_height">96dp</dimen>
+
+    <dimen name="account_actions_icon_size">40dp</dimen>
 
 </resources>

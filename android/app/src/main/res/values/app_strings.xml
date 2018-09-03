@@ -4,6 +4,6 @@
     <string name="app_default_currency">USD</string>
 
     <string name="app_default_utility_endpoint_root">http://localhost:8080/</string>
-    <string name="app_default_eos_endpoint_root">http://80cad324.ngrok.io/</string>
+    <string name="app_default_eos_endpoint_root">http://bdb04a6c.ngrok.io/</string>
 
 </resources>

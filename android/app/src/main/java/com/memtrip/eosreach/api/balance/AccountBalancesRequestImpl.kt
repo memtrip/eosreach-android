@@ -11,8 +11,7 @@ import javax.inject.Inject
 
 class AccountBalanceRequestImp @Inject internal constructor(
     private val chainApi: ChainApi,
-    private val rxSchedulers: RxSchedulers,
-    private val balanceParser: BalanceParser
+    private val rxSchedulers: RxSchedulers
 ) : AccountBalanceRequest {
 
     override fun getBalance(
@@ -29,7 +28,11 @@ class AccountBalanceRequestImp @Inject internal constructor(
             .observeOn(rxSchedulers.main())
             .map {
                 if (it.isSuccessful) {
-                    Result(AccountBalanceList(accountBalancesFromStrings(accountName, it.body()!!)))
+                    Result(AccountBalanceList(accountBalancesFromStrings(
+                        contractName,
+                        accountName,
+                        it.body()!!)
+                    ))
                 } else {
                     Result<AccountBalanceList, BalanceError>(
                         BalanceError.FailedRetrievingBalance(it.code(), it.errorBody()))
@@ -37,9 +40,13 @@ class AccountBalanceRequestImp @Inject internal constructor(
             }
     }
 
-    private fun accountBalancesFromStrings(accountName: String, balances: List<String>): List<AccountBalance> {
+    private fun accountBalancesFromStrings(
+        contractName: String,
+        accountName: String,
+        balances: List<String>
+    ): List<AccountBalance> {
         return balances.map {
-            AccountBalance(accountName, balanceParser.pull(it))
+            AccountBalance(contractName, accountName, BalanceParser.pull(it))
         }
     }
 }

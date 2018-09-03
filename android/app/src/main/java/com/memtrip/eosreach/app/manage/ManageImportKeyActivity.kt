@@ -15,6 +15,8 @@ class ManageImportKeyActivity : ImportKeyActivity() {
         // finish activity and load account picker
     }
 
+    override fun showGithubViewSource(): Boolean = false
+
     companion object {
 
         fun manageImportKeyIntent(context: Context): Intent {

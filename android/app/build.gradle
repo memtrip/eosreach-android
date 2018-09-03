@@ -54,7 +54,7 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc02'
 
     /* eos-jvm */
-    implementation "com.memtrip.eos-jvm:eos-http-rpc:1.0.2"
+    implementation "com.memtrip.eos-jvm:eos-http-rpc:1.0.3"
 
     /* okhttp */
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
