@@ -43,7 +43,7 @@ class AccountActionsRequestImpl @Inject internal constructor(
         return if (historicActions.isNotEmpty()) {
             Result(AccountActionList(historicActions.map { AccountAction.create(accountName, it) }))
         } else {
-            Result(AccountActionsError.NoResults)
+            Result(AccountActionList(emptyList()))
         }
     }
 }

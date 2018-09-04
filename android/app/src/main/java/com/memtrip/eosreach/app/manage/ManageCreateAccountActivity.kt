@@ -3,6 +3,7 @@ package com.memtrip.eosreach.app.manage
 import android.content.Context
 import android.content.Intent
 import com.memtrip.eosreach.app.issue.createaccount.CreateAccountActivity
+import com.memtrip.eosreach.app.welcome.EntryActivity
 import dagger.android.AndroidInjection
 
 class ManageCreateAccountActivity : CreateAccountActivity() {
@@ -12,7 +13,8 @@ class ManageCreateAccountActivity : CreateAccountActivity() {
     }
 
     override fun success() {
-        // finish activity and load Account activity with the new account
+        startActivity(EntryActivity.entryIntent(this))
+        finish()
     }
 
     companion object {

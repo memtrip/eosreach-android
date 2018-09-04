@@ -36,5 +36,5 @@
         <item name="android:background">@color/typographyColorDataBackground</item>
         <item name="android:lineSpacingExtra">@dimen/typography_data_line_height</item>
     </style>
-
+    
 </resources>

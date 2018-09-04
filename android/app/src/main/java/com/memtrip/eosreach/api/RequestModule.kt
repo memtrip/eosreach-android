@@ -10,6 +10,8 @@ import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceRequestImp
 import com.memtrip.eosreach.api.eosprice.EosPriceRequest
 import com.memtrip.eosreach.api.eosprice.EosPriceRequestImpl
+import com.memtrip.eosreach.api.transfer.TransferRequest
+import com.memtrip.eosreach.api.transfer.TransferRequestImpl
 import dagger.Binds
 import dagger.Module
 
@@ -35,6 +37,11 @@ internal abstract class RequestModule {
     internal abstract fun bindAccountActionsRequest(
         accountActionsRequest: AccountActionsRequestImpl
     ): AccountActionsRequest
+
+    @Binds
+    internal abstract fun bindTransferRequest(
+        transferRequest: TransferRequestImpl
+    ): TransferRequest
 
     @Binds
     internal abstract fun bindEosPriceRequest(

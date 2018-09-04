@@ -6,6 +6,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class SettingsModule {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [SettingsActivityModule::class])
     internal abstract fun contributeSettingsActivity(): SettingsActivity
 }

@@ -16,5 +16,4 @@ interface AccountActionsRequest {
 
 sealed class AccountActionsError : ApiError {
     object Generic : AccountActionsError()
-    object NoResults : AccountActionsError()
 }

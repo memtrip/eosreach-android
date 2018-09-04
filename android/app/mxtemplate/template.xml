@@ -1,6 +1,6 @@
 <template
-    name="MVI Fragment"
-    description="Init MVI Fragment package"
+    name="MVI boilerplate"
+    description="Init MVI boilerplate package"
     format="4"
     revision="1">
 
@@ -15,12 +15,12 @@
         id="className" type="string" />
 
     <parameter
-        name="Fragment layout name"
+        name="Activity layout name"
         constraints="layout|nonempty|unique"
-        default="blank_fragment"
+        default="blank_activity"
         help="xml layout name"
         id="layoutName"
-        suggest="${classToResource(className)}_fragment"
+        suggest="${classToResource(className)}_activity"
         type="string" />
 
     <globals

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_exchange_rate_currency">Currency pair</string>
+    <string name="settings_view_private_keys">View private keys</string>
+    <string name="settings_telegram_link">Join us on telegram</string>
+    <string name="settings_clear_data_and_logout">Clear data and Logout</string>
+    <string name="settings_telegram_url">https://t.me/joinchat/JcIXl0x7wC9cRI5uF_EiQA</string>
+    <string name="settings_author_url">http://www.memtrip.com</string>
+    
+    <string name="settings_credits_headline">The wheel put the giants out of business</string>
+    <string name="settings_credits_author">memtrip</string>
+
+    <string name="settings_clear_data_warning_dialog_title">Are you sure?</string>
+    <string name="settings_clear_data_warning_dialog_body">
+        Clearing data will also remove your encrypted private key, are you sure you want to continue?
+    </string>
+
+</resources>

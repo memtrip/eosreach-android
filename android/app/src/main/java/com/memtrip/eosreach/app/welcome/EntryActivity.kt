@@ -1,5 +1,7 @@
 package com.memtrip.eosreach.app.welcome
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
@@ -76,5 +78,17 @@ class EntryActivity
         welcome_account_list_progressbar.gone()
         startActivity(accountListIntent(this))
         finish()
+    }
+
+    companion object {
+
+        fun entryIntent(context: Context): Intent {
+            return with (Intent(context, EntryActivity::class.java)) {
+                addFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+        }
     }
 }

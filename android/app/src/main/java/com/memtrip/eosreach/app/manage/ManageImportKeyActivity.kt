@@ -3,6 +3,7 @@ package com.memtrip.eosreach.app.manage
 import android.content.Context
 import android.content.Intent
 import com.memtrip.eosreach.app.issue.importkey.ImportKeyActivity
+import com.memtrip.eosreach.app.welcome.EntryActivity.Companion.entryIntent
 import dagger.android.AndroidInjection
 
 class ManageImportKeyActivity : ImportKeyActivity() {
@@ -12,7 +13,8 @@ class ManageImportKeyActivity : ImportKeyActivity() {
     }
 
     override fun success() {
-        // finish activity and load account picker
+        startActivity(entryIntent(this))
+        finish()
     }
 
     override fun showGithubViewSource(): Boolean = false

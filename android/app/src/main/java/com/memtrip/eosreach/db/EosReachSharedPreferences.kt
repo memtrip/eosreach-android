@@ -17,8 +17,6 @@ class SelectedAccount @Inject constructor(
     }
 
     override fun get(): String = prefs.getString(key, null)
-
-    override fun exists(): Boolean = prefs.contains(key)
 }
 
 class EosPriceValue @Inject constructor(
@@ -32,8 +30,6 @@ class EosPriceValue @Inject constructor(
     }
 
     override fun get(): Float = prefs.getFloat(key, 0f)
-
-    override fun exists(): Boolean = prefs.contains(key)
 }
 
 class EosPriceCurrencyPair @Inject constructor(
@@ -48,8 +44,6 @@ class EosPriceCurrencyPair @Inject constructor(
 
     override fun get(): String = prefs.getString(
         key, application.getString(R.string.app_default_currency))
-
-    override fun exists(): Boolean = prefs.contains(key)
 }
 
 class EosPriceLastUpdated @Inject constructor(
@@ -63,8 +57,6 @@ class EosPriceLastUpdated @Inject constructor(
     }
 
     override fun get(): Long = prefs.getLong(key, -1)
-
-    override fun exists(): Boolean = prefs.contains(key)
 }
 
 abstract class Item<T>(
@@ -76,5 +68,8 @@ abstract class Item<T>(
     abstract val key: String
     abstract fun put(value: T)
     abstract fun get(): T
-    abstract fun exists(): Boolean
+
+    fun exists(): Boolean = prefs.contains(key)
+
+    fun clear(): Unit = prefs.edit().remove(key).apply()
 }

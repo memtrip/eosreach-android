@@ -5,11 +5,13 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
+import android.view.Menu
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountActivity.Companion.accountIntent
 import com.memtrip.eosreach.app.account.AccountBundle
+import com.memtrip.eosreach.app.account.AccountIntent
 
 import com.memtrip.eosreach.db.account.AccountEntity
 
@@ -59,6 +61,18 @@ internal class AccountListActivity
 
     override fun render(): AccountListViewRenderer = render
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.accounts_list_menu, menu)
+
+        menu.findItem(R.id.accounts_list_menu_refresh_accounts).setOnMenuItemClickListener {
+            model().publish(AccountListIntent.RefreshAccounts)
+            true
+        }
+
+        return true
+    }
+
+
     override fun showProgress() {
         account_list_progressbar.visible()
         account_list_recyclerview.gone()
@@ -86,7 +100,7 @@ internal class AccountListActivity
 
         fun accountListIntent(context: Context): Intent {
             return with (Intent(context, AccountListActivity::class.java)) {
-                flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
+                addFlags(FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP)
                 this
             }
         }

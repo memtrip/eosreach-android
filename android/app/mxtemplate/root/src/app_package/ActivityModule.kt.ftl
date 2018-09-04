@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ${className}FragmentModule {
+abstract class ${className}ActivityModule {
 
     @Binds
     @IntoMap

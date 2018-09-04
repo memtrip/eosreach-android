@@ -6,5 +6,6 @@
     <dimen name="account_available_balance_header_height">96dp</dimen>
 
     <dimen name="account_actions_icon_size">40dp</dimen>
+    <dimen name="account_actions_header_height">120dp</dimen>
 
 </resources>

@@ -33,27 +33,16 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/padding_large" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/issue_create_account_fragment_wallet_name_label"
-        style="@style/TextInputLayoutPrimary"
-        android:layout_width="0dp"
+    <com.memtrip.eosreach.brand.ReachEditText
+        android:id="@+id/issue_create_account_wallet_name_input"
+        style="@style/EditTextPrimary"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
-        android:layout_marginEnd="0dp"
-        android:hint="@string/issue_create_account_wallet_hint"
-        app:errorEnabled="true"
+        android:inputType="textEmailAddress"
+        android:hint="@string/issue_create_account_account_name_hint"
         app:layout_constraintEnd_toEndOf="@+id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/issue_create_account_wallet_name_input"
-            style="@style/EditTextPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline"/>
 
     <com.memtrip.eosreach.brand.ReachButton
         style="@style/ButtonPrimary"

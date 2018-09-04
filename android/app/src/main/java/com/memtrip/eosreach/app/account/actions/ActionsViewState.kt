@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.account.actions
 
 import com.memtrip.eosreach.api.actions.AccountActionList
 import com.memtrip.eosreach.api.actions.model.AccountAction
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.mxandroid.MxViewState
 
 data class ActionsViewState(val view: View) : MxViewState {
@@ -12,5 +13,6 @@ data class ActionsViewState(val view: View) : MxViewState {
         data class OnSuccess(val accountActionList: AccountActionList) : View()
         object OnError : View()
         data class NavigateToViewAction(val accountAction: AccountAction) : View()
+        data class NavigateToTransfer(val contractAccountBalance: ContractAccountBalance) : View()
     }
 }

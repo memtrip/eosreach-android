@@ -7,4 +7,5 @@ sealed class AccountListIntent : MxViewIntent {
     object Init : AccountListIntent()
     object Idle : AccountListIntent()
     data class AccountSelected(val accountName: AccountEntity) : AccountListIntent()
+    object RefreshAccounts : AccountListIntent()
 }

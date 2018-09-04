@@ -22,9 +22,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/accounts_list_logo_container_size"
-                app:layout_collapseMode="parallax">
-
-            </FrameLayout>
+                app:layout_collapseMode="parallax"
+                tools:ignore="UselessLeaf" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/account_list_toolbar"

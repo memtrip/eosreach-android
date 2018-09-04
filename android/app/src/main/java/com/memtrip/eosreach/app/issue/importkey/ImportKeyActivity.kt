@@ -1,9 +1,11 @@
 package com.memtrip.eosreach.app.issue.importkey
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
@@ -33,7 +35,10 @@ abstract class ImportKeyActivity
     }
 
     override fun intents(): Observable<ImportKeyIntent> = Observable.merge(
-        RxView.clicks(issue_import_key_import_button).map {
+        Observable.merge(
+            RxView.clicks(issue_import_key_import_button),
+            RxTextView.editorActionEvents(issue_import_key_private_key_value_input)
+        ).map {
             ImportKeyIntent.ImportKey(issue_import_key_private_key_value_input.text.toString())
         },
         RxView.clicks(issue_import_key_github_button).map {
@@ -60,12 +65,18 @@ abstract class ImportKeyActivity
     override fun showProgress() {
         issue_import_key_progressbar.visible()
         issue_import_key_import_button.invisible()
+        hideKeyboard()
     }
 
     override fun showError(error: String) {
         issue_import_key_progressbar.gone()
         issue_import_key_import_button.visible()
-        issue_import_key_private_key_value_label.error = error
+
+        AlertDialog.Builder(this)
+            .setMessage(error)
+            .setPositiveButton(R.string.app_dialog_positive_button, null)
+            .create()
+            .show()
     }
 
     override fun navigateToGithubSource() {

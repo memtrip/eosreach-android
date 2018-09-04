@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import com.memtrip.eosreach.app.accountlist.AccountListActivity.Companion.accountListIntent
 import com.memtrip.eosreach.app.issue.createaccount.CreateAccountActivity
+import com.memtrip.eosreach.app.welcome.EntryActivity
 import dagger.android.AndroidInjection
 
 class WelcomeCreateAccountActivity : CreateAccountActivity() {
@@ -14,9 +15,7 @@ class WelcomeCreateAccountActivity : CreateAccountActivity() {
     }
 
     override fun success() {
-        startActivity(with (accountListIntent(this)) {
-            addFlags(FLAG_ACTIVITY_CLEAR_TASK)
-        })
+        startActivity(EntryActivity.entryIntent(this))
         finish()
     }
 

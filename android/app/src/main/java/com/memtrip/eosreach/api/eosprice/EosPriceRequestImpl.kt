@@ -25,5 +25,6 @@ class EosPriceRequestImpl @Inject internal constructor(
                     }
                 }
             }
+            .onErrorReturn { Result(EosPriceError.Generic) }
     }
 }

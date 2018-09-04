@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="currency_pairing_toolbar_title">Change currency pair</string>
+    <string name="currency_pairing_enter_pair">Currency code e.g; GBP, BTC</string>
+    <string name="currency_pairing_instruction">
+        Enter a currency code e.g; GBP, EUR, BTC, ETH. The currency code you enter will be displayed
+        alongside all EOS values in the app.
+    </string>
+    <string name="currency_pairing_pair_button">Update pair</string>
+    <string name="currency_pairing_failed">Failed to pair EOS with [%s]</string>
+    <string name="currency_pairing_failed_too_short">Please enter a valid currency code e.g; GBP, BTC</string>
+
+</resources>

@@ -6,6 +6,8 @@ import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.balance.BalanceFragmentModule
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragmentModule
+import com.memtrip.eosreach.app.transfer.form.TransferFormActivity
+import com.memtrip.eosreach.app.transfer.form.TransferFormActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

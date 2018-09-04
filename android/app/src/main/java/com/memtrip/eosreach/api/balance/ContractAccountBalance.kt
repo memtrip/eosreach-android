@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class AccountBalance(
+data class ContractAccountBalance(
     val contractName: String,
     val accountName: String,
     val balance: Balance

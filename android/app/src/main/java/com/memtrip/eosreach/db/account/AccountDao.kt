@@ -24,4 +24,7 @@ interface AccountDao {
 
     @Query("SELECT COUNT(*) FROM Account")
     fun count(): Int
+
+    @Query("DELETE FROM Account")
+    fun delete()
 }

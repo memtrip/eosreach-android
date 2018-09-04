@@ -7,8 +7,10 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
+import android.util.Log
 import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
+import io.reactivex.Observable
 import io.reactivex.Single
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -26,7 +28,7 @@ import javax.security.auth.x500.X500Principal
 class EosKeyManagerApi21(
     private val application: Application,
     private val sharedPreferences: SharedPreferences = application.getSharedPreferences(
-        application.getString(R.string.app_shared_preferences_package),
+        application.getString(R.string.app_keys_shared_preferences_package),
         Context.MODE_PRIVATE),
     private val keyStore: KeyStore = with(KeyStore.getInstance("AndroidKeyStore")) {
         load(null)
@@ -111,6 +113,10 @@ class EosKeyManagerApi21(
 
     override fun publicKeyExists(eosPublicKey: String): Boolean {
         return sharedPreferences.getString(eosPublicKey, null) != null
+    }
+
+    override fun getAllPublicKeys(): Observable<String> {
+        return Observable.fromIterable(sharedPreferences.all.entries.map { it.key })
     }
 
     companion object {

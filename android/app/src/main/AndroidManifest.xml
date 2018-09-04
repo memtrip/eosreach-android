@@ -31,11 +31,15 @@
 
         <activity android:name=".app.account.AccountActivity" />
         <activity android:name=".app.account.actions.ActionsActivity" />
+        <activity android:name=".app.transfer.form.TransferFormActivity" />
+        <activity android:name=".app.transfer.confirm.TransferConfirmActivity" />
+        <activity android:name=".app.transfer.receipt.TransferReceiptActivity" />
 
         <activity android:name=".app.manage.ManageCreateAccountActivity" />
         <activity android:name=".app.manage.ManageImportKeyActivity" />
 
         <activity android:name=".app.settings.SettingsActivity" />
+        <activity android:name="com.memtrip.eosreach.app.price.currencypairing.CurrencyPairingActivity" />
 
     </application>
 

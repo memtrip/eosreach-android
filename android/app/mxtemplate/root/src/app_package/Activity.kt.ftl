@@ -4,30 +4,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.memtrip.eosreach.app.MviFragment
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.ViewModelFactory
 
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import javax.inject.Inject
 
 import kotlinx.android.synthetic.main.${layoutName}.*
 
-internal class ${className}Fragment
-    : MviFragment<${className}Intent, ${className}RenderAction, ${className}ViewState, ${className}ViewLayout>(), ${className}ViewLayout {
+class ${className}Activity
+    : MviActivity<${className}Intent, ${className}RenderAction, ${className}ViewState, ${className}ViewLayout>(), ${className}ViewLayout {
 
     @Inject lateinit var viewModelFactory: ViewModelFactory
 
     @Inject lateinit var render: ${className}ViewRenderer
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.${layoutName}, container, false)
-        return view
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.${layoutName})
     }
 
     override fun inject() {
-        AndroidSupportInjection.inject(this)
+        AndroidInjection.inject(this)
     }
 
     override fun intents(): Observable<${className}Intent> = Observable.empty()

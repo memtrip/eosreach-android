@@ -3,10 +3,10 @@
     <instantiate from="res/layout/fragment.xml.ftl"
         to="${escapeXmlAttribute(resOut)}/layout/${escapeXmlAttribute(layoutName)}.xml" />
 
-    <instantiate from="src/app_package/Fragment.kt.ftl"
-        to="${escapeXmlAttribute(srcOut)}/${className}Fragment.kt" />
-    <instantiate from="src/app_package/FragmentModule.kt.ftl"
-        to="${escapeXmlAttribute(srcOut)}/${className}FragmentModule.kt" />
+    <instantiate from="src/app_package/Activity.kt.ftl"
+        to="${escapeXmlAttribute(srcOut)}/${className}Activity.kt" />
+    <instantiate from="src/app_package/ActivityModule.kt.ftl"
+        to="${escapeXmlAttribute(srcOut)}/${className}ActivityModule.kt" />
     <instantiate from="src/app_package/Intent.kt.ftl"
         to="${escapeXmlAttribute(srcOut)}/${className}Intent.kt" />
     <instantiate from="src/app_package/Renderer.kt.ftl"

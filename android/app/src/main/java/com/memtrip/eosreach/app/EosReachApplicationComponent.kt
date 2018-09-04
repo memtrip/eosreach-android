@@ -8,7 +8,9 @@ import com.memtrip.eosreach.app.account.AccountModule
 
 import com.memtrip.eosreach.app.accountlist.AccountListModule
 import com.memtrip.eosreach.app.manage.ManageModule
+import com.memtrip.eosreach.app.price.PriceModule
 import com.memtrip.eosreach.app.settings.SettingsModule
+import com.memtrip.eosreach.app.transfer.TransferModule
 import com.memtrip.eosreach.app.welcome.WelcomeModule
 import com.memtrip.eosreach.db.DatabaseModule
 
@@ -27,6 +29,8 @@ import javax.inject.Singleton
         WelcomeModule::class,
         AccountModule::class,
         ManageModule::class,
+        TransferModule::class,
+        PriceModule::class,
         SettingsModule::class,
         AccountListModule::class,
         DatabaseModule::class,

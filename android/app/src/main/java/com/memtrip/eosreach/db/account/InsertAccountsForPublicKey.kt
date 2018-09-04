@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.db.account
 
 import com.memtrip.eosreach.api.accountforkey.AccountNameSystemBalance
-import com.memtrip.eosreach.utils.BalanceParser
+import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -16,7 +16,7 @@ class InsertAccountsForPublicKey @Inject internal constructor(
 
         val publicKeyAccountEntities = accounts.map { accountNameSystemBalance ->
             if (accountNameSystemBalance.systemBalance != null) {
-                val balance = BalanceParser.pull(accountNameSystemBalance.systemBalance)
+                val balance = BalanceParser.deserialize(accountNameSystemBalance.systemBalance)
                 AccountEntity(
                     publicKey,
                     accountNameSystemBalance.accountName,

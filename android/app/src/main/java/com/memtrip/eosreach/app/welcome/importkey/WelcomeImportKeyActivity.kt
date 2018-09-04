@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.memtrip.eosreach.app.accountlist.AccountListActivity
 import com.memtrip.eosreach.app.issue.importkey.ImportKeyActivity
+import com.memtrip.eosreach.app.welcome.EntryActivity
 import dagger.android.AndroidInjection
 
 class WelcomeImportKeyActivity : ImportKeyActivity() {
@@ -13,9 +14,7 @@ class WelcomeImportKeyActivity : ImportKeyActivity() {
     }
 
     override fun success() {
-        startActivity(with (AccountListActivity.accountListIntent(this)) {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        })
+        startActivity(EntryActivity.entryIntent(this))
         finish()
     }
 

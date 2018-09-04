@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.balance.AccountBalance
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.balance.AccountBalanceList
 
 import com.memtrip.eosreach.app.MviFragment
@@ -38,7 +38,7 @@ class BalanceFragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_balance_fragment, container, false)
 
-        val adapterInteraction: PublishSubject<Interaction<AccountBalance>> = PublishSubject.create()
+        val adapterInteraction: PublishSubject<Interaction<ContractAccountBalance>> = PublishSubject.create()
         adapter = AccountBalanceListAdapter(context!!, adapterInteraction)
         view.balance_list_recyclerview.adapter = adapter
 
@@ -75,9 +75,9 @@ class BalanceFragment
         startActivity(manageCreateAccountIntent(context!!))
     }
 
-    override fun navigateToActions(accountBalance: AccountBalance) {
+    override fun navigateToActions(contractAccountBalance: ContractAccountBalance) {
         model().publish(BalanceIntent.Idle)
-        startActivity(actionsIntent(accountBalance, context!!))
+        startActivity(actionsIntent(contractAccountBalance, context!!))
     }
 
     companion object {

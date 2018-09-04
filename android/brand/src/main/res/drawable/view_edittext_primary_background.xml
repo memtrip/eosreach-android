@@ -2,10 +2,6 @@
 <selector
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:state_focused="true"
-        android:drawable="@drawable/view_edittext_primary_background_rounded_focus"/>
-
     <item android:drawable="@drawable/view_edittext_primary_background_rounded" />
 
 </selector>

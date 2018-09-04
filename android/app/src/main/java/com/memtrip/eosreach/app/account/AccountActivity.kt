@@ -14,8 +14,8 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.accountlist.AccountListActivity.Companion.accountListIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.app.manage.ManageImportKeyActivity.Companion.manageImportKeyIntent
-
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
+
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
@@ -59,11 +59,6 @@ class AccountActivity
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.account_menu, menu)
 
-        menu.findItem(R.id.account_menu_refresh_accounts).setOnMenuItemClickListener {
-            model().publish(AccountIntent.RefreshAccounts)
-            true
-        }
-
         menu.findItem(R.id.account_menu_import_key).setOnMenuItemClickListener {
             model().publish(AccountIntent.NavigateToImportKey)
             true
@@ -92,6 +87,8 @@ class AccountActivity
     }
 
     override fun populate(accountView: AccountView) {
+        model().publish(AccountIntent.Idle)
+
         account_toolbar_account_name.text = accountView.eosAccount!!.accountName
         account_progressbar.gone()
         account_header_group.visible()

@@ -26,7 +26,7 @@ class BalanceViewModel @Inject internal constructor(
         BalanceRenderAction.NavigateToCreateAccount -> previousState.copy(
             view = BalanceViewState.View.NavigateToCreateAccount)
         is BalanceRenderAction.NavigateToActions -> previousState.copy(
-            view = BalanceViewState.View.NavigateToActions(renderAction.accountBalance))
+            view = BalanceViewState.View.NavigateToActions(renderAction.contractAccountBalance))
     }
 
     override fun filterIntents(intents: Observable<BalanceIntent>): Observable<BalanceIntent> = Observable.merge(

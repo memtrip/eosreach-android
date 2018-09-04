@@ -6,6 +6,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="buttonStyle">@style/ButtonPrimary</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>

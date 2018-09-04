@@ -37,5 +37,13 @@
         <item name="android:paddingEnd">@dimen/padding_medium</item>
     </style>
 
+    <style name="ButtonPreference" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:drawableEnd">@drawable/typography_preference_arrow</item>
+        <item name="android:background">@drawable/view_button_preference_background_ripple</item>
+        <item name="android:textColor">@color/typographyColorSecondary</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingStart">@dimen/padding_large</item>
+        <item name="android:paddingEnd">@dimen/padding_large</item>
+    </style>
 
 </resources>

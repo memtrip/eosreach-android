@@ -41,6 +41,20 @@ class EosPriceUseCase @Inject constructor(
         }
     }
 
+    fun refreshPrice(currencyCode: String): Single<EosPrice> {
+        return eosPriceRequest.getPrice(currencyCode)
+            .map { response ->
+                if (response.success) {
+                    eosPriceLastUpdated.clear()
+                    eosPriceCurrencyPair.put(response.data!!.currency)
+                    eosPriceValue.put(response.data.value.toFloat())
+                    response.data
+                } else {
+                    EosPrice.unavailable()
+                }
+            }
+    }
+
     private fun expired(lastUpdated: Long): Boolean {
         return lastUpdated > (System.currentTimeMillis() - TEN_MINUTES)
     }

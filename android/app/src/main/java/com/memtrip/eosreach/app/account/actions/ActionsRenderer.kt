@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.account.actions
 
 import com.memtrip.eosreach.api.actions.AccountActionList
 import com.memtrip.eosreach.api.actions.model.AccountAction
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
@@ -13,6 +14,7 @@ sealed class ActionsRenderAction : MxRenderAction {
     data class OnSuccess(val accountActionList: AccountActionList) : ActionsRenderAction()
     object OnError : ActionsRenderAction()
     data class NavigateToViewAction(val accountAction: AccountAction) : ActionsRenderAction()
+    data class NavigateToTransfer(val contractAccountBalance: ContractAccountBalance) : ActionsRenderAction()
 }
 
 interface ActionsViewLayout : MxViewLayout {
@@ -20,6 +22,7 @@ interface ActionsViewLayout : MxViewLayout {
     fun showActions(accountActionList: AccountActionList)
     fun showNoActions()
     fun showError()
+    fun navigateToTransfer(contractAccountBalance: ContractAccountBalance)
     fun navigateToViewAction(accountAction: AccountAction)
 }
 
@@ -43,6 +46,9 @@ class ActionsViewRenderer @Inject internal constructor() : MxViewRenderer<Action
         }
         is ActionsViewState.View.NavigateToViewAction -> {
             layout.navigateToViewAction(state.view.accountAction)
+        }
+        is ActionsViewState.View.NavigateToTransfer -> {
+            layout.navigateToTransfer(state.view.contractAccountBalance)
         }
     }
 }

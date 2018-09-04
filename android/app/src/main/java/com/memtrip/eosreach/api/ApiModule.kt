@@ -2,6 +2,7 @@ package com.memtrip.eosreach.api
 
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.memtrip.eos.http.aggregation.transfer.Transfer
 import com.memtrip.eos.http.rpc.Api
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
@@ -66,6 +67,10 @@ internal object ApiModule {
     @JvmStatic
     @Provides
     fun chainApi(api: Api): ChainApi = api.chain
+
+    @JvmStatic
+    @Provides
+    fun transferAggregate(chainApi: ChainApi): Transfer = Transfer(chainApi)
 
     @JvmStatic
     @Provides

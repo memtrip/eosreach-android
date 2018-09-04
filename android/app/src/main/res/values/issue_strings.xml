@@ -1,7 +1,7 @@
 <resources>
 
     <!-- issue_create_account -->
-    <string name="issue_create_account_wallet_hint">Account name</string>
+    <string name="issue_create_account_account_name_hint">Account name</string>
     <string name="issue_create_account_create">Create</string>
 
     <!-- issue_import_key -->

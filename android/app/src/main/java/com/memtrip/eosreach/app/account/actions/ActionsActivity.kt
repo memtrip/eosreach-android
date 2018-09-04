@@ -3,12 +3,14 @@ package com.memtrip.eosreach.app.account.actions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.actions.AccountActionList
 import com.memtrip.eosreach.api.actions.model.AccountAction
-import com.memtrip.eosreach.api.balance.AccountBalance
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.transfer.form.TransferFormActivity.Companion.transferFormIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
@@ -29,13 +31,22 @@ class ActionsActivity
 
     private lateinit var adapter: AccountActionsAdapter
 
+    private lateinit var contractAccountBalance: ContractAccountBalance
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_actions_activity)
 
+        contractAccountBalance = actionsExtra(intent)
+
         val adapterInteraction: PublishSubject<Interaction<AccountAction>> = PublishSubject.create()
         adapter = AccountActionsAdapter(this, adapterInteraction)
         account_actions_list_recyclerview.adapter = adapter
+
+        setSupportActionBar(account_actions_toolbar)
+        supportActionBar!!.title = contractAccountBalance.accountName
+        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun inject() {
@@ -43,12 +54,15 @@ class ActionsActivity
     }
 
     override fun intents(): Observable<ActionsIntent> = Observable.merge(
-        Observable.just(ActionsIntent.Init(actionsExtra(intent))),
+        Observable.just(ActionsIntent.Init(contractAccountBalance)),
         account_actions_error_view.retryClick().map {
-            ActionsIntent.Retry(actionsExtra(intent))
+            ActionsIntent.Retry(contractAccountBalance)
         },
         adapter.interaction.map {
             ActionsIntent.NavigateToViewAction(it.data)
+        },
+        RxView.clicks(account_actions_send).map {
+            ActionsIntent.NavigateToTransfer(contractAccountBalance)
         }
     )
 
@@ -60,6 +74,7 @@ class ActionsActivity
 
     override fun showProgress() {
         account_actions_progress.visible()
+        account_actions_error_view.gone()
     }
 
     override fun showActions(accountActionList: AccountActionList) {
@@ -70,16 +85,20 @@ class ActionsActivity
 
     override fun showNoActions() {
         account_actions_progress.gone()
-        account_actions_error_view.populate(
-            getString(R.string.account_actions_empty_title),
-            getString(R.string.account_actions_empty_body))
+        account_actions_no_results_label.visible()
     }
 
     override fun showError() {
         account_actions_progress.gone()
+        account_actions_error_view.visible()
         account_actions_error_view.populate(
             getString(R.string.account_actions_generic_error_title),
             getString(R.string.account_actions_generic_error_body))
+    }
+
+    override fun navigateToTransfer(contractAccountBalance: ContractAccountBalance) {
+        model().publish(ActionsIntent.Idle)
+        startActivity(transferFormIntent(contractAccountBalance, this))
     }
 
     override fun navigateToViewAction(accountAction: AccountAction) {
@@ -88,18 +107,18 @@ class ActionsActivity
 
     companion object {
 
-        private const val ACCOUNT_BALANCE_EXTRA = "ACCOUNT_BALANCE_EXTRA"
+        private const val CONTRACT_ACCOUNT_BALANCE_EXTRA = "CONTRACT_ACCOUNT_BALANCE_EXTRA"
 
-        fun actionsIntent(accountBalance: AccountBalance, context: Context): Intent {
+        fun actionsIntent(contractAccountBalance: ContractAccountBalance, context: Context): Intent {
             return with (Intent(context, ActionsActivity::class.java)) {
-                putExtra(ACCOUNT_BALANCE_EXTRA, accountBalance)
+                putExtra(CONTRACT_ACCOUNT_BALANCE_EXTRA, contractAccountBalance)
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 this
             }
         }
 
-        fun actionsExtra(intent: Intent): AccountBalance {
-            return intent.getParcelableExtra(ACCOUNT_BALANCE_EXTRA) as AccountBalance
+        fun actionsExtra(intent: Intent): ContractAccountBalance {
+            return intent.getParcelableExtra(CONTRACT_ACCOUNT_BALANCE_EXTRA) as ContractAccountBalance
         }
     }
 }

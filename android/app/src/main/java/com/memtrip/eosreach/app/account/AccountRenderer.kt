@@ -1,9 +1,11 @@
 package com.memtrip.eosreach.app.account
 
+import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
-import java.util.Currency
+import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 sealed class AccountRenderAction : MxRenderAction {
@@ -13,7 +15,6 @@ sealed class AccountRenderAction : MxRenderAction {
     object OnErrorFetchingAccount : AccountRenderAction()
     object OnErrorFetchingBalances : AccountRenderAction()
     object NavigateToAccountList : AccountRenderAction()
-    object RefreshAccounts : AccountRenderAction()
     object NavigateToImportKey : AccountRenderAction()
     object NavigateToCreateAccount : AccountRenderAction()
     object NavigateToSettings : AccountRenderAction()
@@ -63,9 +64,7 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
                 if (eosPrice.unavailable) {
                     layout.showPriceUnavailable()
                 } else {
-                    val price = eosBalance * eosPrice.value
-                    val currencySymbol = Currency.getInstance(eosPrice.currency).symbol
-                    val formattedPrice = "$currencySymbol$price"
+                    val formattedPrice = BalanceParser.format(eosBalance * eosPrice.value, eosPrice.currency)
                     if (accountView.eosPrice.outOfDate) {
                         layout.showOutDatedPrice(formattedPrice)
                     } else {

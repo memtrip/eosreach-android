@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AccountBalanceList(
-    val balances: List<AccountBalance>
+    val balances: List<ContractAccountBalance>
 ) : Parcelable
