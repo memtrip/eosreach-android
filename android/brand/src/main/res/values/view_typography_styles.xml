@@ -33,7 +33,7 @@
     <style name="Typography.Data" parent="Typography.Body1">
         <item name="android:textColor">@color/typographyColorInverse</item>
         <item name="android:padding">@dimen/padding_large</item>
-        <item name="android:background">@color/typographyColorDataBackground</item>
+        <item name="android:background">@drawable/typography_data_background_rounded</item>
         <item name="android:lineSpacingExtra">@dimen/typography_data_line_height</item>
     </style>
     

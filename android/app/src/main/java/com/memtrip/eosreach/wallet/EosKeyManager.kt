@@ -9,6 +9,7 @@ interface EosKeyManager {
     fun getPrivateKey(eosPublicKey: String): ByteArray
     fun publicKeyExists(eosPublicKey: String): Boolean
     fun getAllPublicKeys(): Observable<String>
+    fun getPrivateKeys(): Single<List<EosPrivateKey>>
 
     class NotFoundException : RuntimeException()
 }

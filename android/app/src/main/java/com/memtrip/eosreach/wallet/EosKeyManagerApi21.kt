@@ -119,6 +119,12 @@ class EosKeyManagerApi21(
         return Observable.fromIterable(sharedPreferences.all.entries.map { it.key })
     }
 
+    override fun getPrivateKeys(): Single<List<EosPrivateKey>> {
+        return Single.create<List<EosPrivateKey>> { single ->
+            single.onSuccess(sharedPreferences.all.entries.map { EosPrivateKey(getPrivateKey(it.key)) })
+        }
+    }
+
     companion object {
         const val RSA_MODE = "RSA/ECB/PKCS1Padding"
         const val PROVIDER = "AndroidOpenSSL"

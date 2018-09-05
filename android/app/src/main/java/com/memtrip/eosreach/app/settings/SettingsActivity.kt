@@ -12,6 +12,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.price.currencypairing.CurrencyPairingActivity.Companion.currencyPairingIntent
 import com.memtrip.eosreach.app.settings.eosendpoint.EosEndpointActivity.Companion.eosEndpointIntent
+import com.memtrip.eosreach.app.settings.viewprivatekeys.ViewPrivateKeysActivity.Companion.viewPrivateKeysIntent
 import com.memtrip.eosreach.app.welcome.EntryActivity.Companion.entryIntent
 
 import dagger.android.AndroidInjection
@@ -82,7 +83,7 @@ class SettingsActivity
 
     override fun navigateToViewPrivateKeys() {
         model().publish(SettingsIntent.Idle)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        startActivity(viewPrivateKeysIntent(this))
     }
 
     override fun populate(exchangeRateCurrency: String) {

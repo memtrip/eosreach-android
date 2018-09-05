@@ -18,6 +18,14 @@
         Clearing data will also remove your encrypted private key, are you sure you want to continue?
     </string>
 
+    <string name="view_private_keys_title">View private keys</string>
+    <string name="view_private_keys_instructions">
+        Your private keys are encrypted using an RSA keypair, the private key responsible for this encryption
+        is stored in the AndroidKeyStore. Screenshots have been disabled on this screen.
+        Continue below to decrypt your private keys.
+    </string>
+    <string name="view_private_keys_button">Show private keys</string>
+
     <string name="eos_endpoint_toolbar_title">Change EOS endpoint</string>
     <string name="eos_endpoint_url_label">Current EOS Endpoint</string>
     <string name="eos_endpoint_url_hint">Enter a new endpoint URL</string>
@@ -33,5 +41,6 @@
         The EOS endpoint has been updated, you must exit the app to apply these changes.
     </string>
     <string name="eos_endpoint_updated_exit_app">Exit app</string>
+
 
 </resources>
