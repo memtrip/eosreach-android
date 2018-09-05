@@ -8,6 +8,7 @@ import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.eosprice.EosPriceApi
+import com.memtrip.eosreach.db.EosEndpoint
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -56,8 +57,8 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun api(application: Application, okHttpClient: OkHttpClient): Api {
-        return Api(application.getString(R.string.app_default_eos_endpoint_root), okHttpClient)
+    fun api(application: Application, okHttpClient: OkHttpClient, eosEndpoint: EosEndpoint): Api {
+        return Api(eosEndpoint.get(), okHttpClient)
     }
 
     @JvmStatic

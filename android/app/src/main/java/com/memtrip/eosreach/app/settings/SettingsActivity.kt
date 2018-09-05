@@ -2,7 +2,6 @@ package com.memtrip.eosreach.app.settings
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +11,7 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.price.currencypairing.CurrencyPairingActivity.Companion.currencyPairingIntent
+import com.memtrip.eosreach.app.settings.eosendpoint.EosEndpointActivity.Companion.eosEndpointIntent
 import com.memtrip.eosreach.app.welcome.EntryActivity.Companion.entryIntent
 
 import dagger.android.AndroidInjection
@@ -44,16 +44,19 @@ class SettingsActivity
 
     override fun intents(): Observable<SettingsIntent> = Observable.mergeArray(
         Observable.just(SettingsIntent.Init),
-        RxView.clicks(settings_exchange_rate_currency).map {
+        RxView.clicks(settings_exchange_rate_currency_button).map {
             SettingsIntent.NavigateToCurrencyPairing
         },
-        RxView.clicks(settings_exchange_view_private_keys).map {
+        RxView.clicks(settings_view_private_keys_button).map {
             SettingsIntent.NavigateToPrivateKeys
         },
-        RxView.clicks(settings_exchange_view_telegram).map {
+        RxView.clicks(settings_change_eos_endpoint_button).map {
+            SettingsIntent.NavigateToEosEndpoint
+        },
+        RxView.clicks(settings_telegram_button).map {
             SettingsIntent.NavigateToTelegram
         },
-        RxView.clicks(settings_exchange_view_clear_data_and_logout).map {
+        RxView.clicks(settings_clear_data_and_logout_button).map {
             SettingsIntent.RequestClearDataAndLogout
         },
         RxView.clicks(settings_exchange_view_credits_button).map {
@@ -70,6 +73,11 @@ class SettingsActivity
     override fun navigateToCurrencyPairing() {
         model().publish(SettingsIntent.Idle)
         startActivity(currencyPairingIntent(this))
+    }
+
+    override fun navigateToEosEndpoint() {
+        model().publish(SettingsIntent.Idle)
+        startActivity(eosEndpointIntent(this))
     }
 
     override fun navigateToViewPrivateKeys() {

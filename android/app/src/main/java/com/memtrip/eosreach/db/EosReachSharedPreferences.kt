@@ -59,6 +59,20 @@ class EosPriceLastUpdated @Inject constructor(
     override fun get(): Long = prefs.getLong(key, -1)
 }
 
+class EosEndpoint @Inject constructor(
+    private val application: Application
+) : Item<String>(application) {
+
+    override val key = "EOS_ENDPOINT"
+
+    override fun put(value: String) {
+        prefs.edit().putString(key, value).apply()
+    }
+
+    override fun get(): String = prefs.getString(
+        key, application.getString(R.string.app_default_eos_endpoint_root))
+}
+
 abstract class Item<T>(
     application: Application,
     internal val prefs: SharedPreferences = application.getSharedPreferences(

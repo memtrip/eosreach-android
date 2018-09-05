@@ -6,7 +6,7 @@ class Result<T, E : ApiError>(
     val success: Boolean = apiError == null
 ) {
     constructor(response: T?) : this(response, null)
-    constructor(errorKind: E?) : this(null, errorKind)
+    constructor(apiError: E?) : this(null, apiError)
 }
 
 interface ApiError

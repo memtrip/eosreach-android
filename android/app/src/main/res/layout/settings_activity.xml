@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        android:id="@+id/settings_exchange_rate_currency"
+        android:id="@+id/settings_exchange_rate_currency_button"
         style="@style/ButtonPreference"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,39 +32,49 @@
         android:layout_marginEnd="@dimen/settings_exchange_rate_currency_value_margin"
         android:textColor="@color/colorAccent"
         tools:hint="USD"
-        app:layout_constraintTop_toTopOf="@+id/settings_exchange_rate_currency"
-        app:layout_constraintEnd_toEndOf="@+id/settings_exchange_rate_currency"
-        app:layout_constraintBottom_toBottomOf="@+id/settings_exchange_rate_currency"/>
+        app:layout_constraintTop_toTopOf="@+id/settings_exchange_rate_currency_button"
+        app:layout_constraintEnd_toEndOf="@+id/settings_exchange_rate_currency_button"
+        app:layout_constraintBottom_toBottomOf="@+id/settings_exchange_rate_currency_button"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        android:id="@+id/settings_exchange_view_private_keys"
+        android:id="@+id/settings_change_eos_endpoint_button"
+        style="@style/ButtonPreference"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_change_eos_endpoint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_exchange_rate_currency_button"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/settings_view_private_keys_button"
         style="@style/ButtonPreference"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/settings_view_private_keys"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_exchange_rate_currency"/>
+        app:layout_constraintTop_toBottomOf="@+id/settings_change_eos_endpoint_button"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        android:id="@+id/settings_exchange_view_telegram"
+        android:id="@+id/settings_telegram_button"
         style="@style/ButtonPreference"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/settings_telegram_link"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_exchange_view_private_keys"/>
+        app:layout_constraintTop_toBottomOf="@+id/settings_view_private_keys_button"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        android:id="@+id/settings_exchange_view_clear_data_and_logout"
+        android:id="@+id/settings_clear_data_and_logout_button"
         style="@style/ButtonPreference"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/settings_clear_data_and_logout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_exchange_view_telegram"/>
+        app:layout_constraintTop_toBottomOf="@+id/settings_telegram_button"/>
     
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/settings_exchange_view_credits_button"

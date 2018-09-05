@@ -23,6 +23,7 @@ class SettingsViewModel @Inject internal constructor(
         SettingsIntent.Idle -> Observable.just(SettingsRenderAction.Idle)
         is SettingsIntent.Init -> getExchangeRateCurrency()
         SettingsIntent.NavigateToCurrencyPairing -> Observable.just(SettingsRenderAction.NavigateToCurrencyPairing)
+        SettingsIntent.NavigateToEosEndpoint -> Observable.just(SettingsRenderAction.NavigateToEosEndpoint)
         SettingsIntent.NavigateToPrivateKeys -> Observable.just(SettingsRenderAction.NavigateToPrivateKeys)
         SettingsIntent.NavigateToTelegram -> Observable.just(SettingsRenderAction.NavigateToTelegram)
         SettingsIntent.RequestClearDataAndLogout -> Observable.just(SettingsRenderAction.ConfirmClearData)
@@ -37,6 +38,8 @@ class SettingsViewModel @Inject internal constructor(
             view = SettingsViewState.View.Populate(renderAction.exchangeRateCurrency))
         SettingsRenderAction.NavigateToCurrencyPairing -> previousState.copy(
             view = SettingsViewState.View.NavigateToCurrencyPairing)
+        SettingsRenderAction.NavigateToEosEndpoint -> previousState.copy(
+            view = SettingsViewState.View.NavigateToEosEndpoint)
         SettingsRenderAction.NavigateToPrivateKeys -> previousState.copy(
             view = SettingsViewState.View.NavigateToPrivateKeys)
         SettingsRenderAction.NavigateToTelegram -> previousState.copy(

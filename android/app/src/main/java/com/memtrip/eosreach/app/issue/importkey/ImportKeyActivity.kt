@@ -73,6 +73,7 @@ abstract class ImportKeyActivity
         issue_import_key_import_button.visible()
 
         AlertDialog.Builder(this)
+            .setTitle(R.string.app_dialog_error_title)
             .setMessage(error)
             .setPositiveButton(R.string.app_dialog_positive_button, null)
             .create()

@@ -9,6 +9,7 @@ sealed class SettingsRenderAction : MxRenderAction {
     object Idle : SettingsRenderAction()
     data class Populate(val exchangeRateCurrency: String) : SettingsRenderAction()
     object NavigateToCurrencyPairing : SettingsRenderAction()
+    object NavigateToEosEndpoint : SettingsRenderAction()
     object NavigateToPrivateKeys : SettingsRenderAction()
     object NavigateToTelegram : SettingsRenderAction()
     object ConfirmClearData : SettingsRenderAction()
@@ -19,6 +20,7 @@ sealed class SettingsRenderAction : MxRenderAction {
 interface SettingsViewLayout : MxViewLayout {
     fun populate(exchangeRateCurrency: String)
     fun navigateToCurrencyPairing()
+    fun navigateToEosEndpoint()
     fun navigateToViewPrivateKeys()
     fun navigateToTelegramGroup()
     fun confirmClearData()
@@ -32,6 +34,9 @@ class SettingsViewRenderer @Inject internal constructor() : MxViewRenderer<Setti
         }
         SettingsViewState.View.NavigateToCurrencyPairing -> {
             layout.navigateToCurrencyPairing()
+        }
+        SettingsViewState.View.NavigateToEosEndpoint -> {
+            layout.navigateToEosEndpoint()
         }
         SettingsViewState.View.NavigateToPrivateKeys -> {
             layout.navigateToViewPrivateKeys()

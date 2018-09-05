@@ -40,6 +40,7 @@
 
         <activity android:name=".app.settings.SettingsActivity" />
         <activity android:name="com.memtrip.eosreach.app.price.currencypairing.CurrencyPairingActivity" />
+        <activity android:name=".app.settings.eosendpoint.EosEndpointActivity" />
 
     </application>
 

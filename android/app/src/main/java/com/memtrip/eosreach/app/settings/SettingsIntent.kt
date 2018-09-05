@@ -6,6 +6,7 @@ sealed class SettingsIntent : MxViewIntent {
     object Idle : SettingsIntent()
     object Init : SettingsIntent()
     object NavigateToCurrencyPairing : SettingsIntent()
+    object NavigateToEosEndpoint : SettingsIntent()
     object NavigateToPrivateKeys : SettingsIntent()
     object NavigateToTelegram : SettingsIntent()
     object RequestClearDataAndLogout : SettingsIntent()

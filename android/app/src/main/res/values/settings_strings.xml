@@ -3,6 +3,7 @@
 
     <string name="settings_title">Settings</string>
     <string name="settings_exchange_rate_currency">Currency pair</string>
+    <string name="settings_change_eos_endpoint">Change EOS endpoint</string>
     <string name="settings_view_private_keys">View private keys</string>
     <string name="settings_telegram_link">Join us on telegram</string>
     <string name="settings_clear_data_and_logout">Clear data and Logout</string>
@@ -15,6 +16,26 @@
     <string name="settings_clear_data_warning_dialog_title">Are you sure?</string>
     <string name="settings_clear_data_warning_dialog_body">
         Clearing data will also remove your encrypted private key, are you sure you want to continue?
+    </string>
+
+    <string name="eos_endpoint_toolbar_title">Change EOS endpoint</string>
+    <string name="eos_endpoint_url_label">Current EOS Endpoint</string>
+    <string name="eos_endpoint_url_hint">Enter a new endpoint URL</string>
+    <string name="eos_endpoint_change_button">Change endpoint</string>
+    <string name="eos_endpoint_validation_generic">
+        The endpoint URL could not be reached, please check your connection and try again.
+    </string>
+    <string name="eos_endpoint_validation_ending_slash">
+        Please ensure your endpoint URL ends with a forward slash e.g; http://url.com/
+    </string>
+    <string name="eos_endpoint_validation_invalid_url">Please enter a valid URL.</string>
+    <string name="eos_endpoint_validation_nothing_changed">Your endpoint URL is already set to: %s</string>
+    <string name="eos_endpoint_updated_title">EOS Endpoint updated</string>
+    <string name="eos_endpoint_updated_body">
+        The EOS endpoint has been updated, you must exit the app to apply these changes.
+    </string>
+    <string name="eos_endpoint_updated_exit_app">
+        Exit app
     </string>
 
 </resources>
