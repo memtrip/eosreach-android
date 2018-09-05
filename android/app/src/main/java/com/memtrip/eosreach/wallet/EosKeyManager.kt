@@ -6,7 +6,7 @@ import io.reactivex.Single
 
 interface EosKeyManager {
     fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String>
-    fun getPrivateKey(eosPublicKey: String): ByteArray
+    fun getPrivateKey(eosPublicKey: String): Single<EosPrivateKey>
     fun publicKeyExists(eosPublicKey: String): Boolean
     fun getAllPublicKeys(): Observable<String>
     fun getPrivateKeys(): Single<List<EosPrivateKey>>

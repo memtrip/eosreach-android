@@ -16,7 +16,10 @@
     <string name="issue_import_key_import">Import</string>
     <string name="issue_import_key_error_generic">Could not import private key, please check your connection and try again.</string>
     <string name="issue_import_key_error_invalid_private_key_format">Invalid private key format.</string>
-    <string name="issue_import_key_error_no_accounts">Failed to find any accounts associated with this private key.</string>
+    <string name="issue_import_key_error_no_accounts">
+        We did not find any accounts associated with this private key, the Create Account option is the
+        easiest way to get started.
+    </string>
     <string name="issue_import_key_private_key_already_imported">
         You have already imported this private key, sync your accounts to update the details for this key.
     </string>

@@ -1,6 +1,5 @@
 package com.memtrip.eosreach.app.transfer.confirm
 
-import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.transfer.TransferError
@@ -25,14 +24,16 @@ class TransferUseCase @Inject internal constructor(
         quantity: Balance,
         memo: String
     ): Single<Result<TransferReceipt, TransferError>> {
-        return getAccountByName.select(fromAccount).flatMap { account ->
-            transferRequest.transfer(
-                account.accountName,
-                toAccount,
-                quantity,
-                memo,
-                EosPrivateKey(eosKeyManager.getPrivateKey(account.publicKey))
-            )
+
+        return getAccountByName.select(fromAccount).flatMap { accountEntity ->
+            eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { privateKey ->
+                transferRequest.transfer(
+                    accountEntity.accountName,
+                    toAccount,
+                    quantity,
+                    memo,
+                    privateKey)
+            }
         }
     }
 }

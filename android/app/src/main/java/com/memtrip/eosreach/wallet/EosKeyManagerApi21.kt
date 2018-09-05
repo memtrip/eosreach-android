@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
+import android.os.Parcel
+import android.os.Parcelable
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
 import android.util.Log
@@ -83,8 +85,32 @@ class EosKeyManagerApi21(
             .apply()
     }
 
-    @Throws(EosKeyManager.NotFoundException::class)
-    override fun getPrivateKey(eosPublicKey: String): ByteArray {
+    override fun getPrivateKey(eosPublicKey: String): Single<EosPrivateKey> {
+        return Single.create<EosPrivateKey> { single ->
+            single.onSuccess(EosPrivateKey(getPrivateKeyBytes(eosPublicKey)))
+        }
+    }
+
+    override fun publicKeyExists(eosPublicKey: String): Boolean {
+        return sharedPreferences.getString(eosPublicKey, null) != null
+    }
+
+    override fun getAllPublicKeys(): Observable<String> {
+        return Observable.fromIterable(sharedPreferences.all.entries.map { it.key })
+    }
+
+    override fun getPrivateKeys(): Single<List<EosPrivateKey>> {
+        return Single.create<List<EosPrivateKey>> { single ->
+            val entries = sharedPreferences.all.entries
+            if (entries.isNotEmpty()) {
+                single.onSuccess(entries.map { EosPrivateKey(getPrivateKeyBytes(it.key)) })
+            } else {
+                single.onError(EosKeyManager.NotFoundException())
+            }
+        }
+    }
+
+    private fun getPrivateKeyBytes(eosPublicKey: String): ByteArray {
 
         val encodedEncryptedPrivateKey = sharedPreferences.getString(eosPublicKey, null)
 
@@ -112,25 +138,6 @@ class EosKeyManagerApi21(
             return bytes
         } else {
             throw EosKeyManager.NotFoundException()
-        }
-    }
-
-    override fun publicKeyExists(eosPublicKey: String): Boolean {
-        return sharedPreferences.getString(eosPublicKey, null) != null
-    }
-
-    override fun getAllPublicKeys(): Observable<String> {
-        return Observable.fromIterable(sharedPreferences.all.entries.map { it.key })
-    }
-
-    override fun getPrivateKeys(): Single<List<EosPrivateKey>> {
-        return Single.create<List<EosPrivateKey>> { single ->
-            val entries = sharedPreferences.all.entries
-            if (entries.isNotEmpty()) {
-                single.onSuccess(entries.map { EosPrivateKey(getPrivateKey(it.key)) })
-            } else {
-                single.onError(IllegalStateException())
-            }
         }
     }
 
