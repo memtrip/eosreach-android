@@ -11,6 +11,7 @@ sealed class ImportKeyRenderAction : MxRenderAction {
     object OnSuccess : ImportKeyRenderAction()
     data class OnError(val error: String) : ImportKeyRenderAction()
     object NavigateToGithubSource : ImportKeyRenderAction()
+    object NavigateToSettings : ImportKeyRenderAction()
 }
 
 interface ImportKeyViewLayout : MxViewLayout {
@@ -19,6 +20,7 @@ interface ImportKeyViewLayout : MxViewLayout {
     fun showError(error: String)
     fun success()
     fun navigateToGithubSource()
+    fun navigateToSettings()
 }
 
 class ImportKeyViewRenderer @Inject internal constructor() : MxViewRenderer<ImportKeyViewLayout, ImportKeyViewState> {
@@ -37,6 +39,9 @@ class ImportKeyViewRenderer @Inject internal constructor() : MxViewRenderer<Impo
         }
         ImportKeyViewState.View.NavigateToGithubSource -> {
             layout.navigateToGithubSource()
+        }
+        ImportKeyViewState.View.NavigateToSettings -> {
+            layout.navigateToSettings()
         }
     }
 }

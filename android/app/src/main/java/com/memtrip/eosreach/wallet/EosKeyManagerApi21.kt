@@ -37,10 +37,12 @@ class EosKeyManagerApi21(
 ) : EosKeyManager {
 
     override fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String> {
-        val keyAlias = eosPrivateKey.publicKey.toString()
-        createRsaKeyPair(keyAlias)
-        encryptAndSavePrivateKey(keyAlias, eosPrivateKey)
-        return Single.just(keyAlias)
+        return Single.create<String> { single ->
+            val keyAlias = eosPrivateKey.publicKey.toString()
+            createRsaKeyPair(keyAlias)
+            encryptAndSavePrivateKey(keyAlias, eosPrivateKey)
+            single.onSuccess(keyAlias)
+        }
     }
 
     private fun createRsaKeyPair(keyAlias: String) {

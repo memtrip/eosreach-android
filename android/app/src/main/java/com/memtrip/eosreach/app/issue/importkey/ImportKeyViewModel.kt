@@ -19,6 +19,7 @@ abstract class ImportKeyViewModel(
         is ImportKeyIntent.Init -> Observable.just(ImportKeyRenderAction.Idle)
         is ImportKeyIntent.ImportKey -> importKey(intent.privateKey)
         ImportKeyIntent.ViewSource -> Observable.just(ImportKeyRenderAction.NavigateToGithubSource)
+        ImportKeyIntent.NavigateToSettings -> Observable.just(ImportKeyRenderAction.NavigateToSettings)
     }
 
     override fun reducer(previousState: ImportKeyViewState, renderAction: ImportKeyRenderAction): ImportKeyViewState = when (renderAction) {
@@ -27,6 +28,7 @@ abstract class ImportKeyViewModel(
         ImportKeyRenderAction.OnSuccess -> previousState.copy(view = ImportKeyViewState.View.OnSuccess)
         is ImportKeyRenderAction.OnError -> previousState.copy(view = ImportKeyViewState.View.OnError(renderAction.error))
         ImportKeyRenderAction.NavigateToGithubSource -> previousState.copy(view = ImportKeyViewState.View.NavigateToGithubSource)
+        ImportKeyRenderAction.NavigateToSettings -> previousState.copy(view = ImportKeyViewState.View.NavigateToSettings)
     }
 
     private fun importKey(privateKey: String): Observable<ImportKeyRenderAction> {

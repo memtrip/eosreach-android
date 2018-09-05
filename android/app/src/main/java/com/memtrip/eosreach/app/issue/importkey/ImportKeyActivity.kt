@@ -4,11 +4,14 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountIntent
+import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
@@ -32,6 +35,17 @@ abstract class ImportKeyActivity
         supportActionBar!!.title = getString(R.string.issue_import_key_toolbar_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.import_key_menu, menu)
+
+        menu.findItem(R.id.import_key_menu_settings).setOnMenuItemClickListener {
+            model().publish(ImportKeyIntent.NavigateToSettings)
+            true
+        }
+
+        return true
     }
 
     override fun intents(): Observable<ImportKeyIntent> = Observable.merge(
@@ -85,6 +99,11 @@ abstract class ImportKeyActivity
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(
             getString(R.string.issue_import_key_github_source_url)
         )))
+    }
+
+    override fun navigateToSettings() {
+        model().publish(ImportKeyIntent.Init)
+        startActivity(settingsIntent(this))
     }
 
     abstract fun showGithubViewSource(): Boolean

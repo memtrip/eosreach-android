@@ -40,22 +40,6 @@ class AccountActivity
         setSupportActionBar(account_toolbar)
     }
 
-    override fun inject() {
-        AndroidInjection.inject(this)
-    }
-
-    override fun intents(): Observable<AccountIntent> = Observable.mergeArray(
-        Observable.just(AccountIntent.Init(accountExtra(intent))),
-        account_error_view.retryClick().map { AccountIntent.Retry(accountExtra(intent)) },
-        RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList }
-    )
-
-    override fun layout(): AccountViewLayout = this
-
-    override fun model(): AccountViewModel = getViewModel(viewModelFactory)
-
-    override fun render(): AccountViewRenderer = render
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.account_menu, menu)
 
@@ -76,6 +60,22 @@ class AccountActivity
 
         return true
     }
+
+    override fun inject() {
+        AndroidInjection.inject(this)
+    }
+
+    override fun intents(): Observable<AccountIntent> = Observable.mergeArray(
+        Observable.just(AccountIntent.Init(accountExtra(intent))),
+        account_error_view.retryClick().map { AccountIntent.Retry(accountExtra(intent)) },
+        RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList }
+    )
+
+    override fun layout(): AccountViewLayout = this
+
+    override fun model(): AccountViewModel = getViewModel(viewModelFactory)
+
+    override fun render(): AccountViewRenderer = render
 
     override fun showProgress() {
         account_progressbar.visible()

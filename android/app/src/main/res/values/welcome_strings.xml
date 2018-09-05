@@ -6,6 +6,7 @@
 
     <!-- welcome_key_imported -->
     <string name="welcome_key_imported_title">Private key</string>
+    <string name="welcome_key_imported_menu_settings">Settings</string>
     <string name="welcome_key_imported_backup_notice">
         There is no way to recover your private key. We recommend writing this key down on a physical piece
         of paper.

@@ -8,6 +8,7 @@
 
 ### Bugs:
 - Encrypt the private key on the background thread to stop the pause at Import Key
+- A private key should be imported regardless of whether accounts could be found or selected
 
 ### Settings
 - Exchange rate currency
