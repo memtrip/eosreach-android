@@ -9,5 +9,6 @@ data class ViewPrivateKeysViewState(val view: View) : MxViewState {
         object Idle : View()
         data class ShowPrivateKeys(val privateKeys: List<EosPrivateKey>) : View()
         object OnProgress : View()
+        object NoPrivateKeys : View()
     }
 }

@@ -10,11 +10,13 @@ sealed class ViewPrivateKeysRenderAction : MxRenderAction {
     object Idle : ViewPrivateKeysRenderAction()
     data class ShowPrivateKeys(val privateKeys: List<EosPrivateKey>) : ViewPrivateKeysRenderAction()
     object OnProgress : ViewPrivateKeysRenderAction()
+    object NoPrivateKeys : ViewPrivateKeysRenderAction()
 }
 
 interface ViewPrivateKeysViewLayout : MxViewLayout {
     fun showPrivateKeys(privateKeys: List<EosPrivateKey>)
     fun showProgress()
+    fun showNoPrivateKeys()
 }
 
 class ViewPrivateKeysViewRenderer @Inject internal constructor() : MxViewRenderer<ViewPrivateKeysViewLayout, ViewPrivateKeysViewState> {
@@ -26,6 +28,9 @@ class ViewPrivateKeysViewRenderer @Inject internal constructor() : MxViewRendere
         }
         ViewPrivateKeysViewState.View.OnProgress -> {
             layout.showProgress()
+        }
+        ViewPrivateKeysViewState.View.NoPrivateKeys -> {
+            layout.showNoPrivateKeys()
         }
     }
 }

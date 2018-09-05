@@ -83,6 +83,11 @@ class ViewPrivateKeysActivity
         view_private_keys_progressbar.visible()
     }
 
+    override fun showNoPrivateKeys() {
+        view_private_keys_empty.visible()
+        view_private_keys_progressbar.gone()
+    }
+
     companion object {
 
         fun viewPrivateKeysIntent(context: Context): Intent {

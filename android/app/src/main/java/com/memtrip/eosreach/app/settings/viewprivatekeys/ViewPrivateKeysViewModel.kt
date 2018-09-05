@@ -31,6 +31,8 @@ class ViewPrivateKeysViewModel @Inject internal constructor(
             view = ViewPrivateKeysViewState.View.OnProgress)
         is ViewPrivateKeysRenderAction.ShowPrivateKeys -> previousState.copy(
             view = ViewPrivateKeysViewState.View.ShowPrivateKeys(renderAction.privateKeys))
+        ViewPrivateKeysRenderAction.NoPrivateKeys -> previousState.copy(
+            view = ViewPrivateKeysViewState.View.NoPrivateKeys)
     }
 
     override fun filterIntents(intents: Observable<ViewPrivateKeysIntent>): Observable<ViewPrivateKeysIntent> = Observable.merge(
@@ -44,6 +46,7 @@ class ViewPrivateKeysViewModel @Inject internal constructor(
         return keyManager.getPrivateKeys().map<ViewPrivateKeysRenderAction> {
             ViewPrivateKeysRenderAction.ShowPrivateKeys(it)
         }
+            .onErrorReturn { ViewPrivateKeysRenderAction.NoPrivateKeys }
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
             .toObservable()

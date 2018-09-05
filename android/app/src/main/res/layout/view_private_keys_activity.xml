@@ -64,4 +64,18 @@
 
     </ScrollView>
 
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/view_private_keys_empty"
+        style="@style/Typography.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:gravity="center_horizontal"
+        android:text="@string/view_private_keys_empty"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_private_keys_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

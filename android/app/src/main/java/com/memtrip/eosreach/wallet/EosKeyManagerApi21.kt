@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
 import android.os.Build
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
@@ -22,6 +23,7 @@ import javax.crypto.Cipher
 import javax.crypto.CipherInputStream
 import javax.crypto.CipherOutputStream
 import javax.security.auth.x500.X500Principal
+import kotlin.math.sin
 
 @Suppress("DEPRECATION")
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -123,7 +125,12 @@ class EosKeyManagerApi21(
 
     override fun getPrivateKeys(): Single<List<EosPrivateKey>> {
         return Single.create<List<EosPrivateKey>> { single ->
-            single.onSuccess(sharedPreferences.all.entries.map { EosPrivateKey(getPrivateKey(it.key)) })
+            val entries = sharedPreferences.all.entries
+            if (entries.isNotEmpty()) {
+                single.onSuccess(entries.map { EosPrivateKey(getPrivateKey(it.key)) })
+            } else {
+                single.onError(IllegalStateException())
+            }
         }
     }
 

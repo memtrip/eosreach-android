@@ -9,13 +9,4 @@ data class AccountBundle(
     val accountName: String,
     val balance: Double?,
     val symbol: String?
-) : Parcelable {
-
-    fun balance(): Balance? {
-        if (balance != null && symbol != null) {
-            return Balance(balance, symbol)
-        } else {
-            return null
-        }
-    }
-}
+) : Parcelable
