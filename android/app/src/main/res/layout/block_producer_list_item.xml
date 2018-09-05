@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ItemButtonTransparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/padding_large"
+    android:layout_marginTop="@dimen/padding_large"
+    android:layout_marginRight="@dimen/padding_large"
+    android:padding="@dimen/padding_medium"
+    android:clickable="true"
+    android:focusable="true">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/block_producer_list_item_logo"
+        android:layout_width="@dimen/blockproducer_list_item_logo_size"
+        android:layout_height="@dimen/blockproducer_list_item_logo_size"
+        app:placeholderImage="@drawable/app_toolbar_eosio_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/blockproducer_list_item_logo_guideline_margin" />
+Ap
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/block_producer_list_item_account_name"
+        style="@style/Typography.H6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="memtripblock" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/block_producer_list_item_candidate_name"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/block_producer_list_item_account_name"
+        tools:text="memtrip" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

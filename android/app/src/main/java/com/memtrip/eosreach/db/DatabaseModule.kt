@@ -3,6 +3,7 @@ package com.memtrip.eosreach.db
 import android.app.Application
 import androidx.room.Room
 import com.memtrip.eosreach.db.account.AccountDao
+import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,4 +22,8 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun accountDao(appDatabase: AppDatabase): AccountDao = appDatabase.accountDao()
+
+    @Provides
+    @Singleton
+    fun blockProducerDao(appDatabase: AppDatabase): BlockProducerDao = appDatabase.blockProducerDao()
 }

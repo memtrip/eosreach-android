@@ -13,5 +13,6 @@ data class EosEndpointViewState(
         object OnProgress : View()
         data class OnError(val message: String, val unique: Int = id()) : View()
         object OnSuccess : View()
+        object NavigateToBlockProducerList : View()
     }
 }

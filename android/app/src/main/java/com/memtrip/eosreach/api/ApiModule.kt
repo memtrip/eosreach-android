@@ -2,7 +2,9 @@ package com.memtrip.eosreach.api
 
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.memtrip.eos.http.aggregation.transfer.Transfer
+import com.memtrip.eos.http.aggregation.producer.GetBlockProducersAggregate
+
+import com.memtrip.eos.http.aggregation.transfer.TransferAggregate
 import com.memtrip.eos.http.rpc.Api
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
@@ -71,7 +73,13 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun transferAggregate(chainApi: ChainApi): Transfer = Transfer(chainApi)
+    fun transferAggregate(chainApi: ChainApi): TransferAggregate = TransferAggregate(chainApi)
+
+    @JvmStatic
+    @Provides
+    fun getBlockProducersAggregate(chainApi: ChainApi): GetBlockProducersAggregate {
+        return GetBlockProducersAggregate(chainApi)
+    }
 
     @JvmStatic
     @Provides

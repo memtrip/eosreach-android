@@ -7,6 +7,7 @@ import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountModule
 
 import com.memtrip.eosreach.app.accountlist.AccountListModule
+import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListModule
 import com.memtrip.eosreach.app.manage.ManageModule
 import com.memtrip.eosreach.app.price.PriceModule
 import com.memtrip.eosreach.app.settings.SettingsModule
@@ -33,6 +34,7 @@ import javax.inject.Singleton
         PriceModule::class,
         SettingsModule::class,
         AccountListModule::class,
+        BlockProducerListModule::class,
         DatabaseModule::class,
         WalletModule::class,
         ApiModule::class,

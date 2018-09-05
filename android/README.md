@@ -7,6 +7,7 @@
 - clickable background on appropriate fields
 
 ### Bugs:
+- Encrypt the private key on the background thread to stop the pause at Import Key
 
 ### Settings
 - Exchange rate currency

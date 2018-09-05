@@ -1,7 +1,8 @@
 package com.memtrip.eosreach.api.transfer
 
 import com.memtrip.eos.core.crypto.EosPrivateKey
-import com.memtrip.eos.http.aggregation.transfer.Transfer
+
+import com.memtrip.eos.http.aggregation.transfer.TransferAggregate
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.app.price.BalanceParser
@@ -12,7 +13,7 @@ import java.util.Calendar
 import javax.inject.Inject
 
 class TransferRequestImpl @Inject constructor(
-    private val transfer: Transfer,
+    private val transferAggregate: TransferAggregate,
     private val rxSchedulers: RxSchedulers
 ) : TransferRequest {
 
@@ -23,8 +24,8 @@ class TransferRequestImpl @Inject constructor(
         memo: String,
         authorizingPrivateKey: EosPrivateKey
     ): Single<Result<TransferReceipt, TransferError>> {
-        return transfer.transfer(
-            Transfer.Args(
+        return transferAggregate.transfer(
+            TransferAggregate.Args(
                 fromAccount,
                 toAccount,
                 BalanceParser.serializeForEosApiRequest(quantity),

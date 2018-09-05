@@ -29,6 +29,8 @@
             android:name=".app.accountlist.AccountListActivity"
             android:launchMode="singleTop"/>
 
+        <activity android:name=".app.blockproducerlist.BlockProducerListActivity" />
+
         <activity android:name=".app.account.AccountActivity" />
         <activity android:name=".app.account.actions.ActionsActivity" />
         <activity android:name=".app.transfer.form.TransferFormActivity" />

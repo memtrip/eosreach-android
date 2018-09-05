@@ -2,18 +2,16 @@ package com.memtrip.eosreach.app.settings.eosendpoint
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.settings.SettingsActivity
+import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
+import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity.Companion.blockProducerList
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
@@ -42,16 +40,28 @@ class EosEndpointActivity
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == BlockProducerListActivity.RESULT_CODE) {
+            val blockProducerBundle = BlockProducerListActivity.fromIntent(data!!)
+            eos_endpoint_url_input.setText(blockProducerBundle.apiUrl, TextView.BufferType.EDITABLE)
+            model().publish(EosEndpointIntent.ChangeEndpoint(blockProducerBundle.apiUrl))
+        }
+    }
+
     override fun inject() {
         AndroidInjection.inject(this)
     }
 
     override fun intents(): Observable<EosEndpointIntent> = Observable.merge(
-        RxView.clicks(eos_endpoint_change_button),
-        RxTextView.editorActions(eos_endpoint_url_input)
-    ).map {
-        EosEndpointIntent.ChangeEndpoint(eos_endpoint_url_input.text.toString())
-    }
+        Observable.merge(
+            RxView.clicks(eos_endpoint_change_button),
+            RxTextView.editorActions(eos_endpoint_url_input)
+        ).map {
+            EosEndpointIntent.ChangeEndpoint(eos_endpoint_url_input.text.toString())
+        },
+        RxView.clicks(eos_endpoint_block_producer).map { EosEndpointIntent.NavigateToBlockProducerList }
+    )
 
     override fun layout(): EosEndpointViewLayout = this
 
@@ -97,6 +107,11 @@ class EosEndpointActivity
             }
             .create()
             .show()
+    }
+
+    override fun navigateToBlockProducerList() {
+        model().publish(EosEndpointIntent.Idle)
+        startActivityForResult(blockProducerList(this), BlockProducerListActivity.RESULT_CODE)
     }
 
     companion object {

@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/account_list_appbarlayout"
+        android:id="@+id/blockproducer_list_appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent">
@@ -21,16 +21,15 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/accounts_list_logo_container_size"
+                android:layout_height="@dimen/blockproducer_list_logo_container_size"
                 app:layout_collapseMode="parallax"
                 tools:ignore="UselessLeaf" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/account_list_toolbar"
+                android:id="@+id/blockproducer_list_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:visibility="gone"
                 app:layout_collapseMode="pin">
 
                 <com.memtrip.eosreach.brand.ReachTextView
@@ -38,12 +37,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_medium"
-                    android:paddingStart="@dimen/padding_medium"
-                    android:paddingEnd="@dimen/padding_large"
                     android:drawableStart="@drawable/app_toolbar_eosio_logo"
                     android:drawablePadding="@dimen/padding_medium"
                     android:textStyle="bold"
-                    android:text="@string/accounts_list_accounts_title" />
+                    android:text="@string/blockproducer_list_toolbar_title" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -51,16 +48,25 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.memtrip.eosreach.uikit.ErrorCompositeView
+        android:id="@+id/blockproducer_list_error_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_large"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
     <ProgressBar
-        android:id="@+id/account_list_progressbar"
+        android:id="@+id/blockproducer_list_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/account_list_recyclerview"
+        android:id="@+id/blockproducer_list_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:visibility="visible" />

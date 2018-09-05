@@ -10,6 +10,7 @@ sealed class EosEndpointRenderAction : MxRenderAction {
     object OnProgress : EosEndpointRenderAction()
     data class OnError(val message: String) : EosEndpointRenderAction()
     object OnSuccess : EosEndpointRenderAction()
+    object NavigateToBlockProducerList : EosEndpointRenderAction()
 }
 
 interface EosEndpointViewLayout : MxViewLayout {
@@ -17,6 +18,7 @@ interface EosEndpointViewLayout : MxViewLayout {
     fun showError(message: String)
     fun currentUrl(url: String)
     fun onSuccess()
+    fun navigateToBlockProducerList()
 }
 
 class EosEndpointViewRenderer @Inject internal constructor() : MxViewRenderer<EosEndpointViewLayout, EosEndpointViewState> {
@@ -36,6 +38,9 @@ class EosEndpointViewRenderer @Inject internal constructor() : MxViewRenderer<Eo
         }
         EosEndpointViewState.View.OnSuccess -> {
             layout.onSuccess()
+        }
+        EosEndpointViewState.View.NavigateToBlockProducerList -> {
+            layout.navigateToBlockProducerList()
         }
     }
 }

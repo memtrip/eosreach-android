@@ -63,6 +63,16 @@
         app:layout_constraintTop_toBottomOf="@+id/eos_endpoint_current_url_value"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"/>
 
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/eos_endpoint_block_producer"
+        style="@style/ButtonTransparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/eos_endpoint_pick_from_blockproducer"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/eos_endpoint_url_input" />
+
     <ProgressBar
         android:id="@+id/eos_endpoint_progress"
         android:layout_width="wrap_content"

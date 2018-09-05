@@ -2,6 +2,8 @@ package com.memtrip.eosreach.app
 
 import android.app.Activity
 import androidx.fragment.app.Fragment
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
@@ -27,6 +29,10 @@ abstract class BaseEosReachApplication : DaggerApplication(), HasSupportFragment
         if (LeakCanary.isInAnalyzerProcess(this)) { return }
 
         LeakCanary.install(this)
+
+        Fresco.initialize(this)
+
+        AndroidThreeTen.init(this)
 
         super.onCreate()
     }
