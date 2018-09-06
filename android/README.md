@@ -7,7 +7,6 @@
 - Vote for block producer screen
     - a request for the user to vote for memtrip should be at the top
 - Why are actions not being displayed properly?
-- Add action incoming and outgoing icons
 - Fix select account
 - Implement the create account api 
 - Integrate with create account api with the app
