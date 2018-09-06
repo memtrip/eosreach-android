@@ -40,6 +40,13 @@ class AccountActivity
         setSupportActionBar(account_toolbar)
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        if (intent != null) {
+            model().publish(AccountIntent.Retry(accountExtra(intent)))
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.account_menu, menu)
 
