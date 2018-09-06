@@ -1,9 +1,5 @@
 ### TODO:
-- remove the homeUp finish from mxandroid
-- remove the navigation components and args plugin
-- Symbol should be nullable in GetCurrencyBalance
 - Symbol should be inferred by blockchain requests and not hard coded
-- System resources should be scrollable 
 - pull to refresh on each data screen
 - View action screen
 - When a transaction fails a dialog option should navigate the user to a Log activity 
@@ -16,6 +12,10 @@
 - Integrate with create account api with the app
 - Integrate the create account api with Google play store items
 - airdropped tokens?
+
+### Clean up
+- remove the homeUp finish from mxandroid
+- remove the navigation components and args plugin
 
 ### Backlog
 - Buy resources
