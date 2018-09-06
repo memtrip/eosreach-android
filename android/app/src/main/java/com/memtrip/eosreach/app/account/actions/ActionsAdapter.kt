@@ -32,8 +32,17 @@ class AccountActionsViewHolder(itemView: View) : SimpleAdapterViewHolder<Account
         itemView.account_actions_list_item_interaction_account_name.text = value.interactionAccountName
         itemView.account_actions_list_item_date_created.text = value.date.fullDate()
 
+        if (value.outgoing) {
+            itemView.account_actions_list_item_icon.setImageDrawable(
+                itemView.context.getDrawable(R.drawable.account_actions_list_item_out_ic))
+        } else {
+            itemView.account_actions_list_item_icon.setImageDrawable(
+                itemView.context.getDrawable(R.drawable.account_actions_list_item_in_ic))
+        }
+
         when (value) {
             is TransferAccountAction -> {
+
             }
         }
     }

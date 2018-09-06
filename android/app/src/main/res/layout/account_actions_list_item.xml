@@ -10,7 +10,10 @@
     android:layout_marginLeft="@dimen/padding_large"
     android:layout_marginTop="@dimen/padding_large"
     android:layout_marginRight="@dimen/padding_large"
-    android:padding="@dimen/padding_medium"
+    android:paddingStart="@dimen/padding_medium"
+    android:paddingTop="@dimen/padding_medium"
+    android:paddingEnd="@dimen/padding_medium"
+    android:paddingBottom="@dimen/padding_medium_large"
     android:clickable="true"
     android:focusable="true">
 
@@ -19,22 +22,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="72dp" />
+        app:layout_constraintGuide_begin="@dimen/account_actions_icon_guideline" />
 
     <ImageView
         android:id="@+id/account_actions_list_item_icon"
         android:layout_width="@dimen/account_actions_icon_size"
         android:layout_height="@dimen/account_actions_icon_size"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding_tiny"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        tools:background="#FF0000"
         tools:ignore="ContentDescription" />
 
     <com.memtrip.eosreach.brand.ReachTextView
-        style="@style/Typography.H6"
+        style="@style/Typography.Medium"
         android:id="@+id/account_actions_list_item_interaction_account_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         tools:text="memtripissue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
@@ -45,7 +52,6 @@
         style="@style/Typography.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/account_actions_list_item_interaction_account_name"

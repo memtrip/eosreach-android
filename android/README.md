@@ -1,6 +1,7 @@
 ### TODO:
 - Symbol should be inferred by blockchain requests and not hard coded
 - pull to refresh on each data screen
+- Refresh on accounts list
 - View action screen
 - When a transaction fails a dialog option should navigate the user to a Log activity 
 - Vote for block producer screen
