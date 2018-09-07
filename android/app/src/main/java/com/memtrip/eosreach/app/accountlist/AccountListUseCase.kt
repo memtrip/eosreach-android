@@ -25,6 +25,8 @@ class AccountListUseCase @Inject internal constructor(
                 } else {
                     Single.error(RefreshAccountsFailed())
                 }
+            }.onErrorResumeNext {
+                Single.error(RefreshAccountsFailed())
             }.flatMapCompletable { accountsForPublicKey ->
                 insertAccountsForPublicKey.replace(
                     accountsForPublicKey.publicKey,

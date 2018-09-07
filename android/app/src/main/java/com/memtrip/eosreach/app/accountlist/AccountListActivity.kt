@@ -24,7 +24,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.accounts_list_activity.*
 import javax.inject.Inject
 
-internal class AccountListActivity
+class AccountListActivity
     : MviActivity<AccountListIntent, AccountListRenderAction, AccountListViewState, AccountListViewLayout>(), AccountListViewLayout {
 
     @Inject
@@ -38,6 +38,8 @@ internal class AccountListActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.accounts_list_activity)
+
+        setSupportActionBar(account_list_toolbar)
 
         val adapterInteraction: PublishSubject<Interaction<AccountEntity>> = PublishSubject.create()
         adapter = AccountListAdapter(this, adapterInteraction)

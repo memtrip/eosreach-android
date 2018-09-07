@@ -10,8 +10,8 @@ abstract class AccountAction(
     val transactionId: String = action.action_trace.trx_id,
     private val receiverAccountName: String = action.action_trace.receipt.receiver,
     private val senderAccountName: String = action.action_trace.act.account,
-    val outgoing: Boolean = (senderAccountName == accountName),
-    val interactionAccountName: String = if (outgoing) senderAccountName else receiverAccountName,
+    val incoming: Boolean = (receiverAccountName == accountName),
+    val interactionAccountName: String = if (incoming) senderAccountName else receiverAccountName,
     val actionType: String = action.action_trace.act.name,
     val actionData: Map<String, Any> = action.action_trace.act.data,
     val date: LocalDateTime = action.block_time
