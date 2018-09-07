@@ -30,7 +30,7 @@
     <string name="eos_endpoint_toolbar_title">Change EOS endpoint</string>
     <string name="eos_endpoint_url_label">Current EOS Endpoint</string>
     <string name="eos_endpoint_url_hint">Enter a new endpoint URL</string>
-    <string name="eos_endpoint_pick_from_blockproducer">Choose URL by block producer</string>
+    <string name="eos_endpoint_pick_from_blockproducer">Choose block producer</string>
     <string name="eos_endpoint_change_button">Change endpoint</string>
     <string name="eos_endpoint_validation_generic">
         The endpoint URL could not be reached, please check your connection and try again.

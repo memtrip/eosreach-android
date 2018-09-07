@@ -5,6 +5,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.memtrip.eos.http.aggregation.producer.GetBlockProducersAggregate
 
 import com.memtrip.eos.http.aggregation.transfer.TransferAggregate
+import com.memtrip.eos.http.aggregation.vote.VoteAggregate
 import com.memtrip.eos.http.rpc.Api
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
@@ -80,6 +81,10 @@ internal object ApiModule {
     fun getBlockProducersAggregate(chainApi: ChainApi): GetBlockProducersAggregate {
         return GetBlockProducersAggregate(chainApi)
     }
+
+    @JvmStatic
+    @Provides
+    fun voteAggregate(chainApi: ChainApi): VoteAggregate = VoteAggregate(chainApi)
 
     @JvmStatic
     @Provides

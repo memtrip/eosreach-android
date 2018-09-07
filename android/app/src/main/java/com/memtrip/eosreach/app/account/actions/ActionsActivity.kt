@@ -3,6 +3,7 @@ package com.memtrip.eosreach.app.account.actions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.actions.AccountActionList
@@ -13,6 +14,8 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.transfer.form.TransferFormActivity.Companion.transferFormIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.startRefreshing
+import com.memtrip.eosreach.uikit.stopRefreshing
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -53,7 +56,7 @@ class ActionsActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<ActionsIntent> = Observable.merge(
+    override fun intents(): Observable<ActionsIntent> = Observable.mergeArray(
         Observable.just(ActionsIntent.Init(contractAccountBalance)),
         account_actions_error_view.retryClick().map {
             ActionsIntent.Retry(contractAccountBalance)
@@ -63,6 +66,9 @@ class ActionsActivity
         },
         RxView.clicks(account_actions_send).map {
             ActionsIntent.NavigateToTransfer(contractAccountBalance)
+        },
+        RxSwipeRefreshLayout.refreshes(account_actions_list_swiperefresh).map {
+            ActionsIntent.Retry(contractAccountBalance)
         }
     )
 
@@ -73,23 +79,25 @@ class ActionsActivity
     override fun render(): ActionsViewRenderer = render
 
     override fun showProgress() {
-        account_actions_progress.visible()
+        account_actions_list_swiperefresh.startRefreshing()
         account_actions_error_view.gone()
+        account_actions_list_recyclerview.gone()
     }
 
     override fun showActions(accountActionList: AccountActionList) {
-        account_actions_progress.gone()
         account_actions_list_recyclerview.visible()
+        account_actions_list_swiperefresh.stopRefreshing()
+        adapter.clear()
         adapter.populate(accountActionList.actions)
     }
 
     override fun showNoActions() {
-        account_actions_progress.gone()
+        account_actions_list_swiperefresh.stopRefreshing()
         account_actions_no_results_label.visible()
     }
 
     override fun showError() {
-        account_actions_progress.gone()
+        account_actions_list_swiperefresh.stopRefreshing()
         account_actions_error_view.visible()
         account_actions_error_view.populate(
             getString(R.string.account_actions_generic_error_title),

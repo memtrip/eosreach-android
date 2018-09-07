@@ -10,6 +10,7 @@
     <string name="account_available_balance">Available Balance</string>
     <string name="account_page_balance">Balance</string>
     <string name="account_page_resources">Resources</string>
+    <string name="account_page_vote">Vote</string>
     <string name="account_error_get_account_title">Failed to fetch account</string>
     <string name="account_error_get_account_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
     <string name="account_error_get_balances_title">Failed to fetch account balances</string>
@@ -44,5 +45,15 @@
 
     <string name="account_actions_send">Transfer</string>
     <string name="account_actions_no_results_body">This account does not have any actions.</string>
+
+    <!-- vote -->
+    <string name="vote_cast_vote_button">Cast / Proxy vote</string>
+
+    <string name="cast_vote_block_producer_name_hint">Enter block producer name</string>
+    <string name="cast_vote_pick_from_blockproducer">Choose block producer</string>
+    <string name="cast_vote_button">Vote</string>
+    <string name="cast_vote_error_message">
+        An error occurred while processing your vote transaction, see the log for more information.
+    </string>
 
 </resources>

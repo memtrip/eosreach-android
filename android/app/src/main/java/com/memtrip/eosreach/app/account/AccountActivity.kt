@@ -105,7 +105,7 @@ class AccountActivity
             this,
             accountView)
         account_viewpager.adapter = accountPagerFragment
-        account_viewpager.offscreenPageLimit = 2
+        account_viewpager.offscreenPageLimit = 3
         account_tablayout.setupWithViewPager(account_viewpager)
 
         account_viewpager.visible()

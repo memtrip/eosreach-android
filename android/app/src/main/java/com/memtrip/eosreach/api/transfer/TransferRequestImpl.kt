@@ -7,7 +7,7 @@ import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.eosreach.utils.RxSchedulers
-import com.memtrip.eosreach.utils.toLocalDateTime
+import com.memtrip.eosreach.utils.transactionExpiry
 import io.reactivex.Single
 import java.util.Calendar
 import javax.inject.Inject
@@ -32,7 +32,7 @@ class TransferRequestImpl @Inject constructor(
                 memo,
                 fromAccount,
                 authorizingPrivateKey,
-                Calendar.getInstance().toLocalDateTime()
+                Calendar.getInstance().transactionExpiry()
             )
         ).map { response ->
             if (response.isSuccessful) {

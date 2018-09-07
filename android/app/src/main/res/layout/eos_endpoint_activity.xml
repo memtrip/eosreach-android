@@ -64,7 +64,7 @@
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        android:id="@+id/eos_endpoint_block_producer"
+        android:id="@+id/account_cast_vote_endpoint_block_producer"
         style="@style/ButtonTransparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

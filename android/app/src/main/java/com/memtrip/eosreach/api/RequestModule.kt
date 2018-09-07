@@ -14,6 +14,8 @@ import com.memtrip.eosreach.api.eosprice.EosPriceRequest
 import com.memtrip.eosreach.api.eosprice.EosPriceRequestImpl
 import com.memtrip.eosreach.api.transfer.TransferRequest
 import com.memtrip.eosreach.api.transfer.TransferRequestImpl
+import com.memtrip.eosreach.api.vote.VoteRequest
+import com.memtrip.eosreach.api.vote.VoteRequestImp
 import dagger.Binds
 import dagger.Module
 
@@ -44,6 +46,11 @@ internal abstract class RequestModule {
     internal abstract fun bindTransferRequest(
         transferRequest: TransferRequestImpl
     ): TransferRequest
+
+    @Binds
+    internal abstract fun bindVoteRequest(
+        transferRequest: VoteRequestImp
+    ): VoteRequest
 
     @Binds
     internal abstract fun bindBlockProducerRequest(
