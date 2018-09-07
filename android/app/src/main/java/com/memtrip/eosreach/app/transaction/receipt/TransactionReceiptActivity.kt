@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.transfer.receipt
+package com.memtrip.eosreach.app.transaction.receipt
 
 import android.content.Context
 import android.content.Intent
@@ -14,8 +14,8 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class TransferReceiptActivity
-    : MviActivity<TransferReceiptIntent, TransferReceiptRenderAction, TransferReceiptViewState, TransferReceiptViewLayout>(), TransferReceiptViewLayout {
+class TransactionReceiptActivity
+    : MviActivity<TransactionReceiptIntent, TransferReceiptRenderAction, TransactionReceiptViewState, TransferReceiptViewLayout>(), TransferReceiptViewLayout {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -25,18 +25,18 @@ class TransferReceiptActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.transfer_receipt_activity)
+        setContentView(R.layout.transaction_receipt_activity)
     }
 
     override fun inject() {
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<TransferReceiptIntent> = Observable.empty()
+    override fun intents(): Observable<TransactionReceiptIntent> = Observable.empty()
 
     override fun layout(): TransferReceiptViewLayout = this
 
-    override fun model(): TransferReceiptViewModel = getViewModel(viewModelFactory)
+    override fun model(): TransactionReceiptViewModel = getViewModel(viewModelFactory)
 
     override fun render(): TransferReceiptViewRenderer = render
 
@@ -52,8 +52,8 @@ class TransferReceiptActivity
 
         private const val TRANSFER_RECEIPT = "TRANSFER_RECEIPT"
 
-        fun transferReceiptIntent(transferReceipt: TransferReceipt, context: Context): Intent {
-            return with (Intent(context, TransferReceiptActivity::class.java)) {
+        fun transactionReceiptIntent(transferReceipt: TransferReceipt, context: Context): Intent {
+            return with (Intent(context, TransactionReceiptActivity::class.java)) {
                 putExtra(TRANSFER_RECEIPT, transferReceipt)
                 addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
                 this

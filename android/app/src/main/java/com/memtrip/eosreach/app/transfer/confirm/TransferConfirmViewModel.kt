@@ -16,11 +16,15 @@ class TransferConfirmViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: TransferConfirmIntent): Observable<TransferConfirmRenderAction> = when (intent) {
+        TransferConfirmIntent.Idle -> Observable.just(TransferConfirmRenderAction.Idle)
         is TransferConfirmIntent.Init -> Observable.just(TransferConfirmRenderAction.Populate(intent.transferFormData))
         is TransferConfirmIntent.Transfer -> transfer(intent.transferRequestData)
+        is TransferConfirmIntent.ViewLog -> Observable.just(TransferConfirmRenderAction.ViewLog(intent.log))
     }
 
     override fun reducer(previousState: TransferConfirmViewState, renderAction: TransferConfirmRenderAction): TransferConfirmViewState = when (renderAction) {
+        TransferConfirmRenderAction.Idle -> previousState.copy(
+            view = TransferConfirmViewState.View.Idle)
         is TransferConfirmRenderAction.Populate -> previousState.copy(
             view = TransferConfirmViewState.View.Populate(renderAction.transferFormData))
         TransferConfirmRenderAction.OnProgress -> previousState.copy(
@@ -29,6 +33,8 @@ class TransferConfirmViewModel @Inject internal constructor(
             view = TransferConfirmViewState.View.OnError(renderAction.message, renderAction.log))
         is TransferConfirmRenderAction.OnSuccess -> previousState.copy(
             view = TransferConfirmViewState.View.OnSuccess(renderAction.transferReceipt))
+        is TransferConfirmRenderAction.ViewLog -> previousState.copy(
+            view = TransferConfirmViewState.View.ViewLog(renderAction.log))
     }
 
     override fun filterIntents(intents: Observable<TransferConfirmIntent>): Observable<TransferConfirmIntent> = Observable.merge(

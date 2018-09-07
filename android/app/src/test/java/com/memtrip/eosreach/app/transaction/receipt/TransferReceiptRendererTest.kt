@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.transfer.receipt
+package com.memtrip.eosreach.app.transaction.receipt
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -19,7 +19,7 @@ class TransferReceiptRendererTest : Spek({
         val renderer by memoized { TransferReceiptViewRenderer() }
 
         on("ViewState is not initialized") {
-            renderer.layout(layout, TransferReceiptViewState(TransferReceiptViewState.View.OnProgress))
+            renderer.layout(layout, TransactionReceiptViewState(TransactionReceiptViewState.View.OnProgress))
 
             it("shows the Progress") {
                 verify(layout).showProgress()
@@ -27,7 +27,7 @@ class TransferReceiptRendererTest : Spek({
         }
 
         on("ViewState is initialized") {
-            renderer.layout(layout, TransferReceiptViewState(TransferReceiptViewState.View.OnError))
+            renderer.layout(layout, TransactionReceiptViewState(TransactionReceiptViewState.View.OnError))
 
             it("hides the Progress") {
                 verify(layout).showError()

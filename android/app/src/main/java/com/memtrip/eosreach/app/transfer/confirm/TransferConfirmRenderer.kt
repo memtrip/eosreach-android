@@ -9,10 +9,12 @@ import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class TransferConfirmRenderAction : MxRenderAction {
+    object Idle : TransferConfirmRenderAction()
     data class Populate(val transferFormData: TransferFormData) : TransferConfirmRenderAction()
     object OnProgress : TransferConfirmRenderAction()
     data class OnError(val message: String, val log: String) : TransferConfirmRenderAction()
     data class OnSuccess(val transferReceipt: TransferReceipt) : TransferConfirmRenderAction()
+    data class ViewLog(val log: String) : TransferConfirmRenderAction()
 }
 
 interface TransferConfirmViewLayout : MxViewLayout {
@@ -20,6 +22,7 @@ interface TransferConfirmViewLayout : MxViewLayout {
     fun showProgress()
     fun onSuccess(transferReceipt: TransferReceipt)
     fun showError(message: String, log: String)
+    fun viewLog(log: String)
 }
 
 class TransferConfirmViewRenderer @Inject internal constructor() : MxViewRenderer<TransferConfirmViewLayout, TransferConfirmViewState> {
@@ -37,6 +40,9 @@ class TransferConfirmViewRenderer @Inject internal constructor() : MxViewRendere
         }
         is TransferConfirmViewState.View.OnError -> {
             layout.showError(state.view.message, state.view.log)
+        }
+        is TransferConfirmViewState.View.ViewLog -> {
+            layout.viewLog(state.view.log)
         }
     }
 }

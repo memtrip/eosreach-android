@@ -13,5 +13,6 @@ data class TransferConfirmViewState(val view: View) : MxViewState {
         object OnProgress : View()
         data class OnSuccess(val transferReceipt: TransferReceipt) : View()
         data class OnError(val message: String, val log: String) : View()
+        data class ViewLog(val log: String) : View()
     }
 }

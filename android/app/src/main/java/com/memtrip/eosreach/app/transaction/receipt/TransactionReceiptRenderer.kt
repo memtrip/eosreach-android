@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.transfer.receipt
+package com.memtrip.eosreach.app.transaction.receipt
 
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
@@ -15,14 +15,14 @@ interface TransferReceiptViewLayout : MxViewLayout {
     fun showError()
 }
 
-class TransferReceiptViewRenderer @Inject internal constructor() : MxViewRenderer<TransferReceiptViewLayout, TransferReceiptViewState> {
-    override fun layout(layout: TransferReceiptViewLayout, state: TransferReceiptViewState): Unit = when (state.view) {
-        TransferReceiptViewState.View.Idle -> {
+class TransferReceiptViewRenderer @Inject internal constructor() : MxViewRenderer<TransferReceiptViewLayout, TransactionReceiptViewState> {
+    override fun layout(layout: TransferReceiptViewLayout, state: TransactionReceiptViewState): Unit = when (state.view) {
+        TransactionReceiptViewState.View.Idle -> {
         }
-        TransferReceiptViewState.View.OnProgress -> {
+        TransactionReceiptViewState.View.OnProgress -> {
             layout.showProgress()
         }
-        TransferReceiptViewState.View.OnError -> {
+        TransactionReceiptViewState.View.OnError -> {
             layout.showError()
         }
     }

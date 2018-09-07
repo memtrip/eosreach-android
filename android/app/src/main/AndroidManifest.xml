@@ -35,7 +35,9 @@
         <activity android:name=".app.account.actions.ActionsActivity" />
         <activity android:name=".app.transfer.form.TransferFormActivity" />
         <activity android:name=".app.transfer.confirm.TransferConfirmActivity" />
-        <activity android:name=".app.transfer.receipt.TransferReceiptActivity" />
+
+        <activity android:name=".app.transaction.log.TransactionLogActivity" />
+        <activity android:name=".app.transaction.receipt.TransactionReceiptActivity" />
 
         <activity android:name=".app.manage.ManageCreateAccountActivity" />
         <activity android:name=".app.manage.ManageImportKeyActivity" />

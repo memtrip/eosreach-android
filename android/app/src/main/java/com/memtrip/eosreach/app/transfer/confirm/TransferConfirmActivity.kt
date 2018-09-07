@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.transfer.confirm
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 
@@ -14,10 +15,11 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 
 import com.memtrip.eosreach.app.transfer.form.TransferFormData
-import com.memtrip.eosreach.app.transfer.receipt.TransferReceiptActivity.Companion.transferReceiptIntent
+import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import com.memtrip.eosreach.app.price.BalanceParser
+import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.uikit.invisible
 import dagger.android.AndroidInjection
 
@@ -88,26 +90,30 @@ class TransferConfirmActivity
     override fun showProgress() {
         transfer_confirm_progress.visible()
         transfer_confirm_confirm_button.invisible()
-        transfer_confirm_error_log_scrollview.gone()
-        transfer_confirm_error_log.text = ""
     }
 
     override fun onSuccess(transferReceipt: TransferReceipt) {
-        startActivity(transferReceiptIntent(TransferReceipt(transferReceipt.transactionId), this))
+        startActivity(transactionReceiptIntent(TransferReceipt(transferReceipt.transactionId), this))
         finish()
     }
 
     override fun showError(message: String, log: String) {
         AlertDialog.Builder(this)
             .setMessage(message)
-            .setPositiveButton(R.string.app_dialog_positive_button, null)
+            .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
+                model().publish(TransferConfirmIntent.ViewLog(log))
+            }
+            .setNegativeButton(R.string.transaction_view_log_negative_button, null)
             .create()
             .show()
 
         transfer_confirm_progress.gone()
         transfer_confirm_confirm_button.visible()
-        transfer_confirm_error_log_scrollview.visible()
-        transfer_confirm_error_log.text = log
+    }
+
+    override fun viewLog(log: String) {
+        model().publish(TransferConfirmIntent.Idle)
+        startActivity(transactionLogIntent(log, this))
     }
 
     companion object {

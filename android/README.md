@@ -12,6 +12,7 @@
 - Integrate with create account api with the app
 - Integrate the create account api with Google play store items
 - airdropped tokens?
+- Fix the design of the transfer confirmation screen
 
 ### Clean up
 - remove the homeUp finish from mxandroid

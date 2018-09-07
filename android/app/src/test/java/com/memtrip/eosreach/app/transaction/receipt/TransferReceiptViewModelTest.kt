@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.transfer.receipt
+package com.memtrip.eosreach.app.transaction.receipt
 
 import com.nhaarman.mockito_kotlin.mock
 
@@ -16,19 +16,19 @@ class TransferReceiptViewModelTest : Spek({
 
     given("a TransferReceiptViewModel") {
 
-        val viewModel by memoized { TransferReceiptViewModel(mock()) }
+        val viewModel by memoized { TransactionReceiptViewModel(mock()) }
 
         on("init") {
 
             val state = viewModel.states().test()
 
-            viewModel.processIntents(Observable.just(TransferReceiptIntent.Init))
+            viewModel.processIntents(Observable.just(TransactionReceiptIntent.Init))
 
             it("emits initialized ViewState") {
                 val states = state.values()
                 assertThat(states.size).isEqualTo(2)
-                assertThat(states[0]).isEqualTo(TransferReceiptViewState(TransferReceiptViewState.View.Idle))
-                assertThat(states[1]).isEqualTo(TransferReceiptState(TransferReceiptViewState.View.OnProgress))
+                assertThat(states[0]).isEqualTo(TransactionReceiptViewState(TransactionReceiptViewState.View.Idle))
+                assertThat(states[1]).isEqualTo(TransferReceiptState(TransactionReceiptViewState.View.OnProgress))
             }
         }
     }

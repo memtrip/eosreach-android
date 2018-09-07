@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transaction_toolbar_title">Transaction Log</string>
+    <string name="transaction_view_log_position_button">View log</string>
+    <string name="transaction_view_log_negative_button">Cancel</string>
+</resources>
