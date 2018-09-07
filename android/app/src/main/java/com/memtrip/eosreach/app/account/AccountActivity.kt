@@ -144,8 +144,8 @@ class AccountActivity
 
     override fun navigateToAccountList() {
         model().publish(AccountIntent.Idle)
-        val intent = accountListIntent(this)
-        startActivity(intent)
+        startActivity(accountListIntent(this))
+        finish()
     }
 
     override fun navigateToImportKey() {
@@ -170,7 +170,6 @@ class AccountActivity
         fun accountIntent(accountBundle: AccountBundle, context: Context): Intent {
             return with (Intent(context, AccountActivity::class.java)) {
                 putExtra(ACCOUNT_EXTRA, accountBundle)
-                flags = FLAG_ACTIVITY_SINGLE_TOP or FLAG_ACTIVITY_CLEAR_TOP
                 this
             }
         }

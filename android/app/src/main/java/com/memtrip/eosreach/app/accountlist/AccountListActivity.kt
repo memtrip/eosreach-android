@@ -96,6 +96,7 @@ class AccountListActivity
         model().publish(AccountListIntent.Idle)
         val intent = accountIntent(accountBundle, this)
         startActivity(intent)
+        finish()
     }
 
     companion object {
