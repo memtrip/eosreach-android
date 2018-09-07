@@ -33,6 +33,8 @@ class TransferUseCase @Inject internal constructor(
                     quantity,
                     memo,
                     privateKey)
+            }.onErrorReturn {
+                Result(TransferError(it.message!!))
             }
         }
     }

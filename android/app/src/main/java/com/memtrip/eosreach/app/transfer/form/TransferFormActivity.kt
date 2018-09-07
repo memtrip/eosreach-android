@@ -20,6 +20,9 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.transfer_form_activity.*
 import javax.inject.Inject
+import android.text.InputFilter
+
+
 
 class TransferFormActivity
     : MviActivity<TransferFormIntent, TransferFormRenderAction, TransferFormViewState, TransferFormViewLayout>(), TransferFormViewLayout {
@@ -38,7 +41,9 @@ class TransferFormActivity
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         account_transfer_username_input.filters = arrayOf(AccountNameInputFilter())
-        account_transfer_amount.filters = arrayOf(CurrencyFormatInputFilter())
+        account_transfer_amount.filters = arrayOf(
+            CurrencyFormatInputFilter(),
+            InputFilter.LengthFilter(resources.getInteger(R.integer.transfer_amount_length)))
     }
 
     override fun inject() {

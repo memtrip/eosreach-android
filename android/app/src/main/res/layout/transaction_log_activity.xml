@@ -12,8 +12,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/transaction_log_data"
+    <ScrollView
         style="@style/Typography.Data"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -21,6 +20,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transaction_log_toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/transaction_log_data"
+            style="@style/Typography.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/typographyColorInverse"
+            android:textIsSelectable="true"/>
+
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

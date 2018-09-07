@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ViewFormSpacer">
+        <item name="android:layout_marginStart">@dimen/padding_medium</item>
+        <item name="android:layout_marginTop">@dimen/padding_medium</item>
+        <item name="android:layout_marginEnd">@dimen/padding_medium</item>
+        <item name="android:background">@color/typographyColorDataBorder</item>
+        <item name="android:minHeight">1dp</item>
+    </style>
+
+</resources>

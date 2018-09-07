@@ -46,6 +46,8 @@ class AccountUseCase @Inject internal constructor(
             } else {
                 Single.just(AccountView.error(AccountView.Error.FetchingAccount))
             }
+        }.onErrorReturn {
+            AccountView.error(AccountView.Error.FetchingAccount)
         }
     }
 }

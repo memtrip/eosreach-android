@@ -11,6 +11,7 @@ import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListModule
 import com.memtrip.eosreach.app.manage.ManageModule
 import com.memtrip.eosreach.app.price.PriceModule
 import com.memtrip.eosreach.app.settings.SettingsModule
+import com.memtrip.eosreach.app.transaction.TransactionModule
 import com.memtrip.eosreach.app.transfer.TransferModule
 import com.memtrip.eosreach.app.welcome.WelcomeModule
 import com.memtrip.eosreach.db.DatabaseModule
@@ -31,6 +32,7 @@ import javax.inject.Singleton
         AccountModule::class,
         ManageModule::class,
         TransferModule::class,
+        TransactionModule::class,
         PriceModule::class,
         SettingsModule::class,
         AccountListModule::class,

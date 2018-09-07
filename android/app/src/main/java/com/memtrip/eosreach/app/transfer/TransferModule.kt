@@ -18,8 +18,4 @@ abstract class TransferModule {
 
     @ContributesAndroidInjector(modules = [TransferConfirmActivityModule::class])
     internal abstract fun contributeTransferConfirmActivity(): TransferConfirmActivity
-
-
-    @ContributesAndroidInjector(modules = [TransactionReceiptActivityModule::class])
-    internal abstract fun contributeTransferReceiptActivity(): TransactionReceiptActivity
 }

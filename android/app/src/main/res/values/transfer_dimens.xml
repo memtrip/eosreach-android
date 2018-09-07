@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="transfer_form_memo_height">84dp</dimen>
+    <dimen name="transfer_form_memo_label_height">108dp</dimen>
+
+</resources>

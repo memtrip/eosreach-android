@@ -6,7 +6,7 @@ import java.util.regex.Pattern
 
 class AccountNameInputFilter : InputFilter {
 
-    private val pattern = Pattern.compile("^[A-Za-z0-5]+\$")!!
+    private val pattern = Pattern.compile("^[A-Za-z1-5]+\$")!!
 
     override fun filter(
         source: CharSequence,
@@ -19,7 +19,9 @@ class AccountNameInputFilter : InputFilter {
 
         val result = "${dest.subSequence(0, dstart)}$source${dest.subSequence(dend, dest.length)}"
 
-        return if (!pattern.matcher(result).matches()) {
+        return if (source.isEmpty()) {
+            null
+        } else if (!pattern.matcher(result).matches()) {
             dest.subSequence(dstart, dend)
         } else {
             null

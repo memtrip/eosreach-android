@@ -2,6 +2,7 @@
 <resources>
 
     <integer name="transfer_username_length">12</integer>
+    <integer name="transfer_amount_length">11</integer>
     <integer name="transfer_memo_length">256</integer>
 
 </resources>

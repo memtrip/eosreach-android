@@ -12,11 +12,13 @@
 - Integrate with create account api with the app
 - Integrate the create account api with Google play store items
 - airdropped tokens?
-- Fix the design of the transfer confirmation screen
+- Store transaction receipts in a database
+- View a list of transaction receipts in settings
 
 ### Clean up
 - remove the homeUp finish from mxandroid
 - remove the navigation components and args plugin
+- Ensure every rx call is handling errorx
 
 ### Backlog
 - Buy resources

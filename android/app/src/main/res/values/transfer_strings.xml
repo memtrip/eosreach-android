@@ -2,12 +2,12 @@
 <resources>
 
     <string name="transfer_form_toolbar_title">Transfer</string>
-    <string name="transfer_form_username_label">Username</string>
+    <string name="transfer_form_to_label">To</string>
     <string name="transfer_form_username_hint">Recipient username</string>
     <string name="transfer_form_amount_label">Amount (Available: %s)</string>
-    <string name="transfer_form_amount_hint">Amount</string>
+    <string name="transfer_form_amount_hint">Amount to transfer</string>
     <string name="transfer_form_memo_label">Memo (max 256 characters)</string>
-    <string name="transfer_form_memo_hint">Memo</string>
+    <string name="transfer_form_memo_hint">An optional message</string>
     <string name="transfer_form_next_button">Next</string>
     <string name="transfer_form_account_validation">Please enter the recipient you are sending funds to.</string>
     <string name="transfer_form_amount_validation">Please enter the amount you wish to send.</string>
