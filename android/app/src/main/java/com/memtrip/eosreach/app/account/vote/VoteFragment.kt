@@ -4,19 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.api.account.EosAccountVote
+import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.resources.ResourcesFragment
+import com.memtrip.eosreach.app.account.actions.AccountActionsAdapter
+import com.memtrip.eosreach.uikit.Interaction
+import com.memtrip.eosreach.uikit.visible
 
-import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.account_actions_activity.*
+import kotlinx.android.synthetic.main.vote_fragment.*
 import javax.inject.Inject
-
-import kotlinx.android.synthetic.main.vote_activity.*
 
 class VoteFragment
     : MviFragment<VoteIntent, VoteRenderAction, VoteViewState, VoteViewLayout>(), VoteViewLayout {
@@ -27,8 +30,15 @@ class VoteFragment
     @Inject
     lateinit var render: VoteViewRenderer
 
+    private lateinit var adapter: VoteProducerAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.vote_activity, container, false)
+        val view = inflater.inflate(R.layout.vote_fragment, container, false)
+
+        val adapterInteraction: PublishSubject<Interaction<String>> = PublishSubject.create()
+        adapter = VoteProducerAdapter(context!!, adapterInteraction)
+        vote_producer_vote_list_recyclerview.adapter = adapter
+
         return view
     }
 
@@ -44,12 +54,19 @@ class VoteFragment
 
     override fun render(): VoteViewRenderer = render
 
-    override fun showProgress() {
-
+    override fun populateProxyVote(proxyVoter: String) {
+        vote_proxy_group.visible()
+        vote_proxy_voter.text = proxyVoter
     }
 
-    override fun showError() {
+    override fun populateProducerVotes(eosAccountVote: EosAccountVote) {
+        vote_producer_vote_group.visible()
+        adapter.clear()
+        adapter.populate(eosAccountVote.producers)
+    }
 
+    override fun showNoVoteCast() {
+        vote_no_vote_group.visible()
     }
 
     companion object {

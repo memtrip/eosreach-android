@@ -2,6 +2,7 @@ package com.memtrip.eosreach.api.account
 
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.account.request.AccountName
+import com.memtrip.eos.http.rpc.model.account.response.VoterInfo
 
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.utils.RxSchedulers
@@ -32,13 +33,29 @@ class EosAccountRequestImpl @Inject internal constructor(
                                 account.cpu_limit.available),
                             EosAccountResource(
                                 account.ram_usage,
-                                account.ram_quota)
+                                account.ram_quota),
+                            eosCurrentVote(account.voter_info)
                         )
                     )
                 } else {
                     Result<EosAccount, AccountError>(
                         AccountError.FailedRetrievingAccount(it.code(), it.errorBody()))
                 }
+        }
+    }
+
+    private fun eosCurrentVote(voterInfo: VoterInfo?): EosAccountVote? {
+        if (voterInfo != null) {
+            return EosAccountVote(
+                voterInfo.proxy,
+                voterInfo.producers,
+                voterInfo.staked,
+                voterInfo.last_vote_weight,
+                voterInfo.proxied_vote_weight,
+                voterInfo.is_proxy == 1
+            )
+        } else {
+            return null
         }
     }
 }

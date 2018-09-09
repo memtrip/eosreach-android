@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.app.account.vote
 
 import android.app.Application
+import com.memtrip.eosreach.api.account.EosAccountVote
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -13,12 +14,19 @@ class VoteViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: VoteIntent): Observable<VoteRenderAction> = when (intent) {
-        is VoteIntent.Init -> Observable.just(VoteRenderAction.OnProgress)
+        VoteIntent.Idle -> Observable.just(VoteRenderAction.Idle)
+        is VoteIntent.Init -> Observable.just(populate(intent.eosAccountVote))
     }
 
     override fun reducer(previousState: VoteViewState, renderAction: VoteRenderAction): VoteViewState = when (renderAction) {
-        VoteRenderAction.OnProgress -> previousState.copy(view = VoteViewState.View.OnProgress)
-        VoteRenderAction.OnError -> previousState.copy(view = VoteViewState.View.OnError)
+        VoteRenderAction.Idle -> previousState.copy(
+            view = VoteViewState.View.Idle)
+        is VoteRenderAction.PopulateProxyVote -> previousState.copy(
+            view = VoteViewState.View.PopulateProxyVote(renderAction.proxyAccountName))
+        is VoteRenderAction.PopulateProducerVotes -> previousState.copy(
+            view = VoteViewState.View.PopulateProducerVotes(renderAction.eosAccountVote))
+        VoteRenderAction.NoVoteCast -> previousState.copy(
+            view = VoteViewState.View.NoVoteCast)
     }
 
     override fun filterIntents(intents: Observable<VoteIntent>): Observable<VoteIntent> = Observable.merge(
@@ -27,4 +35,16 @@ class VoteViewModel @Inject internal constructor(
             !VoteIntent.Init::class.java.isInstance(it)
         }
     )
+
+    private fun populate(eosAccountVote: EosAccountVote?): VoteRenderAction {
+        if (eosAccountVote != null) {
+            if (eosAccountVote.isProxyVote) {
+                return VoteRenderAction.PopulateProxyVote(eosAccountVote.proxyVoterAccountName)
+            } else {
+                return VoteRenderAction.PopulateProducerVotes(eosAccountVote)
+            }
+        } else {
+            return VoteRenderAction.NoVoteCast
+        }
+    }
 }
