@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.account.vote
+package com.memtrip.eosreach.app.account.vote.cast
 
 import android.app.Application
 import com.memtrip.eosreach.R

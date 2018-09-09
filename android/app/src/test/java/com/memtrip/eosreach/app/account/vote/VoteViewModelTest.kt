@@ -1,5 +1,8 @@
 package com.memtrip.eosreach.app.account.vote
 
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteIntent
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteViewModel
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteViewState
 import com.nhaarman.mockito_kotlin.mock
 
 import io.reactivex.Observable

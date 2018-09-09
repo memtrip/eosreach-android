@@ -10,5 +10,8 @@ data class VoteViewState(val view: View) : MxViewState {
         data class PopulateProxyVote(val proxyAccountName: String) : View()
         data class PopulateProducerVotes(val eosAccountVote: EosAccountVote) : View()
         object NoVoteCast : View()
+        object NavigateToCastVote : View()
+        data class OnVoteForUsError(val error: String) : View()
+        object OnVoteForUsSuccess : View()
     }
 }

@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.account.vote
+package com.memtrip.eosreach.app.account.vote.cast
 
 import android.app.AlertDialog
 import android.content.Context
@@ -36,6 +36,10 @@ class CastVoteActivity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_cast_vote_fragment)
         eosAccount = fromIntent(intent!!)
+        setSupportActionBar(account_cast_vote_toolbar)
+        supportActionBar!!.title = getString(R.string.settings_title)
+        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -103,7 +107,7 @@ class CastVoteActivity
 
     companion object {
 
-        const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
+        private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
 
         fun castVoteIntent(eosAccount: EosAccount, context: Context): Intent {
             return with (Intent(context, CastVoteActivity::class.java)) {
@@ -113,7 +117,7 @@ class CastVoteActivity
         }
 
         private fun fromIntent(intent: Intent): EosAccount {
-            return intent.getParcelableExtra("eosAccount") as EosAccount
+            return intent.getParcelableExtra(EOS_ACCOUNT_EXTRA) as EosAccount
         }
     }
 }

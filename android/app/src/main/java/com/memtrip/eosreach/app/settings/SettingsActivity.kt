@@ -32,7 +32,7 @@ class SettingsActivity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
         setSupportActionBar(settings_toolbar)
-        supportActionBar!!.title = getString(R.string.settings_title)
+        supportActionBar!!.title = getString(R.string.cast_vote_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }

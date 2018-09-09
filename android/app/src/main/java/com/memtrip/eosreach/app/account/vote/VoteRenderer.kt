@@ -11,12 +11,18 @@ sealed class VoteRenderAction : MxRenderAction {
     data class PopulateProxyVote(val proxyAccountName: String) : VoteRenderAction()
     data class PopulateProducerVotes(val eosAccountVote: EosAccountVote) : VoteRenderAction()
     object NoVoteCast : VoteRenderAction()
+    object NavigateToCastVote : VoteRenderAction()
+    data class OnVoteForUsError(val error: String) : VoteRenderAction()
+    object OnVoteForUsSuccess : VoteRenderAction()
 }
 
 interface VoteViewLayout : MxViewLayout {
     fun populateProxyVote(proxyVoter: String)
     fun populateProducerVotes(eosAccountVote: EosAccountVote)
     fun showNoVoteCast()
+    fun navigateToCastVote()
+    fun voteForUsError(error: String)
+    fun voteForUsSuccess()
 }
 
 class VoteViewRenderer @Inject internal constructor() : MxViewRenderer<VoteViewLayout, VoteViewState> {
@@ -31,6 +37,15 @@ class VoteViewRenderer @Inject internal constructor() : MxViewRenderer<VoteViewL
         }
         VoteViewState.View.NoVoteCast -> {
             layout.showNoVoteCast()
+        }
+        VoteViewState.View.NavigateToCastVote -> {
+            layout.navigateToCastVote()
+        }
+        is VoteViewState.View.OnVoteForUsError -> {
+            layout.voteForUsError(state.view.error)
+        }
+        VoteViewState.View.OnVoteForUsSuccess -> {
+            layout.voteForUsSuccess()
         }
     }
 }

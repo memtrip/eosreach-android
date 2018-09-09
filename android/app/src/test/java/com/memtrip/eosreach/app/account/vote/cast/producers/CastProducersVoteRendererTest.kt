@@ -1,8 +1,5 @@
-package com.memtrip.eosreach.app.account.vote
+package com.memtrip.eosreach.app.account.vote.cast.producers
 
-import com.memtrip.eosreach.app.account.vote.cast.CastVoteViewLayout
-import com.memtrip.eosreach.app.account.vote.cast.CastVoteViewRenderer
-import com.memtrip.eosreach.app.account.vote.cast.CastVoteViewState
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
@@ -13,16 +10,16 @@ import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
 @RunWith(JUnitPlatform::class)
-class VoteRendererTest : Spek({
+class CastProducersVoteRendererTest : Spek({
 
-    val layout by memoized { mock<CastVoteViewLayout>() }
+    val layout by memoized { mock<CastProducersVoteViewLayout>() }
 
-    given("a VoteRenderer") {
+    given("a CastProducersVoteRenderer") {
 
-        val renderer by memoized { CastVoteViewRenderer() }
+        val renderer by memoized { CastProducersVoteViewRenderer() }
 
         on("ViewState is not initialized") {
-            renderer.layout(layout, CastVoteViewState(CastVoteViewState.View.OnProgress))
+            renderer.layout(layout, CastProducersVoteViewState(CastProducersVoteViewState.View.OnProgress))
 
             it("shows the Progress") {
                 verify(layout).showProgress()
@@ -30,7 +27,7 @@ class VoteRendererTest : Spek({
         }
 
         on("ViewState is initialized") {
-            renderer.layout(layout, CastVoteViewState(CastVoteViewState.View.OnError))
+            renderer.layout(layout, CastProducersVoteViewState(CastProducersVoteViewState.View.OnError))
 
             it("hides the Progress") {
                 verify(layout).showError()

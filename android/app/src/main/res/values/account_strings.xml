@@ -61,6 +61,10 @@
     <string name="vote_cast_vote_button">Cast / Proxy vote</string>
 
     <!-- cast vote -->
+    <string name="cast_vote_title">Cast vote</string>
+    <string name="cast_vote_page_block_producers">Block producers</string>
+    <string name="cast_vote_page_proxy">Proxy</string>
+
     <string name="cast_vote_block_producer_name_hint">Enter block producer name</string>
     <string name="cast_vote_pick_from_blockproducer">Choose block producer</string>
     <string name="cast_vote_button">Vote</string>

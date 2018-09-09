@@ -6,4 +6,6 @@ import com.memtrip.mxandroid.MxViewIntent
 sealed class VoteIntent : MxViewIntent {
     object Idle : VoteIntent()
     data class Init(val eosAccountVote: EosAccountVote?) : VoteIntent()
+    object VoteForUse : VoteIntent()
+    object NavigateToCastVote : VoteIntent()
 }

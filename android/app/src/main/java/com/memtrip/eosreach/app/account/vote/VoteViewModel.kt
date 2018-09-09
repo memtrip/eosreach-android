@@ -16,6 +16,8 @@ class VoteViewModel @Inject internal constructor(
     override fun dispatcher(intent: VoteIntent): Observable<VoteRenderAction> = when (intent) {
         VoteIntent.Idle -> Observable.just(VoteRenderAction.Idle)
         is VoteIntent.Init -> Observable.just(populate(intent.eosAccountVote))
+        VoteIntent.VoteForUse -> TODO()
+        VoteIntent.NavigateToCastVote -> Observable.just(VoteRenderAction.NavigateToCastVote)
     }
 
     override fun reducer(previousState: VoteViewState, renderAction: VoteRenderAction): VoteViewState = when (renderAction) {
@@ -27,6 +29,12 @@ class VoteViewModel @Inject internal constructor(
             view = VoteViewState.View.PopulateProducerVotes(renderAction.eosAccountVote))
         VoteRenderAction.NoVoteCast -> previousState.copy(
             view = VoteViewState.View.NoVoteCast)
+        VoteRenderAction.NavigateToCastVote -> previousState.copy(
+            view = VoteViewState.View.NavigateToCastVote)
+        is VoteRenderAction.OnVoteForUsError -> previousState.copy(
+            view = VoteViewState.View.OnVoteForUsError(renderAction.error))
+        VoteRenderAction.OnVoteForUsSuccess -> previousState.copy(
+            view = VoteViewState.View.OnVoteForUsSuccess)
     }
 
     override fun filterIntents(intents: Observable<VoteIntent>): Observable<VoteIntent> = Observable.merge(

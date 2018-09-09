@@ -33,7 +33,7 @@
 
         <activity android:name=".app.account.AccountActivity" />
         <activity android:name=".app.account.actions.ActionsActivity" />
-        <activity android:name=".app.account.vote.CastVoteActivity" />
+        <activity android:name=".app.account.vote.cast.CastVoteActivity" />
 
         <activity android:name=".app.transfer.form.TransferFormActivity" />
         <activity android:name=".app.transfer.confirm.TransferConfirmActivity" />

@@ -51,6 +51,7 @@ class TransferFormActivity
             RxView.clicks(account_transfer_button),
             RxTextView.editorActions(account_transfer_memo)
         ).map {
+            hideKeyboard()
             TransferFormIntent.SubmitForm(
                 TransferFormData(
                     transferExtra(intent),

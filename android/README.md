@@ -21,6 +21,8 @@
 - remove the navigation components and args plugin
 - Ensure every rx call is handling error
 - sanity check for unused resources and files
+- write tests for all the ViewModels
+- write integration tests
 
 ### Backlog
 - Buy resources

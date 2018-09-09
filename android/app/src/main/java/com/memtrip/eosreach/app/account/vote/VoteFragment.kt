@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountVote
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity.Companion.castVoteIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
@@ -29,8 +31,12 @@ class VoteFragment
 
     private lateinit var adapter: VoteProducerAdapter
 
+    private lateinit var eosAccount: EosAccount
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.vote_fragment, container, false)
+
+        eosAccount = fromBundle(arguments!!)
 
         val adapterInteraction: PublishSubject<Interaction<String>> = PublishSubject.create()
         adapter = VoteProducerAdapter(context!!, adapterInteraction)
@@ -43,9 +49,10 @@ class VoteFragment
         AndroidSupportInjection.inject(this)
     }
 
-    override fun intents(): Observable<VoteIntent> {
-        return Observable.just(VoteIntent.Init(fromBundle(arguments!!).eosAcconuntVote))
-    }
+    override fun intents(): Observable<VoteIntent> = Observable.merge(
+        Observable.just(VoteIntent.Init(fromBundle(arguments!!).eosAcconuntVote)),
+        RxView.clicks(vote_cast_button).map { VoteIntent.NavigateToCastVote }
+    )
 
     override fun layout(): VoteViewLayout = this
 
@@ -66,6 +73,18 @@ class VoteFragment
 
     override fun showNoVoteCast() {
         vote_no_vote_group.visible()
+    }
+
+    override fun navigateToCastVote() {
+        startActivity(castVoteIntent(eosAccount, context!!))
+    }
+
+    override fun voteForUsError(error: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun voteForUsSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {

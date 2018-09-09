@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.account.vote
+package com.memtrip.eosreach.app.account.vote.cast
 
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
