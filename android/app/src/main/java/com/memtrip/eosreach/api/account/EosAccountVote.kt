@@ -10,5 +10,6 @@ data class EosAccountVote(
     val staked: Double,
     val lastVoteWeight: Double,
     val proxiedVoteWeight: Double,
-    val isProxyVote: Boolean
+    val isProxyVoter: Boolean,
+    val hasDelegatedProxyVoter: Boolean
 ) : Parcelable

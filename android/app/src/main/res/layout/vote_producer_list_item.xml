@@ -7,7 +7,7 @@
     style="@style/ItemButtonTransparent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/padding_large"
+    android:layout_marginBottom="@dimen/padding_large"
     android:padding="@dimen/padding_medium">
 
     <com.memtrip.eosreach.brand.ReachTextView

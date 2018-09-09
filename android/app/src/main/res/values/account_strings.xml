@@ -53,11 +53,11 @@
     <string name="account_actions_no_results_body">This account does not have any actions.</string>
 
     <!-- vote -->
-    <string name="vote_proxy_title">Proxy voter</string>
+    <string name="vote_proxy_title">Your proxy voter is</string>
     <string name="vote_no_vote_body">Please vote for us, and help us build the future of EOS on mobile.</string>
     <string name="vote_no_vote_memtripblock">memtripblock</string>
     <string name="vote_no_vote_cast_vote_button">Cast vote</string>
-    <string name="vote_producer_vote_title">You are voting for:</string>
+    <string name="vote_producer_vote_title">You are voting for</string>
     <string name="vote_cast_vote_button">Cast / Proxy vote</string>
 
     <!-- cast vote -->

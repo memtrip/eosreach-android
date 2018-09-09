@@ -38,12 +38,12 @@ class VoteViewModel @Inject internal constructor(
 
     private fun populate(eosAccountVote: EosAccountVote?): VoteRenderAction {
         if (eosAccountVote != null) {
-            if (eosAccountVote.producers.isEmpty()) {
-                return VoteRenderAction.NoVoteCast
-            } else if (eosAccountVote.isProxyVote) {
+            if (eosAccountVote.hasDelegatedProxyVoter) {
                 return VoteRenderAction.PopulateProxyVote(eosAccountVote.proxyVoterAccountName)
-            } else {
+            } else if (eosAccountVote.producers.isNotEmpty()) {
                 return VoteRenderAction.PopulateProducerVotes(eosAccountVote)
+            } else {
+                return VoteRenderAction.NoVoteCast
             }
         } else {
             return VoteRenderAction.NoVoteCast

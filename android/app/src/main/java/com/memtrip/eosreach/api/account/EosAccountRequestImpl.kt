@@ -52,7 +52,8 @@ class EosAccountRequestImpl @Inject internal constructor(
                 voterInfo.staked,
                 voterInfo.last_vote_weight,
                 voterInfo.proxied_vote_weight,
-                voterInfo.is_proxy == 1
+                voterInfo.is_proxy == 1,
+                voterInfo.proxy.isNotEmpty()
             )
         } else {
             return null

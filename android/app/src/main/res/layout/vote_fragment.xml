@@ -55,10 +55,11 @@
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/vote_proxy_voter"
-        style="@style/Typography.Data"
+        style="@style/Typography.H5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
+        android:textColor="@color/colorSecondary"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/vote_proxy_title" />
@@ -129,6 +130,7 @@
         android:id="@+id/vote_producer_vote_list_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding_medium"
         android:layout_marginBottom="@dimen/padding_large"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
