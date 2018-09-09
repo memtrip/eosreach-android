@@ -6,6 +6,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountError
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
+import com.memtrip.eosreach.db.SelectedAccount
 import com.memtrip.eosreach.db.account.InsertAccountsForPublicKey
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
@@ -17,6 +18,7 @@ abstract class CreateAccountViewModel(
     private val eosCreateAccountRequest: EosCreateAccountRequest,
     private val accountForPublicKeyRequest: AccountForPublicKeyRequest,
     private val insertAccountsForPublicKey: InsertAccountsForPublicKey,
+    private val selectedAccount: SelectedAccount,
     application: Application
 ) : MxViewModel<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState>(
     CreateAccountViewState(view = CreateAccountViewState.View.Idle),
@@ -32,7 +34,7 @@ abstract class CreateAccountViewModel(
     override fun reducer(previousState: CreateAccountViewState, renderAction: CreateAccountRenderAction): CreateAccountViewState = when (renderAction) {
         CreateAccountRenderAction.Idle -> previousState.copy(
             view = CreateAccountViewState.View.Idle)
-        CreateAccountRenderAction.OnProgress -> previousState.copy(
+        CreateAccountRenderAction.OnCreateAccountProgress -> previousState.copy(
             view = CreateAccountViewState.View.OnCreateAccountProgress)
         is CreateAccountRenderAction.OnCreateAccountSuccess -> previousState.copy(
             view = CreateAccountViewState.View.OnCreateAccountSuccess(renderAction.privateKey))
@@ -69,7 +71,7 @@ abstract class CreateAccountViewModel(
                     createAccountError(result.apiError!!)
                 }
             }
-        }.toObservable()
+        }.toObservable().startWith(CreateAccountRenderAction.OnCreateAccountProgress)
     }
 
     private fun createAccountError(error: EosCreateAccountError): CreateAccountRenderAction = when(error) {
@@ -99,6 +101,7 @@ abstract class CreateAccountViewModel(
                         result.data.publicKey,
                         result.data.accounts
                     ).map {
+                        selectedAccount.clear()
                         CreateAccountRenderAction.NavigateToAccountList
                     }
                 }

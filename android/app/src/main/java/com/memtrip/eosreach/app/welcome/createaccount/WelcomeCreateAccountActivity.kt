@@ -14,11 +14,6 @@ class WelcomeCreateAccountActivity : CreateAccountActivity() {
         AndroidInjection.inject(this)
     }
 
-    override fun success() {
-        startActivity(EntryActivity.entryIntent(this))
-        finish()
-    }
-
     companion object {
 
         fun welcomeCreateAccountIntent(context: Context): Intent {

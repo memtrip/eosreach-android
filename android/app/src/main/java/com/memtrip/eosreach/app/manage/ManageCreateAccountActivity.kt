@@ -12,11 +12,6 @@ class ManageCreateAccountActivity : CreateAccountActivity() {
         AndroidInjection.inject(this)
     }
 
-    override fun success() {
-        startActivity(EntryActivity.entryIntent(this))
-        finish()
-    }
-
     companion object {
 
         fun manageCreateAccountIntent(context: Context): Intent {

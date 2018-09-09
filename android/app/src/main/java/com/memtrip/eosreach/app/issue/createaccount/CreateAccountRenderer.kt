@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 sealed class CreateAccountRenderAction : MxRenderAction {
     object Idle : CreateAccountRenderAction()
-    object OnProgress : CreateAccountRenderAction()
+    object OnCreateAccountProgress : CreateAccountRenderAction()
     data class OnCreateAccountSuccess(val privateKey: String) : CreateAccountRenderAction()
     data class OnCreateAccountError(val error: String) : CreateAccountRenderAction()
     object OnImportKeyProgress : CreateAccountRenderAction()
@@ -26,7 +26,8 @@ interface CreateAccountViewLayout : MxViewLayout {
 
 class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<CreateAccountViewLayout, CreateAccountViewState> {
     override fun layout(layout: CreateAccountViewLayout, state: CreateAccountViewState) = when (state.view) {
-        CreateAccountViewState.View.Idle -> { }
+        CreateAccountViewState.View.Idle -> {
+        }
         CreateAccountViewState.View.OnCreateAccountProgress -> {
             layout.showCreateAccountProgress()
         }

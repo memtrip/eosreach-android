@@ -13,7 +13,6 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.welcome.EntryActivity
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
-import com.memtrip.eosreach.uikit.inputfilter.CurrencyFormatInputFilter
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
 import io.reactivex.Observable
@@ -55,9 +54,9 @@ abstract class CreateAccountActivity
                 ""
             ) // TODO: this is sent as the result of purchasing a google play token
         },
-        RxView.clicks(issue_create_account_done_button).map {
+        RxView.clicks(issue_create_account_import_key_done_button).map {
             CreateAccountIntent.Done(
-                issue_create_account_private_key_label.text.toString())
+                issue_create_account_import_key_label.text.toString())
         }
     )
 
@@ -100,8 +99,8 @@ abstract class CreateAccountActivity
 
     override fun showAccountCreated(privateKey: String) {
         issue_create_account_form_group.gone()
-        issue_create_account_private_key_group.visible()
-        issue_create_account_private_key_label.text = privateKey
+        issue_create_account_import_key_group.visible()
+        issue_create_account_import_key_label.text = privateKey
     }
 
     override fun navigateToAccountList() {

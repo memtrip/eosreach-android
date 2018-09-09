@@ -44,9 +44,11 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun moshi(): Converter.Factory {
-        return MoshiConverterFactory.create(Moshi.Builder().build())
-    }
+    fun moshi(): Moshi = Moshi.Builder().build()
+
+    @JvmStatic
+    @Provides
+    fun moshiConverterFactory(moshi: Moshi): Converter.Factory = MoshiConverterFactory.create(moshi)
 
     @JvmStatic
     @Provides
@@ -61,7 +63,7 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun api(application: Application, okHttpClient: OkHttpClient, eosEndpoint: EosEndpoint): Api {
+    fun api(okHttpClient: OkHttpClient, eosEndpoint: EosEndpoint): Api {
         return Api(eosEndpoint.get(), okHttpClient)
     }
 

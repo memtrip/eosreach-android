@@ -10,6 +10,8 @@ import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceRequestImp
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequest
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequestImpl
+import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
+import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequestImpl
 import com.memtrip.eosreach.api.eosprice.EosPriceRequest
 import com.memtrip.eosreach.api.eosprice.EosPriceRequestImpl
 import com.memtrip.eosreach.api.transfer.TransferRequest
@@ -61,4 +63,9 @@ internal abstract class RequestModule {
     internal abstract fun bindEosPriceRequest(
         eosPriceRequest: EosPriceRequestImpl
     ): EosPriceRequest
+
+    @Binds
+    internal abstract fun bindEosCreateAccountRequest(
+        eosCreateAccountRequest: EosCreateAccountRequestImpl
+    ): EosCreateAccountRequest
 }
