@@ -14,15 +14,20 @@ class BalanceParser private constructor() {
             return balances.map { deserialize(it) }
         }
 
+        fun deserialize(balance: String): Balance {
+            val parts = balance.split(" ")
+            return Balance(parts[0].toDouble(), parts[1])
+        }
+
         fun create(balance: String, symbol: String): Balance {
             return Balance(balance.toDouble(), symbol)
         }
 
-        fun accountBalanceString(balance: String, symbol: String): String {
-            return accountBalanceString(create(balance, symbol))
+        fun formatEosBalance(balance: String, symbol: String): String {
+            return formatEosBalance(create(balance, symbol))
         }
 
-        fun accountBalanceString(balance: Balance): String {
+        fun formatEosBalance(balance: Balance): String {
             val value = with (DecimalFormat("0.0000")) {
                 roundingMode = RoundingMode.CEILING
                 this
@@ -31,20 +36,11 @@ class BalanceParser private constructor() {
             return "$value ${balance.symbol}"
         }
 
-        fun deserialize(balance: String): Balance {
-            val parts = balance.split(" ")
-            return Balance(parts[0].toDouble(), parts[1])
+        fun formatFiatBalance(balance: Balance): String {
+            return formatFiatBalance(balance.amount, balance.symbol)
         }
 
-        fun serializeForEosApiRequest(balance: Balance): String {
-            return "${balance.amount} ${balance.symbol}"
-        }
-
-        fun format(balance: Balance): String {
-            return format(balance.amount, balance.symbol)
-        }
-
-        fun format(price: Double, currencyCode: String): String {
+        fun formatFiatBalance(price: Double, currencyCode: String): String {
             val currencySymbol = currencySymbol(currencyCode)
             val priceString = formatBalanceString(price, currencySymbol.isCrypto)
             return "${currencySymbol.symbol}$priceString"

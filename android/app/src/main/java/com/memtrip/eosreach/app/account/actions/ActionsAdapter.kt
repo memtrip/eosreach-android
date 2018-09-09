@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.api.actions.model.TransferAccountAction
+import com.memtrip.eosreach.app.price.BalanceParser
 
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.SimpleAdapter
@@ -31,7 +32,7 @@ class AccountActionsAdapter(
 class AccountActionsViewHolder(itemView: View) : SimpleAdapterViewHolder<AccountAction>(itemView) {
 
     override fun populate(position: Int, value: AccountAction) {
-        itemView.account_actions_list_item_interaction_account_name.text = value.interactionAccountName
+
         itemView.account_actions_list_item_date_created.text = value.date.toLocalDateTime().fullDate()
 
         if (value.incoming) {
@@ -44,7 +45,16 @@ class AccountActionsViewHolder(itemView: View) : SimpleAdapterViewHolder<Account
 
         when (value) {
             is TransferAccountAction -> {
+                if (value.incoming) {
+                    itemView.account_actions_list_item_interaction_account_name.text = value.from
+                } else {
+                    itemView.account_actions_list_item_interaction_account_name.text = value.to
+                }
 
+                itemView.account_actions_list_item_interaction_crypto_value.text = BalanceParser.formatEosBalance(value.quantity)
+            }
+            else -> {
+                itemView.account_actions_list_item_interaction_account_name.text = value.interactionAccountName
             }
         }
     }

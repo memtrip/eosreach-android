@@ -62,7 +62,7 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
                 if (eosPrice.unavailable) {
                     layout.showPriceUnavailable()
                 } else {
-                    val formattedPrice = BalanceParser.format(eosBalance * eosPrice.value, eosPrice.currency)
+                    val formattedPrice = BalanceParser.formatFiatBalance(eosBalance * eosPrice.value, eosPrice.currency)
                     if (accountView.eosPrice.outOfDate) {
                         layout.showOutDatedPrice(formattedPrice)
                     } else {

@@ -6,9 +6,9 @@ import org.threeten.bp.format.DateTimeFormatter
 import java.util.Date
 
 fun LocalDateTime.fullDate(): String = DateTimeFormatter.ofPattern(
-    "EEE dd MMM 'at' HH:mm"
+    "EEE dd MMM"
 ).format(this)
 
 fun Date.toLocalDateTime(): LocalDateTime {
-    return LocalDateTime.ofEpochSecond(time, 0, ZoneOffset.UTC)
+    return LocalDateTime.ofEpochSecond(time / 1000, 0, ZoneOffset.UTC)
 }
