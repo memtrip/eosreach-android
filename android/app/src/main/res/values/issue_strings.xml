@@ -28,6 +28,17 @@
     <string name="issue_create_account_account_name_exists">
         The account name you chose already exists, please choose another name.
     </string>
+    <string name="issue_create_account_import_key_error_title">Failed to import key</string>
+    <string name="issue_create_account_import_key_error_body">
+        We could not import private key, please check your internet connection and try again. If you
+        continue to encounter difficulties, please clear your app data and import the private key that
+        you just backed up.
+    </string>
+    <string name="issue_create_account_import_key_no_accounts">
+        We could not find your recently created account, it can take some time for these changes to propagate through
+        the EOS network. Please wait a few minutes and try again. If you continue to encounter difficulties, please
+        change the EOS endpoint URL in settings and import the private key that you just backed up.
+    </string>
 
     <!-- issue_import_key -->
     <string name="issue_import_key_toolbar_title">Import existing key</string>

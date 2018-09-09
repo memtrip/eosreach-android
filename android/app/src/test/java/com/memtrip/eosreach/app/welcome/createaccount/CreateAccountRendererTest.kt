@@ -22,18 +22,18 @@ class CreateAccountRendererTest : Spek({
         val renderer by memoized { CreateAccountViewRenderer() }
 
         on("ViewState is not initialized") {
-            renderer.layout(layout, CreateAccountViewState(CreateAccountViewState.View.OnProgress))
+            renderer.layout(layout, CreateAccountViewState(CreateAccountViewState.View.OnCreateAccountProgress))
 
             it("shows the Progress") {
-                verify(layout).showProgress()
+                verify(layout).showCreateAccountProgress()
             }
         }
 
         on("ViewState is initialized") {
-            renderer.layout(layout, CreateAccountViewState(CreateAccountViewState.View.OnError))
+            renderer.layout(layout, CreateAccountViewState(CreateAccountViewState.View.CreateAccountError))
 
             it("hides the Progress") {
-                verify(layout).showError()
+                verify(layout).showCreateAccountError()
             }
         }
     }

@@ -56,7 +56,8 @@ abstract class CreateAccountActivity
             ) // TODO: this is sent as the result of purchasing a google play token
         },
         RxView.clicks(issue_create_account_done_button).map {
-            CreateAccountIntent.Done
+            CreateAccountIntent.Done(
+                issue_create_account_private_key_label.text.toString())
         }
     )
 
@@ -66,17 +67,12 @@ abstract class CreateAccountActivity
 
     override fun render(): CreateAccountViewRenderer = render
 
-    override fun showProgress() {
+    override fun showCreateAccountProgress() {
         issue_create_account_progress.visible()
         issue_create_account_create_button.invisible()
     }
 
-    override fun onSuccess(privateKey: String) {
-        issue_create_account_form_group.gone()
-        issue_create_account_private_key_group.visible()
-    }
-
-    override fun showError(error: String) {
+    override fun showCreateAccountError(error: String) {
         issue_create_account_progress.gone()
         issue_create_account_create_button.visible()
 
@@ -88,13 +84,27 @@ abstract class CreateAccountActivity
             .show()
     }
 
-    override fun success(privateKey: String) {
+    override fun showImportKeyProgress() {
+        issue_create_account_import_key_error.gone()
+        issue_create_account_import_key_progress.visible()
+    }
+
+    override fun showImportKeyError(error: String) {
+        issue_create_account_import_key_progress.gone()
+        issue_create_account_import_key_error.visible()
+        issue_create_account_import_key_error.populate(
+            getString(R.string.issue_create_account_import_key_error_title),
+            error
+        )
+    }
+
+    override fun showAccountCreated(privateKey: String) {
         issue_create_account_form_group.gone()
         issue_create_account_private_key_group.visible()
         issue_create_account_private_key_label.text = privateKey
     }
 
-    override fun done() {
+    override fun navigateToAccountList() {
         startActivity(EntryActivity.entryIntent(this))
         finish()
     }

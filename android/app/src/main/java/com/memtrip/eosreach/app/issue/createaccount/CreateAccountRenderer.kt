@@ -8,33 +8,42 @@ import javax.inject.Inject
 sealed class CreateAccountRenderAction : MxRenderAction {
     object Idle : CreateAccountRenderAction()
     object OnProgress : CreateAccountRenderAction()
-    data class OnSuccess(val privateKey: String) : CreateAccountRenderAction()
-    data class OnError(val error: String) : CreateAccountRenderAction()
-    object Done : CreateAccountRenderAction()
+    data class OnCreateAccountSuccess(val privateKey: String) : CreateAccountRenderAction()
+    data class OnCreateAccountError(val error: String) : CreateAccountRenderAction()
+    object OnImportKeyProgress : CreateAccountRenderAction()
+    data class OnImportKeyError(val error: String) : CreateAccountRenderAction()
+    object NavigateToAccountList : CreateAccountRenderAction()
 }
 
 interface CreateAccountViewLayout : MxViewLayout {
-    fun showProgress()
-    fun success(privateKey: String)
-    fun showError(error: String)
-    fun onSuccess(privateKey: String)
-    fun done()
+    fun showCreateAccountProgress()
+    fun showAccountCreated(privateKey: String)
+    fun showCreateAccountError(error: String)
+    fun showImportKeyProgress()
+    fun showImportKeyError(error: String)
+    fun navigateToAccountList()
 }
 
 class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<CreateAccountViewLayout, CreateAccountViewState> {
     override fun layout(layout: CreateAccountViewLayout, state: CreateAccountViewState) = when (state.view) {
         CreateAccountViewState.View.Idle -> { }
-        CreateAccountViewState.View.OnProgress -> {
-            layout.showProgress()
+        CreateAccountViewState.View.OnCreateAccountProgress -> {
+            layout.showCreateAccountProgress()
         }
-        is CreateAccountViewState.View.OnSuccess -> {
-            layout.success(state.view.privateKey)
+        is CreateAccountViewState.View.OnCreateAccountSuccess -> {
+            layout.showAccountCreated(state.view.privateKey)
         }
-        is CreateAccountViewState.View.OnError -> {
-            layout.showError(state.view.error)
+        is CreateAccountViewState.View.CreateAccountError -> {
+            layout.showCreateAccountError(state.view.error)
         }
-        CreateAccountViewState.View.Done -> {
-            layout.done()
+        CreateAccountViewState.View.OnImportKeyProgress -> {
+            layout.showImportKeyProgress()
+        }
+        is CreateAccountViewState.View.ImportKeyError -> {
+            layout.showImportKeyError(state.view.error)
+        }
+        CreateAccountViewState.View.NavigateToAccountList -> {
+            layout.navigateToAccountList()
         }
     }
 }

@@ -31,7 +31,7 @@ class CreateAccountViewModelTest : Spek({
                 val states = state.values()
                 assertThat(states.size).isEqualTo(2)
                 assertThat(states[0]).isEqualTo(CreateAccountViewState(CreateAccountViewState.View.Idle))
-                assertThat(states[1]).isEqualTo(CreateAccountViewState(CreateAccountViewState.View.OnProgress))
+                assertThat(states[1]).isEqualTo(CreateAccountViewState(CreateAccountViewState.View.OnCreateAccountProgress))
             }
         }
     }

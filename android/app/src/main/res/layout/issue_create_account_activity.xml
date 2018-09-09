@@ -46,7 +46,7 @@
         android:id="@+id/issue_create_account_form_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_instructions_label,issue_create_account_create_button"
+        app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_instructions_label,issue_create_account_create_button,issue_create_account_progress"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
@@ -92,6 +92,15 @@
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
+
+    <ProgressBar
+        android:id="@+id/issue_create_account_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/issue_create_account_create_button"
+        app:layout_constraintRight_toRightOf="@id/issue_create_account_create_button"
+        app:layout_constraintBottom_toBottomOf="@id/issue_create_account_create_button"/>
     <!-- / form -->
 
     <!-- private key -->
@@ -132,16 +141,26 @@
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
 
-    <!-- / private key -->
-
     <ProgressBar
-        android:id="@+id/issue_create_account_progress"
+        android:id="@+id/issue_create_account_import_key_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="@id/issue_create_account_create_button"
-        app:layout_constraintRight_toRightOf="@id/issue_create_account_create_button"
-        app:layout_constraintBottom_toBottomOf="@id/issue_create_account_create_button"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    
+    <com.memtrip.eosreach.uikit.ErrorCompositeView
+        android:id="@+id/issue_create_account_import_key_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <!-- / private key -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
