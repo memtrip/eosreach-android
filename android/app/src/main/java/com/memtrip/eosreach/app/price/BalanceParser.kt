@@ -3,6 +3,7 @@ package com.memtrip.eosreach.app.price
 import com.memtrip.eosreach.api.balance.Balance
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.Currency
 
 class BalanceParser private constructor() {
@@ -15,6 +16,19 @@ class BalanceParser private constructor() {
 
         fun create(balance: String, symbol: String): Balance {
             return Balance(balance.toDouble(), symbol)
+        }
+
+        fun accountBalanceString(balance: String, symbol: String): String {
+            return accountBalanceString(create(balance, symbol))
+        }
+
+        fun accountBalanceString(balance: Balance): String {
+            val value = with (DecimalFormat("0.0000")) {
+                roundingMode = RoundingMode.CEILING
+                this
+            }.format(balance.amount)
+
+            return "$value ${balance.symbol}"
         }
 
         fun deserialize(balance: String): Balance {

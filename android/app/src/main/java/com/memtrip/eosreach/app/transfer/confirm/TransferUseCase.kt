@@ -21,7 +21,7 @@ class TransferUseCase @Inject internal constructor(
     fun transfer(
         fromAccount: String,
         toAccount: String,
-        quantity: Balance,
+        quantity: String,
         memo: String
     ): Single<Result<TransferReceipt, TransferError>> {
 

@@ -17,7 +17,7 @@ import com.memtrip.eosreach.app.welcome.WelcomeModule
 import com.memtrip.eosreach.db.DatabaseModule
 
 import com.memtrip.eosreach.utils.UtilModule
-import com.memtrip.eosreach.wallet.WalletModule
+import com.memtrip.eosreach.wallet.SecurityModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -38,7 +38,7 @@ import javax.inject.Singleton
         AccountListModule::class,
         BlockProducerListModule::class,
         DatabaseModule::class,
-        WalletModule::class,
+        SecurityModule::class,
         ApiModule::class,
         RequestModule::class,
         UtilModule::class

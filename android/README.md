@@ -15,6 +15,7 @@
     - Store transaction receipts in a database
     - View a list of transaction receipts in settings
     - View a list of google play account purchases
+- Fix the duplicates in the view private key screen
 
 ### Clean up
 - remove the homeUp finish from mxandroid

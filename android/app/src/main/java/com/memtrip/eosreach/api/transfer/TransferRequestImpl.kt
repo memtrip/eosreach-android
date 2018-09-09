@@ -21,15 +21,17 @@ class TransferRequestImpl @Inject constructor(
     override fun transfer(
         fromAccount: String,
         toAccount: String,
-        quantity: Balance,
+        quantity: String,
         memo: String,
         authorizingPrivateKey: EosPrivateKey
     ): Single<Result<TransferReceipt, TransferError>> {
+        val privateKeyString = authorizingPrivateKey.toString()
+        print("PRIVATE KEY: $privateKeyString")
         return transferAggregate.transfer(
             TransferAggregate.Args(
                 fromAccount,
                 toAccount,
-                BalanceParser.serializeForEosApiRequest(quantity),
+                quantity,
                 memo,
                 fromAccount,
                 authorizingPrivateKey,

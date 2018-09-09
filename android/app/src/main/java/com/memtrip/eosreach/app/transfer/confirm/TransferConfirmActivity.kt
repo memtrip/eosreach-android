@@ -59,10 +59,9 @@ class TransferConfirmActivity
                 TransferRequestData(
                     transferFormData.contractAccountBalance.accountName,
                     transferFormData.username,
-                    BalanceParser.create(
+                    BalanceParser.accountBalanceString(
                         transferFormData.amount,
-                        transferFormData.contractAccountBalance.balance.symbol
-                    ),
+                        transferFormData.contractAccountBalance.balance.symbol),
                     transferFormData.memo
                 )
             )
@@ -78,7 +77,9 @@ class TransferConfirmActivity
     override fun populate(transferFormData: TransferFormData) {
         transfer_confirm_details_amount_value.text = getString(
             R.string.transfer_confirm_crypto_amount,
-            transferFormData.amount,
+            BalanceParser.accountBalanceString(
+                transferFormData.amount,
+                transferFormData.contractAccountBalance.balance.symbol),
             BalanceParser.format(transferFormData.contractAccountBalance.balance)
         )
 

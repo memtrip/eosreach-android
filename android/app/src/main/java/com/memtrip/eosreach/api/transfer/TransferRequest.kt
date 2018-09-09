@@ -11,7 +11,7 @@ interface TransferRequest {
     fun transfer(
         fromAccount: String,
         toAccount: String,
-        quantity: Balance,
+        quantity: String,
         memo: String,
         authorizingPrivateKey: EosPrivateKey
     ): Single<Result<TransferReceipt, TransferError>>
