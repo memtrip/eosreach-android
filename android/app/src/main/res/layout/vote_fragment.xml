@@ -55,7 +55,7 @@
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/vote_proxy_voter"
-        style="@style/Typography.H5"
+        style="@style/Typography.H6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/colorSecondary"
@@ -86,7 +86,7 @@
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/vote_no_vote_memtripblock_label"
-        style="@style/Typography.H5"
+        style="@style/Typography.H6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/vote_no_vote_memtripblock"

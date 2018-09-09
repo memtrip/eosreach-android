@@ -24,7 +24,7 @@ class TransferRequestImpl @Inject constructor(
         quantity: String,
         memo: String,
         authorizingPrivateKey: EosPrivateKey
-    ): Single<Result<TransferReceipt, TransferError>> {
+    ): Single<Result<String, TransferError>> {
         val privateKeyString = authorizingPrivateKey.toString()
         print("PRIVATE KEY: $privateKeyString")
         return transferAggregate.transfer(
@@ -40,9 +40,9 @@ class TransferRequestImpl @Inject constructor(
         ).map { response ->
             if (response.isSuccessful) {
                 response.body
-                Result(TransferReceipt(response.body!!.transaction_id))
+                Result(response.body!!.transaction_id)
             } else {
-                Result<TransferReceipt, TransferError>(TransferError(response.errorBody!!))
+                Result<String, TransferError>(TransferError(response.errorBody!!))
             }
         }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }

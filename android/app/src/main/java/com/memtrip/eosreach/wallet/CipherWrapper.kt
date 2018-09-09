@@ -9,7 +9,7 @@ import javax.crypto.Cipher
  */
 class CipherWrapper {
 
-    val cipher: Cipher = Cipher.getInstance(TRANSFORMATION_ASYMMETRIC)
+    private val cipher: Cipher = Cipher.getInstance(TRANSFORMATION_ASYMMETRIC)
 
     fun encrypt(data: ByteArray, key: Key?): String {
         cipher.init(Cipher.ENCRYPT_MODE, key)

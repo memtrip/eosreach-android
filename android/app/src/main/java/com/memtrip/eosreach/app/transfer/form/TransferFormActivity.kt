@@ -97,6 +97,7 @@ class TransferFormActivity
         fun transferFormIntent(contractAccountBalance: ContractAccountBalance, context: Context): Intent {
             return with (Intent(context, TransferFormActivity::class.java)) {
                 putExtra(ACCOUNT_BALANCE_EXTRA, contractAccountBalance)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 this
             }
         }

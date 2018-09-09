@@ -14,7 +14,7 @@ interface TransferRequest {
         quantity: String,
         memo: String,
         authorizingPrivateKey: EosPrivateKey
-    ): Single<Result<TransferReceipt, TransferError>>
+    ): Single<Result<String, TransferError>>
 }
 
 class TransferError(val body: String) : ApiError

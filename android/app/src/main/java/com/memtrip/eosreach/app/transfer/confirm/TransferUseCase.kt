@@ -23,7 +23,7 @@ class TransferUseCase @Inject internal constructor(
         toAccount: String,
         quantity: String,
         memo: String
-    ): Single<Result<TransferReceipt, TransferError>> {
+    ): Single<Result<String, TransferError>> {
 
         return getAccountByName.select(fromAccount).flatMap { accountEntity ->
             eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { privateKey ->

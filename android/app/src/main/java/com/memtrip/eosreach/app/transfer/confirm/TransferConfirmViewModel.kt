@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.transfer.confirm
 
 import android.app.Application
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.transfer.TransferReceipt
 
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -52,7 +53,8 @@ class TransferConfirmViewModel @Inject internal constructor(
             transferRequestData.memo
         ).map { result ->
             if (result.success) {
-                TransferConfirmRenderAction.OnSuccess(result.data!!)
+                TransferConfirmRenderAction.OnSuccess(TransferReceipt(
+                    result.data!!, transferRequestData.contractAccountBalance))
             } else {
                 TransferConfirmRenderAction.OnError(
                     context().getString(R.string.transfer_confirm_error_message),

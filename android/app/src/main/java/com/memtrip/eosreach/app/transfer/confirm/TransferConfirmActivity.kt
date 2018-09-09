@@ -62,7 +62,8 @@ class TransferConfirmActivity
                     BalanceParser.accountBalanceString(
                         transferFormData.amount,
                         transferFormData.contractAccountBalance.balance.symbol),
-                    transferFormData.memo
+                    transferFormData.memo,
+                    transferFormDataExtra(intent).contractAccountBalance
                 )
             )
         }
@@ -94,7 +95,7 @@ class TransferConfirmActivity
     }
 
     override fun onSuccess(transferReceipt: TransferReceipt) {
-        startActivity(transactionReceiptIntent(TransferReceipt(transferReceipt.transactionId), this))
+        startActivity(transactionReceiptIntent(transferReceipt, this))
         finish()
     }
 

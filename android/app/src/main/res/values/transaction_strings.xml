@@ -3,4 +3,11 @@
     <string name="transaction_toolbar_title">Transaction Log</string>
     <string name="transaction_view_log_position_button">View log</string>
     <string name="transaction_view_log_negative_button">Cancel</string>
+
+    <string name="transaction_receipt_title">Transaction committed</string>
+    <string name="transaction_receipt_body">
+        Your transaction has been committed to the EOS network, a record of this, and all other
+        transactions performed on this device can be found in the transaction log of the settings section.
+    </string>
+    <string name="transaction_receipt_done_button">Done</string>
 </resources>

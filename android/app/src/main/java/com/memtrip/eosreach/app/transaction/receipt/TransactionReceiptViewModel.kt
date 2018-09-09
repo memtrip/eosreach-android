@@ -13,12 +13,15 @@ class TransactionReceiptViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: TransactionReceiptIntent): Observable<TransferReceiptRenderAction> = when (intent) {
-        is TransactionReceiptIntent.Init -> Observable.just(TransferReceiptRenderAction.OnProgress)
+        is TransactionReceiptIntent.Init -> Observable.just(TransferReceiptRenderAction.Populate(intent.transactionReceipt))
+        TransactionReceiptIntent.NavigateToActions -> Observable.just(TransferReceiptRenderAction.NavigateToActions)
     }
 
     override fun reducer(previousState: TransactionReceiptViewState, renderAction: TransferReceiptRenderAction): TransactionReceiptViewState = when (renderAction) {
-        TransferReceiptRenderAction.OnProgress -> previousState.copy(view = TransactionReceiptViewState.View.OnProgress)
-        TransferReceiptRenderAction.OnError -> previousState.copy(view = TransactionReceiptViewState.View.OnError)
+        is TransferReceiptRenderAction.Populate -> previousState.copy(
+            view = TransactionReceiptViewState.View.Populate(renderAction.transactionReceipt))
+        TransferReceiptRenderAction.NavigateToActions -> previousState.copy(
+            view = TransactionReceiptViewState.View.NavigateToActions)
     }
 
     override fun filterIntents(intents: Observable<TransactionReceiptIntent>): Observable<TransactionReceiptIntent> = Observable.merge(

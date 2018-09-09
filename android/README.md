@@ -16,6 +16,7 @@
     - View a list of transaction receipts in settings
     - View a list of google play account purchases
 - Fix the duplicates in the view private key screen
+- Add an invalidate shared pref that causes the account list to reload
 
 ### Clean up
 - remove the homeUp finish from mxandroid
@@ -27,3 +28,7 @@
 - Buy resources
 - Stake resources
 - use https://github.com/ThreeTen/threetenbp for times
+
+AccountBundle -> AccountContext
+
+ContractAccountBalance -> AccountContractContext

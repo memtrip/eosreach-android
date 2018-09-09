@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/padding_large" />
+        app:layout_constraintGuide_begin="@dimen/padding_giant" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_end_guideline"
@@ -32,14 +32,37 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/padding_large" />
 
-    <ProgressBar
-        android:id="@+id/transfer_receipt_progress"
-        android:layout_width="wrap_content"
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/transaction_receipt_title_label"
+        style="@style/Typography.H6"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_horizontal"
+        android:text="@string/transaction_receipt_title"
+        android:drawableTop="@drawable/transaction_receipt_confirmed_ic"
+        android:drawablePadding="@dimen/padding_tiny"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/horizontal_start_guideline" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/transaction_receipt_body_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/transaction_receipt_body"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_receipt_title_label" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/transaction_receipt_done_button"
+        style="@style/ButtonPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/transaction_receipt_done_button"
+        app:layout_constraintBottom_toBottomOf="@id/horizontal_end_guideline"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
