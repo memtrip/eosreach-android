@@ -4,15 +4,10 @@ import com.memtrip.eosreach.api.ApiError
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKey
-import com.memtrip.eosreach.db.account.AccountEntity
-
 import com.memtrip.eosreach.db.account.InsertAccountsForPublicKey
 import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.eosreach.wallet.EosKeyManager
-import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Single
-
 import javax.inject.Inject
 
 class AccountListUseCase @Inject internal constructor(

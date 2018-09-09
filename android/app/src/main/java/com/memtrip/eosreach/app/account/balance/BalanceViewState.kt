@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.app.account.balance
 
-import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.balance.AccountBalanceList
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.mxandroid.MxViewState
 
 data class BalanceViewState(val view: View) : MxViewState {

@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.balance.AccountBalanceList
-
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
-
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
@@ -21,7 +19,6 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_balance_fragment.*
 import kotlinx.android.synthetic.main.account_balance_fragment.view.*
-
 import javax.inject.Inject
 
 class BalanceFragment

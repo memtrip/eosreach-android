@@ -1,13 +1,10 @@
 package com.memtrip.eosreach.app.settings.viewprivatekeys
 
 import android.app.Application
-import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.utils.RxSchedulers
-
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import io.reactivex.Single
 import javax.inject.Inject
 
 class ViewPrivateKeysViewModel @Inject internal constructor(

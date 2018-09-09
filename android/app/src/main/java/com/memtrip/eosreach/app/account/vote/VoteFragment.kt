@@ -7,13 +7,10 @@ import android.view.ViewGroup
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountVote
-import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.actions.AccountActionsAdapter
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

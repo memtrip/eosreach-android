@@ -4,8 +4,6 @@ import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
-import java.math.BigDecimal
-import java.math.RoundingMode
 import javax.inject.Inject
 
 sealed class AccountRenderAction : MxRenderAction {

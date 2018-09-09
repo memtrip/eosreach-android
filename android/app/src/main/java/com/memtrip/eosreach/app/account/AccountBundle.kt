@@ -1,7 +1,6 @@
 package com.memtrip.eosreach.app.account
 
 import android.os.Parcelable
-import com.memtrip.eosreach.api.balance.Balance
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

@@ -7,20 +7,18 @@ import android.os.Bundle
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity.Companion.blockProducerList
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import javax.inject.Inject
-
 import kotlinx.android.synthetic.main.eos_endpoint_activity.*
+import javax.inject.Inject
 
 class EosEndpointActivity
     : MviActivity<EosEndpointIntent, EosEndpointRenderAction, EosEndpointViewState, EosEndpointViewLayout>(), EosEndpointViewLayout {

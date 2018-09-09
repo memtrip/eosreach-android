@@ -4,24 +4,20 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.eosreach.app.transfer.confirm.TransferConfirmActivity.Companion.transferConfirmIntent
 import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
 import com.memtrip.eosreach.uikit.inputfilter.CurrencyFormatInputFilter
 import dagger.android.AndroidInjection
-
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.transfer_form_activity.*
 import javax.inject.Inject
-import android.text.InputFilter
-
 
 
 class TransferFormActivity

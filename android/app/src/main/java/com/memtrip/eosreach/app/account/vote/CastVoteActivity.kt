@@ -4,15 +4,11 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
-import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
@@ -20,8 +16,6 @@ import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
-
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_cast_vote_fragment.*
 import kotlinx.android.synthetic.main.transfer_confirm_activity.*

@@ -2,7 +2,6 @@ package com.memtrip.eosreach.app.transfer.confirm
 
 import com.memtrip.eosreach.api.transfer.TransferReceipt
 import com.memtrip.eosreach.app.transfer.form.TransferFormData
-import com.memtrip.eosreach.app.transfer.form.TransferFormRenderAction
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer

@@ -4,23 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-
 import android.view.WindowManager
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eos.core.crypto.EosPrivateKey
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import javax.inject.Inject
-
 import kotlinx.android.synthetic.main.view_private_keys_activity.*
+import javax.inject.Inject
 
 class ViewPrivateKeysActivity
     : MviActivity<ViewPrivateKeysIntent, ViewPrivateKeysRenderAction, ViewPrivateKeysViewState, ViewPrivateKeysViewLayout>(), ViewPrivateKeysViewLayout {

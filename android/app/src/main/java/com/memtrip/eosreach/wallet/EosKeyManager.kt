@@ -1,7 +1,6 @@
 package com.memtrip.eosreach.wallet
 
 import com.memtrip.eos.core.crypto.EosPrivateKey
-import io.reactivex.Observable
 import io.reactivex.Single
 
 interface EosKeyManager {

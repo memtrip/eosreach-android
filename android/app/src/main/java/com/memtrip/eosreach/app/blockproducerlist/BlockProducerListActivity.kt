@@ -3,22 +3,16 @@ package com.memtrip.eosreach.app.blockproducerlist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.accountlist.AccountListAdapter
-import com.memtrip.eosreach.app.accountlist.AccountListIntent
-import com.memtrip.eosreach.app.settings.SettingsActivity
-import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.db.blockproducer.BlockProducerEntity
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.accounts_list_activity.*
 import kotlinx.android.synthetic.main.block_producer_list_activity.*
 import javax.inject.Inject
 

@@ -1,8 +1,6 @@
 package com.memtrip.eosreach.db.blockproducer
 
 import com.memtrip.eos.http.aggregation.producer.BlockProducer
-import com.memtrip.eosreach.api.accountforkey.AccountNameSystemBalance
-import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single

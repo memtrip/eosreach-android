@@ -11,7 +11,6 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.AccountIntent
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible

@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
-import com.memtrip.eosreach.app.account.vote.CastVoteActivity
 import com.memtrip.eosreach.app.account.vote.VoteFragment
 import java.util.Arrays.asList
 

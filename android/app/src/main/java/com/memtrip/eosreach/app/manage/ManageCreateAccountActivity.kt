@@ -3,7 +3,6 @@ package com.memtrip.eosreach.app.manage
 import android.content.Context
 import android.content.Intent
 import com.memtrip.eosreach.app.issue.createaccount.CreateAccountActivity
-import com.memtrip.eosreach.app.welcome.EntryActivity
 import dagger.android.AndroidInjection
 
 class ManageCreateAccountActivity : CreateAccountActivity() {

@@ -2,8 +2,6 @@ package com.memtrip.eosreach.app.account
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
-import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.view.Menu
 import androidx.core.content.ContextCompat
@@ -15,7 +13,6 @@ import com.memtrip.eosreach.app.accountlist.AccountListActivity.Companion.accoun
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.app.manage.ManageImportKeyActivity.Companion.manageImportKeyIntent
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
-
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection

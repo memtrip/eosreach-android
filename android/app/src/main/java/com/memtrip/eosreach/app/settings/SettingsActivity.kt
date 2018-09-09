@@ -6,15 +6,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
-
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.price.currencypairing.CurrencyPairingActivity.Companion.currencyPairingIntent
 import com.memtrip.eosreach.app.settings.eosendpoint.EosEndpointActivity.Companion.eosEndpointIntent
 import com.memtrip.eosreach.app.settings.viewprivatekeys.ViewPrivateKeysActivity.Companion.viewPrivateKeysIntent
 import com.memtrip.eosreach.app.welcome.EntryActivity.Companion.entryIntent
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.settings_activity.*

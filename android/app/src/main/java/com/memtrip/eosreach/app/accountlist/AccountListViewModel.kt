@@ -1,14 +1,11 @@
 package com.memtrip.eosreach.app.accountlist
 
 import android.app.Application
-import com.memtrip.eosreach.app.account.AccountIntent
 import com.memtrip.eosreach.db.SelectedAccount
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.db.account.GetAccounts
-
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import rx.lang.kotlin.toSingle
 import javax.inject.Inject
 
 class AccountListViewModel @Inject internal constructor(

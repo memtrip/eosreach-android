@@ -2,27 +2,21 @@ package com.memtrip.eosreach.app.transfer.confirm
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-
 import com.jakewharton.rxbinding2.view.RxView
-
 import com.memtrip.eosreach.R
-
 import com.memtrip.eosreach.api.transfer.TransferReceipt
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-
-import com.memtrip.eosreach.app.transfer.form.TransferFormData
-import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
-import com.memtrip.eosreach.uikit.gone
-import com.memtrip.eosreach.uikit.visible
 import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
+import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
+import com.memtrip.eosreach.app.transfer.form.TransferFormData
+import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
+import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
-
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.transfer_confirm_activity.*
 import javax.inject.Inject

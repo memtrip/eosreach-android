@@ -1,16 +1,11 @@
 package com.memtrip.eosreach.api.transfer
 
 import com.memtrip.eos.core.crypto.EosPrivateKey
-
 import com.memtrip.eos.http.aggregation.transfer.TransferAggregate
 import com.memtrip.eosreach.api.Result
-import com.memtrip.eosreach.api.balance.Balance
-import com.memtrip.eosreach.app.price.BalanceParser
 import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.eosreach.utils.transactionDefaultExpiry
-
 import io.reactivex.Single
-import java.util.Calendar
 import javax.inject.Inject
 
 class TransferRequestImpl @Inject constructor(
