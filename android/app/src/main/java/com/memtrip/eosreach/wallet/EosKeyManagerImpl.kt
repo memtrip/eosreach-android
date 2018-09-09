@@ -5,16 +5,20 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
+import javax.inject.Inject
 
-class EosKeyManagerImpl(
-    private val application: Application,
-    private val keyStoreWrapper: KeyStoreWrapper = KeyStoreWrapper(application),
-    private var cipherWrapper: CipherWrapper = CipherWrapper(),
+class EosKeyManagerImpl @Inject constructor(
+    private val keyStoreWrapper: KeyStoreWrapper,
+    private val cipherWrapper: CipherWrapper,
+    private val rxSchedulers: RxSchedulers,
+    application: Application
+) : EosKeyManager {
+
     private val sharedPreferences: SharedPreferences = application.getSharedPreferences(
         application.getString(R.string.app_keys_shared_preferences_package),
         Context.MODE_PRIVATE)
-) : EosKeyManager {
 
     override fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String> {
         return Single.create<String> { single ->
@@ -22,7 +26,7 @@ class EosKeyManagerImpl(
             keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(keyAlias)
             encryptAndSavePrivateKey(keyAlias, eosPrivateKey)
             single.onSuccess(keyAlias)
-        }
+        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 
     private fun encryptAndSavePrivateKey(keyAlias: String, eosPrivateKey: EosPrivateKey) {

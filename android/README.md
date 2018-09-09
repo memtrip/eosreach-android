@@ -1,11 +1,10 @@
 ### TODO:
-- Symbol should be inferred by blockchain requests and not hard coded
 - pull to refresh on each data screen
-    - all three account tabs
+    - all three account tabs should trigger a refresh of AccountsActivity
+    - all three account tabs should trigger a refresh of AccountsActivity
 - View action screen
 - Vote for block producer screen
     - a request for the user to vote for memtrip should be at the top
-- Why are incoming actions not being displayed
 - Create account api 
     - Implement the create account api 
     - Integrate with create account api with the app
@@ -17,6 +16,7 @@
     - View a list of google play account purchases
 - Fix the duplicates in the view private key screen
 - Add an invalidate shared pref that causes the account list to reload after a transaction occurs
+- Fix the action date
 
 ### Clean up
 - remove the homeUp finish from mxandroid

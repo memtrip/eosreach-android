@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.api.eoscreateaccount
 
 import com.memtrip.eosreach.api.Result
+import com.memtrip.eosreach.utils.RxSchedulers
 import com.squareup.moshi.Moshi
 import io.reactivex.Single
 
@@ -8,7 +9,8 @@ import javax.inject.Inject
 
 class EosCreateAccountRequestImpl @Inject constructor(
     private val eosCreateAccountApi: EosCreateAccountApi,
-    private val moshi: Moshi
+    private val moshi: Moshi,
+    private val rxSchedulers: RxSchedulers
 ) : EosCreateAccountRequest {
 
     override fun createAccount(
@@ -48,6 +50,6 @@ class EosCreateAccountRequestImpl @Inject constructor(
                     Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                 }
             }
-        }
+        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 }

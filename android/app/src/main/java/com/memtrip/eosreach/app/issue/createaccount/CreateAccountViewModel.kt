@@ -70,6 +70,9 @@ abstract class CreateAccountViewModel(
                 } else {
                     createAccountError(result.apiError!!)
                 }
+            }.onErrorReturn {
+                CreateAccountRenderAction.OnCreateAccountError(
+                    context().getString(R.string.issue_create_account_generic_error))
             }
         }.toObservable().startWith(CreateAccountRenderAction.OnCreateAccountProgress)
     }

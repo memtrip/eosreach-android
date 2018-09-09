@@ -18,7 +18,7 @@
     <string name="issue_create_account_create_button">Create Account</string>
     <string name="issue_create_account_done_button">Done</string>
     <string name="issue_create_account_generic_error">
-        We could not create an account at this time, please check your connection and try again..
+        We could not create an account at this time, please check your connection and try again.
     </string>
     <string name="issue_create_account_fatal_error">
         We could not create an account at this time, please check your connection and try again. If you

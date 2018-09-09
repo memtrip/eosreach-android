@@ -32,6 +32,9 @@ android {
         stub {
             dimension "api"
         }
+        dev {
+            dimension "api"
+        }
         prod {
             dimension "api"
         }

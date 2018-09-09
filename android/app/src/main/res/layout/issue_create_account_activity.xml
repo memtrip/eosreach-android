@@ -46,7 +46,7 @@
         android:id="@+id/issue_create_account_form_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_instructions_label,issue_create_account_create_button,issue_create_account_progress"
+        app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_instructions_label"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
@@ -98,9 +98,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="@id/issue_create_account_create_button"
-        app:layout_constraintRight_toRightOf="@id/issue_create_account_create_button"
-        app:layout_constraintBottom_toBottomOf="@id/issue_create_account_create_button"/>
+        app:layout_constraintLeft_toLeftOf="@+id/issue_create_account_create_button"
+        app:layout_constraintBottom_toBottomOf="@+id/issue_create_account_create_button"
+        app:layout_constraintRight_toRightOf="@+id/issue_create_account_create_button"/>
+
     <!-- / form -->
 
     <!-- import key -->
@@ -109,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="issue_create_account_import_key_instruction_label,issue_create_account_import_key_label,issue_create_account_import_key_done_button,issue_create_account_import_key_progress,issue_create_account_import_key_error"
+        app:constraint_referenced_ids="issue_create_account_import_key_instruction_label,issue_create_account_import_key_label"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
@@ -138,6 +139,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/issue_create_account_done_button"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
@@ -157,6 +159,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_large"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
