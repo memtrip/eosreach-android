@@ -10,7 +10,8 @@ interface AccountBalanceRequest {
 
     fun getBalance(
         contractName: String,
-        accountName: String
+        accountName: String,
+        symbol: String
     ): Single<Result<AccountBalanceList, BalanceError>>
 }
 

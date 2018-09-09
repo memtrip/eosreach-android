@@ -3,6 +3,7 @@
     <string name="app_shared_preferences_package">com.memtrip.eosreach</string>
     <string name="app_keys_shared_preferences_package">com.memtrip.eosreach.keys</string>
     <string name="app_default_currency">USD</string>
+    <string name="app_default_eos_currency">SYS</string>
 
     <string name="app_default_utility_endpoint_root">http://10.0.2.2:8080/</string>
     <string name="app_default_eos_endpoint_root">http://10.0.2.2:8888/</string>

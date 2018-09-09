@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.app.account
 
 import android.app.Application
+import com.memtrip.eosreach.R
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -49,7 +50,11 @@ class AccountViewModel @Inject internal constructor(
     )
 
     private fun getAccount(accountName: String): Observable<AccountRenderAction> {
-        return accountUseCase.getAccountDetails("eosio.token", accountName).map {
+        return accountUseCase.getAccountDetails(
+            "eosio.token",
+            accountName,
+            context().getString(R.string.app_default_eos_currency)
+        ).map {
             if (it.success) {
                 AccountRenderAction.OnSuccess(it)
             } else {

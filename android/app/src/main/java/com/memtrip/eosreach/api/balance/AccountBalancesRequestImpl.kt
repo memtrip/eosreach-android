@@ -16,14 +16,15 @@ class AccountBalanceRequestImp @Inject internal constructor(
 
     override fun getBalance(
         contractName: String,
-        accountName: String
+        accountName: String,
+        symbol: String
     ): Single<Result<AccountBalanceList, BalanceError>> {
 
         return chainApi.getCurrencyBalance(
             GetCurrencyBalance(
                 contractName,
                 accountName,
-                "SYS"))
+                symbol))
             .subscribeOn(rxSchedulers.background())
             .observeOn(rxSchedulers.main())
             .map {
