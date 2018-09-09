@@ -38,6 +38,7 @@
         android:id="@+id/vote_proxy_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="vote_proxy_title,vote_proxy_voter"
         tools:ignore="MissingConstraints" />
 
@@ -46,8 +47,8 @@
         style="@style/Typography.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:text="@string/vote_proxy_title"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline" />
@@ -69,18 +70,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="vote_no_vote_title_label,vote_no_vote_body_label,vote_no_vote_memtripblock_label,vote_no_vote_castvote_button"
+        app:constraint_referenced_ids="vote_no_vote_body_label,vote_no_vote_memtripblock_label,vote_no_vote_castvote_button"
         tools:ignore="MissingConstraints" />
-
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/vote_no_vote_title_label"
-        style="@style/Typography.Medium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/vote_no_vote_title"
-        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
-        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline" />
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/vote_no_vote_body_label"
@@ -90,7 +81,7 @@
         android:text="@string/vote_no_vote_body"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/vote_no_vote_title_label" />
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline" />
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/vote_no_vote_memtripblock_label"
@@ -139,9 +130,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/padding_large"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/vote_producer_vote_title_label"/>
+        app:layout_constraintTop_toBottomOf="@+id/vote_producer_vote_title_label"
+        app:layout_constraintBottom_toTopOf="@+id/vote_cast_button"/>
     <!-- / block producers -->
 
     <com.memtrip.eosreach.brand.ReachButton

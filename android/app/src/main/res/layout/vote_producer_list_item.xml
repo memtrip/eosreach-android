@@ -7,15 +7,11 @@
     style="@style/ItemButtonTransparent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/padding_large"
     android:layout_marginTop="@dimen/padding_large"
-    android:layout_marginRight="@dimen/padding_large"
-    android:padding="@dimen/padding_medium"
-    android:clickable="false"
-    android:focusable="true">
+    android:padding="@dimen/padding_medium">
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/block_producer_list_item_account_name"
+        android:id="@+id/vote_producer_list_item_account_name"
         style="@style/Typography.H6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

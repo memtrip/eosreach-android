@@ -38,7 +38,9 @@ class VoteViewModel @Inject internal constructor(
 
     private fun populate(eosAccountVote: EosAccountVote?): VoteRenderAction {
         if (eosAccountVote != null) {
-            if (eosAccountVote.isProxyVote) {
+            if (eosAccountVote.producers.isEmpty()) {
+                return VoteRenderAction.NoVoteCast
+            } else if (eosAccountVote.isProxyVote) {
                 return VoteRenderAction.PopulateProxyVote(eosAccountVote.proxyVoterAccountName)
             } else {
                 return VoteRenderAction.PopulateProducerVotes(eosAccountVote)

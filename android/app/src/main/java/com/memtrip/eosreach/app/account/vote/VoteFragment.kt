@@ -17,8 +17,8 @@ import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_actions_activity.*
 import kotlinx.android.synthetic.main.vote_fragment.*
+import kotlinx.android.synthetic.main.vote_fragment.view.*
 import javax.inject.Inject
 
 class VoteFragment
@@ -37,7 +37,7 @@ class VoteFragment
 
         val adapterInteraction: PublishSubject<Interaction<String>> = PublishSubject.create()
         adapter = VoteProducerAdapter(context!!, adapterInteraction)
-        vote_producer_vote_list_recyclerview.adapter = adapter
+        view.vote_producer_vote_list_recyclerview.adapter = adapter
 
         return view
     }
@@ -46,7 +46,9 @@ class VoteFragment
         AndroidSupportInjection.inject(this)
     }
 
-    override fun intents(): Observable<VoteIntent> = Observable.empty()
+    override fun intents(): Observable<VoteIntent> {
+        return Observable.just(VoteIntent.Init(fromBundle(arguments!!).eosAcconuntVote))
+    }
 
     override fun layout(): VoteViewLayout = this
 
