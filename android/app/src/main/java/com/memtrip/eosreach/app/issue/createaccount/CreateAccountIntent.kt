@@ -4,5 +4,6 @@ import com.memtrip.mxandroid.MxViewIntent
 
 sealed class CreateAccountIntent : MxViewIntent {
     object Init : CreateAccountIntent()
-    data class CreateAccount(val accountName: String) : CreateAccountIntent()
+    data class CreateAccount(val purchaseId: String, val accountName: String) : CreateAccountIntent()
+    object Done : CreateAccountIntent()
 }

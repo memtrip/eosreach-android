@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/issue_create_account_toolbars"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_start_guideline"
@@ -33,25 +41,107 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/padding_large" />
 
-    <com.memtrip.eosreach.brand.ReachEditText
-        android:id="@+id/issue_create_account_wallet_name_input"
-        style="@style/EditTextPrimary"
-        android:layout_width="match_parent"
+    <!-- form -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/issue_create_account_form_group"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_instructions_label,issue_create_account_create_button"
+        tools:ignore="MissingConstraints" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/issue_create_account_name_label"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/typographyColorPrimary"
+        android:text="@string/issue_create_account_name_label"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_create_account_toolbars"/>
+    
+    <com.memtrip.eosreach.brand.ReachEditText
+        android:id="@+id/issue_create_account_name_input"
+        style="@style/EditTextPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_create_account_name_hint"
         android:inputType="textEmailAddress"
-        android:hint="@string/issue_create_account_account_name_hint"
-        app:layout_constraintEnd_toEndOf="@+id/vertical_end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/horizontal_start_guideline"/>
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_create_account_name_label" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/issue_create_account_instructions_label"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/issue_create_account_instructions_label"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_create_account_name_input" />
 
     <com.memtrip.eosreach.brand.ReachButton
         style="@style/ButtonPrimary"
         android:id="@+id/issue_create_account_create_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/issue_create_account_create"
+        android:text="@string/issue_create_account_create_button"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
+    <!-- / form -->
+
+    <!-- private key -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/issue_create_account_private_key_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="issue_create_account_private_key_label,issue_create_account_name_input,issue_create_account_instructions_label"
+        tools:ignore="MissingConstraints" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/issue_create_account_private_key_instruction_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/issue_create_account_private_key_instruction_label"
+        android:textColor="@color/colorSecondary"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_create_account_toolbars"/>
+    
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/issue_create_account_private_key_label"
+        style="@style/Typography.Data"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_create_account_private_key_instruction_label"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonPrimary"
+        android:id="@+id/issue_create_account_done_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/issue_create_account_done_button"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />
+
+    <!-- / private key -->
+
+    <ProgressBar
+        android:id="@+id/issue_create_account_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/issue_create_account_create_button"
+        app:layout_constraintRight_toRightOf="@id/issue_create_account_create_button"
+        app:layout_constraintBottom_toBottomOf="@id/issue_create_account_create_button"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

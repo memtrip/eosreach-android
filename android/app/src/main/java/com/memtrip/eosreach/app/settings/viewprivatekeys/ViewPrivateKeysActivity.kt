@@ -34,13 +34,14 @@ class ViewPrivateKeysActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_private_keys_activity)
+
         setSupportActionBar(view_private_keys_toolbar)
         supportActionBar!!.title = getString(R.string.view_private_keys_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE);
+            WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     override fun inject() {

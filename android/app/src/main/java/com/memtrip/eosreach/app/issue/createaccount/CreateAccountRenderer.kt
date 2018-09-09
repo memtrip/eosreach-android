@@ -8,14 +8,17 @@ import javax.inject.Inject
 sealed class CreateAccountRenderAction : MxRenderAction {
     object Idle : CreateAccountRenderAction()
     object OnProgress : CreateAccountRenderAction()
-    object OnSuccess : CreateAccountRenderAction()
-    object OnError : CreateAccountRenderAction()
+    data class OnSuccess(val privateKey: String) : CreateAccountRenderAction()
+    data class OnError(val error: String) : CreateAccountRenderAction()
+    object Done : CreateAccountRenderAction()
 }
 
 interface CreateAccountViewLayout : MxViewLayout {
     fun showProgress()
-    fun success()
-    fun showError()
+    fun success(privateKey: String)
+    fun showError(error: String)
+    fun onSuccess(privateKey: String)
+    fun done()
 }
 
 class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<CreateAccountViewLayout, CreateAccountViewState> {
@@ -24,11 +27,14 @@ class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<
         CreateAccountViewState.View.OnProgress -> {
             layout.showProgress()
         }
-        CreateAccountViewState.View.OnSuccess -> {
-            layout.success()
+        is CreateAccountViewState.View.OnSuccess -> {
+            layout.success(state.view.privateKey)
         }
-        CreateAccountViewState.View.OnError -> {
-            layout.showError()
+        is CreateAccountViewState.View.OnError -> {
+            layout.showError(state.view.error)
+        }
+        CreateAccountViewState.View.Done -> {
+            layout.done()
         }
     }
 }

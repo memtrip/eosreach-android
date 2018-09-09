@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
+import android.view.WindowManager
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
@@ -31,10 +32,14 @@ abstract class ImportKeyActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.issue_import_key_activity)
+
         setSupportActionBar(issue_import_key_toolbar)
         supportActionBar!!.title = getString(R.string.issue_import_key_toolbar_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

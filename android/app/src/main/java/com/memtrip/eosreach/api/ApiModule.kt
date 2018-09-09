@@ -10,6 +10,7 @@ import com.memtrip.eos.http.rpc.Api
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountApi
 import com.memtrip.eosreach.api.eosprice.EosPriceApi
 import com.memtrip.eosreach.db.EosEndpoint
 import com.squareup.moshi.Moshi
@@ -88,7 +89,9 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun eosPriceApi(retrofit: Retrofit): EosPriceApi {
-        return retrofit.create(EosPriceApi::class.java)
-    }
+    fun eosPriceApi(retrofit: Retrofit): EosPriceApi = retrofit.create(EosPriceApi::class.java)
+
+    @JvmStatic
+    @Provides
+    fun eosCreateAccountApi(retrofit: Retrofit): EosCreateAccountApi = retrofit.create(EosCreateAccountApi::class.java)
 }

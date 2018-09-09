@@ -67,7 +67,7 @@
         android:text="@string/issue_import_key_instructions"
         app:layout_constraintEnd_toEndOf="@+id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/issue_import_key_private_key_value_input"/>
+        app:layout_constraintTop_toBottomOf="@+id/issue_import_key_private_key_value_input" />
 
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/issue_import_key_github_button"

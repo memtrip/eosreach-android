@@ -1,8 +1,33 @@
 <resources>
 
     <!-- issue_create_account -->
-    <string name="issue_create_account_account_name_hint">Account name</string>
-    <string name="issue_create_account_create">Create</string>
+    <string name="issue_create_account_title">Create new account</string>
+    <string name="issue_create_account_name_label">Account name - characters (A&#8211;Z) digits (1&#8211;5)</string>
+    <string name="issue_create_account_name_hint">Account name</string>
+    <string name="issue_create_account_instructions_label">
+        Resources are required to create an account on the EOS blockchain, as such there is a small cost
+        to create an account. We will generate a local private key, create an account, and assign
+        your public key as its owner. Your private key is RSA encrypted using a key stored in the AndroidKeyStore,
+        it will never leave this device.
+    </string>
+    <string name="issue_create_account_private_key_instruction_label">
+        Your account has been created. The private key below was added as both the active and owner permission
+        of your new account. Please backup this private key somewhere in the physical world and avoid storing it
+        digitally.
+    </string>
+    <string name="issue_create_account_create_button">Create Account</string>
+    <string name="issue_create_account_done_button">Done</string>
+    <string name="issue_create_account_generic_error">
+        We could not create an account at this time, please check your connection and try again..
+    </string>
+    <string name="issue_create_account_fatal_error">
+        We could not create an account at this time, please check your connection and try again. If you
+        continue to encounter difficulties, please contact support@memtrip.com and quote your purchase id.
+        A list of your purchase ids can be found in settings -> transaction history.
+    </string>
+    <string name="issue_create_account_account_name_exists">
+        The account name you chose already exists, please choose another name.
+    </string>
 
     <!-- issue_import_key -->
     <string name="issue_import_key_toolbar_title">Import existing key</string>
