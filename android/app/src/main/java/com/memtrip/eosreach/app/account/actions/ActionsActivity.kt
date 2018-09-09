@@ -43,7 +43,7 @@ class ActionsActivity
         contractAccountBalance = actionsExtra(intent)
 
         val adapterInteraction: PublishSubject<Interaction<AccountAction>> = PublishSubject.create()
-        adapter = AccountActionsAdapter(this, adapterInteraction)
+        adapter = AccountActionsAdapter(this, adapterInteraction, contractAccountBalance.exchangeRate)
         account_actions_list_recyclerview.adapter = adapter
 
         setSupportActionBar(account_actions_toolbar)

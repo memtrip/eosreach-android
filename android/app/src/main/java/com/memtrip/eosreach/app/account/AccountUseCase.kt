@@ -37,7 +37,7 @@ class AccountUseCase @Inject internal constructor(
         return eosAccountRequest.getAccount(accountName).flatMap { eosAccount ->
             if (eosAccount.success) {
                 accountBalancesRequest
-                    .getBalance(contractName, eosAccount.data!!.accountName, symbol)
+                    .getBalance(contractName, eosAccount.data!!.accountName, symbol, eosPrice)
                     .map { balances ->
                         if (balances.success) {
                             AccountView.success(eosPrice, eosAccount.data, balances.data)

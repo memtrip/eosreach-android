@@ -2,7 +2,6 @@
 - pull to refresh on each data screen
     - all three account tabs should trigger a refresh of AccountsActivity
     - all three account tabs should trigger a refresh of AccountsActivity
-- View action screen
 - Vote for block producer screen
     - a request for the user to vote for memtrip should be at the top
 - Create account api 
@@ -16,7 +15,6 @@
     - View a list of google play account purchases
 - Fix the duplicates in the view private key screen
 - Add an invalidate shared pref that causes the account list to reload after a transaction occurs
-- Fix the action date
 
 ### Clean up
 - remove the homeUp finish from mxandroid
@@ -27,7 +25,8 @@
 ### Backlog
 - Buy resources
 - Stake resources
-- use https://github.com/ThreeTen/threetenbp for times
+- use https://github.com/ThreeTen/threetenbp for time
+- View action screen
 
 AccountBundle -> AccountContext
 

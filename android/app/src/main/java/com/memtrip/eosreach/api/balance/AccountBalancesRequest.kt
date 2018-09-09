@@ -2,6 +2,7 @@ package com.memtrip.eosreach.api.balance
 
 import com.memtrip.eosreach.api.ApiError
 import com.memtrip.eosreach.api.Result
+import com.memtrip.eosreach.api.eosprice.EosPrice
 
 import io.reactivex.Single
 import okhttp3.ResponseBody
@@ -11,7 +12,8 @@ interface AccountBalanceRequest {
     fun getBalance(
         contractName: String,
         accountName: String,
-        symbol: String
+        symbol: String,
+        eosPrice: EosPrice
     ): Single<Result<AccountBalanceList, BalanceError>>
 }
 

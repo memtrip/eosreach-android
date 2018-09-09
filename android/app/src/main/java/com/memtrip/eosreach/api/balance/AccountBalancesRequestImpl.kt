@@ -3,6 +3,7 @@ package com.memtrip.eosreach.api.balance
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
 import com.memtrip.eosreach.api.Result
+import com.memtrip.eosreach.api.eosprice.EosPrice
 import com.memtrip.eosreach.app.price.BalanceParser
 
 import com.memtrip.eosreach.utils.RxSchedulers
@@ -17,7 +18,8 @@ class AccountBalanceRequestImp @Inject internal constructor(
     override fun getBalance(
         contractName: String,
         accountName: String,
-        symbol: String
+        symbol: String,
+        eosPrice: EosPrice
     ): Single<Result<AccountBalanceList, BalanceError>> {
 
         return chainApi.getCurrencyBalance(
@@ -32,7 +34,8 @@ class AccountBalanceRequestImp @Inject internal constructor(
                     Result(AccountBalanceList(getContractAccountBalances(
                         contractName,
                         accountName,
-                        it.body()!!)
+                        it.body()!!,
+                        eosPrice)
                     ))
                 } else {
                     Result<AccountBalanceList, BalanceError>(
@@ -44,10 +47,15 @@ class AccountBalanceRequestImp @Inject internal constructor(
     private fun getContractAccountBalances(
         contractName: String,
         accountName: String,
-        contractBalances: List<String>
+        contractBalances: List<String>,
+        eosPrice: EosPrice
     ): List<ContractAccountBalance> {
         return contractBalances.map {
-            ContractAccountBalance(contractName, accountName, BalanceParser.deserialize(it))
+            ContractAccountBalance(
+                contractName,
+                accountName,
+                BalanceParser.deserialize(it),
+                eosPrice)
         }
     }
 }

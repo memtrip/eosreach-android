@@ -15,7 +15,7 @@
     android:paddingTop="@dimen/padding_medium"
     android:paddingEnd="@dimen/padding_large"
     android:paddingBottom="@dimen/padding_medium_large"
-    android:clickable="true"
+    android:clickable="false"
     android:focusable="true">
 
     <androidx.constraintlayout.widget.Guideline
@@ -61,7 +61,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:inputType="textMultiLine"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/account_actions_list_item_interaction_fiat_value"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +73,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="@id/account_actions_list_item_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/vertical_end_guideline"
