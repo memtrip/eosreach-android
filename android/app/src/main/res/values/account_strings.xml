@@ -5,6 +5,12 @@
     <string name="accounts_list_accounts_title">Accounts</string>
     <string name="accounts_list_item_balance">%1$s %2$s</string>
     <string name="accounts_list_item_balance_empty">-</string>
+    <string name="accounts_list_item_no_accounts">
+        We could not find any accounts associated with your public keys, if this is unexpected please try changing the EOS endpoint in settings.
+    </string>
+    <string name="accounts_list_item_no_accounts_settings_button">Go to Settings</string>
+    <string name="accounts_list_error_title">Failed to fetch accounts</string>
+    <string name="accounts_list_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
 
     <!-- account -->
     <string name="account_available_balance">Available Balance</string>

@@ -1,8 +1,7 @@
 package com.memtrip.eosreach.api.actions.model
 
 import com.memtrip.eos.http.rpc.model.history.response.HistoricAccountAction
-
-import org.threeten.bp.LocalDateTime
+import java.util.Date
 
 abstract class AccountAction(
     accountName: String,
@@ -14,7 +13,7 @@ abstract class AccountAction(
     val interactionAccountName: String = if (incoming) senderAccountName else receiverAccountName,
     val actionType: String = action.action_trace.act.name,
     val actionData: Map<String, Any> = action.action_trace.act.data,
-    val date: LocalDateTime = action.block_time
+    val date: Date = action.block_time
 ) {
 
     companion object {

@@ -95,8 +95,8 @@ class EosKeyManagerApi21(
         return sharedPreferences.getString(eosPublicKey, null) != null
     }
 
-    override fun getAllPublicKeys(): Observable<String> {
-        return Observable.fromIterable(sharedPreferences.all.entries.map { it.key })
+    override fun getAllPublicKeys(): List<String> {
+        return sharedPreferences.all.entries.map { it.key }
     }
 
     override fun getPrivateKeys(): Single<List<EosPrivateKey>> {

@@ -19,13 +19,9 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
         return historyApi.getKeyAccounts(GetKeyAccounts(publicKey))
             .map {
                 if (it.isSuccessful) {
-                    if (it.body()!!.account_names.isEmpty()) {
-                        Result<AccountsForPublicKey, AccountForKeyError>(AccountForKeyError.NoAccounts)
-                    } else {
-                        Result(AccountsForPublicKey(publicKey, it.body()!!.account_names.map {
-                            accountName -> getBalance(accountName)
-                        }))
-                    }
+                    Result(AccountsForPublicKey(publicKey, it.body()!!.account_names.map {
+                        accountName -> getBalance(accountName)
+                    }))
                 } else {
                     Result<AccountsForPublicKey, AccountForKeyError>(
                         AccountForKeyError.FailedRetrievingAccountList(it.code(), it.errorBody()))

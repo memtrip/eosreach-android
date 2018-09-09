@@ -1,16 +1,20 @@
 ### TODO:
 - Symbol should be inferred by blockchain requests and not hard coded
 - pull to refresh on each data screen
+    - all three account tabs
 - View action screen
 - Vote for block producer screen
     - a request for the user to vote for memtrip should be at the top
-- Why are actions not being displayed properly?
-- Implement the create account api 
-- Integrate with create account api with the app
-- Integrate the create account api with Google play store items
+- Why are incoming actions not being displayed
+- Create account api 
+    - Implement the create account api 
+    - Integrate with create account api with the app
+    - Integrate the create account api with Google play store items
 - airdropped tokens?
-- Store transaction receipts in a database
-- View a list of transaction receipts in settings
+- Transaction receipts 
+    - Store transaction receipts in a database
+    - View a list of transaction receipts in settings
+    - View a list of google play account purchases
 
 ### Clean up
 - remove the homeUp finish from mxandroid

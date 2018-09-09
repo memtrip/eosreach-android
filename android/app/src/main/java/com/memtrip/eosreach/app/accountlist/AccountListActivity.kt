@@ -6,12 +6,13 @@ import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
 import android.view.Menu
+import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountActivity.Companion.accountIntent
 import com.memtrip.eosreach.app.account.AccountBundle
-import com.memtrip.eosreach.app.account.AccountIntent
+import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 
 import com.memtrip.eosreach.db.account.AccountEntity
 
@@ -50,10 +51,19 @@ class AccountListActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<AccountListIntent> = Observable.merge(
+    override fun intents(): Observable<AccountListIntent> = Observable.mergeArray(
         Observable.just(AccountListIntent.Init),
         adapter.interaction.map {
             AccountListIntent.AccountSelected(it.data)
+        },
+        RxView.clicks(account_list_no_accounts_settings_button).map {
+            AccountListIntent.NavigateToSettings
+        },
+        RxView.clicks(account_list_error_settings_button).map {
+            AccountListIntent.NavigateToSettings
+        },
+        account_list_error_view.retryClick().map {
+            AccountListIntent.RefreshAccounts
         }
     )
 
@@ -74,14 +84,20 @@ class AccountListActivity
         return true
     }
 
-
     override fun showProgress() {
         account_list_progressbar.visible()
         account_list_recyclerview.gone()
         account_list_toolbar.gone()
+        account_list_error_container.gone()
     }
 
     override fun showError() {
+        account_list_progressbar.gone()
+        account_list_error_container.visible()
+        account_list_recyclerview.gone()
+        account_list_error_view.populate(
+            getString(R.string.accounts_list_error_title),
+            getString(R.string.accounts_list_error_body))
     }
 
     override fun populate(accounts: List<AccountEntity>) {
@@ -97,6 +113,16 @@ class AccountListActivity
         val intent = accountIntent(accountBundle, this)
         startActivity(intent)
         finish()
+    }
+
+    override fun showNoAccounts() {
+        account_list_no_accounts_container.visible()
+        account_list_progressbar.gone()
+    }
+
+    override fun navigateToSettings() {
+        model().publish(AccountListIntent.Idle)
+        startActivity(settingsIntent(this))
     }
 
     companion object {

@@ -12,6 +12,8 @@ import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.SimpleAdapter
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import com.memtrip.eosreach.utils.fullDate
+import com.memtrip.eosreach.utils.toLocalDateTime
+
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_actions_list_item.view.*
 
@@ -30,7 +32,7 @@ class AccountActionsViewHolder(itemView: View) : SimpleAdapterViewHolder<Account
 
     override fun populate(position: Int, value: AccountAction) {
         itemView.account_actions_list_item_interaction_account_name.text = value.interactionAccountName
-        itemView.account_actions_list_item_date_created.text = value.date.fullDate()
+        itemView.account_actions_list_item_date_created.text = value.date.toLocalDateTime().fullDate()
 
         if (value.incoming) {
             itemView.account_actions_list_item_icon.setImageDrawable(

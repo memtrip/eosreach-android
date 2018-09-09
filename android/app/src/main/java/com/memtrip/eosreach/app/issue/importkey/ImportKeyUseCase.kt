@@ -30,11 +30,15 @@ class ImportKeyUseCase @Inject constructor(
                 accountForKeyRequest.getAccountsForKey(it)
             }.flatMap { result ->
                 if (result.success) {
-                    insertAccountsForPublicKey.replace(
-                        result.data!!.publicKey,
-                        result.data.accounts
-                    ).map {
-                        result
+                    if (result.data!!.accounts.isEmpty()) {
+                        Single.just(Result<AccountsForPublicKey, AccountForKeyError>(AccountForKeyError.NoAccounts))
+                    } else {
+                        insertAccountsForPublicKey.replace(
+                            result.data.publicKey,
+                            result.data.accounts
+                        ).map {
+                            result
+                        }
                     }
                 } else {
                     Single.just(result)

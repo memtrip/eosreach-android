@@ -65,4 +65,60 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:visibility="visible" />
 
+
+    <LinearLayout
+        android:id="@+id/account_list_error_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.memtrip.eosreach.uikit.ErrorCompositeView
+            android:id="@+id/account_list_error_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <com.memtrip.eosreach.brand.ReachButton
+            android:id="@+id/account_list_error_settings_button"
+            style="@style/ButtonTransparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/accounts_list_item_no_accounts_settings_button"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/account_list_no_accounts_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/padding_large"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            style="@style/Typography.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/accounts_list_item_no_accounts"/>
+        
+        <com.memtrip.eosreach.brand.ReachButton
+            android:id="@+id/account_list_no_accounts_settings_button"
+            style="@style/ButtonPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/accounts_list_item_no_accounts_settings_button"/>
+
+    </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

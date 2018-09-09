@@ -16,6 +16,8 @@ sealed class AccountListRenderAction : MxRenderAction {
     data class NavigateToAccount(
         val accountEntity: AccountEntity
     ) : AccountListRenderAction()
+    object NoAccounts : AccountListRenderAction()
+    object NavigateToSettings : AccountListRenderAction()
 }
 
 interface AccountListViewLayout : MxViewLayout {
@@ -23,6 +25,8 @@ interface AccountListViewLayout : MxViewLayout {
     fun showError()
     fun populate(accounts: List<AccountEntity>)
     fun navigateToAccount(accountBundle: AccountBundle)
+    fun showNoAccounts()
+    fun navigateToSettings()
 }
 
 class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<AccountListViewLayout, AccountListViewState> {
@@ -43,6 +47,12 @@ class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<Ac
                 state.view.accountEntity.accountName,
                 state.view.accountEntity.balance,
                 state.view.accountEntity.symbol))
+        }
+        AccountListViewState.View.NoAccounts -> {
+            layout.showNoAccounts()
+        }
+        AccountListViewState.View.NavigateToSettings -> {
+            layout.navigateToSettings()
         }
     }
 }

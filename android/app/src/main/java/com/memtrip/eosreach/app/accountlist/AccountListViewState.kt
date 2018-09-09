@@ -10,6 +10,8 @@ data class AccountListViewState(val view: View) : MxViewState {
         object OnProgress : View()
         data class OnSuccess(val accountList: List<AccountEntity>) : View()
         object OnError : View()
+        object NoAccounts : View()
         data class NavigateToAccount(val accountEntity: AccountEntity) : View()
+        object NavigateToSettings : View()
     }
 }

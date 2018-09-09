@@ -1,7 +1,9 @@
 package com.memtrip.eosreach.utils
 
-import org.threeten.bp.LocalDateTime
 import java.util.Calendar
+import java.util.Date
 
-fun Calendar.transactionExpiry(): LocalDateTime = LocalDateTime.of(get(Calendar.YEAR), get(Calendar.MONTH) + 1, get(Calendar.DAY_OF_MONTH), get(Calendar.HOUR_OF_DAY), get(Calendar.MINUTE), get(Calendar.SECOND),
-    get(Calendar.MILLISECOND) * 1000000)
+fun transactionDefaultExpiry(): Date = with (Calendar.getInstance()) {
+    set(Calendar.MINUTE, get(Calendar.MINUTE) + 2)
+    this
+}.time

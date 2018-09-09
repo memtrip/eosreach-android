@@ -54,7 +54,7 @@ dependencies {
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.0.0-rc02'
 
     /* eos-jvm */
-    implementation "com.memtrip.eos-jvm:eos-http-rpc:1.0.6"
+    implementation "com.memtrip.eos-jvm:eos-http-rpc:1.0.12"
 
     /* okhttp */
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
@@ -85,6 +85,9 @@ dependencies {
 
     /* fresco */
     implementation 'com.facebook.fresco:fresco:1.10.0'
+
+    /* Java8 date backport */
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'
 
     /* leak canary */
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

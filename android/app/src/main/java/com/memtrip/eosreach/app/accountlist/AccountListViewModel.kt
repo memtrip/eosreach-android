@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.app.accountlist
 
 import android.app.Application
+import com.memtrip.eosreach.app.account.AccountIntent
 import com.memtrip.eosreach.db.SelectedAccount
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.db.account.GetAccounts
@@ -25,6 +26,7 @@ class AccountListViewModel @Inject internal constructor(
         AccountListIntent.Idle -> Observable.just(AccountListRenderAction.Idle)
         is AccountListIntent.AccountSelected -> accountSelected(intent.accountName)
         AccountListIntent.RefreshAccounts -> refreshAccounts()
+        AccountListIntent.NavigateToSettings -> Observable.just(AccountListRenderAction.NavigateToSettings)
     }
 
     override fun reducer(previousState: AccountListViewState, renderAction: AccountListRenderAction): AccountListViewState = when (renderAction) {
@@ -38,14 +40,27 @@ class AccountListViewModel @Inject internal constructor(
             view = AccountListViewState.View.OnError)
         is AccountListRenderAction.NavigateToAccount -> previousState.copy(
             view = AccountListViewState.View.NavigateToAccount(renderAction.accountEntity))
+        AccountListRenderAction.NoAccounts -> previousState.copy(
+            view = AccountListViewState.View.NoAccounts)
+        AccountListRenderAction.NavigateToSettings -> previousState.copy(
+            view = AccountListViewState.View.NavigateToSettings)
     }
 
+    override fun filterIntents(intents: Observable<AccountListIntent>): Observable<AccountListIntent> = Observable.merge(
+        intents.ofType(AccountListIntent.Init::class.java).take(1),
+        intents.filter {
+            !AccountListIntent.Init::class.java.isInstance(it)
+        }
+    )
+
     private fun getAccounts(): Observable<AccountListRenderAction> {
-        return getAccounts.select().map<AccountListRenderAction> {
-            AccountListRenderAction.OnSuccess(it)
+        return getAccounts.select().map<AccountListRenderAction> { accounts ->
+            if (accounts.isEmpty()) {
+                AccountListRenderAction.NoAccounts
+            } else {
+                AccountListRenderAction.OnSuccess(accounts)
+            }
         }.toObservable()
-            .onErrorReturn { AccountListRenderAction.OnError }
-            .startWith(AccountListRenderAction.OnProgress)
     }
 
     private fun accountSelected(accountEntity: AccountEntity): Observable<AccountListRenderAction> {
@@ -54,9 +69,24 @@ class AccountListViewModel @Inject internal constructor(
     }
 
     private fun refreshAccounts(): Observable<AccountListRenderAction> {
+        selectedAccount.clear()
         return accountListUseCase
             .refreshAccounts()
-            .doOnError { AccountListRenderAction.OnError }
-            .andThen<AccountListRenderAction>(getAccounts())
+            .toObservable()
+            .flatMap { result ->
+                if (result.success) {
+                    getAccounts()
+                } else {
+                    refreshAccountsError(result.apiError!!)
+                }
+            }.onErrorReturn { AccountListRenderAction.OnError }
+            .startWith(AccountListRenderAction.OnProgress)
+    }
+
+    private fun refreshAccountsError(error: AccountListUseCase.AccountsListError): Observable<AccountListRenderAction> = when(error) {
+        AccountListUseCase.AccountsListError.RefreshAccountsFailed -> {
+            Observable.just(AccountListRenderAction.OnError)
+        }
+        AccountListUseCase.AccountsListError.NoAccounts -> Observable.just(AccountListRenderAction.NoAccounts)
     }
 }

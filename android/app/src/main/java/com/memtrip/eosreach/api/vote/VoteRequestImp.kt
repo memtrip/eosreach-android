@@ -6,9 +6,9 @@ import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.db.account.GetAccountByName
 
 import com.memtrip.eosreach.utils.RxSchedulers
+import com.memtrip.eosreach.utils.transactionDefaultExpiry
 import com.memtrip.eosreach.wallet.EosKeyManager
 import io.reactivex.Single
-import org.threeten.bp.LocalDateTime
 
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class VoteRequestImp @Inject constructor(
                     producers,
                     voter,
                     eosPrivateKey,
-                    LocalDateTime.now()
+                    transactionDefaultExpiry()
                 )).map { response ->
                     if (response.isSuccessful) {
                         Result<VoteReceipt, VoteError>(VoteReceipt(response.body!!.transaction_id))
