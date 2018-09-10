@@ -1,24 +1,20 @@
 package com.memtrip.eosreach.app.account.vote.cast
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
-import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
-import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
+import com.memtrip.eosreach.app.account.AccountIntent
+import com.memtrip.eosreach.app.account.AccountPagerFragment
 import com.memtrip.eosreach.uikit.gone
-import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.account_cast_vote_fragment.*
-import kotlinx.android.synthetic.main.transfer_confirm_activity.*
+import kotlinx.android.synthetic.main.account_activity.*
+import kotlinx.android.synthetic.main.account_cast_vote_activity.*
 import javax.inject.Inject
 
 class CastVoteActivity
@@ -34,34 +30,19 @@ class CastVoteActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.account_cast_vote_fragment)
+        setContentView(R.layout.account_cast_vote_activity)
         eosAccount = fromIntent(intent!!)
-        setSupportActionBar(account_cast_vote_toolbar)
-        supportActionBar!!.title = getString(R.string.settings_title)
+        setSupportActionBar(cast_producer_vote_toolbar)
+        supportActionBar!!.title = getString(R.string.cast_vote_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == BlockProducerListActivity.RESULT_CODE) {
-            val blockProducerBundle = BlockProducerListActivity.fromIntent(data!!)
-            account_cast_vote_blockproducer_name_input.setText(blockProducerBundle.apiUrl, TextView.BufferType.EDITABLE)
-        }
     }
 
     override fun inject() {
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<CastVoteIntent> {
-        return RxView.clicks(account_cast_vote_button).map {
-            CastVoteIntent.Vote(
-                eosAccount.accountName,
-                account_cast_vote_blockproducer_name_input.text.toString()
-            )
-        }
-    }
+    override fun intents(): Observable<CastVoteIntent> = Observable.just(CastVoteIntent.Init(eosAccount))
 
     override fun layout(): CastVoteViewLayout = this
 
@@ -69,40 +50,18 @@ class CastVoteActivity
 
     override fun render(): CastVoteViewRenderer = render
 
-    override fun showProgress() {
-        account_cast_vote_progressbar.visible()
-        account_cast_vote_button.invisible()
-    }
-
-    override fun showError(message: String, log: String) {
-        account_cast_vote_progressbar.gone()
-        account_cast_vote_button.visible()
-
-        AlertDialog.Builder(this)
-            .setMessage(message)
-            .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
-                model().publish(CastVoteIntent.ViewLog(log))
-            }
-            .setNegativeButton(R.string.transaction_view_log_negative_button, null)
-            .create()
-            .show()
-
-        transfer_confirm_progress.gone()
-        transfer_confirm_confirm_button.visible()
-    }
-
-    override fun onSuccess() {
-        // TODO: refresh the parent account activity
-    }
-
-    override fun navigateToBlockProducerList() {
+    override fun populate(eosAccount: EosAccount) {
         model().publish(CastVoteIntent.Idle)
-        startActivityForResult(BlockProducerListActivity.blockProducerList(this), BlockProducerListActivity.RESULT_CODE)
-    }
 
-    override fun viewLog(log: String) {
-        model().publish(CastVoteIntent.Idle)
-        startActivity(TransactionLogActivity.transactionLogIntent(log, this))
+        val castVotePagerFragment = CastVotePagerFragment(
+            supportFragmentManager,
+            this,
+            eosAccount)
+        cast_producer_vote_viewpager.adapter = castVotePagerFragment
+        cast_producer_vote_viewpager.offscreenPageLimit = 2
+        cast_producer_vote_tablayout.setupWithViewPager(cast_producer_vote_viewpager)
+
+        cast_producer_vote_viewpager.visible()
     }
 
     companion object {

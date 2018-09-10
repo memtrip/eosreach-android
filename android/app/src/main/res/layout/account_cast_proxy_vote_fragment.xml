@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/cast_proxy_vote_name_label"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cast_proxy_vote_name_label"
+        app:layout_constraintTop_toTopOf="@+id/horizontal_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"/>
+
+    <com.memtrip.eosreach.brand.ReachEditText
+        android:id="@+id/cast_proxy_vote_name_input"
+        style="@style/EditTextPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/cast_proxy_vote_name_hint"
+        app:layout_constraintTop_toBottomOf="@+id/cast_proxy_vote_name_label"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"/>
+
+    <ProgressBar
+        android:id="@+id/cast_proxy_vote_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/cast_proxy_vote_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/cast_proxy_vote_button"
+        style="@style/ButtonPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cast_vote_button"
+        app:layout_constraintBottom_toBottomOf="@+id/horizontal_end_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

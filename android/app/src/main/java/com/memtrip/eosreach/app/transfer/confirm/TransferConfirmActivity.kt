@@ -94,6 +94,9 @@ class TransferConfirmActivity
     }
 
     override fun showError(message: String, log: String) {
+        transfer_confirm_progress.gone()
+        transfer_confirm_confirm_button.visible()
+
         AlertDialog.Builder(this)
             .setMessage(message)
             .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
@@ -102,9 +105,6 @@ class TransferConfirmActivity
             .setNegativeButton(R.string.transaction_view_log_negative_button, null)
             .create()
             .show()
-
-        transfer_confirm_progress.gone()
-        transfer_confirm_confirm_button.visible()
     }
 
     override fun viewLog(log: String) {

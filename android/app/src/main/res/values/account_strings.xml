@@ -72,4 +72,9 @@
         An error occurred while processing your vote transaction, see the log for more information.
     </string>
 
+    <string name="cast_proxy_vote_name_label">
+        Enter the name of the account that will vote on your behalf.
+    </string>
+    <string name="cast_proxy_vote_name_hint">Proxy vote account name</string>
+
 </resources>

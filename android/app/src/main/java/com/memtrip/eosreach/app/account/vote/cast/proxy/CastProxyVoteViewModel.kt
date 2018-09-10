@@ -13,18 +13,25 @@ class CastProxyVoteViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: CastProxyVoteIntent): Observable<CastProxyVoteRenderAction> = when (intent) {
-        is CastProxyVoteIntent.Init -> Observable.just(CastProxyVoteRenderAction.OnProgress)
+        CastProxyVoteIntent.Idle -> Observable.just(CastProxyVoteRenderAction.Idle)
+        is CastProxyVoteIntent.Vote -> Observable.just(giveProxyVote())
+        is CastProxyVoteIntent.ViewLog -> Observable.just(CastProxyVoteRenderAction.ViewLog(intent.log))
     }
 
     override fun reducer(previousState: CastProxyVoteViewState, renderAction: CastProxyVoteRenderAction): CastProxyVoteViewState = when (renderAction) {
-        CastProxyVoteRenderAction.OnProgress -> previousState.copy(view = CastProxyVoteViewState.View.OnProgress)
-        CastProxyVoteRenderAction.OnError -> previousState.copy(view = CastProxyVoteViewState.View.OnError)
+        CastProxyVoteRenderAction.Idle -> previousState.copy(
+            view = CastProxyVoteViewState.View.Idle)
+        CastProxyVoteRenderAction.OnProgress -> previousState.copy(
+            view = CastProxyVoteViewState.View.OnProgress)
+        is CastProxyVoteRenderAction.OnError -> previousState.copy(
+            view = CastProxyVoteViewState.View.OnError(renderAction.message, renderAction.log))
+        CastProxyVoteRenderAction.OnSuccess -> previousState.copy(
+            view = CastProxyVoteViewState.View.OnSuccess)
+        is CastProxyVoteRenderAction.ViewLog -> previousState.copy(
+            view = CastProxyVoteViewState.View.ViewLog(renderAction.log))
     }
 
-    override fun filterIntents(intents: Observable<CastProxyVoteIntent>): Observable<CastProxyVoteIntent> = Observable.merge(
-        intents.ofType(CastProxyVoteIntent.Init::class.java).take(1),
-        intents.filter {
-            !CastProxyVoteIntent.Init::class.java.isInstance(it)
-        }
-    )
+    private fun giveProxyVote(): CastProxyVoteRenderAction {
+        return CastProxyVoteRenderAction.OnSuccess
+    }
 }

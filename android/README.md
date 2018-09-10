@@ -2,6 +2,8 @@
 - pull to refresh on each data screen
     - all three account tabs should trigger a refresh of AccountsActivity
     - all three account tabs should trigger a refresh of AccountsActivity
+    - block producer screen
+- View transaction
 - Vote for block producer screen
     - a request for the user to vote for memtrip should be at the top
 - Create account api 
