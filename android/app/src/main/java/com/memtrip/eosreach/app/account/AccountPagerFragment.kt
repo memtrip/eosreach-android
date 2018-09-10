@@ -12,13 +12,9 @@ import java.util.Arrays.asList
 
 class AccountPagerFragment(
     fragmentManager: FragmentManager,
-    context: Context,
+    private val context: Context,
     private val accountView: AccountView,
-    private val pages: List<Page> = asList(
-        Page.Balance(context.getString(R.string.account_page_balance)),
-        Page.Resources(context.getString(R.string.account_page_resources)),
-        Page.Vote(context.getString(R.string.account_page_vote))
-    ),
+    private val pages: List<Page> = asList(Page.BALANCE, Page.RESOURCES, Page.VOTE),
     private val balanceFragment: BalanceFragment = BalanceFragment.newInstance(accountView.balances!!),
     private val resourcesFragment: ResourcesFragment = ResourcesFragment.newInstance(accountView.eosAccount!!),
     private val voteFragment: VoteFragment = VoteFragment.newInstance(accountView.eosAccount!!)
@@ -27,26 +23,26 @@ class AccountPagerFragment(
     override fun getPageTitle(position: Int): CharSequence? {
         val page = pages[position]
         return when (page) {
-            is Page.Balance -> page.title
-            is Page.Resources -> page.title
-            is Page.Vote -> page.title
+            Page.BALANCE-> context.getString(R.string.account_page_balance)
+            Page.RESOURCES -> context.getString(R.string.account_page_resources)
+            Page.VOTE -> context.getString(R.string.account_page_vote)
         }
     }
 
     override fun getItem(position: Int): Fragment {
         val page = pages[position]
         return when (page) {
-            is Page.Balance -> balanceFragment
-            is Page.Resources -> resourcesFragment
-            is Page.Vote -> voteFragment
+            Page.BALANCE -> balanceFragment
+            Page.RESOURCES -> resourcesFragment
+            Page.VOTE -> voteFragment
         }
     }
 
     override fun getCount(): Int = pages.size
 
-    sealed class Page {
-        data class Balance(val title: String) : Page()
-        data class Resources(val title: String) : Page()
-        data class Vote(val title: String) : Page()
+    enum class Page {
+        BALANCE,
+        RESOURCES,
+        VOTE
     }
 }

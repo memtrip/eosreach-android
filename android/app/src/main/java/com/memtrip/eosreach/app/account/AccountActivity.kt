@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.account_activity.*
 import javax.inject.Inject
 
 class AccountActivity
-    : MviActivity<AccountIntent, AccountRenderAction, AccountViewState, AccountViewLayout>(), AccountViewLayout {
+    : MviActivity<AccountIntent, AccountRenderAction, AccountViewState, AccountViewLayout>(), AccountViewLayout, AccountParentRefresh {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -35,13 +35,6 @@ class AccountActivity
         account_toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.account_overflow_menu)
         account_toolbar.title = ""
         setSupportActionBar(account_toolbar)
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        if (intent != null) {
-            model().publish(AccountIntent.Retry(accountExtra(intent)))
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,7 +83,7 @@ class AccountActivity
         account_toolbar_account_name.text = accountName
     }
 
-    override fun populate(accountView: AccountView) {
+    override fun populate(accountView: AccountView, page: AccountPagerFragment.Page) {
         model().publish(AccountIntent.Idle)
 
         account_toolbar_account_name.text = accountView.eosAccount!!.accountName
@@ -104,6 +97,7 @@ class AccountActivity
         account_viewpager.adapter = accountPagerFragment
         account_viewpager.offscreenPageLimit = 3
         account_tablayout.setupWithViewPager(account_viewpager)
+        account_viewpager.currentItem = page.ordinal
 
         account_viewpager.visible()
     }
@@ -158,6 +152,10 @@ class AccountActivity
     override fun navigateToSettings() {
         model().publish(AccountIntent.Idle)
         startActivity(settingsIntent(this))
+    }
+
+    override fun triggerRefresh(page: AccountPagerFragment.Page) {
+        model().publish(AccountIntent.Refresh(accountExtra(intent), page))
     }
 
     companion object {

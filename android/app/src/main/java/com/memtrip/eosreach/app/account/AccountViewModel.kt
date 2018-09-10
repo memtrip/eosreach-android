@@ -17,6 +17,7 @@ class AccountViewModel @Inject internal constructor(
     override fun dispatcher(intent: AccountIntent): Observable<AccountRenderAction> = when (intent) {
         is AccountIntent.Init -> getAccount(intent.accountBundle.accountName)
         is AccountIntent.Retry -> getAccount(intent.accountBundle.accountName)
+        is AccountIntent.Refresh -> getAccount(intent.accountBundle.accountName, intent.page)
         AccountIntent.Idle -> Observable.just(AccountRenderAction.Idle)
         AccountIntent.NavigateToAccountList -> Observable.just(AccountRenderAction.NavigateToAccountList)
         AccountIntent.NavigateToImportKey -> Observable.just(AccountRenderAction.NavigateToImportKey)
@@ -31,7 +32,7 @@ class AccountViewModel @Inject internal constructor(
             view = AccountViewState.View.OnProgress
         )
         is AccountRenderAction.OnSuccess -> previousState.copy(
-            view = AccountViewState.View.OnSuccess,
+            view = AccountViewState.View.OnSuccess(renderAction.page),
             accountView = renderAction.accountView
         )
         AccountRenderAction.OnErrorFetchingAccount -> previousState.copy(view = AccountViewState.View.OnErrorFetchingAccount)
@@ -49,14 +50,14 @@ class AccountViewModel @Inject internal constructor(
         }
     )
 
-    private fun getAccount(accountName: String): Observable<AccountRenderAction> {
+    private fun getAccount(accountName: String, page: AccountPagerFragment.Page = AccountPagerFragment.Page.BALANCE): Observable<AccountRenderAction> {
         return accountUseCase.getAccountDetails(
             "eosio.token",
             accountName,
             context().getString(R.string.app_default_eos_currency)
         ).map {
             if (it.success) {
-                AccountRenderAction.OnSuccess(it)
+                AccountRenderAction.OnSuccess(it, page)
             } else {
                 onError(it.error!!)
             }

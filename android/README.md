@@ -16,6 +16,7 @@
     - View a list of transaction receipts in settings
     - View a list of google play account purchases
 - Fix the duplicates in the view private key screen
+- Fix private key not showing on Settings -> View Private Key
 - Add an invalidate shared pref that causes the account list to reload after a transaction occurs
 
 ### Clean up

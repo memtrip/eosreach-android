@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.api.vote
 
+import com.memtrip.eos.http.aggregation.AggregateContext
 import com.memtrip.eos.http.aggregation.vote.VoteAggregate
 
 import com.memtrip.eosreach.api.Result
@@ -28,7 +29,8 @@ class VoteRequestImp @Inject constructor(
                 voteAggregate.vote(VoteAggregate.Args(
                     voter,
                     "",
-                    producers,
+                    producers
+                ), AggregateContext(
                     voter,
                     eosPrivateKey,
                     transactionDefaultExpiry()

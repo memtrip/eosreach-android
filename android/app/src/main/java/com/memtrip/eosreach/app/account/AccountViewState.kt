@@ -11,7 +11,7 @@ data class AccountViewState(
     sealed class View {
         object Idle : View()
         object OnProgress : View()
-        object OnSuccess : View()
+        data class OnSuccess(val page: AccountPagerFragment.Page) : View()
         object OnErrorFetchingAccount : View()
         object OnErrorFetchingBalances : View()
         object NavigateToAccountList : View()

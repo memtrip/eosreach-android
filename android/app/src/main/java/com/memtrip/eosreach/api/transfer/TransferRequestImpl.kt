@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.api.transfer
 
 import com.memtrip.eos.core.crypto.EosPrivateKey
+import com.memtrip.eos.http.aggregation.AggregateContext
 import com.memtrip.eos.http.aggregation.transfer.TransferAggregate
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.utils.RxSchedulers
@@ -27,7 +28,9 @@ class TransferRequestImpl @Inject constructor(
                 fromAccount,
                 toAccount,
                 quantity,
-                memo,
+                memo
+            ),
+            AggregateContext(
                 fromAccount,
                 authorizingPrivateKey,
                 transactionDefaultExpiry()

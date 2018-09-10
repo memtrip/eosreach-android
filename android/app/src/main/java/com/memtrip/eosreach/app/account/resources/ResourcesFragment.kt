@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.app.account.resources
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,9 +15,12 @@ import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountResource
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountPagerFragment
+import com.memtrip.eosreach.app.account.AccountParentRefresh
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_resources_fragment.*
+import kotlinx.android.synthetic.main.account_resources_fragment.view.*
 import javax.inject.Inject
 
 class ResourcesFragment
@@ -28,10 +32,21 @@ class ResourcesFragment
     @Inject
     lateinit var render: ResourcesViewRenderer
 
+    lateinit var accountParentRefresh: AccountParentRefresh
+
     private val pretty = Pretty()
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        accountParentRefresh = context as AccountParentRefresh
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.account_resources_fragment, container, false)
+        val view = inflater.inflate(R.layout.account_resources_fragment, container, false)
+        view.account_resources_swipelayout.setOnRefreshListener {
+            accountParentRefresh.triggerRefresh(AccountPagerFragment.Page.RESOURCES)
+        }
+        return view
     }
 
     override fun inject() {

@@ -9,7 +9,7 @@ import javax.inject.Inject
 sealed class AccountRenderAction : MxRenderAction {
     object Idle : AccountRenderAction()
     data class OnProgress(val accountName: String) : AccountRenderAction()
-    data class OnSuccess(val accountView: AccountView) : AccountRenderAction()
+    data class OnSuccess(val accountView: AccountView, val page: AccountPagerFragment.Page) : AccountRenderAction()
     object OnErrorFetchingAccount : AccountRenderAction()
     object OnErrorFetchingBalances : AccountRenderAction()
     object NavigateToAccountList : AccountRenderAction()
@@ -21,7 +21,7 @@ sealed class AccountRenderAction : MxRenderAction {
 interface AccountViewLayout : MxViewLayout {
     fun showProgress()
     fun populateTitle(accountName: String)
-    fun populate(accountView: AccountView)
+    fun populate(accountView: AccountView, page: AccountPagerFragment.Page)
     fun showPrice(price: String)
     fun showOutDatedPrice(price: String)
     fun showPriceUnavailable()
@@ -55,7 +55,7 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
             val balances = accountView.balances!!.balances
             val eosPrice = accountView.eosPrice!!
 
-            layout.populate(accountView)
+            layout.populate(accountView, state.view.page)
 
             if (balances.isNotEmpty()) {
                 val eosBalance = balances[0].balance.amount
