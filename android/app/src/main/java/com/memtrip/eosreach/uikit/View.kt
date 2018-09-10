@@ -16,10 +16,10 @@ fun View.gone() {
     visibility = View.GONE
 }
 
-fun SwipeRefreshLayout.stopRefreshing() {
+fun SwipeRefreshLayout.stop() {
     isRefreshing = false
 }
 
-fun SwipeRefreshLayout.startRefreshing() {
+fun SwipeRefreshLayout.start() {
     Handler().post { isRefreshing = true }
 }

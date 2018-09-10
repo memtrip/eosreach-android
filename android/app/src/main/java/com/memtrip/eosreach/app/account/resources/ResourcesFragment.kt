@@ -32,21 +32,10 @@ class ResourcesFragment
     @Inject
     lateinit var render: ResourcesViewRenderer
 
-    lateinit var accountParentRefresh: AccountParentRefresh
-
     private val pretty = Pretty()
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        accountParentRefresh = context as AccountParentRefresh
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.account_resources_fragment, container, false)
-        view.account_resources_swipelayout.setOnRefreshListener {
-            accountParentRefresh.triggerRefresh(AccountPagerFragment.Page.RESOURCES)
-        }
-        return view
+        return inflater.inflate(R.layout.account_resources_fragment, container, false)
     }
 
     override fun inject() {

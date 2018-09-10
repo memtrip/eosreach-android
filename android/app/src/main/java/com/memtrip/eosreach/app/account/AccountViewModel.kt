@@ -17,8 +17,10 @@ class AccountViewModel @Inject internal constructor(
     override fun dispatcher(intent: AccountIntent): Observable<AccountRenderAction> = when (intent) {
         is AccountIntent.Init -> getAccount(intent.accountBundle.accountName)
         is AccountIntent.Retry -> getAccount(intent.accountBundle.accountName)
-        is AccountIntent.Refresh -> getAccount(intent.accountBundle.accountName, intent.page)
-        AccountIntent.Idle -> Observable.just(AccountRenderAction.Idle)
+        is AccountIntent.Refresh -> getAccount(intent.accountBundle.accountName)
+        AccountIntent.BalanceTabIdle -> Observable.just(AccountRenderAction.BalanceTabIdle)
+        AccountIntent.ResourceTabIdle -> Observable.just(AccountRenderAction.ResourceTabIdle)
+        AccountIntent.VoteTabIdle -> Observable.just(AccountRenderAction.VoteTabIdle)
         AccountIntent.NavigateToAccountList -> Observable.just(AccountRenderAction.NavigateToAccountList)
         AccountIntent.NavigateToImportKey -> Observable.just(AccountRenderAction.NavigateToImportKey)
         AccountIntent.NavigateToCreateAccount -> Observable.just(AccountRenderAction.NavigateToCreateAccount)
@@ -26,21 +28,33 @@ class AccountViewModel @Inject internal constructor(
     }
 
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
-        AccountRenderAction.Idle -> previousState.copy(view = AccountViewState.View.Idle)
+        AccountRenderAction.BalanceTabIdle -> previousState.copy(
+            view = AccountViewState.View.Idle,
+            page =  AccountPagerFragment.Page.BALANCE)
+        AccountRenderAction.ResourceTabIdle -> previousState.copy(
+            view = AccountViewState.View.Idle,
+            page =  AccountPagerFragment.Page.RESOURCES)
+        AccountRenderAction.VoteTabIdle -> previousState.copy(
+            view = AccountViewState.View.Idle,
+            page =  AccountPagerFragment.Page.VOTE)
         is AccountRenderAction.OnProgress -> previousState.copy(
             accountName = renderAction.accountName,
-            view = AccountViewState.View.OnProgress
-        )
+            view = AccountViewState.View.OnProgress)
         is AccountRenderAction.OnSuccess -> previousState.copy(
-            view = AccountViewState.View.OnSuccess(renderAction.page),
-            accountView = renderAction.accountView
-        )
-        AccountRenderAction.OnErrorFetchingAccount -> previousState.copy(view = AccountViewState.View.OnErrorFetchingAccount)
-        AccountRenderAction.OnErrorFetchingBalances -> previousState.copy(view = AccountViewState.View.OnErrorFetchingAccount)
-        AccountRenderAction.NavigateToAccountList -> previousState.copy(view = AccountViewState.View.NavigateToAccountList)
-        AccountRenderAction.NavigateToImportKey -> previousState.copy(view = AccountViewState.View.NavigateToImportKey)
-        AccountRenderAction.NavigateToCreateAccount -> previousState.copy(view = AccountViewState.View.NavigateToCreateAccount)
-        AccountRenderAction.NavigateToSettings -> previousState.copy(view = AccountViewState.View.NavigateToSettings)
+            view = AccountViewState.View.OnSuccess,
+            accountView = renderAction.accountView)
+        AccountRenderAction.OnErrorFetchingAccount -> previousState.copy(
+            view = AccountViewState.View.OnErrorFetchingAccount)
+        AccountRenderAction.OnErrorFetchingBalances -> previousState.copy(
+            view = AccountViewState.View.OnErrorFetchingAccount)
+        AccountRenderAction.NavigateToAccountList -> previousState.copy(
+            view = AccountViewState.View.NavigateToAccountList)
+        AccountRenderAction.NavigateToImportKey -> previousState.copy(
+            view = AccountViewState.View.NavigateToImportKey)
+        AccountRenderAction.NavigateToCreateAccount -> previousState.copy(
+            view = AccountViewState.View.NavigateToCreateAccount)
+        AccountRenderAction.NavigateToSettings -> previousState.copy(
+            view = AccountViewState.View.NavigateToSettings)
     }
 
     override fun filterIntents(intents: Observable<AccountIntent>): Observable<AccountIntent> = Observable.merge(
@@ -50,14 +64,14 @@ class AccountViewModel @Inject internal constructor(
         }
     )
 
-    private fun getAccount(accountName: String, page: AccountPagerFragment.Page = AccountPagerFragment.Page.BALANCE): Observable<AccountRenderAction> {
+    private fun getAccount(accountName: String): Observable<AccountRenderAction> {
         return accountUseCase.getAccountDetails(
             "eosio.token",
             accountName,
             context().getString(R.string.app_default_eos_currency)
         ).map {
             if (it.success) {
-                AccountRenderAction.OnSuccess(it, page)
+                AccountRenderAction.OnSuccess(it)
             } else {
                 onError(it.error!!)
             }

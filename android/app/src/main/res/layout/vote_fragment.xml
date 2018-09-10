@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="vote_no_vote_body_label,vote_no_vote_memtripblock_label,vote_no_vote_castvote_button"
+        app:constraint_referenced_ids="vote_no_vote_body_label,vote_no_vote_memtripblock_label"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
@@ -103,6 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"
         android:text="@string/vote_no_vote_cast_vote_button"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/vote_no_vote_memtripblock_label" />
 

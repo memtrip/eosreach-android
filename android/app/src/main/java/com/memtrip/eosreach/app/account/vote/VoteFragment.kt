@@ -84,17 +84,20 @@ class VoteFragment
     override fun render(): VoteViewRenderer = render
 
     override fun populateProxyVote(proxyVoter: String) {
+        vote_no_vote_castvote_button.gone()
         vote_proxy_group.visible()
         vote_proxy_voter.text = proxyVoter
     }
 
     override fun populateProducerVotes(eosAccountVote: EosAccountVote) {
+        vote_no_vote_castvote_button.gone()
         vote_producer_vote_group.visible()
         adapter.clear()
         adapter.populate(eosAccountVote.producers)
     }
 
     override fun showNoVoteCast() {
+        vote_no_vote_castvote_button.visible()
         vote_no_vote_group.visible()
     }
 

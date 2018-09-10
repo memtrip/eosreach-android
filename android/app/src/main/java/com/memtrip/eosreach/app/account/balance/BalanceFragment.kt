@@ -33,14 +33,7 @@ class BalanceFragment
     @Inject
     lateinit var render: BalanceViewRenderer
 
-    lateinit var accountParentRefresh: AccountParentRefresh
-
     private lateinit var adapter: AccountBalanceListAdapter
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        accountParentRefresh = context as AccountParentRefresh
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_balance_fragment, container, false)
@@ -48,10 +41,6 @@ class BalanceFragment
         val adapterInteraction: PublishSubject<Interaction<ContractAccountBalance>> = PublishSubject.create()
         adapter = AccountBalanceListAdapter(context!!, adapterInteraction)
         view.balance_list_recyclerview.adapter = adapter
-
-        view.balance_list_swiperefresh.setOnRefreshListener {
-            accountParentRefresh.triggerRefresh(AccountPagerFragment.Page.BALANCE)
-        }
 
         return view
     }

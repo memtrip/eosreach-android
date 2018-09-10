@@ -3,10 +3,12 @@ package com.memtrip.eosreach.app.account
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class AccountIntent : MxViewIntent {
-    object Idle : AccountIntent()
+    object BalanceTabIdle : AccountIntent()
+    object ResourceTabIdle : AccountIntent()
+    object VoteTabIdle : AccountIntent()
     data class Init(val accountBundle: AccountBundle) : AccountIntent()
     data class Retry(val accountBundle: AccountBundle) : AccountIntent()
-    data class Refresh(val accountBundle: AccountBundle, val page: AccountPagerFragment.Page) : AccountIntent()
+    data class Refresh(val accountBundle: AccountBundle) : AccountIntent()
     object NavigateToAccountList : AccountIntent()
     object NavigateToImportKey : AccountIntent()
     object NavigateToCreateAccount : AccountIntent()

@@ -7,6 +7,7 @@ import android.view.Menu
 import androidx.core.content.ContextCompat
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.accountlist.AccountListActivity.Companion.accountListIntent
@@ -14,7 +15,10 @@ import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.man
 import com.memtrip.eosreach.app.manage.ManageImportKeyActivity.Companion.manageImportKeyIntent
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.start
+import com.memtrip.eosreach.uikit.stop
 import com.memtrip.eosreach.uikit.visible
+import com.memtrip.eosreach.utils.ViewPagerOnPageChangeListener
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_activity.*
@@ -29,12 +33,15 @@ class AccountActivity
     @Inject
     lateinit var render: AccountViewRenderer
 
+    lateinit var accountBundle: AccountBundle
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_activity)
         account_toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.account_overflow_menu)
         account_toolbar.title = ""
         setSupportActionBar(account_toolbar)
+        accountBundle = accountExtra(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,8 +70,8 @@ class AccountActivity
     }
 
     override fun intents(): Observable<AccountIntent> = Observable.mergeArray(
-        Observable.just(AccountIntent.Init(accountExtra(intent))),
-        account_error_view.retryClick().map { AccountIntent.Retry(accountExtra(intent)) },
+        Observable.just(AccountIntent.Init(accountBundle)),
+        account_error_view.retryClick().map { AccountIntent.Retry(accountBundle) },
         RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList }
     )
 
@@ -75,7 +82,7 @@ class AccountActivity
     override fun render(): AccountViewRenderer = render
 
     override fun showProgress() {
-        account_progressbar.visible()
+        account_swipelayout.start()
         account_error_view.gone()
     }
 
@@ -84,10 +91,10 @@ class AccountActivity
     }
 
     override fun populate(accountView: AccountView, page: AccountPagerFragment.Page) {
-        model().publish(AccountIntent.Idle)
+        model().publish(AccountIntent.BalanceTabIdle)
 
         account_toolbar_account_name.text = accountView.eosAccount!!.accountName
-        account_progressbar.gone()
+        account_swipelayout.stop()
         account_header_group.visible()
 
         val accountPagerFragment = AccountPagerFragment(
@@ -96,10 +103,29 @@ class AccountActivity
             accountView)
         account_viewpager.adapter = accountPagerFragment
         account_viewpager.offscreenPageLimit = 3
-        account_tablayout.setupWithViewPager(account_viewpager)
         account_viewpager.currentItem = page.ordinal
-
         account_viewpager.visible()
+        account_viewpager.addOnPageChangeListener(object : ViewPagerOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    AccountPagerFragment.Page.BALANCE.ordinal -> {
+                        model().publish(AccountIntent.BalanceTabIdle)
+                    }
+                    AccountPagerFragment.Page.RESOURCES.ordinal -> {
+                        model().publish(AccountIntent.ResourceTabIdle)
+                    }
+                    AccountPagerFragment.Page.VOTE.ordinal -> {
+                        model().publish(AccountIntent.VoteTabIdle)
+                    }
+                }
+            }
+        })
+
+        account_tablayout.setupWithViewPager(account_viewpager)
+
+        account_swipelayout.setOnRefreshListener {
+            model().publish(AccountIntent.Refresh(accountBundle))
+        }
     }
 
     override fun showPrice(price: String) {
@@ -116,7 +142,7 @@ class AccountActivity
     }
 
     override fun showGetAccountError() {
-        account_progressbar.gone()
+        account_swipelayout.stop()
         account_error_view.visible()
         account_error_view.populate(
             getString(R.string.account_error_get_account_title),
@@ -125,7 +151,7 @@ class AccountActivity
     }
 
     override fun showGetBalancesError() {
-        account_progressbar.gone()
+        account_swipelayout.stop()
         account_error_view.visible()
         account_error_view.populate(
             getString(R.string.account_error_get_balances_title),
@@ -134,28 +160,28 @@ class AccountActivity
     }
 
     override fun navigateToAccountList() {
-        model().publish(AccountIntent.Idle)
+        model().publish(AccountIntent.BalanceTabIdle)
         startActivity(accountListIntent(this))
         finish()
     }
 
     override fun navigateToImportKey() {
-        model().publish(AccountIntent.Idle)
+        model().publish(AccountIntent.BalanceTabIdle)
         startActivity(manageImportKeyIntent(this))
     }
 
     override fun navigateToCreateAccount() {
-        model().publish(AccountIntent.Idle)
+        model().publish(AccountIntent.BalanceTabIdle)
         startActivity(manageCreateAccountIntent(this))
     }
 
     override fun navigateToSettings() {
-        model().publish(AccountIntent.Idle)
+        model().publish(AccountIntent.BalanceTabIdle)
         startActivity(settingsIntent(this))
     }
 
     override fun triggerRefresh(page: AccountPagerFragment.Page) {
-        model().publish(AccountIntent.Refresh(accountExtra(intent), page))
+        model().publish(AccountIntent.Refresh(accountBundle))
     }
 
     companion object {

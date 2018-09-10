@@ -5,13 +5,14 @@ import com.memtrip.mxandroid.MxViewState
 data class AccountViewState(
     val view: View,
     val accountName: String? = null,
-    val accountView: AccountView? = null
+    val accountView: AccountView? = null,
+    val page: AccountPagerFragment.Page = AccountPagerFragment.Page.BALANCE
 ) : MxViewState {
 
     sealed class View {
         object Idle : View()
         object OnProgress : View()
-        data class OnSuccess(val page: AccountPagerFragment.Page) : View()
+        object OnSuccess : View()
         object OnErrorFetchingAccount : View()
         object OnErrorFetchingBalances : View()
         object NavigateToAccountList : View()

@@ -7,9 +7,11 @@ import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class AccountRenderAction : MxRenderAction {
-    object Idle : AccountRenderAction()
+    object BalanceTabIdle : AccountRenderAction()
+    object ResourceTabIdle : AccountRenderAction()
+    object VoteTabIdle : AccountRenderAction()
     data class OnProgress(val accountName: String) : AccountRenderAction()
-    data class OnSuccess(val accountView: AccountView, val page: AccountPagerFragment.Page) : AccountRenderAction()
+    data class OnSuccess(val accountView: AccountView) : AccountRenderAction()
     object OnErrorFetchingAccount : AccountRenderAction()
     object OnErrorFetchingBalances : AccountRenderAction()
     object NavigateToAccountList : AccountRenderAction()
@@ -55,7 +57,7 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
             val balances = accountView.balances!!.balances
             val eosPrice = accountView.eosPrice!!
 
-            layout.populate(accountView, state.view.page)
+            layout.populate(accountView, state.page)
 
             if (balances.isNotEmpty()) {
                 val eosBalance = balances[0].balance.amount
