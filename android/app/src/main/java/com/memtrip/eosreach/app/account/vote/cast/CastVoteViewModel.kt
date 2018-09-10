@@ -8,7 +8,7 @@ import javax.inject.Inject
 class CastVoteViewModel @Inject internal constructor(
     application: Application
 ) : MxViewModel<CastVoteIntent, CastVoteRenderAction, CastVoteViewState>(
-    CastVoteViewState(view = CastVoteViewState.View.CastProducerVoteTabIdle),
+    CastVoteViewState(view = CastVoteViewState.View.Idle),
     application
 ) {
 
@@ -19,9 +19,14 @@ class CastVoteViewModel @Inject internal constructor(
     }
 
     override fun reducer(previousState: CastVoteViewState, renderAction: CastVoteRenderAction): CastVoteViewState = when (renderAction) {
-        CastVoteRenderAction.CastProducerVoteTabIdle -> previousState.copy(view = CastVoteViewState.View.CastProducerVoteTabIdle)
-        CastVoteRenderAction.CastProxyVoteTabIdle -> previousState.copy(view = CastVoteViewState.View.CastProxyVoteTabIdle)
-        is CastVoteRenderAction.Populate -> previousState.copy(view = CastVoteViewState.View.Populate(renderAction.eosAccount))
+        CastVoteRenderAction.CastProducerVoteTabIdle -> previousState.copy(
+            view = CastVoteViewState.View.Idle,
+            page = CastVotePagerFragment.Page.PRODUCER)
+        CastVoteRenderAction.CastProxyVoteTabIdle -> previousState.copy(
+            view = CastVoteViewState.View.Idle,
+            page = CastVotePagerFragment.Page.PROXY)
+        is CastVoteRenderAction.Populate -> previousState.copy(
+            view = CastVoteViewState.View.Populate(renderAction.eosAccount))
     }
 
     override fun filterIntents(intents: Observable<CastVoteIntent>): Observable<CastVoteIntent> = Observable.merge(

@@ -68,6 +68,11 @@
     <string name="cast_vote_page_proxy">Proxy</string>
 
     <string name="cast_vote_block_producer_name_hint">Enter block producer name</string>
+    <string name="cast_producers_vote_instructions">
+        Vote for up to 30 Block Producer Candidates.
+    </string>
+    <string name="cast_producers_vote_add_button">Add</string>
+    <string name="cast_producers_vote_remove_button">Remove</string>
     <string name="cast_vote_pick_from_blockproducer">Choose block producer</string>
     <string name="cast_vote_button">Vote</string>
     <string name="cast_vote_error_message">

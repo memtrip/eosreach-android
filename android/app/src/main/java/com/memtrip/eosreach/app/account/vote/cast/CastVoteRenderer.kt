@@ -13,21 +13,15 @@ sealed class CastVoteRenderAction : MxRenderAction {
 }
 
 interface CastVoteViewLayout : MxViewLayout {
-    fun selectCastProducerVoteTab()
-    fun selectCastProxyVoteTab()
-    fun populate(eosAccount: EosAccount)
+    fun populate(eosAccount: EosAccount, page: CastVotePagerFragment.Page)
 }
 
 class CastVoteViewRenderer @Inject internal constructor() : MxViewRenderer<CastVoteViewLayout, CastVoteViewState> {
     override fun layout(layout: CastVoteViewLayout, state: CastVoteViewState): Unit = when (state.view) {
-        CastVoteViewState.View.CastProducerVoteTabIdle -> {
-            layout.selectCastProducerVoteTab()
-        }
-        CastVoteViewState.View.CastProxyVoteTabIdle -> {
-            layout.selectCastProxyVoteTab()
+        CastVoteViewState.View.Idle -> {
         }
         is CastVoteViewState.View.Populate -> {
-            layout.populate(state.view.eosAccount)
+            layout.populate(state.view.eosAccount, state.page)
         }
     }
 }

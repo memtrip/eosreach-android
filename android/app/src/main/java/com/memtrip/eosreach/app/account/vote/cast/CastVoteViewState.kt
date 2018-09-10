@@ -3,11 +3,13 @@ package com.memtrip.eosreach.app.account.vote.cast
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.mxandroid.MxViewState
 
-data class CastVoteViewState(val view: View) : MxViewState {
+data class CastVoteViewState(
+    val view: View,
+    val page: CastVotePagerFragment.Page = CastVotePagerFragment.Page.PRODUCER
+) : MxViewState {
 
     sealed class View {
-        object CastProducerVoteTabIdle : View()
-        object CastProxyVoteTabIdle : View()
+        object Idle : View()
         data class Populate(val eosAccount: EosAccount) : View()
     }
 }

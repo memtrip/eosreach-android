@@ -10,4 +10,7 @@
     <dimen name="account_actions_value_guideline">112dp</dimen>
     <dimen name="account_actions_header_height">120dp</dimen>
 
+    <dimen name="account_cast_producers_vote_item_button_width">72dp</dimen>
+    <dimen name="account_cast_producers_vote_item_button_height">34dp</dimen>
+
 </resources>

@@ -58,7 +58,7 @@ class EosEndpointActivity
         ).map {
             EosEndpointIntent.ChangeEndpoint(eos_endpoint_url_input.text.toString())
         },
-        RxView.clicks(cast_producer_vote_endpoint_block_producer).map { EosEndpointIntent.NavigateToBlockProducerList }
+        RxView.clicks(cast_producers_vote_endpoint_block_producer).map { EosEndpointIntent.NavigateToBlockProducerList }
     )
 
     override fun layout(): EosEndpointViewLayout = this

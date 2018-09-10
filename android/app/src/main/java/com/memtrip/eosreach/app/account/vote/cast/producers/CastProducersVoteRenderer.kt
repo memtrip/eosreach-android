@@ -8,13 +8,15 @@ import javax.inject.Inject
 sealed class CastProducersVoteRenderAction : MxRenderAction {
     object Idle : CastProducersVoteRenderAction()
     object OnProgress : CastProducersVoteRenderAction()
+    data class AddProducerField(val nextPosition: Int) : CastProducersVoteRenderAction()
     data class OnError(val message: String, val log: String) : CastProducersVoteRenderAction()
-    data class OnSuccess(val blockProducerName: String) : CastProducersVoteRenderAction()
+    object OnSuccess : CastProducersVoteRenderAction()
     object NavigateToBlockProducerList : CastProducersVoteRenderAction()
     data class ViewLog(val log: String) : CastProducersVoteRenderAction()
 }
 
 interface CastProducersVoteViewLayout : MxViewLayout {
+    fun addProducerField(position: Int)
     fun showProgress()
     fun showError(message: String, log: String)
     fun onSuccess()
@@ -25,6 +27,9 @@ interface CastProducersVoteViewLayout : MxViewLayout {
 class CastProducersVoteViewRenderer @Inject internal constructor() : MxViewRenderer<CastProducersVoteViewLayout, CastProducersVoteViewState> {
     override fun layout(layout: CastProducersVoteViewLayout, state: CastProducersVoteViewState): Unit = when (state.view) {
         CastProducersVoteViewState.View.Idle -> {
+        }
+        is CastProducersVoteViewState.View.AddProducerField -> {
+            layout.addProducerField(state.view.nextPosition)
         }
         CastProducersVoteViewState.View.OnProgress -> {
             layout.showProgress()

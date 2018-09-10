@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
 import com.memtrip.eosreach.uikit.gone
@@ -44,7 +46,7 @@ class CastProducersVoteFragment
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == BlockProducerListActivity.RESULT_CODE) {
             val blockProducerBundle = BlockProducerListActivity.fromIntent(data!!)
-            cast_producer_vote_blockproducer_name_input.setText(blockProducerBundle.apiUrl, TextView.BufferType.EDITABLE)
+            //cast_producers_vote_blockproducer_name_input.setText(blockProducerBundle.apiUrl, TextView.BufferType.EDITABLE)
         }
     }
 
@@ -52,12 +54,33 @@ class CastProducersVoteFragment
         AndroidSupportInjection.inject(this)
     }
 
-    override fun intents(): Observable<CastProducersVoteIntent> {
-        return RxView.clicks(cast_producer_vote_button).map {
+    override fun intents(): Observable<CastProducersVoteIntent> = Observable.merge(
+        Observable.just(CastProducersVoteIntent.Init),
+        RxView.clicks(cast_producers_vote_button).map {
             CastProducersVoteIntent.Vote(
                 eosAccount.accountName,
-                cast_producer_vote_blockproducer_name_input.text.toString()
+                getFormData()
             )
+        },
+        RxView.clicks(cast_producers_vote_blockproducer_form_add).map {
+            CastProducersVoteIntent.AddProducerField(getNextPositionInForm())
+        }
+    )
+
+    private fun getNextPositionInForm(): Int {
+        return (cast_producers_vote_blockproducer_form_container.getChildAt(
+            cast_producers_vote_blockproducer_form_container.childCount - 1
+        ).tag as Int) + 1
+    }
+
+    private fun getFormData(): List<String> {
+        return with (ArrayList<String>()) {
+            for (i in 0 until cast_producers_vote_blockproducer_form_container.childCount) {
+                val formItem: ViewGroup = cast_producers_vote_blockproducer_form_container.getChildAt(i) as ViewGroup
+                val editText = formItem.getChildAt(0) as EditText
+                add(editText.editableText.toString())
+            }
+            this
         }
     }
 
@@ -67,14 +90,26 @@ class CastProducersVoteFragment
 
     override fun render(): CastProducersVoteViewRenderer = render
 
+    override fun addProducerField(position: Int) {
+        cast_producers_vote_blockproducer_form_container.addView(
+            with (LayoutInflater.from(context!!).inflate(
+                R.layout.account_cast_producers_vote_item_layout,
+                null,
+                false)) {
+                tag = position
+                this
+            }
+        )
+    }
+
     override fun showProgress() {
-        cast_producer_vote_progress.visible()
-        cast_producer_vote_button.invisible()
+        cast_producers_vote_progress.visible()
+        cast_producers_vote_button.invisible()
     }
 
     override fun showError(message: String, log: String) {
-        cast_producer_vote_progress.gone()
-        cast_producer_vote_button.visible()
+        cast_producers_vote_progress.gone()
+        cast_producers_vote_button.visible()
 
         AlertDialog.Builder(context!!)
             .setMessage(message)
@@ -84,13 +119,11 @@ class CastProducersVoteFragment
             .setNegativeButton(R.string.transaction_view_log_negative_button, null)
             .create()
             .show()
-
-        cast_producer_vote_progress.gone()
-        cast_producer_vote_button.visible()
     }
 
     override fun onSuccess() {
-        // TODO: refresh the parent account activity
+        activity!!.setResult(CastVoteActivity.CAST_VOTE_RESULT_CODE, null)
+        activity!!.finish()
     }
 
     override fun navigateToBlockProducerList() {

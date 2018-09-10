@@ -3,19 +3,14 @@ package com.memtrip.eosreach.app.account.vote.cast
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.viewpager.widget.ViewPager
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.AccountIntent
-import com.memtrip.eosreach.app.account.AccountPagerFragment
-import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import com.memtrip.eosreach.utils.ViewPagerOnPageChangeListener
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.account_activity.*
 import kotlinx.android.synthetic.main.account_cast_vote_activity.*
 import javax.inject.Inject
 
@@ -34,7 +29,7 @@ class CastVoteActivity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_cast_vote_activity)
         eosAccount = fromIntent(intent!!)
-        setSupportActionBar(cast_producer_vote_toolbar)
+        setSupportActionBar(cast_producers_vote_toolbar)
         supportActionBar!!.title = getString(R.string.cast_vote_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -52,7 +47,7 @@ class CastVoteActivity
 
     override fun render(): CastVoteViewRenderer = render
 
-    override fun populate(eosAccount: EosAccount) {
+    override fun populate(eosAccount: EosAccount, page: CastVotePagerFragment.Page) {
         model().publish(CastVoteIntent.CastProducerVoteTabIdle)
 
         val castVotePagerFragment = CastVotePagerFragment(
@@ -61,6 +56,7 @@ class CastVoteActivity
             eosAccount)
         cast_producer_vote_viewpager.adapter = castVotePagerFragment
         cast_producer_vote_viewpager.offscreenPageLimit = 2
+        cast_producer_vote_viewpager.currentItem = page.ordinal
         cast_producer_vote_viewpager.visible()
         cast_producer_vote_viewpager.addOnPageChangeListener(object : ViewPagerOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
@@ -76,14 +72,6 @@ class CastVoteActivity
         })
 
         cast_producer_vote_tablayout.setupWithViewPager(cast_producer_vote_viewpager)
-    }
-
-    override fun selectCastProducerVoteTab() {
-        cast_producer_vote_viewpager.currentItem = CastVotePagerFragment.Page.PRODUCER.ordinal
-    }
-
-    override fun selectCastProxyVoteTab() {
-        cast_producer_vote_viewpager.currentItem = CastVotePagerFragment.Page.PROXY.ordinal
     }
 
     companion object {
