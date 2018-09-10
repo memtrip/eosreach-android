@@ -2,24 +2,31 @@ package com.memtrip.eosreach.app.account.vote.cast.proxy
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
+
 import com.memtrip.eosreach.app.MviFragment
+import com.memtrip.eosreach.app.ParentActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.vote.cast.producers.CastProducersVoteFragment
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
+
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
-import com.memtrip.eosreach.app.transfer.confirm.TransferConfirmIntent
+
 import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
 
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_cast_proxy_vote_fragment.*
+import kotlinx.android.synthetic.main.account_cast_proxy_vote_fragment.view.*
 import javax.inject.Inject
 
 class CastProxyVoteFragment
@@ -36,6 +43,10 @@ class CastProxyVoteFragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_cast_proxy_vote_fragment, container, false)
         eosAccount = fromBundle(arguments!!)
+        view.cast_proxy_vote_name_input.filters = arrayOf(
+            AccountNameInputFilter(),
+            InputFilter.LengthFilter(context!!.resources.getInteger(R.integer.app_account_name_length))
+        )
         return view
     }
 
@@ -44,7 +55,11 @@ class CastProxyVoteFragment
     }
 
     override fun intents(): Observable<CastProxyVoteIntent> {
-        return RxView.clicks(cast_proxy_vote_button).map {
+        return Observable.merge(
+            RxView.clicks(cast_proxy_vote_button),
+            RxTextView.editorActions(cast_proxy_vote_name_input)
+        ).map {
+            (activity!! as ParentActivity).hideKeyboard()
             CastProxyVoteIntent.Vote(
                 eosAccount.accountName,
                 cast_proxy_vote_name_input.editableText.toString()
@@ -78,7 +93,7 @@ class CastProxyVoteFragment
     }
 
     override fun onSuccess() {
-        activity!!.setResult(0, null)
+        activity!!.setResult(CastVoteActivity.CAST_VOTE_RESULT_CODE, null)
         activity!!.finish()
     }
 

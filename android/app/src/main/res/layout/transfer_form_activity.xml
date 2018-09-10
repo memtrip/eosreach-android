@@ -45,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/transfer_form_username_hint"
-        android:maxLength="@integer/transfer_username_length"
+        android:maxLength="@integer/app_account_name_length"
         android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"

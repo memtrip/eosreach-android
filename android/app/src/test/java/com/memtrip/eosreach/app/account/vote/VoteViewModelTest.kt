@@ -30,7 +30,7 @@ class VoteViewModelTest : Spek({
             it("emits initialized ViewState") {
                 val states = state.values()
                 assertThat(states.size).isEqualTo(2)
-                assertThat(states[0]).isEqualTo(CastVoteViewState(CastVoteViewState.View.Idle))
+                assertThat(states[0]).isEqualTo(CastVoteViewState(CastVoteViewState.View.CastProducerVoteTabIdle))
                 assertThat(states[1]).isEqualTo(VoteState(CastVoteViewState.View.OnProgress))
             }
         }

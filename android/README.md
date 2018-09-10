@@ -18,6 +18,7 @@
 - Fix the duplicates in the view private key screen
 - Fix private key not showing on Settings -> View Private Key
 - Add an invalidate shared pref that causes the account list to reload after a transaction occurs
+- returning from voting errors is refreshing the screen
 
 ### Clean up
 - remove the homeUp finish from mxandroid

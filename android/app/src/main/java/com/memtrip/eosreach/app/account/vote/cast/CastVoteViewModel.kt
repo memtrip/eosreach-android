@@ -8,17 +8,19 @@ import javax.inject.Inject
 class CastVoteViewModel @Inject internal constructor(
     application: Application
 ) : MxViewModel<CastVoteIntent, CastVoteRenderAction, CastVoteViewState>(
-    CastVoteViewState(view = CastVoteViewState.View.Idle),
+    CastVoteViewState(view = CastVoteViewState.View.CastProducerVoteTabIdle),
     application
 ) {
 
     override fun dispatcher(intent: CastVoteIntent): Observable<CastVoteRenderAction> = when (intent) {
-        CastVoteIntent.Idle -> Observable.just(CastVoteRenderAction.Idle)
+        CastVoteIntent.CastProducerVoteTabIdle -> Observable.just(CastVoteRenderAction.CastProducerVoteTabIdle)
+        CastVoteIntent.CastProxyVoteTabIdle -> Observable.just(CastVoteRenderAction.CastProxyVoteTabIdle)
         is CastVoteIntent.Init -> Observable.just(CastVoteRenderAction.Populate(intent.eosAccount))
     }
 
     override fun reducer(previousState: CastVoteViewState, renderAction: CastVoteRenderAction): CastVoteViewState = when (renderAction) {
-        CastVoteRenderAction.Idle -> previousState.copy(view = CastVoteViewState.View.Idle)
+        CastVoteRenderAction.CastProducerVoteTabIdle -> previousState.copy(view = CastVoteViewState.View.CastProducerVoteTabIdle)
+        CastVoteRenderAction.CastProxyVoteTabIdle -> previousState.copy(view = CastVoteViewState.View.CastProxyVoteTabIdle)
         is CastVoteRenderAction.Populate -> previousState.copy(view = CastVoteViewState.View.Populate(renderAction.eosAccount))
     }
 

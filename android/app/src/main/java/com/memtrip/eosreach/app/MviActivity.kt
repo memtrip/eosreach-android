@@ -17,3 +17,5 @@ abstract class MviActivity<VI : MxViewIntent, RA : MxRenderAction, VS : MxViewSt
         inputMethodManager.hideSoftInputFromWindow(window.decorView.getWindowToken(), 0)
     }
 }
+
+typealias ParentActivity = MviActivity<*,*,*,*>

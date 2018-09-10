@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_start_guideline"
@@ -48,6 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/cast_proxy_vote_name_hint"
+        android:imeOptions="actionDone"
         app:layout_constraintTop_toBottomOf="@+id/cast_proxy_vote_name_label"
         app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
         app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"/>
@@ -57,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/cast_proxy_vote_button"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>

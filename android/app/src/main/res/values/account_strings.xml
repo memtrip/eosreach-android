@@ -52,15 +52,17 @@
     <string name="account_actions_send">Transfer</string>
     <string name="account_actions_no_results_body">This account does not have any actions.</string>
 
-    <!-- vote -->
+    <!-- voteForProducer -->
     <string name="vote_proxy_title">Your proxy voter is</string>
     <string name="vote_no_vote_body">It looks like you haven\'t voted for a block producer yet. Please vote for us, and help us build the future of EOS on mobile.</string>
-    <string name="vote_no_vote_memtripblock">memtripblock</string>
     <string name="vote_no_vote_cast_vote_button">Give us your vote</string>
     <string name="vote_producer_vote_title">You are voting for</string>
     <string name="vote_cast_vote_button">Cast / Proxy vote</string>
+    <string name="vote_no_vote_for_us_error">
+        An error occurred while processing your vote, see the log for more information.
+    </string>
 
-    <!-- cast vote -->
+    <!-- cast voteForProducer -->
     <string name="cast_vote_title">Cast vote</string>
     <string name="cast_vote_page_block_producers">Block producers</string>
     <string name="cast_vote_page_proxy">Proxy</string>
@@ -73,8 +75,11 @@
     </string>
 
     <string name="cast_proxy_vote_name_label">
-        Enter the name of the account that will vote on your behalf.
+        The account that will vote on your behalf.
     </string>
     <string name="cast_proxy_vote_name_hint">Proxy vote account name</string>
+    <string name="cast_proxy_vote_error">
+        An error occurred while processing your vote, see the log for more information.
+    </string>
 
 </resources>

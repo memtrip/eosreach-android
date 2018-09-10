@@ -11,7 +11,8 @@ data class VoteViewState(val view: View) : MxViewState {
         data class PopulateProducerVotes(val eosAccountVote: EosAccountVote) : View()
         object NoVoteCast : View()
         object NavigateToCastVote : View()
-        data class OnVoteForUsError(val error: String) : View()
+        object OnVoteForUsProgress : View()
         object OnVoteForUsSuccess : View()
+        data class OnVoteForUsError(val message: String, val log: String) : View()
     }
 }

@@ -7,9 +7,14 @@ import io.reactivex.Single
 
 interface VoteRequest {
 
-    fun vote(
-        voter: String,
+    fun voteForProducer(
+        voterAccountName: String,
         producers: List<String>
+    ): Single<Result<VoteReceipt, VoteError>>
+
+    fun voteForProxy(
+        voterAccountName: String,
+        proxyVoteAccountName: String
     ): Single<Result<VoteReceipt, VoteError>>
 }
 

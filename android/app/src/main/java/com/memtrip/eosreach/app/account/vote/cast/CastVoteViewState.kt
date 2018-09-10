@@ -6,7 +6,8 @@ import com.memtrip.mxandroid.MxViewState
 data class CastVoteViewState(val view: View) : MxViewState {
 
     sealed class View {
-        object Idle : View()
+        object CastProducerVoteTabIdle : View()
+        object CastProxyVoteTabIdle : View()
         data class Populate(val eosAccount: EosAccount) : View()
     }
 }

@@ -12,7 +12,8 @@ sealed class VoteRenderAction : MxRenderAction {
     data class PopulateProducerVotes(val eosAccountVote: EosAccountVote) : VoteRenderAction()
     object NoVoteCast : VoteRenderAction()
     object NavigateToCastVote : VoteRenderAction()
-    data class OnVoteForUsError(val error: String) : VoteRenderAction()
+    object OnVoteForUsProgress : VoteRenderAction()
+    data class OnVoteForUsError(val message: String, val log: String) : VoteRenderAction()
     object OnVoteForUsSuccess : VoteRenderAction()
 }
 
@@ -21,8 +22,9 @@ interface VoteViewLayout : MxViewLayout {
     fun populateProducerVotes(eosAccountVote: EosAccountVote)
     fun showNoVoteCast()
     fun navigateToCastVote()
-    fun voteForUsError(error: String)
+    fun showVoteForUsProgress()
     fun voteForUsSuccess()
+    fun voteForUsError(message: String, log: String)
 }
 
 class VoteViewRenderer @Inject internal constructor() : MxViewRenderer<VoteViewLayout, VoteViewState> {
@@ -41,11 +43,14 @@ class VoteViewRenderer @Inject internal constructor() : MxViewRenderer<VoteViewL
         VoteViewState.View.NavigateToCastVote -> {
             layout.navigateToCastVote()
         }
-        is VoteViewState.View.OnVoteForUsError -> {
-            layout.voteForUsError(state.view.error)
+        VoteViewState.View.OnVoteForUsProgress -> {
+            layout.showVoteForUsProgress()
         }
         VoteViewState.View.OnVoteForUsSuccess -> {
             layout.voteForUsSuccess()
+        }
+        is VoteViewState.View.OnVoteForUsError -> {
+            layout.voteForUsError(state.view.message, state.view.log)
         }
     }
 }

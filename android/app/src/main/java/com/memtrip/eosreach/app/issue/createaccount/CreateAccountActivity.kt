@@ -41,7 +41,7 @@ abstract class CreateAccountActivity
 
         issue_create_account_name_input.filters = arrayOf(
             AccountNameInputFilter(),
-            InputFilter.LengthFilter(resources.getInteger(R.integer.transfer_username_length)))
+            InputFilter.LengthFilter(resources.getInteger(R.integer.app_account_name_length)))
     }
 
     override fun intents(): Observable<CreateAccountIntent> = Observable.merge(

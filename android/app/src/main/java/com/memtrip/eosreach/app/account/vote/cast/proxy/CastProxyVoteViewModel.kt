@@ -1,11 +1,14 @@
 package com.memtrip.eosreach.app.account.vote.cast.proxy
 
 import android.app.Application
+import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.vote.VoteRequest
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class CastProxyVoteViewModel @Inject internal constructor(
+    private val voteRequest: VoteRequest,
     application: Application
 ) : MxViewModel<CastProxyVoteIntent, CastProxyVoteRenderAction, CastProxyVoteViewState>(
     CastProxyVoteViewState(view = CastProxyVoteViewState.View.Idle),
@@ -14,7 +17,7 @@ class CastProxyVoteViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: CastProxyVoteIntent): Observable<CastProxyVoteRenderAction> = when (intent) {
         CastProxyVoteIntent.Idle -> Observable.just(CastProxyVoteRenderAction.Idle)
-        is CastProxyVoteIntent.Vote -> Observable.just(giveProxyVote())
+        is CastProxyVoteIntent.Vote -> giveProxyVote(intent.voterAccountName, intent.proxyAccountName)
         is CastProxyVoteIntent.ViewLog -> Observable.just(CastProxyVoteRenderAction.ViewLog(intent.log))
     }
 
@@ -31,7 +34,18 @@ class CastProxyVoteViewModel @Inject internal constructor(
             view = CastProxyVoteViewState.View.ViewLog(renderAction.log))
     }
 
-    private fun giveProxyVote(): CastProxyVoteRenderAction {
-        return CastProxyVoteRenderAction.OnSuccess
+    private fun giveProxyVote(voterAccountName: String, proxyVoteAccountName: String): Observable<CastProxyVoteRenderAction> {
+        return voteRequest.voteForProxy(
+            voterAccountName,
+            proxyVoteAccountName
+        ).map<CastProxyVoteRenderAction> { result ->
+            if (result.success) {
+                CastProxyVoteRenderAction.OnSuccess
+            } else {
+                CastProxyVoteRenderAction.OnError(
+                    context().getString(R.string.cast_proxy_vote_error),
+                    result.apiError!!.body)
+            }
+        }.toObservable().startWith(CastProxyVoteRenderAction.OnProgress)
     }
 }

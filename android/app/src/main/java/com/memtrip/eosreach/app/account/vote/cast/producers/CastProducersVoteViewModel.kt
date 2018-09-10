@@ -3,9 +3,6 @@ package com.memtrip.eosreach.app.account.vote.cast.producers
 import android.app.Application
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.vote.VoteRequest
-import com.memtrip.eosreach.app.account.vote.cast.CastVoteIntent
-import com.memtrip.eosreach.app.account.vote.cast.CastVoteRenderAction
-import com.memtrip.eosreach.app.account.vote.cast.CastVoteViewState
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -54,7 +51,7 @@ class CastProducersVoteViewModel @Inject internal constructor(
         voterAccountName: String,
         blockProducerName: String
     ): Observable<CastProducersVoteRenderAction> {
-        return voteRequest.vote(
+        return voteRequest.voteForProducer(
             voterAccountName,
             Arrays.asList(blockProducerName)
         ).flatMap { result ->

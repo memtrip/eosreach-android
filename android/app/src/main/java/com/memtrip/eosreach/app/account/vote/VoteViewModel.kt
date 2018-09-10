@@ -1,12 +1,18 @@
 package com.memtrip.eosreach.app.account.vote
 
 import android.app.Application
+import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountVote
+import com.memtrip.eosreach.api.vote.VoteRequest
+import com.memtrip.eosreach.api.vote.VoteRequestImpl
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
+import java.util.Arrays.asList
 import javax.inject.Inject
 
 class VoteViewModel @Inject internal constructor(
+    private val voteRequest: VoteRequest,
     application: Application
 ) : MxViewModel<VoteIntent, VoteRenderAction, VoteViewState>(
     VoteViewState(view = VoteViewState.View.Idle),
@@ -16,7 +22,7 @@ class VoteViewModel @Inject internal constructor(
     override fun dispatcher(intent: VoteIntent): Observable<VoteRenderAction> = when (intent) {
         VoteIntent.Idle -> Observable.just(VoteRenderAction.Idle)
         is VoteIntent.Init -> Observable.just(populate(intent.eosAccountVote))
-        VoteIntent.VoteForUse -> TODO()
+        is VoteIntent.VoteForUs -> voteForUs(intent.eosAccount)
         VoteIntent.NavigateToCastVote -> Observable.just(VoteRenderAction.NavigateToCastVote)
     }
 
@@ -31,10 +37,12 @@ class VoteViewModel @Inject internal constructor(
             view = VoteViewState.View.NoVoteCast)
         VoteRenderAction.NavigateToCastVote -> previousState.copy(
             view = VoteViewState.View.NavigateToCastVote)
-        is VoteRenderAction.OnVoteForUsError -> previousState.copy(
-            view = VoteViewState.View.OnVoteForUsError(renderAction.error))
+        VoteRenderAction.OnVoteForUsProgress -> previousState.copy(
+            view = VoteViewState.View.OnVoteForUsProgress)
         VoteRenderAction.OnVoteForUsSuccess -> previousState.copy(
             view = VoteViewState.View.OnVoteForUsSuccess)
+        is VoteRenderAction.OnVoteForUsError -> previousState.copy(
+            view = VoteViewState.View.OnVoteForUsError(renderAction.message, renderAction.log))
     }
 
     override fun filterIntents(intents: Observable<VoteIntent>): Observable<VoteIntent> = Observable.merge(
@@ -45,16 +53,31 @@ class VoteViewModel @Inject internal constructor(
     )
 
     private fun populate(eosAccountVote: EosAccountVote?): VoteRenderAction {
-        if (eosAccountVote != null) {
+        return if (eosAccountVote != null) {
             if (eosAccountVote.hasDelegatedProxyVoter) {
-                return VoteRenderAction.PopulateProxyVote(eosAccountVote.proxyVoterAccountName)
+                VoteRenderAction.PopulateProxyVote(eosAccountVote.proxyVoterAccountName)
             } else if (eosAccountVote.producers.isNotEmpty()) {
-                return VoteRenderAction.PopulateProducerVotes(eosAccountVote)
+                VoteRenderAction.PopulateProducerVotes(eosAccountVote)
             } else {
-                return VoteRenderAction.NoVoteCast
+                VoteRenderAction.NoVoteCast
             }
         } else {
-            return VoteRenderAction.NoVoteCast
+            VoteRenderAction.NoVoteCast
         }
+    }
+
+    private fun voteForUs(eosAccount: EosAccount): Observable<VoteRenderAction> {
+        return voteRequest.voteForProducer(
+            eosAccount.accountName,
+            asList(context().getString(R.string.app_block_producer_name))
+        ).map { result ->
+            if (result.success) {
+                VoteRenderAction.OnVoteForUsSuccess
+            } else {
+                VoteRenderAction.OnVoteForUsError(
+                    context().getString(R.string.vote_no_vote_for_us_error),
+                    result.apiError!!.body)
+            }
+        }.toObservable().startWith(VoteRenderAction.OnVoteForUsProgress)
     }
 }
