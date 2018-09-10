@@ -9,18 +9,18 @@ sealed class CastProducersVoteRenderAction : MxRenderAction {
     object Idle : CastProducersVoteRenderAction()
     object OnProgress : CastProducersVoteRenderAction()
     data class AddProducerField(val nextPosition: Int) : CastProducersVoteRenderAction()
+    data class RemoveProducerField(val position: Int) : CastProducersVoteRenderAction()
     data class OnError(val message: String, val log: String) : CastProducersVoteRenderAction()
     object OnSuccess : CastProducersVoteRenderAction()
-    object NavigateToBlockProducerList : CastProducersVoteRenderAction()
     data class ViewLog(val log: String) : CastProducersVoteRenderAction()
 }
 
 interface CastProducersVoteViewLayout : MxViewLayout {
     fun addProducerField(position: Int)
+    fun removeProducerField(position: Int)
     fun showProgress()
     fun showError(message: String, log: String)
     fun onSuccess()
-    fun navigateToBlockProducerList()
     fun viewLog(log: String)
 }
 
@@ -31,6 +31,9 @@ class CastProducersVoteViewRenderer @Inject internal constructor() : MxViewRende
         is CastProducersVoteViewState.View.AddProducerField -> {
             layout.addProducerField(state.view.nextPosition)
         }
+        is CastProducersVoteViewState.View.RemoveProducerField -> {
+            layout.removeProducerField(state.view.position)
+        }
         CastProducersVoteViewState.View.OnProgress -> {
             layout.showProgress()
         }
@@ -39,9 +42,6 @@ class CastProducersVoteViewRenderer @Inject internal constructor() : MxViewRende
         }
         is CastProducersVoteViewState.View.OnSuccess -> {
             layout.onSuccess()
-        }
-        CastProducersVoteViewState.View.NavigateToBlockProducerList -> {
-            layout.navigateToBlockProducerList()
         }
         is CastProducersVoteViewState.View.ViewLog -> {
             layout.viewLog(state.view.log)

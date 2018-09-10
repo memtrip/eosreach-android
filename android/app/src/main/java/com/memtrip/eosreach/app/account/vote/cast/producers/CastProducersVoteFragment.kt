@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
@@ -42,14 +43,6 @@ class CastProducersVoteFragment
         return view
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == BlockProducerListActivity.RESULT_CODE) {
-            val blockProducerBundle = BlockProducerListActivity.fromIntent(data!!)
-            //cast_producers_vote_blockproducer_name_input.setText(blockProducerBundle.apiUrl, TextView.BufferType.EDITABLE)
-        }
-    }
-
     override fun inject() {
         AndroidSupportInjection.inject(this)
     }
@@ -63,7 +56,7 @@ class CastProducersVoteFragment
             )
         },
         RxView.clicks(cast_producers_vote_blockproducer_form_add).map {
-            CastProducersVoteIntent.AddProducerField(getNextPositionInForm())
+            CastProducersVoteIntent.AddProducerField(getNextPositionInForm(), getTotalInForm())
         }
     )
 
@@ -72,6 +65,8 @@ class CastProducersVoteFragment
             cast_producers_vote_blockproducer_form_container.childCount - 1
         ).tag as Int) + 1
     }
+
+    private fun getTotalInForm(): Int = cast_producers_vote_blockproducer_form_container.childCount
 
     private fun getFormData(): List<String> {
         return with (ArrayList<String>()) {
@@ -97,9 +92,23 @@ class CastProducersVoteFragment
                 null,
                 false)) {
                 tag = position
+                ((this as ViewGroup).getChildAt(1) as Button).setOnClickListener {
+                    model().publish(CastProducersVoteIntent.RemoveProducerField(
+                        (it.parent as View).tag as Int))
+                }
                 this
             }
         )
+    }
+
+    override fun removeProducerField(position: Int) {
+        for (i in 0 until cast_producers_vote_blockproducer_form_container.childCount) {
+            val formItem: ViewGroup = cast_producers_vote_blockproducer_form_container.getChildAt(i) as ViewGroup
+            if (formItem.tag == position) {
+                cast_producers_vote_blockproducer_form_container.removeViewAt(i)
+                break
+            }
+        }
     }
 
     override fun showProgress() {
@@ -124,11 +133,6 @@ class CastProducersVoteFragment
     override fun onSuccess() {
         activity!!.setResult(CastVoteActivity.CAST_VOTE_RESULT_CODE, null)
         activity!!.finish()
-    }
-
-    override fun navigateToBlockProducerList() {
-        model().publish(CastProducersVoteIntent.Idle)
-        startActivityForResult(BlockProducerListActivity.blockProducerList(context!!), BlockProducerListActivity.RESULT_CODE)
     }
 
     override fun viewLog(log: String) {

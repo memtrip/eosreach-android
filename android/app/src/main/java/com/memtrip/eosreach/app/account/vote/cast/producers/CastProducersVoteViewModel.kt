@@ -20,9 +20,9 @@ class CastProducersVoteViewModel @Inject internal constructor(
     override fun dispatcher(intent: CastProducersVoteIntent): Observable<CastProducersVoteRenderAction> = when (intent) {
         CastProducersVoteIntent.Idle -> Observable.just(CastProducersVoteRenderAction.Idle)
         is CastProducersVoteIntent.Init -> Observable.just(CastProducersVoteRenderAction.AddProducerField(0))
-        is CastProducersVoteIntent.AddProducerField -> Observable.just(addProducerField(intent.nextPosition))
+        is CastProducersVoteIntent.AddProducerField -> Observable.just(addProducerField(intent.nextPosition, intent.currentTotal))
+        is CastProducersVoteIntent.RemoveProducerField -> Observable.just(removeProducerField(intent.removePosition))
         is CastProducersVoteIntent.Vote -> vote(intent.voterAccountName, intent.blockProducers)
-        CastProducersVoteIntent.NavigateToBlockProducerList -> Observable.just(CastProducersVoteRenderAction.NavigateToBlockProducerList)
         is CastProducersVoteIntent.ViewLog -> Observable.just(CastProducersVoteRenderAction.ViewLog(intent.log))
     }
 
@@ -31,14 +31,14 @@ class CastProducersVoteViewModel @Inject internal constructor(
             view = CastProducersVoteViewState.View.Idle)
         is CastProducersVoteRenderAction.AddProducerField -> previousState.copy(
             view = CastProducersVoteViewState.View.AddProducerField(renderAction.nextPosition))
+        is CastProducersVoteRenderAction.RemoveProducerField -> previousState.copy(
+            view = CastProducersVoteViewState.View.RemoveProducerField(renderAction.position))
         CastProducersVoteRenderAction.OnProgress -> previousState.copy(
             view = CastProducersVoteViewState.View.OnProgress)
         is CastProducersVoteRenderAction.OnError -> previousState.copy(
             view = CastProducersVoteViewState.View.OnError(renderAction.message, renderAction.log))
         is CastProducersVoteRenderAction.OnSuccess -> previousState.copy(
             view = CastProducersVoteViewState.View.OnSuccess)
-        CastProducersVoteRenderAction.NavigateToBlockProducerList -> previousState.copy(
-            view = CastProducersVoteViewState.View.NavigateToBlockProducerList)
         is CastProducersVoteRenderAction.ViewLog -> previousState.copy(
             view = CastProducersVoteViewState.View.ViewLog(renderAction.log))
     }
@@ -68,11 +68,19 @@ class CastProducersVoteViewModel @Inject internal constructor(
         }.toObservable().startWith(CastProducersVoteRenderAction.OnProgress)
     }
 
-    private fun addProducerField(position: Int): CastProducersVoteRenderAction {
-        if (position >= 29) {
-            return CastProducersVoteRenderAction.Idle
+    private fun addProducerField(position: Int, total: Int): CastProducersVoteRenderAction {
+        return if (total >= 29) {
+            CastProducersVoteRenderAction.Idle
         } else {
-            return CastProducersVoteRenderAction.AddProducerField(position)
+            CastProducersVoteRenderAction.AddProducerField(position)
+        }
+    }
+
+    private fun removeProducerField(position: Int): CastProducersVoteRenderAction {
+        return if (position == 0) {
+            CastProducersVoteRenderAction.Idle
+        } else {
+            CastProducersVoteRenderAction.RemoveProducerField(position)
         }
     }
 }
