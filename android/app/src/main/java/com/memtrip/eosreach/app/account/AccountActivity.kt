@@ -132,10 +132,6 @@ class AccountActivity
         account_available_balance_value.text = price
     }
 
-    override fun showOutDatedPrice(price: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun showPriceUnavailable() {
         account_available_balance_value.text = getString(R.string.account_available_balance_unavailable_value)
         account_available_balance_label.text = getString(R.string.account_available_balance_unavailable_label)

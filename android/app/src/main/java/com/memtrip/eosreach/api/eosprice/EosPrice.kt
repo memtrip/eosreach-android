@@ -7,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class EosPrice(
     val value: Double,
     val currency: String,
-    val outOfDate: Boolean = false,
     val unavailable: Boolean = false
 ) : Parcelable {
 
@@ -16,7 +15,6 @@ data class EosPrice(
             return EosPrice(
                 (-1).toDouble(),
                 "-",
-                false,
                 true
             )
         }

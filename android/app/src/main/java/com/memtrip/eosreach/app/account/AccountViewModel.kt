@@ -67,8 +67,7 @@ class AccountViewModel @Inject internal constructor(
     private fun getAccount(accountName: String): Observable<AccountRenderAction> {
         return accountUseCase.getAccountDetails(
             "eosio.token",
-            accountName,
-            context().getString(R.string.app_default_eos_currency)
+            accountName
         ).map {
             if (it.success) {
                 AccountRenderAction.OnSuccess(it)

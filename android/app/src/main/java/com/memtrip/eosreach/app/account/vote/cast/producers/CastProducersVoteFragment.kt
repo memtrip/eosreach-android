@@ -3,6 +3,7 @@ package com.memtrip.eosreach.app.account.vote.cast.producers
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,11 +92,20 @@ class CastProducersVoteFragment
                 R.layout.account_cast_producers_vote_item_layout,
                 null,
                 false)) {
-                tag = position
-                ((this as ViewGroup).getChildAt(1) as Button).setOnClickListener {
-                    model().publish(CastProducersVoteIntent.RemoveProducerField(
-                        (it.parent as View).tag as Int))
+
+                val producerEditText: EditText = ((this as ViewGroup).getChildAt(0) as EditText)
+                producerEditText.filters = arrayOf(InputFilter.LengthFilter(12))
+
+                val removeButton: Button = ((this as ViewGroup).getChildAt(1) as Button)
+                if (position == 0)  {
+                    removeButton.gone()
+                } else {
+                    removeButton.setOnClickListener {
+                        model().publish(CastProducersVoteIntent.RemoveProducerField(
+                            (it.parent as View).tag as Int))
+                    }
                 }
+                tag = position
                 this
             }
         )

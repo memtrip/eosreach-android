@@ -1,8 +1,9 @@
 package com.memtrip.eosreach.api.transfer
 
+import com.memtrip.eos.chain.actions.transaction.TransactionContext
+import com.memtrip.eos.chain.actions.transaction.transfer.TransferChain
 import com.memtrip.eos.core.crypto.EosPrivateKey
-import com.memtrip.eos.http.aggregation.AggregateContext
-import com.memtrip.eos.http.aggregation.transfer.TransferAggregate
+
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.eosreach.utils.transactionDefaultExpiry
@@ -10,7 +11,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class TransferRequestImpl @Inject constructor(
-    private val transferAggregate: TransferAggregate,
+    private val transferChain: TransferChain,
     private val rxSchedulers: RxSchedulers
 ) : TransferRequest {
 
@@ -23,14 +24,14 @@ class TransferRequestImpl @Inject constructor(
     ): Single<Result<String, TransferError>> {
         val privateKeyString = authorizingPrivateKey.toString()
         print("PRIVATE KEY: $privateKeyString")
-        return transferAggregate.transfer(
-            TransferAggregate.Args(
+        return transferChain.transfer(
+            TransferChain.Args(
                 fromAccount,
                 toAccount,
                 quantity,
                 memo
             ),
-            AggregateContext(
+            TransactionContext(
                 fromAccount,
                 authorizingPrivateKey,
                 transactionDefaultExpiry()

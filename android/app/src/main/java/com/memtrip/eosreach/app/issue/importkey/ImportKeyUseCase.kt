@@ -21,7 +21,7 @@ class ImportKeyUseCase @Inject constructor(
 ) {
 
     fun importKey(privateKey: String): Single<Result<AccountsForPublicKey, AccountForKeyError>> = try {
-        eosKeyManager.getPrivateKey(privateKey).flatMap { eosPrivateKey ->
+        eosKeyManager.createEosPrivateKey(privateKey).flatMap { eosPrivateKey ->
             eosKeyManager.importPrivateKey(eosPrivateKey)
                 .observeOn(rxSchedulers.main())
                 .subscribeOn(rxSchedulers.background())

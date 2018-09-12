@@ -36,7 +36,9 @@ class TransferFormActivity
         supportActionBar!!.title = getString(R.string.transfer_form_toolbar_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        account_transfer_username_input.filters = arrayOf(AccountNameInputFilter())
+        account_transfer_username_input.filters = arrayOf(
+            AccountNameInputFilter(),
+            InputFilter.LengthFilter(resources.getInteger(R.integer.app_account_name_length)))
         account_transfer_amount.filters = arrayOf(
             CurrencyFormatInputFilter(),
             InputFilter.LengthFilter(resources.getInteger(R.integer.transfer_amount_length)))

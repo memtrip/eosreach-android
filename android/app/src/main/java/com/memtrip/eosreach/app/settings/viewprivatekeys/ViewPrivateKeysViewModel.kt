@@ -32,13 +32,6 @@ class ViewPrivateKeysViewModel @Inject internal constructor(
             view = ViewPrivateKeysViewState.View.NoPrivateKeys)
     }
 
-    override fun filterIntents(intents: Observable<ViewPrivateKeysIntent>): Observable<ViewPrivateKeysIntent> = Observable.merge(
-        intents.ofType(ViewPrivateKeysIntent.Init::class.java).take(1),
-        intents.filter {
-            !ViewPrivateKeysIntent.Init::class.java.isInstance(it)
-        }
-    )
-
     private fun showPrivateKeys(): Observable<ViewPrivateKeysRenderAction> {
         return keyManager.getPrivateKeys().map<ViewPrivateKeysRenderAction> {
             ViewPrivateKeysRenderAction.ShowPrivateKeys(it)

@@ -2,10 +2,10 @@ package com.memtrip.eosreach.api
 
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.memtrip.eos.http.aggregation.producer.GetBlockProducersAggregate
+import com.memtrip.eos.chain.actions.query.producer.GetBlockProducersAggregate
+import com.memtrip.eos.chain.actions.transaction.transfer.TransferChain
+import com.memtrip.eos.chain.actions.transaction.vote.VoteChain
 
-import com.memtrip.eos.http.aggregation.transfer.TransferAggregate
-import com.memtrip.eos.http.aggregation.vote.VoteAggregate
 import com.memtrip.eos.http.rpc.Api
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.HistoryApi
@@ -77,7 +77,7 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun transferAggregate(chainApi: ChainApi): TransferAggregate = TransferAggregate(chainApi)
+    fun transferAggregate(chainApi: ChainApi): TransferChain = TransferChain(chainApi)
 
     @JvmStatic
     @Provides
@@ -87,7 +87,7 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun voteAggregate(chainApi: ChainApi): VoteAggregate = VoteAggregate(chainApi)
+    fun voteAggregate(chainApi: ChainApi): VoteChain = VoteChain(chainApi)
 
     @JvmStatic
     @Provides

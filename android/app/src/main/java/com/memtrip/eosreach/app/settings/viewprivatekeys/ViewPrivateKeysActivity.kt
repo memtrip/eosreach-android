@@ -45,11 +45,12 @@ class ViewPrivateKeysActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<ViewPrivateKeysIntent>  {
-        return RxView.clicks(view_private_keys_button).map {
+    override fun intents(): Observable<ViewPrivateKeysIntent> = Observable.merge(
+        Observable.just(ViewPrivateKeysIntent.Init),
+        RxView.clicks(view_private_keys_button).map {
             ViewPrivateKeysIntent.DecryptPrivateKeys
         }
-    }
+    )
 
     override fun layout(): ViewPrivateKeysViewLayout = this
 
@@ -58,6 +59,8 @@ class ViewPrivateKeysActivity
     override fun render(): ViewPrivateKeysViewRenderer = render
 
     override fun showPrivateKeys(privateKeys: List<EosPrivateKey>) {
+        model().publish(ViewPrivateKeysIntent.Init)
+
         val privateKeyMarginBottom = resources.getDimensionPixelOffset(R.dimen.padding_medium)
         view_private_keys_button.gone()
         view_private_keys_progressbar.gone()

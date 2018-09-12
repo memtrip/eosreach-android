@@ -9,7 +9,7 @@ interface AccountActionsRequest {
     fun getActionsForAccountName(
         contractName: String,
         accountName: String,
-        position: Int = 0,
+        position: Int = -1,
         offset: Int = 200
     ): Single<Result<AccountActionList, AccountActionsError>>
 }

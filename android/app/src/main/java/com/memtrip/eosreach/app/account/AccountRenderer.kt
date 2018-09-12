@@ -25,7 +25,6 @@ interface AccountViewLayout : MxViewLayout {
     fun populateTitle(accountName: String)
     fun populate(accountView: AccountView, page: AccountPagerFragment.Page)
     fun showPrice(price: String)
-    fun showOutDatedPrice(price: String)
     fun showPriceUnavailable()
     fun showGetAccountError()
     fun showGetBalancesError()
@@ -65,8 +64,8 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
                     layout.showPriceUnavailable()
                 } else {
                     val formattedPrice = BalanceParser.formatFiatBalance(eosBalance * eosPrice.value, eosPrice.currency)
-                    if (accountView.eosPrice.outOfDate) {
-                        layout.showOutDatedPrice(formattedPrice)
+                    if (accountView.eosPrice.unavailable) {
+                        layout.showPriceUnavailable()
                     } else {
                         layout.showPrice(formattedPrice)
                     }

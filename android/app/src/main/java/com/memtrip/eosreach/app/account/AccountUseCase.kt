@@ -15,14 +15,13 @@ class AccountUseCase @Inject internal constructor(
     private val eosPriceUseCase: EosPriceUseCase
 ) {
 
-    fun getAccountDetails(contractName: String, accountName: String, symbol: String): Single<AccountView> {
+    fun getAccountDetails(contractName: String, accountName: String): Single<AccountView> {
         return eosPriceUseCase.getPrice().flatMap { price ->
-            getAccount(contractName, accountName, symbol, price)
+            getAccount(contractName, accountName, price)
         }.onErrorResumeNext {
             getAccount(
                 contractName,
                 accountName,
-                symbol,
                 EosPrice.unavailable()
             )
         }
@@ -31,16 +30,16 @@ class AccountUseCase @Inject internal constructor(
     private fun getAccount(
         contractName: String,
         accountName: String,
-        symbol: String,
         eosPrice: EosPrice
     ): Single<AccountView> {
-        return eosAccountRequest.getAccount(accountName).flatMap { eosAccount ->
-            if (eosAccount.success) {
+        return eosAccountRequest.getAccount(accountName).flatMap { response ->
+            if (response.success) {
+                val eosAccount = response.data!!
                 accountBalancesRequest
-                    .getBalance(contractName, eosAccount.data!!.accountName, symbol, eosPrice)
+                    .getBalance(contractName, eosAccount.accountName, eosAccount.balance.symbol, eosPrice)
                     .map { balances ->
                         if (balances.success) {
-                            AccountView.success(eosPrice, eosAccount.data, balances.data)
+                            AccountView.success(eosPrice, eosAccount, balances.data)
                         } else {
                             AccountView.error(AccountView.Error.FetchingBalances)
                         }

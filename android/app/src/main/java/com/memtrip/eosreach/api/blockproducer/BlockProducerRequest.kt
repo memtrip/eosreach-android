@@ -1,6 +1,6 @@
 package com.memtrip.eosreach.api.blockproducer
 
-import com.memtrip.eos.http.aggregation.producer.BlockProducer
+import com.memtrip.eos.chain.actions.query.producer.BlockProducer
 import com.memtrip.eosreach.api.ApiError
 import com.memtrip.eosreach.api.Result
 

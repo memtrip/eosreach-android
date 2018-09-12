@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.api.vote
 
-import com.memtrip.eos.http.aggregation.AggregateContext
-import com.memtrip.eos.http.aggregation.vote.VoteAggregate
+import com.memtrip.eos.chain.actions.transaction.TransactionContext
+import com.memtrip.eos.chain.actions.transaction.vote.VoteChain
 
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.db.account.GetAccountByName
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class VoteRequestImpl @Inject constructor(
     private val getAccountByName: GetAccountByName,
     private val eosKeyManager: EosKeyManager,
-    private val voteAggregate: VoteAggregate,
+    private val voteChain: VoteChain,
     private val rxSchedulers: RxSchedulers
 ) : VoteRequest {
 
@@ -26,11 +26,11 @@ class VoteRequestImpl @Inject constructor(
     ): Single<Result<VoteReceipt, VoteError>> {
         return getAccountByName.select(voterAccountName).flatMap { accountEntity ->
             eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { eosPrivateKey ->
-                voteAggregate.vote(VoteAggregate.Args(
+                voteChain.vote(VoteChain.Args(
                     voterAccountName,
                     "",
                     producers
-                ), AggregateContext(
+                ), TransactionContext(
                     voterAccountName,
                     eosPrivateKey,
                     transactionDefaultExpiry()
@@ -60,11 +60,11 @@ class VoteRequestImpl @Inject constructor(
             .subscribeOn(rxSchedulers.background())
             .flatMap { accountEntity ->
                 eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { eosPrivateKey ->
-                    voteAggregate.vote(VoteAggregate.Args(
+                    voteChain.vote(VoteChain.Args(
                         voterAccountName,
                         proxyVoteAccountName,
                         emptyList()
-                    ), AggregateContext(
+                    ), TransactionContext(
                         voterAccountName,
                         eosPrivateKey,
                         transactionDefaultExpiry()

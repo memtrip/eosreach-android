@@ -1,34 +1,29 @@
 ### TODO:
-- pull to refresh on each data screen
     - block producer screen
-- Vote for block producer screen
-    - a request for the user to vote for memtrip should be at the top
 - Create account api 
     - Implement the create account api 
     - Integrate with create account api with the app
     - Integrate the create account api with Google play store items
 - airdropped tokens?
-- Transaction receipts 
-    - Store transaction receipts in a database
-    - View a list of transaction receipts in settings
-    - View a list of google play account purchases
-- Add an invalidate shared pref that causes the account list to reload after a transaction occurs
+- Add an invalidate shared pref that causes the account list to reload after a transfer transaction occurs
 - returning from voting errors is refreshing the screen
+- import key / create account should trigger an account list refresh
+- Add a 'purchased' label to the button in create account if the product has been purchased but not used because of technical error
+- Populate the cast vote screen with the existing votes
 
 ### Clean up
-- remove the homeUp finish from mxandroid
-- remove the navigation components and args plugin
-- Ensure every rx call is handling error
+- Ensure every rx call is handling error, easily verified by unit tests
 - sanity check for unused resources and files
 - write tests for all the ViewModels
 - write integration tests
 
 ### Backlog
-- Buy resources
 - Stake resources
-- use https://github.com/ThreeTen/threetenbp for time in Java project
+- use https://github.com/ThreeTen/threetenbp for time throughout eos-jvm project
 - View action screen
-
+- Transaction receipts 
+    - Store transaction receipts in a database
+    - View a list of transaction receipts in settings
+- pull to refresh on block producer screen
 AccountBundle -> AccountContext
-
 ContractAccountBalance -> AccountContractContext
