@@ -2,9 +2,13 @@ package com.memtrip.eosreach.app.issue.createaccount
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import android.text.InputFilter
 import android.view.WindowManager
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.SkuDetails
+import com.android.billingclient.api.SkuDetailsParams
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
@@ -13,8 +17,7 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.welcome.EntryActivity
 import com.memtrip.eosreach.billing.Billing
-import com.memtrip.eosreach.billing.BillingRequest
-import com.memtrip.eosreach.db.sharedpreferences.UnusedBillingPurchaseId
+import com.memtrip.eosreach.billing.BillingError
 
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
@@ -35,8 +38,11 @@ abstract class CreateAccountActivity
     lateinit var render: CreateAccountViewRenderer
 
     private lateinit var billing: Billing
-    private lateinit var billingRequest: BillingRequest
     private lateinit var skuDetails: SkuDetails
+
+    private val handler = Handler()
+
+    private var accountCreated: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,20 +59,76 @@ abstract class CreateAccountActivity
             AccountNameInputFilter(),
             InputFilter.LengthFilter(resources.getInteger(R.integer.app_account_name_length)))
 
+        issue_create_account_sku_error.setOnClickListener {
+            startBillingConnection()
+        }
+
         billing = Billing(this, { response ->
             if (response.success) {
-                model().publish(CreateAccountIntent.CreateAccount(
-                    response.purchaseToken!!,
-                    issue_create_account_name_input.text.toString()
-                ))
+                handler.post {
+                    model().publish(CreateAccountIntent.CreateAccount(
+                        response.purchaseToken!!,
+                        issue_create_account_name_input.text.toString()
+                    ))
+                }
             } else {
-                showCreateAccountError(response.error!!)
+                handler.post {
+                    showCreateAccountError(response.error!!)
+                }
             }
         })
 
-        billingRequest = BillingRequest(
-            getString(R.string.app_default_create_account_sku_id),
-            billing.billingClient)
+        startBillingConnection()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        billing.billingClient.endConnection()
+    }
+
+    override fun onBackPressed() {
+        if (accountCreated) {
+            model().publish(CreateAccountIntent.Done(issue_create_account_import_key_label.text.toString()))
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun startBillingConnection() {
+        billing.billingClient.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(responseCode: Int) {
+                if (responseCode == BillingClient.BillingResponse.OK) {
+                    billing.billingClient.querySkuDetailsAsync(with (SkuDetailsParams.newBuilder()) {
+                        setSkusList(with (ArrayList<String>()) {
+                            add(getString(R.string.app_default_create_account_sku_id))
+                            this
+                        })
+                        setType(BillingClient.SkuType.INAPP)
+                        this
+                    }.build()) { skuResponseCode, skuDetailsList ->
+                        if (skuResponseCode == BillingClient.BillingResponse.OK) {
+                            if (skuDetailsList.isNotEmpty()) {
+                                model().publish(CreateAccountIntent.BillingSetupSuccess(skuDetailsList[0]))
+                            } else {
+                                model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuNotFound))
+                            }
+                        } else if (skuResponseCode == BillingClient.BillingResponse.BILLING_UNAVAILABLE) {
+                            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuBillingUnavailable))
+                        } else if (skuResponseCode == BillingClient.BillingResponse.ITEM_UNAVAILABLE) {
+                            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuNotAvailable))
+                        } else if (skuResponseCode == BillingClient.BillingResponse.ITEM_ALREADY_OWNED) {
+                            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuAlreadyOwned))
+                        } else {
+                            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuRequestFailed))
+                        }
+                    }
+                } else {
+                    model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.BillingSetupFailed))
+                }
+            }
+            override fun onBillingServiceDisconnected() {
+            }
+        })
     }
 
     private fun launchBillingFlow() {
@@ -75,13 +137,10 @@ abstract class CreateAccountActivity
     }
 
     override fun intents(): Observable<CreateAccountIntent> = Observable.merge(
-        Observable.just(CreateAccountIntent.Init(billingRequest)),
+        Observable.just(CreateAccountIntent.Init),
         RxView.clicks(issue_create_account_import_key_done_button).map {
             CreateAccountIntent.Done(
                 issue_create_account_import_key_label.text.toString())
-        },
-        issue_create_account_sku_error.retryClick().map {
-            CreateAccountIntent.SetupGooglePlayBilling(billingRequest)
         },
         Observable.merge(
             RxView.clicks(issue_create_account_create_button),
@@ -144,6 +203,8 @@ abstract class CreateAccountActivity
 
     override fun showImportKeyProgress() {
         issue_create_account_import_key_error.gone()
+        issue_create_account_import_key_group.gone()
+        issue_create_account_import_key_done_button.gone()
         issue_create_account_import_key_progress.visible()
     }
 
@@ -156,10 +217,16 @@ abstract class CreateAccountActivity
         )
     }
 
-    override fun showAccountCreated(privateKey: String) {
-        issue_create_account_form_group.gone()
-        issue_create_account_import_key_group.visible()
-        issue_create_account_import_key_label.text = privateKey
+    override fun showAccountCreated(purchaseToken: String, privateKey: String) {
+        billing.billingClient.consumeAsync(purchaseToken) { _, _ ->
+            accountCreated = true
+            issue_create_account_form_group.gone()
+            issue_create_account_progress.gone()
+            issue_create_account_import_key_group.visible()
+            issue_create_account_import_key_done_button.visible()
+            issue_create_account_import_key_label.text = privateKey
+            billing.billingClient.endConnection()
+        }
     }
 
     override fun navigateToAccountList() {

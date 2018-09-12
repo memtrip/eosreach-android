@@ -3,4 +3,5 @@
     <string name="app_default_eos_currency">EOS</string>
     <string name="app_default_eos_endpoint_root">http://eos.greymass.com/</string>
     <string name="app_default_create_account_sku_id">eos_memtrip_issue_create_account</string>
+    <string name="app_default_utility_endpoint_root">https://issue.memtrip.com/</string>
 </resources>

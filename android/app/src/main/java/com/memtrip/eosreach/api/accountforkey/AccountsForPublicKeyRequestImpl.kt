@@ -6,7 +6,10 @@ import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
 import com.memtrip.eos.http.rpc.model.history.request.GetKeyAccounts
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.utils.RxSchedulers
+import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
+import retrofit2.Response
 import javax.inject.Inject
 
 internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
@@ -19,37 +22,46 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
         return historyApi.getKeyAccounts(GetKeyAccounts(publicKey))
             .subscribeOn(rxSchedulers.background())
             .observeOn(rxSchedulers.main())
-            .map {
+            .flatMap {
                 if (it.isSuccessful) {
-                    Result(AccountsForPublicKey(publicKey, it.body()!!.account_names.map {
-                        accountName -> getBalance(accountName)
-                    }))
+                    getBalance(publicKey, it.body()!!.account_names)
                 } else {
-                    Result<AccountsForPublicKey, AccountForKeyError>(
-                        AccountForKeyError.FailedRetrievingAccountList(it.code(), it.errorBody()))
+                    Single.just(Result<AccountsForPublicKey, AccountForKeyError>(
+                        AccountForKeyError.FailedRetrievingAccountList(it.code(), it.errorBody())))
                 }
             }
     }
 
-    @Throws(InnerAccountFailed::class)
-    private fun getBalance(accountName: String): AccountNameSystemBalance {
-        val response = chainApi.getCurrencyBalance(GetCurrencyBalance(
-            "eosio.token",
-            accountName
-        )).subscribeOn(rxSchedulers.background())
-            .observeOn(rxSchedulers.main())
-            .blockingGet()
+    @Suppress("NAME_SHADOWING")
+    private fun getBalance(publicKey: String, accountNameList: List<String>): Single<Result<AccountsForPublicKey, AccountForKeyError>> {
 
-        if (response.isSuccessful) {
-            val balance = response.body()!!
-            return if (balance.isNotEmpty()) {
-                AccountNameSystemBalance(accountName, balance[0])
-            } else {
-                AccountNameSystemBalance(accountName)
+        return Observable.fromIterable(accountNameList)
+            .flatMap { accountName ->
+                Observable.zip(
+                    Observable.just(accountName),
+                    chainApi.getCurrencyBalance(GetCurrencyBalance(
+                        "eosio.token",
+                        accountName
+                    )).toObservable(),
+                    BiFunction<String, Response<List<String>>, AccountNameSystemBalance> { accountName, response ->
+                        if (response.isSuccessful) {
+                            val balance = response.body()!!
+                            if (balance.isNotEmpty()) {
+                                AccountNameSystemBalance(accountName, balance[0])
+                            } else {
+                                AccountNameSystemBalance(accountName)
+                            }
+                        } else {
+                            throw InnerAccountFailed()
+                        }
+                    })
             }
-        } else {
-            throw InnerAccountFailed()
-        }
+            .toList()
+            .map { accountSystemBalanceList ->
+                Result<AccountsForPublicKey, AccountForKeyError>(AccountsForPublicKey(publicKey, accountSystemBalanceList))
+            }
+            .subscribeOn(rxSchedulers.background())
+            .observeOn(rxSchedulers.main())
     }
 
     class InnerAccountFailed : Exception()

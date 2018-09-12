@@ -25,7 +25,7 @@ class EosCreateAccountRequestImpl @Inject constructor(
         )).observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background()).map { response ->
                 if (response.isSuccessful) {
-                    Result(CreateAccountReceipt(response.body()!!.transactionid))
+                    Result(CreateAccountReceipt(response.body()!!.transactionId))
                 } else {
                     if (response.errorBody() != null) {
                         try {

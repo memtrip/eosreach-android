@@ -1,11 +1,12 @@
 package com.memtrip.eosreach.db.sharedpreferences
 
-import android.content.Context
+import android.app.Application
+
 import javax.inject.Inject
 
 class UnusedBillingPurchaseId @Inject constructor(
-    context: Context
-) : SharedPreferenceItem<String>(context) {
+    application: Application
+) : SharedPreferenceItem<String>(application) {
 
     override val key = "UNUSED_ACCOUNT_PURCHASE"
 
@@ -13,5 +14,5 @@ class UnusedBillingPurchaseId @Inject constructor(
         prefs.edit().putString(key, value).apply()
     }
 
-    override fun get(): String = prefs.getString(key, null)
+    override fun get(): String = prefs.getString(key, "")
 }

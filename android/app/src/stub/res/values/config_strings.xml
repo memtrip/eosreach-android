@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_default_eos_currency">SYS</string>
-    <string name="app_default_eos_endpoint_root">http://stub/</string>
+    <string name="app_default_eos_endpoint_root">http://eosstub/</string>
     <string name="app_default_create_account_sku_id">android.test.purchased</string>
+    <string name="app_default_utility_endpoint_root">http://utilitystub/</string>
 </resources>

@@ -1,6 +1,9 @@
 package com.memtrip.eosreach.app.issue.createaccount
 
 import android.app.Application
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.SkuDetailsParams
 import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
@@ -30,8 +33,9 @@ abstract class CreateAccountViewModel(
 ) {
 
     override fun dispatcher(intent: CreateAccountIntent): Observable<CreateAccountRenderAction> = when (intent) {
-        is CreateAccountIntent.Init -> getAvailableGooglePlaySku(intent.billingRequest)
-        is CreateAccountIntent.SetupGooglePlayBilling -> getAvailableGooglePlaySku(intent.billingRequest)
+        CreateAccountIntent.Init -> Observable.just(CreateAccountRenderAction.OnSkuProgress)
+        is CreateAccountIntent.BillingSetupSuccess -> Observable.just(CreateAccountRenderAction.OnSkuSuccess(intent.skuDetails))
+        is CreateAccountIntent.BillingSetupFailed -> Observable.just(getErrors(intent.billingError))
         is CreateAccountIntent.BuyAccount -> Observable.just(validateAccountName(intent.accountName))
         is CreateAccountIntent.CreateAccount -> createAccount(intent.purchaseToken, intent.accountName)
         is CreateAccountIntent.Done -> getAccountsForKey(intent.privateKey)
@@ -51,7 +55,7 @@ abstract class CreateAccountViewModel(
         CreateAccountRenderAction.OnCreateAccountProgress -> previousState.copy(
             view = CreateAccountViewState.View.OnCreateAccountProgress)
         is CreateAccountRenderAction.OnCreateAccountSuccess -> previousState.copy(
-            view = CreateAccountViewState.View.OnCreateAccountSuccess(renderAction.privateKey))
+            view = CreateAccountViewState.View.OnCreateAccountSuccess(renderAction.purchaseToken, renderAction.privateKey))
         is CreateAccountRenderAction.OnCreateAccountError -> previousState.copy(
             view = CreateAccountViewState.View.CreateAccountError(renderAction.error))
         is CreateAccountRenderAction.OnImportKeyError -> previousState.copy(
@@ -82,23 +86,34 @@ abstract class CreateAccountViewModel(
         purchaseToken: String,
         accountName: String
     ) : Observable<CreateAccountRenderAction> {
-        return keyManager.importPrivateKey(EosPrivateKey()).flatMap { privateKey ->
-            eosCreateAccountRequest.createAccount(
-                purchaseToken,
-                accountName,
-                privateKey
-            ).map<CreateAccountRenderAction> { result ->
-                if (result.success) {
-                    unusedBillingPurchaseId.clear()
-                    CreateAccountRenderAction.OnCreateAccountSuccess(privateKey)
-                } else {
-                    createAccountError(result.apiError!!)
+        return keyManager.createEosPrivateKey().flatMap { eosPrivateKey ->
+            keyManager.importPrivateKey(eosPrivateKey).flatMap { publicKey ->
+                eosCreateAccountRequest.createAccount(
+                    purchaseToken,
+                    accountName,
+                    publicKey
+                ).flatMap<CreateAccountRenderAction> { result ->
+                    if (result.success) {
+                        unusedBillingPurchaseId.clear()
+                        createAccountSuccess(purchaseToken, publicKey)
+                    } else {
+                        Single.just(createAccountError(result.apiError!!))
+                    }
+                }.onErrorReturn {
+                    CreateAccountRenderAction.OnCreateAccountError(
+                        context().getString(R.string.issue_create_account_generic_error))
                 }
-            }.onErrorReturn {
-                CreateAccountRenderAction.OnCreateAccountError(
-                    context().getString(R.string.issue_create_account_generic_error))
             }
         }.toObservable().startWith(CreateAccountRenderAction.OnCreateAccountProgress)
+    }
+
+    private fun createAccountSuccess(purchaseToken: String, publicKey: String): Single<CreateAccountRenderAction> {
+        return keyManager.getPrivateKey(publicKey).map<CreateAccountRenderAction> { privateKey ->
+            CreateAccountRenderAction.OnCreateAccountSuccess(purchaseToken, privateKey.toString())
+        }.onErrorReturn {
+            CreateAccountRenderAction.OnCreateAccountError(
+                context().getString(R.string.issue_create_account_fatal_error))
+        }
     }
 
     private fun createAccountError(error: EosCreateAccountError): CreateAccountRenderAction = when(error) {
@@ -117,40 +132,28 @@ abstract class CreateAccountViewModel(
     }
 
     private fun getAccountsForKey(privateKey: String): Observable<CreateAccountRenderAction> {
-        val publicKey = EosPrivateKey(privateKey).publicKey.toString()
-        return accountForPublicKeyRequest.getAccountsForKey(publicKey).flatMap { result ->
-            if (result.success) {
-                if (result.data!!.accounts.isEmpty()) {
-                    Single.just(CreateAccountRenderAction.OnCreateAccountError(
-                        context().getString(R.string.issue_create_account_import_key_no_accounts)))
-                } else {
-                    insertAccountsForPublicKey.replace(
-                        result.data.publicKey,
-                        result.data.accounts
-                    ).map {
-                        selectedAccount.clear()
-                        CreateAccountRenderAction.NavigateToAccountList
+        return keyManager.createEosPrivateKey(privateKey).flatMap { eosPrivateKey ->
+            accountForPublicKeyRequest.getAccountsForKey(eosPrivateKey.publicKey.toString()).flatMap { result ->
+                if (result.success) {
+                    if (result.data!!.accounts.isEmpty()) {
+                        Single.just(CreateAccountRenderAction.OnImportKeyError(
+                            context().getString(R.string.issue_create_account_import_key_no_accounts)))
+                    } else {
+                        insertAccountsForPublicKey.replace(
+                            result.data.publicKey,
+                            result.data.accounts
+                        ).map {
+                            selectedAccount.clear()
+                            CreateAccountRenderAction.NavigateToAccountList
+                        }
                     }
+                } else {
+                    Single.just(CreateAccountRenderAction.OnImportKeyError(
+                        context().getString(R.string.issue_create_account_import_key_error_body)
+                    ))
                 }
-            } else {
-                Single.just(CreateAccountRenderAction.OnImportKeyError(
-                    context().getString(R.string.issue_create_account_import_key_error_body)
-                ))
             }
         }.toObservable().startWith(CreateAccountRenderAction.OnImportKeyProgress)
-    }
-
-    private fun getAvailableGooglePlaySku(billingRequest: BillingRequest): Observable<CreateAccountRenderAction> {
-        return billingRequest
-            .getCreateAccountSku()
-            .map<CreateAccountRenderAction> { skuDetails ->
-                CreateAccountRenderAction.OnSkuSuccess(skuDetails)
-            }
-            .onErrorReturn { billingError ->
-                getErrors(billingError as BillingError)
-            }
-            .toObservable()
-            .startWith(CreateAccountRenderAction.OnSkuProgress)
     }
 
     private fun getErrors(error: BillingError): CreateAccountRenderAction = when (error) {

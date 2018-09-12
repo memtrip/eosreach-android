@@ -13,7 +13,7 @@ data class CreateAccountViewState(val view: View) : MxViewState {
         data class OnGetSkuError(val message: String) : View()
         data class OnAccountNameValidationPassed(val unique: Int = id()) : View()
         object OnCreateAccountProgress : View()
-        data class OnCreateAccountSuccess(val privateKey: String) : View()
+        data class OnCreateAccountSuccess(val purchaseToken: String, val privateKey: String) : View()
         data class CreateAccountError(val error: String, val unique: Int = id()) : View()
         object OnImportKeyProgress : View()
         data class ImportKeyError(val error: String) : View()

@@ -41,7 +41,7 @@ class EosKeyManagerImpl @Inject constructor(
     override fun getPrivateKey(eosPublicKey: String): Single<EosPrivateKey> {
         return Single.create<EosPrivateKey> { single ->
             single.onSuccess(EosPrivateKey(getPrivateKeyBytes(eosPublicKey)))
-        }
+        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 
     override fun publicKeyExists(eosPublicKey: String): Boolean {
@@ -60,7 +60,21 @@ class EosKeyManagerImpl @Inject constructor(
             } else {
                 single.onError(EosKeyManager.NotFoundException())
             }
-        }
+        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
+    }
+
+    override fun createEosPrivateKey(value: String): Single<EosPrivateKey> {
+        return Single
+            .just(EosPrivateKey(value))
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
+    }
+
+    override fun createEosPrivateKey(): Single<EosPrivateKey> {
+        return Single
+            .just(EosPrivateKey())
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
     }
 
     private fun getPrivateKeyBytes(keyAlias: String): ByteArray {

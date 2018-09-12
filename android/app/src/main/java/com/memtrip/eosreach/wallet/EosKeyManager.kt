@@ -9,6 +9,8 @@ interface EosKeyManager {
     fun publicKeyExists(eosPublicKey: String): Boolean
     fun getAllPublicKeys(): List<String>
     fun getPrivateKeys(): Single<List<EosPrivateKey>>
+    fun createEosPrivateKey(value: String): Single<EosPrivateKey>
+    fun createEosPrivateKey(): Single<EosPrivateKey>
 
     class NotFoundException : RuntimeException()
 }

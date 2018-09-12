@@ -16,14 +16,14 @@ interface EosCreateAccountApi {
 
 @JsonClass(generateAdapter = true)
 data class CreateAccountRequest(
-    val purchaseId: String,
+    val purchaseToken: String,
     val accountName: String,
     val publicKey: String
 )
 
 @JsonClass(generateAdapter = true)
 data class CreateAccountResponse(
-    val transactionid: String
+    val transactionId: String
 )
 
 @JsonClass(generateAdapter = true)

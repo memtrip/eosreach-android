@@ -5,8 +5,6 @@
     <string name="app_keys_shared_preferences_package">com.memtrip.eosreach.keys</string>
     <string name="app_default_currency">USD</string>
 
-    <string name="app_default_utility_endpoint_root">http://ffd009c4.ngrok.io/</string>
-
     <string name="app_dialog_error_title">Sorry</string>
     <string name="app_dialog_positive_button">OK</string>
     <string name="app_dialog_negative_button">Cancel</string>

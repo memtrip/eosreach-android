@@ -13,7 +13,7 @@ sealed class CreateAccountRenderAction : MxRenderAction {
     data class OnGetSkuError(val message: String) : CreateAccountRenderAction()
     object OnAccountNameValidationPassed : CreateAccountRenderAction()
     object OnCreateAccountProgress : CreateAccountRenderAction()
-    data class OnCreateAccountSuccess(val privateKey: String) : CreateAccountRenderAction()
+    data class OnCreateAccountSuccess(val purchaseToken: String, val privateKey: String) : CreateAccountRenderAction()
     data class OnCreateAccountError(val error: String) : CreateAccountRenderAction()
     object OnImportKeyProgress : CreateAccountRenderAction()
     data class OnImportKeyError(val error: String) : CreateAccountRenderAction()
@@ -26,7 +26,7 @@ interface CreateAccountViewLayout : MxViewLayout {
     fun showSkuError(message: String)
     fun showAccountNameValidationPassed()
     fun showCreateAccountProgress()
-    fun showAccountCreated(privateKey: String)
+    fun showAccountCreated(purchaseToken: String,privateKey: String)
     fun showCreateAccountError(error: String)
     fun showImportKeyProgress()
     fun showImportKeyError(error: String)
@@ -53,7 +53,7 @@ class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<
             layout.showCreateAccountProgress()
         }
         is CreateAccountViewState.View.OnCreateAccountSuccess -> {
-            layout.showAccountCreated(state.view.privateKey)
+            layout.showAccountCreated(state.view.purchaseToken, state.view.privateKey)
         }
         is CreateAccountViewState.View.CreateAccountError -> {
             layout.showCreateAccountError(state.view.error)

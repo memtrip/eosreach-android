@@ -49,12 +49,13 @@
     <ScrollView
         android:id="@+id/view_private_keys_data_scrollview"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_giant"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/padding_large"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_private_keys_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/view_private_keys_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:id="@+id/view_private_keys_data_container"

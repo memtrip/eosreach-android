@@ -133,25 +133,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="issue_create_account_import_key_instruction_label,issue_create_account_import_key_label"
+        app:constraint_referenced_ids="issue_create_account_import_key_instruction_title_label,issue_create_account_import_key_instruction_label,issue_create_account_import_key_label"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/issue_create_account_import_key_instruction_label"
+        android:id="@+id/issue_create_account_import_key_instruction_title_label"
+        style="@style/Typography.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/issue_create_account_private_key_instruction_label"
+        android:text="@string/issue_create_account_private_key_instruction_title_label"
         android:textColor="@color/colorSecondary"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/issue_create_account_toolbars"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/issue_create_account_import_key_instruction_label"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:text="@string/issue_create_account_private_key_instruction_label"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/issue_create_account_import_key_instruction_title_label"/>
     
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/issue_create_account_import_key_label"
         style="@style/Typography.Data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginTop="@dimen/padding_medium"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/issue_create_account_import_key_instruction_label"/>

@@ -10,8 +10,9 @@
         your public key as its owner. Your private key is RSA encrypted using a key stored in the AndroidKeyStore,
         it will never leave this device.
     </string>
+    <string name="issue_create_account_private_key_instruction_title_label">Your account has been created.</string>
     <string name="issue_create_account_private_key_instruction_label">
-        Your account has been created. The private key below was added as both the active and owner permission
+        The private key below was added as both the active and owner permission
         of your new account. Please backup this private key somewhere in the physical world and avoid storing it
         digitally.
     </string>
@@ -24,8 +25,21 @@
     <string name="issue_create_account_billing_setup_error">
         We could not connect to Google play, please check your internet connection and try again.
     </string>
+    <string name="issue_create_account_billing_purchase_cancelled_error">
+        You cancelled the Google play purchase, you can alternatively import an existing private key
+        if you do not want to pay our fee.
+    </string>
+    <string name="issue_create_account_billing_purchase_item_unavailable_error">
+        Our account issuing service is currently frozen. You can use the app by importing an existing
+        private key, we apologies for any inconvenience.
+    </string>
     <string name="issue_create_account_billing_purchase_failed_error">
         Google play could not process your payment, please check your internet connection and try again.
+    </string>
+    <string name="issue_create_account_billing_purchase_fatal_error">
+        You have already purchased an account, but unfortunately an issue occurred while processing your transaction.
+        You will have received an email confirmation containing your purchaseId, please contact support@memtrip.com quoting
+        this purchaseId. We will resolve this for you ASAP.
     </string>
     <string name="issue_create_account_username_validation_error">
         Please enter an account name that is 12 characters in length.

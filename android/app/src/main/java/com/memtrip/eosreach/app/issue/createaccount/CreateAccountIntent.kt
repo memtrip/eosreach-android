@@ -1,12 +1,14 @@
 package com.memtrip.eosreach.app.issue.createaccount
 
-import com.memtrip.eosreach.billing.BillingRequest
+import com.android.billingclient.api.SkuDetails
+import com.memtrip.eosreach.billing.BillingError
 
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class CreateAccountIntent : MxViewIntent {
-    data class Init(val billingRequest: BillingRequest) : CreateAccountIntent()
-    data class SetupGooglePlayBilling(val billingRequest: BillingRequest) : CreateAccountIntent()
+    object Init : CreateAccountIntent()
+    data class BillingSetupSuccess(val skuDetails: SkuDetails) : CreateAccountIntent()
+    data class BillingSetupFailed(val billingError: BillingError) : CreateAccountIntent()
     data class BuyAccount(val accountName: String) : CreateAccountIntent()
     data class CreateAccount(
         val purchaseToken: String,
