@@ -41,11 +41,33 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/padding_large" />
 
+    <!-- sku -->
+    <ProgressBar
+        android:id="@+id/issue_create_account_sku_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.memtrip.eosreach.uikit.ErrorCompositeView
+        android:id="@+id/issue_create_account_sku_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <!-- sku -->
+
     <!-- form -->
     <androidx.constraintlayout.widget.Group
         android:id="@+id/issue_create_account_form_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_instructions_label"
         tools:ignore="MissingConstraints" />
 
@@ -89,6 +111,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/issue_create_account_create_button"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />

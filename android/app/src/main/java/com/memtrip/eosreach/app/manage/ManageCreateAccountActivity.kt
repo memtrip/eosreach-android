@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.manage
 
 import android.content.Context
 import android.content.Intent
+import com.android.billingclient.api.SkuDetails
 import com.memtrip.eosreach.app.issue.createaccount.CreateAccountActivity
 import dagger.android.AndroidInjection
 

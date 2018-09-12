@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.app.issue.createaccount
 
+import com.android.billingclient.api.SkuDetails
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
@@ -7,6 +8,9 @@ import javax.inject.Inject
 
 sealed class CreateAccountRenderAction : MxRenderAction {
     object Idle : CreateAccountRenderAction()
+    object OnSkuProgress : CreateAccountRenderAction()
+    data class OnSkuSuccess(val skuDetails: SkuDetails) : CreateAccountRenderAction()
+    data class OnGetSkuError(val message: String) : CreateAccountRenderAction()
     object OnCreateAccountProgress : CreateAccountRenderAction()
     data class OnCreateAccountSuccess(val privateKey: String) : CreateAccountRenderAction()
     data class OnCreateAccountError(val error: String) : CreateAccountRenderAction()
@@ -16,6 +20,9 @@ sealed class CreateAccountRenderAction : MxRenderAction {
 }
 
 interface CreateAccountViewLayout : MxViewLayout {
+    fun showSkuProgress()
+    fun showSkuSuccess(skuDetails: SkuDetails)
+    fun showSkuError(message: String)
     fun showCreateAccountProgress()
     fun showAccountCreated(privateKey: String)
     fun showCreateAccountError(error: String)
@@ -27,6 +34,15 @@ interface CreateAccountViewLayout : MxViewLayout {
 class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<CreateAccountViewLayout, CreateAccountViewState> {
     override fun layout(layout: CreateAccountViewLayout, state: CreateAccountViewState) = when (state.view) {
         CreateAccountViewState.View.Idle -> {
+        }
+        CreateAccountViewState.View.OnSkuProgress -> {
+            layout.showSkuProgress()
+        }
+        is CreateAccountViewState.View.OnSkuSuccess -> {
+            layout.showSkuSuccess(state.view.skuDetails)
+        }
+        is CreateAccountViewState.View.OnGetSkuError -> {
+            layout.showSkuError(state.view.message)
         }
         CreateAccountViewState.View.OnCreateAccountProgress -> {
             layout.showCreateAccountProgress()

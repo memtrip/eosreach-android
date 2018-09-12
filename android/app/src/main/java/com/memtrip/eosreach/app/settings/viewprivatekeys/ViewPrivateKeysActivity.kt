@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eos.core.crypto.EosPrivateKey
@@ -57,20 +58,24 @@ class ViewPrivateKeysActivity
     override fun render(): ViewPrivateKeysViewRenderer = render
 
     override fun showPrivateKeys(privateKeys: List<EosPrivateKey>) {
+        val privateKeyMarginBottom = resources.getDimensionPixelOffset(R.dimen.padding_medium)
         view_private_keys_button.gone()
         view_private_keys_progressbar.gone()
         view_private_keys_data_scrollview.visible()
-        privateKeys.map {
-            view_private_keys_data_container.addView(
-                with (LayoutInflater.from(this).inflate(
-                    R.layout.view_private_keys_item_layout,
-                    null,
-                    false
-                ) as TextView) {
-                    text = privateKeys.toString()
-                    this
-                }
-            )
+        privateKeys.forEach { key ->
+            val privKeyLayout = with (LayoutInflater.from(this).inflate(
+                R.layout.view_private_keys_item_layout,
+                null,
+                false
+            ) as TextView) {
+                text = key.toString()
+                this
+            }
+
+            view_private_keys_data_container.addView(privKeyLayout)
+
+            (privKeyLayout.layoutParams as
+                LinearLayout.LayoutParams).bottomMargin = privateKeyMarginBottom
         }
     }
 

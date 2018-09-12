@@ -2,4 +2,5 @@
 <resources>
     <string name="app_default_eos_currency">SYS</string>
     <string name="app_default_eos_endpoint_root">http://stub/</string>
+    <string name="app_default_create_account_sku_id">android.test.purchased</string>
 </resources>

@@ -7,7 +7,7 @@ import io.reactivex.Single
 interface EosCreateAccountRequest {
 
     fun createAccount(
-        purchaseId: String,
+        purchaseToken: String,
         accountName: String,
         publicKey: String
     ) : Single<Result<CreateAccountReceipt, EosCreateAccountError>>

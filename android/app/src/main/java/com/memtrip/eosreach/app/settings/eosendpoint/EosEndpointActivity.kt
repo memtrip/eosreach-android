@@ -43,7 +43,6 @@ class EosEndpointActivity
         if (resultCode == BlockProducerListActivity.RESULT_CODE) {
             val blockProducerBundle = BlockProducerListActivity.fromIntent(data!!)
             eos_endpoint_url_input.setText(blockProducerBundle.apiUrl, TextView.BufferType.EDITABLE)
-            model().publish(EosEndpointIntent.ChangeEndpoint(blockProducerBundle.apiUrl))
         }
     }
 

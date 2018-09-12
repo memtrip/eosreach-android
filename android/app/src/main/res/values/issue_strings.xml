@@ -15,8 +15,18 @@
         of your new account. Please backup this private key somewhere in the physical world and avoid storing it
         digitally.
     </string>
-    <string name="issue_create_account_create_button">Create Account</string>
+    <string name="issue_create_account_create_button">Create Account (%s)</string>
     <string name="issue_create_account_done_button">Done</string>
+    <string name="issue_create_account_sku_error">
+        Our create account feature is currently unavailable, you can still use this app by importing an
+        existing private key.
+    </string>
+    <string name="issue_create_account_billing_setup_error">
+        We could not connect to Google play, please check your internet connection and try again.
+    </string>
+    <string name="issue_create_account_billing_purchase_failed_error">
+        Google play could not process your payment, please check your internet connection and try again.
+    </string>
     <string name="issue_create_account_generic_error">
         We could not create an account at this time, please check your connection and try again.
     </string>
@@ -28,7 +38,7 @@
     <string name="issue_create_account_account_name_exists">
         The account name you chose already exists, please choose another name.
     </string>
-    <string name="issue_create_account_import_key_error_title">Failed to import key</string>
+    <string name="issue_create_account_import_key_error_title">Could not import key</string>
     <string name="issue_create_account_import_key_error_body">
         We could not import private key, please check your internet connection and try again. If you
         continue to encounter difficulties, please clear your app data and import the private key that

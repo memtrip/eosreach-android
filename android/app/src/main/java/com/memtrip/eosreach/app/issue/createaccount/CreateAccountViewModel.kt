@@ -6,6 +6,8 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountError
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
+import com.memtrip.eosreach.billing.BillingError
+import com.memtrip.eosreach.billing.BillingRequest
 import com.memtrip.eosreach.db.SelectedAccount
 import com.memtrip.eosreach.db.account.InsertAccountsForPublicKey
 import com.memtrip.eosreach.wallet.EosKeyManager
@@ -26,14 +28,21 @@ abstract class CreateAccountViewModel(
 ) {
 
     override fun dispatcher(intent: CreateAccountIntent): Observable<CreateAccountRenderAction> = when (intent) {
-        is CreateAccountIntent.Init -> Observable.just(CreateAccountRenderAction.Idle)
-        is CreateAccountIntent.CreateAccount -> createAccount(intent.purchaseId, intent.accountName)
+        is CreateAccountIntent.Init -> getAvailableGooglePlaySku(intent.billingRequest)
+        is CreateAccountIntent.SetupGooglePlayBilling -> getAvailableGooglePlaySku(intent.billingRequest)
+        is CreateAccountIntent.CreateAccount -> createAccount(intent.purchaseToken, intent.accountName)
         is CreateAccountIntent.Done -> getAccountsForKey(intent.privateKey)
     }
 
     override fun reducer(previousState: CreateAccountViewState, renderAction: CreateAccountRenderAction): CreateAccountViewState = when (renderAction) {
         CreateAccountRenderAction.Idle -> previousState.copy(
             view = CreateAccountViewState.View.Idle)
+        CreateAccountRenderAction.OnSkuProgress -> previousState.copy(
+            view = CreateAccountViewState.View.OnSkuProgress)
+        is CreateAccountRenderAction.OnSkuSuccess -> previousState.copy(
+            view = CreateAccountViewState.View.OnSkuSuccess(renderAction.skuDetails))
+        is CreateAccountRenderAction.OnGetSkuError -> previousState.copy(
+            view = CreateAccountViewState.View.OnGetSkuError(renderAction.message))
         CreateAccountRenderAction.OnCreateAccountProgress -> previousState.copy(
             view = CreateAccountViewState.View.OnCreateAccountProgress)
         is CreateAccountRenderAction.OnCreateAccountSuccess -> previousState.copy(
@@ -56,12 +65,12 @@ abstract class CreateAccountViewModel(
     )
 
     private fun createAccount(
-        purchaseId: String,
+        purchaseToken: String,
         accountName: String
     ) : Observable<CreateAccountRenderAction> {
         return keyManager.importPrivateKey(EosPrivateKey()).flatMap { privateKey ->
             eosCreateAccountRequest.createAccount(
-                purchaseId,
+                purchaseToken,
                 accountName,
                 privateKey
             ).map<CreateAccountRenderAction> { result ->
@@ -114,5 +123,45 @@ abstract class CreateAccountViewModel(
                 ))
             }
         }.toObservable().startWith(CreateAccountRenderAction.OnImportKeyProgress)
+    }
+
+    private fun getAvailableGooglePlaySku(billingRequest: BillingRequest): Observable<CreateAccountRenderAction> {
+        return billingRequest
+            .getCreateAccountSku()
+            .map<CreateAccountRenderAction> { skuDetails ->
+                CreateAccountRenderAction.OnSkuSuccess(skuDetails)
+            }
+            .onErrorReturn { billingError ->
+                getErrors(billingError as BillingError)
+            }
+            .toObservable()
+            .startWith(CreateAccountRenderAction.OnSkuProgress)
+    }
+
+    private fun getErrors(error: BillingError): CreateAccountRenderAction = when (error) {
+        BillingError.BillingSetupConnectionFailed -> {
+            CreateAccountRenderAction.OnGetSkuError(
+                context().getString(R.string.issue_create_account_billing_setup_error))
+        }
+        BillingError.BillingSetupFailed -> {
+            CreateAccountRenderAction.OnGetSkuError(
+                context().getString(R.string.issue_create_account_billing_setup_error))
+        }
+        BillingError.SkuBillingUnavailable -> {
+            CreateAccountRenderAction.OnGetSkuError(
+                context().getString(R.string.issue_create_account_billing_setup_error))
+        }
+        BillingError.SkuNotFound -> {
+            CreateAccountRenderAction.OnGetSkuError(
+                context().getString(R.string.issue_create_account_sku_error))
+        }
+        BillingError.SkuNotAvailable -> {
+            CreateAccountRenderAction.OnGetSkuError(
+                context().getString(R.string.issue_create_account_sku_error))
+        }
+        BillingError.SkuRequestFailed -> {
+            CreateAccountRenderAction.OnGetSkuError(
+                context().getString(R.string.issue_create_account_billing_setup_error))
+        }
     }
 }

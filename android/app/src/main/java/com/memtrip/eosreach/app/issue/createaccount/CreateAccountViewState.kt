@@ -1,11 +1,15 @@
 package com.memtrip.eosreach.app.issue.createaccount
 
+import com.android.billingclient.api.SkuDetails
 import com.memtrip.mxandroid.MxViewState
 
 data class CreateAccountViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
+        object OnSkuProgress : View()
+        data class OnSkuSuccess(val skuDetails: SkuDetails) : View()
+        data class OnGetSkuError(val message: String) : View()
         object OnCreateAccountProgress : View()
         data class OnCreateAccountSuccess(val privateKey: String) : View()
         data class CreateAccountError(val error: String) : View()

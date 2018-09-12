@@ -14,12 +14,12 @@ class EosCreateAccountRequestImpl @Inject constructor(
 ) : EosCreateAccountRequest {
 
     override fun createAccount(
-        purchaseId: String,
+        purchaseToken: String,
         accountName: String,
         publicKey: String
     ): Single<Result<CreateAccountReceipt, EosCreateAccountError>> {
         return eosCreateAccountApi.createAccount(CreateAccountRequest(
-            purchaseId,
+            purchaseToken,
             accountName,
             publicKey
         )).map { response ->

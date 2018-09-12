@@ -14,3 +14,5 @@
 .idea
 service/build
 service/out
+android/build
+android/app/prod

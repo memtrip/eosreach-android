@@ -3,6 +3,7 @@
     package="com.memtrip.eosreach">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="false"
@@ -12,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".app.EosReachApplication"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name="com.memtrip.eosreach.app.welcome.EntryActivity">
