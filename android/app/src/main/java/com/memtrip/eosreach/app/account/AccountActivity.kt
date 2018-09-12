@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.core.content.ContextCompat
+import com.jakewharton.rxbinding2.support.v4.view.RxViewPager
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
@@ -72,7 +73,15 @@ class AccountActivity
     override fun intents(): Observable<AccountIntent> = Observable.mergeArray(
         Observable.just(AccountIntent.Init(accountBundle)),
         account_error_view.retryClick().map { AccountIntent.Retry(accountBundle) },
-        RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList }
+        RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList },
+        RxViewPager.pageSelections(account_viewpager).map { position ->
+            when (position) {
+                AccountPagerFragment.Page.BALANCE.ordinal -> AccountIntent.BalanceTabIdle
+                AccountPagerFragment.Page.RESOURCES.ordinal -> AccountIntent.ResourceTabIdle
+                AccountPagerFragment.Page.VOTE.ordinal -> AccountIntent.VoteTabIdle
+                else -> AccountIntent.BalanceTabIdle
+            }
+        }
     )
 
     override fun layout(): AccountViewLayout = this

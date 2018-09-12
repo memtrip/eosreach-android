@@ -3,6 +3,8 @@ package com.memtrip.eosreach.app.account.vote.cast
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import com.jakewharton.rxbinding2.support.v4.view.RxViewPager
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
@@ -39,7 +41,16 @@ class CastVoteActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<CastVoteIntent> = Observable.just(CastVoteIntent.Init(eosAccount))
+    override fun intents(): Observable<CastVoteIntent> = Observable.merge(
+        Observable.just(CastVoteIntent.Init(eosAccount)),
+        RxViewPager.pageSelections(cast_producer_vote_viewpager).map { position ->
+            when (position) {
+                CastVotePagerFragment.Page.PRODUCER.ordinal -> CastVoteIntent.CastProducerVoteTabIdle
+                CastVotePagerFragment.Page.PROXY.ordinal -> CastVoteIntent.CastProxyVoteTabIdle
+                else -> CastVoteIntent.CastProducerVoteTabIdle
+            }
+        }
+    )
 
     override fun layout(): CastVoteViewLayout = this
 
@@ -58,18 +69,6 @@ class CastVoteActivity
         cast_producer_vote_viewpager.offscreenPageLimit = 2
         cast_producer_vote_viewpager.currentItem = page.ordinal
         cast_producer_vote_viewpager.visible()
-        cast_producer_vote_viewpager.addOnPageChangeListener(object : ViewPagerOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    CastVotePagerFragment.Page.PRODUCER.ordinal -> {
-                        model().publish(CastVoteIntent.CastProducerVoteTabIdle)
-                    }
-                    CastVotePagerFragment.Page.PROXY.ordinal -> {
-                        model().publish(CastVoteIntent.CastProxyVoteTabIdle)
-                    }
-                }
-            }
-        })
 
         cast_producer_vote_tablayout.setupWithViewPager(cast_producer_vote_viewpager)
     }

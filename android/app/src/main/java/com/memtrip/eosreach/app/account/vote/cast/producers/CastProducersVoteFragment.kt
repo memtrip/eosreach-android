@@ -19,6 +19,7 @@ import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
 import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
 
@@ -87,6 +88,7 @@ class CastProducersVoteFragment
     override fun render(): CastProducersVoteViewRenderer = render
 
     override fun addProducerField(position: Int) {
+        model().publish(CastProducersVoteIntent.Idle)
         cast_producers_vote_blockproducer_form_container.addView(
             with (LayoutInflater.from(context!!).inflate(
                 R.layout.account_cast_producers_vote_item_layout,
@@ -94,9 +96,12 @@ class CastProducersVoteFragment
                 false)) {
 
                 val producerEditText: EditText = ((this as ViewGroup).getChildAt(0) as EditText)
-                producerEditText.filters = arrayOf(InputFilter.LengthFilter(12))
+                producerEditText.filters = arrayOf(
+                    AccountNameInputFilter(),
+                    InputFilter.LengthFilter(12)
+                )
 
-                val removeButton: Button = ((this as ViewGroup).getChildAt(1) as Button)
+                val removeButton: Button = (this.getChildAt(1) as Button)
                 if (position == 0)  {
                     removeButton.gone()
                 } else {

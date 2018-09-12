@@ -6,7 +6,6 @@
     - Integrate the create account api with Google play store items
 - airdropped tokens?
 - Add an invalidate shared pref that causes the account list to reload after a transfer transaction occurs
-- returning from voting errors is refreshing the screen
 - import key / create account should trigger an account list refresh
 - Add a 'purchased' label to the button in create account if the product has been purchased but not used because of technical error
 - Populate the cast vote screen with the existing votes
