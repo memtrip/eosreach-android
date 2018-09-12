@@ -22,34 +22,35 @@ class EosCreateAccountRequestImpl @Inject constructor(
             purchaseToken,
             accountName,
             publicKey
-        )).map { response ->
-            if (response.isSuccessful) {
-                Result(CreateAccountReceipt(response.body()!!.transactionid))
-            } else {
-                if (response.errorBody() != null) {
-                    try {
-                        val createAccountError = moshi.adapter(CreateAccountError::class.java)
-                            .fromJson(response.errorBody()!!.string())
+        )).observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background()).map { response ->
+                if (response.isSuccessful) {
+                    Result(CreateAccountReceipt(response.body()!!.transactionid))
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            val createAccountError = moshi.adapter(CreateAccountError::class.java)
+                                .fromJson(response.errorBody()!!.string())
 
-                        when(createAccountError!!.error) {
-                            "PUBLIC_KEY_INVALID_FORMAT" -> {
-                                Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.FatalError)
+                            when(createAccountError!!.error) {
+                                "PUBLIC_KEY_INVALID_FORMAT" -> {
+                                    Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.FatalError)
+                                }
+                                "ACCOUNT_NAME_EXISTS" -> {
+                                    Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.AccountNameExists)
+                                }
+                                else -> {
+                                    Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
+                                }
                             }
-                            "ACCOUNT_NAME_EXISTS" -> {
-                                Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.AccountNameExists)
-                            }
-                            else -> {
-                                Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
-                            }
+                            Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
+                        } catch (e: Exception) {
+                            Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                         }
-                        Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
-                    } catch (e: Exception) {
+                    } else {
                         Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                     }
-                } else {
-                    Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                 }
-            }
-        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
+        }
     }
 }

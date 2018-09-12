@@ -22,11 +22,22 @@ class InsertBlockProducers @Inject internal constructor(
             )
         }
 
+        return deleteBlockProducers()
+            .andThen(insertBlockProducers(blockProducerEntities))
+            .toSingle { blockProducerEntities }
+    }
+
+    private fun deleteBlockProducers(): Completable {
         return Completable
             .fromAction { blockProducerDao.delete() }
-            .andThen(Completable.fromAction { blockProducerDao.insertAll(blockProducerEntities) })
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
-            .toSingle { blockProducerEntities }
+    }
+
+    private fun insertBlockProducers(blockProducerEntities: List<BlockProducerEntity>): Completable {
+        return Completable
+            .fromAction { blockProducerDao.insertAll(blockProducerEntities) }
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
     }
 }

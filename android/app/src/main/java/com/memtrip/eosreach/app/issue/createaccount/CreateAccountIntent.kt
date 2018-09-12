@@ -7,6 +7,7 @@ import com.memtrip.mxandroid.MxViewIntent
 sealed class CreateAccountIntent : MxViewIntent {
     data class Init(val billingRequest: BillingRequest) : CreateAccountIntent()
     data class SetupGooglePlayBilling(val billingRequest: BillingRequest) : CreateAccountIntent()
+    data class BuyAccount(val accountName: String) : CreateAccountIntent()
     data class CreateAccount(
         val purchaseToken: String,
         val accountName: String

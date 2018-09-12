@@ -1,7 +1,6 @@
 ### TODO:
 - pull to refresh on each data screen
     - block producer screen
-- View transaction
 - Vote for block producer screen
     - a request for the user to vote for memtrip should be at the top
 - Create account api 
@@ -13,8 +12,6 @@
     - Store transaction receipts in a database
     - View a list of transaction receipts in settings
     - View a list of google play account purchases
-- Fix the duplicates in the view private key screen
-- Fix private key not showing on Settings -> View Private Key
 - Add an invalidate shared pref that causes the account list to reload after a transaction occurs
 - returning from voting errors is refreshing the screen
 
@@ -29,7 +26,7 @@
 ### Backlog
 - Buy resources
 - Stake resources
-- use https://github.com/ThreeTen/threetenbp for time
+- use https://github.com/ThreeTen/threetenbp for time in Java project
 - View action screen
 
 AccountBundle -> AccountContext

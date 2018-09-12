@@ -12,7 +12,7 @@ import com.memtrip.eos.http.rpc.HistoryApi
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountApi
 import com.memtrip.eosreach.api.eosprice.EosPriceApi
-import com.memtrip.eosreach.db.EosEndpoint
+import com.memtrip.eosreach.db.sharedpreferences.EosEndpoint
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

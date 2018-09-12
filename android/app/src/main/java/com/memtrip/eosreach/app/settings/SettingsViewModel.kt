@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.app.settings
 
 import android.app.Application
-import com.memtrip.eosreach.db.EosPriceCurrencyPair
+import com.memtrip.eosreach.db.sharedpreferences.EosPriceCurrencyPair
 
 import com.memtrip.eosreach.db.PurgePreferences
 import com.memtrip.eosreach.db.account.DeleteAccounts

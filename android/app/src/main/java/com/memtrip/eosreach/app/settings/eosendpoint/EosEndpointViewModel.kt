@@ -2,7 +2,7 @@ package com.memtrip.eosreach.app.settings.eosendpoint
 
 import android.app.Application
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.db.EosEndpoint
+import com.memtrip.eosreach.db.sharedpreferences.EosEndpoint
 import com.memtrip.eosreach.db.blockproducer.DeleteBlockProducers
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable

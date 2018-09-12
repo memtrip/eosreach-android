@@ -34,6 +34,8 @@ class BillingRequest(
                                 single.onError(BillingError.SkuBillingUnavailable)
                             } else if (skuResponseCode == BillingClient.BillingResponse.ITEM_UNAVAILABLE) {
                                 single.onError(BillingError.SkuNotAvailable)
+                            } else if (skuResponseCode == BillingClient.BillingResponse.ITEM_ALREADY_OWNED) {
+                                single.onError(BillingError.SkuAlreadyOwned)
                             } else {
                                 single.onError(BillingError.SkuRequestFailed)
                             }

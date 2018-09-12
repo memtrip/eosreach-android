@@ -11,6 +11,7 @@ sealed class CreateAccountRenderAction : MxRenderAction {
     object OnSkuProgress : CreateAccountRenderAction()
     data class OnSkuSuccess(val skuDetails: SkuDetails) : CreateAccountRenderAction()
     data class OnGetSkuError(val message: String) : CreateAccountRenderAction()
+    object OnAccountNameValidationPassed : CreateAccountRenderAction()
     object OnCreateAccountProgress : CreateAccountRenderAction()
     data class OnCreateAccountSuccess(val privateKey: String) : CreateAccountRenderAction()
     data class OnCreateAccountError(val error: String) : CreateAccountRenderAction()
@@ -23,6 +24,7 @@ interface CreateAccountViewLayout : MxViewLayout {
     fun showSkuProgress()
     fun showSkuSuccess(skuDetails: SkuDetails)
     fun showSkuError(message: String)
+    fun showAccountNameValidationPassed()
     fun showCreateAccountProgress()
     fun showAccountCreated(privateKey: String)
     fun showCreateAccountError(error: String)
@@ -43,6 +45,9 @@ class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<
         }
         is CreateAccountViewState.View.OnGetSkuError -> {
             layout.showSkuError(state.view.message)
+        }
+        is CreateAccountViewState.View.OnAccountNameValidationPassed -> {
+            layout.showAccountNameValidationPassed()
         }
         CreateAccountViewState.View.OnCreateAccountProgress -> {
             layout.showCreateAccountProgress()

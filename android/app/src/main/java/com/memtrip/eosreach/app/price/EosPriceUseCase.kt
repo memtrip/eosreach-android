@@ -3,9 +3,9 @@ package com.memtrip.eosreach.app.price
 import com.memtrip.eosreach.api.eosprice.EosPrice
 import com.memtrip.eosreach.api.eosprice.EosPriceRequest
 
-import com.memtrip.eosreach.db.EosPriceCurrencyPair
-import com.memtrip.eosreach.db.EosPriceLastUpdated
-import com.memtrip.eosreach.db.EosPriceValue
+import com.memtrip.eosreach.db.sharedpreferences.EosPriceCurrencyPair
+import com.memtrip.eosreach.db.sharedpreferences.EosPriceLastUpdated
+import com.memtrip.eosreach.db.sharedpreferences.EosPriceValue
 import io.reactivex.Single
 import javax.inject.Inject
 

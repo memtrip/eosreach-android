@@ -6,5 +6,6 @@ sealed class BillingError : Exception() {
     object SkuBillingUnavailable : BillingError()
     object SkuNotFound : BillingError()
     object SkuNotAvailable : BillingError()
+    object SkuAlreadyOwned : BillingError()
     object SkuRequestFailed : BillingError()
 }

@@ -27,6 +27,9 @@
     <string name="issue_create_account_billing_purchase_failed_error">
         Google play could not process your payment, please check your internet connection and try again.
     </string>
+    <string name="issue_create_account_username_validation_error">
+        Please enter an account name that is 12 characters in length.
+    </string>
     <string name="issue_create_account_generic_error">
         We could not create an account at this time, please check your connection and try again.
     </string>

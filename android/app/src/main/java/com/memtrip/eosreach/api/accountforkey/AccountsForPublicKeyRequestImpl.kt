@@ -17,6 +17,8 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
 
     override fun getAccountsForKey(publicKey: String): Single<Result<AccountsForPublicKey, AccountForKeyError>> {
         return historyApi.getKeyAccounts(GetKeyAccounts(publicKey))
+            .subscribeOn(rxSchedulers.background())
+            .observeOn(rxSchedulers.main())
             .map {
                 if (it.isSuccessful) {
                     Result(AccountsForPublicKey(publicKey, it.body()!!.account_names.map {
@@ -27,8 +29,6 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
                         AccountForKeyError.FailedRetrievingAccountList(it.code(), it.errorBody()))
                 }
             }
-            .subscribeOn(rxSchedulers.background())
-            .observeOn(rxSchedulers.main())
     }
 
     @Throws(InnerAccountFailed::class)
@@ -36,7 +36,9 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
         val response = chainApi.getCurrencyBalance(GetCurrencyBalance(
             "eosio.token",
             accountName
-        )).blockingGet()
+        )).subscribeOn(rxSchedulers.background())
+            .observeOn(rxSchedulers.main())
+            .blockingGet()
 
         if (response.isSuccessful) {
             val balance = response.body()!!

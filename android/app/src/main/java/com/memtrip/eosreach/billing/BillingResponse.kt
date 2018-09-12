@@ -1,9 +1,7 @@
 package com.memtrip.eosreach.billing
 
-import com.android.billingclient.api.Purchase
-
 data class BillingResponse(
-    val purchase: Purchase?,
+    val purchaseToken: String?,
     val error: String? = null,
-    val success: Boolean = (purchase != null && error == null)
+    val success: Boolean = (purchaseToken != null && error == null)
 )

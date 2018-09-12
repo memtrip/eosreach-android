@@ -29,11 +29,21 @@ class InsertAccountsForPublicKey @Inject internal constructor(
             }
         }
 
+        return deletePublicKey(publicKey)
+            .andThen(insertPublicKeys(publicKeyAccountEntities))
+            .toSingle { publicKeyAccountEntities }
+    }
+
+    private fun deletePublicKey(publicKey: String): Completable {
         return Completable
             .fromAction { accountDao.deleteBy(publicKey) }
-            .andThen(Completable.fromAction { accountDao.insertAll(publicKeyAccountEntities) })
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
-            .toSingle { publicKeyAccountEntities }
+    }
+
+    private fun insertPublicKeys(publicKeyAccountEntities: List<AccountEntity>): Completable {
+        return Completable.fromAction { accountDao.insertAll(publicKeyAccountEntities) }
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
     }
 }

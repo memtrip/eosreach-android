@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.WindowManager
-import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.SkuDetails
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -14,9 +13,9 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.welcome.EntryActivity
 import com.memtrip.eosreach.billing.Billing
-import com.memtrip.eosreach.billing.BillingError
 import com.memtrip.eosreach.billing.BillingRequest
-import com.memtrip.eosreach.billing.BillingResponse
+import com.memtrip.eosreach.db.sharedpreferences.UnusedBillingPurchaseId
+
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
 import com.memtrip.eosreach.uikit.invisible
@@ -26,7 +25,8 @@ import kotlinx.android.synthetic.main.issue_create_account_activity.*
 import javax.inject.Inject
 
 abstract class CreateAccountActivity
-    : MviActivity<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState, CreateAccountViewLayout>(), CreateAccountViewLayout {
+    : MviActivity<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState, CreateAccountViewLayout>(
+), CreateAccountViewLayout {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -35,9 +35,7 @@ abstract class CreateAccountActivity
     lateinit var render: CreateAccountViewRenderer
 
     private lateinit var billing: Billing
-
     private lateinit var billingRequest: BillingRequest
-
     private lateinit var skuDetails: SkuDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,23 +56,17 @@ abstract class CreateAccountActivity
         billing = Billing(this, { response ->
             if (response.success) {
                 model().publish(CreateAccountIntent.CreateAccount(
-                    response.purchase!!.purchaseToken,
+                    response.purchaseToken!!,
                     issue_create_account_name_input.text.toString()
                 ))
             } else {
-                showSkuError(response.error!!)
+                showCreateAccountError(response.error!!)
             }
         })
 
         billingRequest = BillingRequest(
             getString(R.string.app_default_create_account_sku_id),
             billing.billingClient)
-
-        issue_create_account_create_button.setOnClickListener { launchBillingFlow() }
-
-        issue_create_account_name_input.setOnEditorActionListener { _, _, _ ->
-            launchBillingFlow()
-            true }
     }
 
     private fun launchBillingFlow() {
@@ -90,6 +82,13 @@ abstract class CreateAccountActivity
         },
         issue_create_account_sku_error.retryClick().map {
             CreateAccountIntent.SetupGooglePlayBilling(billingRequest)
+        },
+        Observable.merge(
+            RxView.clicks(issue_create_account_create_button),
+            RxTextView.editorActions(issue_create_account_name_input)
+        ).map {
+            hideKeyboard()
+            CreateAccountIntent.BuyAccount(issue_create_account_name_input.editableText.toString())
         }
     )
 
@@ -120,6 +119,10 @@ abstract class CreateAccountActivity
             getString(R.string.app_dialog_error_title),
             message
         )
+    }
+
+    override fun showAccountNameValidationPassed() {
+        launchBillingFlow()
     }
 
     override fun showCreateAccountProgress() {

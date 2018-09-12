@@ -8,8 +8,9 @@ import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountError
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
 import com.memtrip.eosreach.billing.BillingError
 import com.memtrip.eosreach.billing.BillingRequest
-import com.memtrip.eosreach.db.SelectedAccount
+import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
 import com.memtrip.eosreach.db.account.InsertAccountsForPublicKey
+import com.memtrip.eosreach.db.sharedpreferences.UnusedBillingPurchaseId
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -21,6 +22,7 @@ abstract class CreateAccountViewModel(
     private val accountForPublicKeyRequest: AccountForPublicKeyRequest,
     private val insertAccountsForPublicKey: InsertAccountsForPublicKey,
     private val selectedAccount: SelectedAccount,
+    private val unusedBillingPurchaseId: UnusedBillingPurchaseId,
     application: Application
 ) : MxViewModel<CreateAccountIntent, CreateAccountRenderAction, CreateAccountViewState>(
     CreateAccountViewState(view = CreateAccountViewState.View.Idle),
@@ -30,6 +32,7 @@ abstract class CreateAccountViewModel(
     override fun dispatcher(intent: CreateAccountIntent): Observable<CreateAccountRenderAction> = when (intent) {
         is CreateAccountIntent.Init -> getAvailableGooglePlaySku(intent.billingRequest)
         is CreateAccountIntent.SetupGooglePlayBilling -> getAvailableGooglePlaySku(intent.billingRequest)
+        is CreateAccountIntent.BuyAccount -> Observable.just(validateAccountName(intent.accountName))
         is CreateAccountIntent.CreateAccount -> createAccount(intent.purchaseToken, intent.accountName)
         is CreateAccountIntent.Done -> getAccountsForKey(intent.privateKey)
     }
@@ -43,6 +46,8 @@ abstract class CreateAccountViewModel(
             view = CreateAccountViewState.View.OnSkuSuccess(renderAction.skuDetails))
         is CreateAccountRenderAction.OnGetSkuError -> previousState.copy(
             view = CreateAccountViewState.View.OnGetSkuError(renderAction.message))
+        CreateAccountRenderAction.OnAccountNameValidationPassed -> previousState.copy(
+            view = CreateAccountViewState.View.OnAccountNameValidationPassed())
         CreateAccountRenderAction.OnCreateAccountProgress -> previousState.copy(
             view = CreateAccountViewState.View.OnCreateAccountProgress)
         is CreateAccountRenderAction.OnCreateAccountSuccess -> previousState.copy(
@@ -64,6 +69,15 @@ abstract class CreateAccountViewModel(
         }
     )
 
+    private fun validateAccountName(accountName: String): CreateAccountRenderAction {
+        return if (accountName.isEmpty() || accountName.length != 12) {
+            CreateAccountRenderAction.OnCreateAccountError(
+                context().getString(R.string.issue_create_account_username_validation_error))
+        } else {
+            CreateAccountRenderAction.OnAccountNameValidationPassed
+        }
+    }
+
     private fun createAccount(
         purchaseToken: String,
         accountName: String
@@ -75,6 +89,7 @@ abstract class CreateAccountViewModel(
                 privateKey
             ).map<CreateAccountRenderAction> { result ->
                 if (result.success) {
+                    unusedBillingPurchaseId.clear()
                     CreateAccountRenderAction.OnCreateAccountSuccess(privateKey)
                 } else {
                     createAccountError(result.apiError!!)
@@ -160,6 +175,10 @@ abstract class CreateAccountViewModel(
                 context().getString(R.string.issue_create_account_sku_error))
         }
         BillingError.SkuRequestFailed -> {
+            CreateAccountRenderAction.OnGetSkuError(
+                context().getString(R.string.issue_create_account_billing_setup_error))
+        }
+        BillingError.SkuAlreadyOwned -> {
             CreateAccountRenderAction.OnGetSkuError(
                 context().getString(R.string.issue_create_account_billing_setup_error))
         }
