@@ -14,12 +14,15 @@ class TransferFormViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: TransferFormIntent): Observable<TransferFormRenderAction> = when (intent) {
-        is TransferFormIntent.Init -> Observable.just(TransferFormRenderAction.Idle)
+        TransferFormIntent.Idle -> Observable.just(TransferFormRenderAction.Idle)
+        is TransferFormIntent.Init -> Observable.just(TransferFormRenderAction.Populate(intent.contractAccountBalance))
         is TransferFormIntent.SubmitForm -> validateForm(intent.transferFormData)
     }
 
     override fun reducer(previousState: TransferFormViewState, renderAction: TransferFormRenderAction): TransferFormViewState = when (renderAction) {
         TransferFormRenderAction.Idle -> previousState.copy(view = TransferFormViewState.View.Idle)
+        is TransferFormRenderAction.Populate -> previousState.copy(
+            view = TransferFormViewState.View.Populate(renderAction.contractAccountBalance))
         is TransferFormRenderAction.OnValidationError -> previousState.copy(
             view = TransferFormViewState.View.OnValidationError(renderAction.message))
         is TransferFormRenderAction.OnComplete -> previousState.copy(

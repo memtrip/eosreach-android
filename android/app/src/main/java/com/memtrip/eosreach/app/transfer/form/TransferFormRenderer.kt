@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 sealed class TransferFormRenderAction : MxRenderAction {
     object Idle : TransferFormRenderAction()
+    data class Populate(val contractAccountBalance: ContractAccountBalance) : TransferFormRenderAction()
     data class OnComplete(val transferFormData: TransferFormData) : TransferFormRenderAction()
     data class OnValidationError(val message: String) : TransferFormRenderAction()
 }
@@ -21,6 +22,9 @@ interface TransferFormViewLayout : MxViewLayout {
 class TransferFormViewRenderer @Inject internal constructor() : MxViewRenderer<TransferFormViewLayout, TransferFormViewState> {
     override fun layout(layout: TransferFormViewLayout, state: TransferFormViewState): Unit = when (state.view) {
         TransferFormViewState.View.Idle -> {
+        }
+        is TransferFormViewState.View.Populate -> {
+            layout.populate(state.view.contractAccountBalance)
         }
         is TransferFormViewState.View.OnValidationError -> {
             layout.showValidationError(state.view.message)

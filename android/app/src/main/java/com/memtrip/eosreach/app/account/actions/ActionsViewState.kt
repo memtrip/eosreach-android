@@ -12,6 +12,9 @@ data class ActionsViewState(val view: View) : MxViewState {
         object OnProgress : View()
         data class OnSuccess(val accountActionList: AccountActionList) : View()
         object OnError : View()
+        object OnLoadMoreProgress : View()
+        data class OnLoadMoreSuccess(val accountActionList: AccountActionList) : View()
+        object OnLoadMoreError : View()
         data class NavigateToViewAction(val accountAction: AccountAction) : View()
         data class NavigateToTransfer(val contractAccountBalance: ContractAccountBalance) : View()
     }

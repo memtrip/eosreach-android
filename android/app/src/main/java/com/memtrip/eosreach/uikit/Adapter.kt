@@ -8,6 +8,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 abstract class SimpleAdapter<T>(
@@ -52,8 +53,12 @@ abstract class SimpleAdapter<T>(
 
     abstract fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<T>
 
+    fun atEnd(id: Int) {
+        interaction.onNext(Interaction(id, data[data.size-1]))
+    }
+
     companion object {
-        private val DEFAULT_ITEM_TYPE = 0x100
+        private const val DEFAULT_ITEM_TYPE = 0x100
     }
 }
 

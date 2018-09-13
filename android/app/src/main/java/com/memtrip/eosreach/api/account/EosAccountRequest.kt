@@ -12,6 +12,7 @@ interface EosAccountRequest {
 }
 
 sealed class AccountError : ApiError {
+    object GenericError : AccountError()
     data class FailedRetrievingAccount(
         val code: Int,
         val body: ResponseBody?

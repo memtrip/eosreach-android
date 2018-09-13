@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class TransferFormData(
     val contractAccountBalance: ContractAccountBalance,
-    val username: String,
+    val toAccountName: String,
     val amount: String,
     val memo: String
 ) : Parcelable

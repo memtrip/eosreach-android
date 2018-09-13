@@ -11,6 +11,7 @@ import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.actions.ViewTransferActionActivity.Companion.viewTransferActionIntent
 import com.memtrip.eosreach.app.transfer.form.TransferFormActivity.Companion.transferFormIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -43,7 +44,7 @@ class ActionsActivity
         contractAccountBalance = actionsExtra(intent)
 
         val adapterInteraction: PublishSubject<Interaction<AccountAction>> = PublishSubject.create()
-        adapter = AccountActionsAdapter(this, adapterInteraction, contractAccountBalance.exchangeRate)
+        adapter = AccountActionsAdapter(this, adapterInteraction)
         account_actions_list_recyclerview.adapter = adapter
 
         setSupportActionBar(account_actions_toolbar)
@@ -62,7 +63,13 @@ class ActionsActivity
             ActionsIntent.Retry(contractAccountBalance)
         },
         adapter.interaction.map {
-            ActionsIntent.NavigateToViewAction(it.data)
+            when (it.id) {
+                R.id.account_actions_list_recyclerview -> {
+                    ActionsIntent.LoadMoreActions(contractAccountBalance, it.data)
+                } else -> {
+                ActionsIntent.NavigateToViewAction(it.data)
+                }
+            }
         },
         RxView.clicks(account_actions_send).map {
             ActionsIntent.NavigateToTransfer(contractAccountBalance)
@@ -104,12 +111,28 @@ class ActionsActivity
             getString(R.string.account_actions_generic_error_body))
     }
 
+    override fun showLoadMoreProgress() {
+    }
+
+    override fun appendMoreActions(accountActionList: AccountActionList) {
+        adapter.populate(accountActionList.actions)
+    }
+
+    override fun showLoadMoreError() {
+    }
+
     override fun navigateToTransfer(contractAccountBalance: ContractAccountBalance) {
         model().publish(ActionsIntent.Idle)
         startActivity(transferFormIntent(contractAccountBalance, this))
     }
 
     override fun navigateToViewAction(accountAction: AccountAction) {
+        model().publish(ActionsIntent.Idle)
+        when (accountAction) {
+            is AccountAction.Transfer -> {
+                startActivity(viewTransferActionIntent(accountAction, this))
+            }
+        }
     }
 
     companion object {

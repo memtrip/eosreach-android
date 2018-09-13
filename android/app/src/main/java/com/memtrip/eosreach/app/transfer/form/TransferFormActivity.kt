@@ -29,6 +29,8 @@ class TransferFormActivity
     @Inject
     lateinit var render: TransferFormViewRenderer
 
+    lateinit var contractAccountBalance: ContractAccountBalance
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transfer_form_activity)
@@ -42,28 +44,31 @@ class TransferFormActivity
         account_transfer_amount.filters = arrayOf(
             CurrencyFormatInputFilter(),
             InputFilter.LengthFilter(resources.getInteger(R.integer.transfer_amount_length)))
+
+        contractAccountBalance = transferExtra(intent)
     }
 
     override fun inject() {
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<TransferFormIntent> {
-        return Observable.merge(
+    override fun intents(): Observable<TransferFormIntent> =Observable.merge(
+        Observable.just(TransferFormIntent.Init(contractAccountBalance)),
+        Observable.merge(
             RxView.clicks(account_transfer_button),
             RxTextView.editorActions(account_transfer_memo)
         ).map {
             hideKeyboard()
             TransferFormIntent.SubmitForm(
                 TransferFormData(
-                    transferExtra(intent),
+                    contractAccountBalance,
                     account_transfer_username_input.text.toString(),
                     account_transfer_amount.text.toString(),
                     account_transfer_memo.text.toString()
                 )
             )
         }
-    }
+    )
 
     override fun layout(): TransferFormViewLayout = this
 
@@ -85,7 +90,7 @@ class TransferFormActivity
     }
 
     override fun navigateToConfirmation(transferFormData: TransferFormData) {
-        model().publish(TransferFormIntent.Init)
+        model().publish(TransferFormIntent.Idle)
         startActivity(transferConfirmIntent(transferFormData, this))
     }
 

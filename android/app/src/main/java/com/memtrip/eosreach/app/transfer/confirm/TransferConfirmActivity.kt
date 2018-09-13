@@ -9,7 +9,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.transfer.TransferReceipt
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.price.BalanceParser
+import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
 import com.memtrip.eosreach.app.transfer.form.TransferFormData
@@ -52,8 +52,8 @@ class TransferConfirmActivity
             TransferConfirmIntent.Transfer(
                 TransferRequestData(
                     transferFormData.contractAccountBalance.accountName,
-                    transferFormData.username,
-                    BalanceParser.formatEosBalance(
+                    transferFormData.toAccountName,
+                    BalanceFormatter.formatEosBalance(
                         transferFormData.amount,
                         transferFormData.contractAccountBalance.balance.symbol),
                     transferFormData.memo,
@@ -69,18 +69,17 @@ class TransferConfirmActivity
 
     override fun render(): TransferConfirmViewRenderer = render
 
+
     override fun populate(transferFormData: TransferFormData) {
-        transfer_confirm_details_amount_value.text = getString(
-            R.string.transfer_confirm_crypto_amount,
-            BalanceParser.formatEosBalance(
+        transfer_confirm_form_details.populate(
+            BalanceFormatter.create(
                 transferFormData.amount,
                 transferFormData.contractAccountBalance.balance.symbol),
-            BalanceParser.formatFiatBalance(transferFormData.contractAccountBalance.balance)
+            transferFormData.toAccountName,
+            transferFormData.contractAccountBalance.accountName,
+            transferFormData.memo,
+            transferFormData.contractAccountBalance
         )
-
-        transfer_confirm_details_to_value.text = transferFormData.username
-        transfer_confirm_details_from_value.text = transferFormData.contractAccountBalance.accountName
-        transfer_confirm_details_memo_value.text = transferFormData.memo
     }
 
     override fun showProgress() {

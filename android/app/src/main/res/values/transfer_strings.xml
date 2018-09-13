@@ -12,12 +12,14 @@
     <string name="transfer_form_account_validation">Please enter the recipient you are sending funds to.</string>
     <string name="transfer_form_amount_validation">Please enter the amount you wish to send.</string>
 
-    <string name="transfer_confirm_crypto_amount">%1$s (%2$s)</string>
+    <string name="transfer_confirm_crypto_amount">%1$s</string>
+    <string name="transfer_confirm_crypto_amount_with_currency_pair">%1$s (%2$s)</string>
     <string name="transfer_confirm_toolbar_title">Confirm transfer</string>
     <string name="transfer_confirm_cta_button">Confirm</string>
     <string name="transfer_confirm_amount_label">Amount</string>
     <string name="transfer_confirm_to_label">To</string>
     <string name="transfer_confirm_from_label">From</string>
+    <string name="transfer_confirm_date_label">Date</string>
     <string name="transfer_confirm_memo_label">Memo</string>
     <string name="transfer_confirm_error_message">
         An error occurred while processing the transaction, see the log for more information.

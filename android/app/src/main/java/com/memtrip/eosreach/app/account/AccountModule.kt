@@ -2,6 +2,8 @@ package com.memtrip.eosreach.app.account
 
 import com.memtrip.eosreach.app.account.actions.ActionsActivity
 import com.memtrip.eosreach.app.account.actions.ActionsActivityModule
+import com.memtrip.eosreach.app.account.actions.ViewTransferActionActivity
+import com.memtrip.eosreach.app.account.actions.ViewTransferActionActivityModule
 import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.balance.BalanceFragmentModule
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
@@ -43,4 +45,7 @@ abstract class AccountModule {
 
     @ContributesAndroidInjector(modules = [ActionsActivityModule::class])
     internal abstract fun contributeActionsActivity(): ActionsActivity
+
+    @ContributesAndroidInjector(modules = [ViewTransferActionActivityModule::class])
+    internal abstract fun contributeViewTransferActionActivity(): ViewTransferActionActivity
 }

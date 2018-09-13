@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.memtrip.eosreach.uikit.SimpleRecyclerView
             android:id="@+id/account_actions_list_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

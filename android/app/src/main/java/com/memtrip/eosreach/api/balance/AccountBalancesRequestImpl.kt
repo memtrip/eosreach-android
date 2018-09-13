@@ -4,7 +4,7 @@ import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.eosprice.EosPrice
-import com.memtrip.eosreach.app.price.BalanceParser
+import com.memtrip.eosreach.app.price.BalanceFormatter
 
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
@@ -54,7 +54,7 @@ class AccountBalanceRequestImp @Inject internal constructor(
             ContractAccountBalance(
                 contractName,
                 accountName,
-                BalanceParser.deserialize(it),
+                BalanceFormatter.deserialize(it),
                 eosPrice)
         }
     }

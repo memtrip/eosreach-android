@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.account.actions
 
 import android.app.Application
 import com.memtrip.eosreach.api.actions.AccountActionsRequest
+import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 
 import com.memtrip.mxandroid.MxViewModel
@@ -18,12 +19,13 @@ class ActionsViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: ActionsIntent): Observable<ActionsRenderAction> = when (intent) {
         ActionsIntent.Idle -> Observable.just(ActionsRenderAction.Idle)
-        is ActionsIntent.Init -> getActions(intent.contractAccountBalance)
-        is ActionsIntent.Retry -> getActions(intent.contractAccountBalance)
-        is ActionsIntent.NavigateToViewAction -> Observable.just(ActionsRenderAction.NavigateToViewAction(
-            intent.accountAction))
-        is ActionsIntent.NavigateToTransfer -> Observable.just(ActionsRenderAction.NavigateToTransfer(
-            intent.contractAccountBalance))
+        is ActionsIntent.Init -> getInitialActions(intent.contractAccountBalance, intent.startingPosition)
+        is ActionsIntent.Retry -> getInitialActions(intent.contractAccountBalance, intent.startingPosition)
+        is ActionsIntent.LoadMoreActions -> getMoreActions(intent.contractAccountBalance, intent.lastItem)
+        is ActionsIntent.NavigateToViewAction ->
+            Observable.just(ActionsRenderAction.NavigateToViewAction(intent.accountAction))
+        is ActionsIntent.NavigateToTransfer ->
+            Observable.just(ActionsRenderAction.NavigateToTransfer(intent.contractAccountBalance))
     }
 
     override fun reducer(previousState: ActionsViewState, renderAction: ActionsRenderAction): ActionsViewState = when (renderAction) {
@@ -35,6 +37,12 @@ class ActionsViewModel @Inject internal constructor(
             view = ActionsViewState.View.OnSuccess(renderAction.accountActionList))
         ActionsRenderAction.OnError -> previousState.copy(
             view = ActionsViewState.View.OnError)
+        ActionsRenderAction.OnLoadMoreProgress -> previousState.copy(
+            view = ActionsViewState.View.OnLoadMoreProgress)
+        is ActionsRenderAction.OnLoadMoreSuccess -> previousState.copy(
+            view = ActionsViewState.View.OnLoadMoreSuccess(renderAction.accountActionList))
+        ActionsRenderAction.OnLoadMoreError -> previousState.copy(
+            view = ActionsViewState.View.OnLoadMoreError)
         is ActionsRenderAction.NavigateToViewAction -> previousState.copy(
             view = ActionsViewState.View.NavigateToViewAction(renderAction.accountAction))
         is ActionsRenderAction.NavigateToTransfer -> previousState.copy(
@@ -48,10 +56,14 @@ class ActionsViewModel @Inject internal constructor(
         }
     )
 
-    private fun getActions(contractAccountBalance: ContractAccountBalance): Observable<ActionsRenderAction> {
+    private fun getInitialActions(
+        contractAccountBalance: ContractAccountBalance,
+        startingPosition: Int
+    ): Observable<ActionsRenderAction> {
         return accountActionsRequest.getActionsForAccountName(
-            contractAccountBalance.contractName,
-            contractAccountBalance.accountName
+            contractAccountBalance,
+            -1,
+            startingPosition
         ).map {
             if (it.success) {
                 ActionsRenderAction.OnSuccess(it.data!!)
@@ -59,5 +71,22 @@ class ActionsViewModel @Inject internal constructor(
                 ActionsRenderAction.OnError
             }
         }.toObservable().startWith(ActionsRenderAction.OnProgress)
+    }
+
+    private fun getMoreActions(
+        contractAccountBalance: ContractAccountBalance,
+        accountAction: AccountAction
+    ): Observable<ActionsRenderAction> {
+        return accountActionsRequest.getActionsForAccountName(
+            contractAccountBalance,
+            accountAction.next-1,
+            -50
+        ).map {
+            if (it.success) {
+                ActionsRenderAction.OnLoadMoreSuccess(it.data!!)
+            } else {
+                ActionsRenderAction.OnLoadMoreError
+            }
+        }.toObservable().startWith(ActionsRenderAction.OnLoadMoreProgress)
     }
 }

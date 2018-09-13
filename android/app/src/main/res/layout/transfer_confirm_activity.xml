@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/transfer_confirm_toolbar"
@@ -14,196 +13,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/transfer_confirm_details_label_middle_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/transfer_confirm_details_label_start_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/padding_large" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/transfer_confirm_details_label_end_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintGuide_end="@dimen/padding_large"
-        android:orientation="vertical"/>
-
-    <!-- FORM -->
-
-    <FrameLayout
-        android:id="@+id/transfer_confirm_form"
+    <com.memtrip.eosreach.app.transfer.confirm.TransferDetailLayout
+        android:id="@+id/transfer_confirm_form_details"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/padding_large"
-        android:background="@drawable/typography_data_background_rounded"
-        app:layout_constraintBottom_toBottomOf="@id/transfer_confirm_details_memo_label"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_toolbar"
-        tools:ignore="UselessLeaf" />
-
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/transfer_confirm_details_amount_label"
-        style="@style/Typography.Medium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_large_giant"
-        android:text="@string/transfer_confirm_amount_label"
-        android:textColor="@color/typographyColorInverse"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_middle_guideline"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_toolbar" />
-
-    <HorizontalScrollView
-        android:id="@+id/transfer_confirm_details_amount_scrollview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginEnd="@dimen/padding_medium"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_end_guideline"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_middle_guideline"
-        app:layout_constraintTop_toTopOf="@id/transfer_confirm_form">
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/transfer_confirm_details_amount_value"
-            style="@style/Typography.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textColor="@color/typographyColorInverse"
-            tools:hint="20 EOS ($5000)" />
-
-    </HorizontalScrollView>
-
-    <View
-        android:id="@+id/transfer_confirm_details_amount_spacer"
-        style="@style/ViewFormSpacer"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_amount_label"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_end_guideline"/>
-
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/transfer_confirm_details_to_label"
-        style="@style/Typography.Medium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:text="@string/transfer_confirm_to_label"
-        android:textColor="@color/typographyColorInverse"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_middle_guideline"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_amount_spacer" />
-
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/transfer_confirm_details_to_value"
-        style="@style/Typography.Medium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginEnd="@dimen/padding_medium"
-        android:gravity="end"
-        android:textColor="@color/typographyColorInverse"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_end_guideline"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_middle_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_amount_spacer"
-        tools:hint="memtripissue" />
-
-    <View
-        android:id="@+id/transfer_confirm_details_to_spacer"
-        style="@style/ViewFormSpacer"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_to_label"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_end_guideline"/>
-
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/transfer_confirm_details_from_label"
-        style="@style/Typography.Medium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:textColor="@color/typographyColorInverse"
-        android:text="@string/transfer_confirm_from_label"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_to_spacer"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_middle_guideline"/>
-
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/transfer_confirm_details_from_value"
-        style="@style/Typography.Medium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginEnd="@dimen/padding_medium"
-        android:gravity="end"
-        android:textColor="@color/typographyColorInverse"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_end_guideline"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_middle_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_to_spacer"
-        tools:hint="memtripblock" />
-
-    <View
-        android:id="@+id/transfer_confirm_details_from_spacer"
-        style="@style/ViewFormSpacer"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_from_label"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_end_guideline"/>
-
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/transfer_confirm_details_memo_label"
-        style="@style/Typography.Medium"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/transfer_form_memo_label_height"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:text="@string/transfer_confirm_memo_label"
-        android:textColor="@color/typographyColorInverse"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_middle_guideline"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_from_spacer" />
-
-    <ScrollView
-        android:id="@+id/transfer_confirm_details_memo_container"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/transfer_form_memo_height"
-        android:layout_marginStart="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginEnd="@dimen/padding_medium"
-        app:layout_constraintEnd_toEndOf="@id/transfer_confirm_details_label_end_guideline"
-        app:layout_constraintStart_toStartOf="@id/transfer_confirm_details_label_middle_guideline"
-        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_details_from_spacer">
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/transfer_confirm_details_memo_value"
-            style="@style/Typography.Medium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/typographyColorInverse"
-            tools:hint="Tokens for you to stake some EOS" />
-
-    </ScrollView>
-
-    <!-- / FORM -->
+        app:layout_constraintTop_toBottomOf="@id/transfer_confirm_toolbar"/>
 
     <ProgressBar
         android:id="@+id/transfer_confirm_progress"

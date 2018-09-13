@@ -5,7 +5,7 @@ import com.memtrip.eos.http.rpc.model.account.request.AccountName
 import com.memtrip.eos.http.rpc.model.account.response.VoterInfo
 
 import com.memtrip.eosreach.api.Result
-import com.memtrip.eosreach.app.price.BalanceParser
+import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class EosAccountRequestImpl @Inject internal constructor(
                     Result(
                         EosAccount(
                             account.account_name,
-                            BalanceParser.deserialize(account.core_liquid_balance),
+                            BalanceFormatter.deserialize(account.core_liquid_balance!!),
                             EosAccountResource(
                                 account.net_limit.used,
                                 account.net_limit.available),
@@ -43,7 +43,7 @@ class EosAccountRequestImpl @Inject internal constructor(
                     Result<EosAccount, AccountError>(
                         AccountError.FailedRetrievingAccount(it.code(), it.errorBody()))
                 }
-        }
+        }.onErrorReturn { Result(AccountError.GenericError) }
     }
 
     private fun eosCurrentVote(voterInfo: VoterInfo?): EosAccountVote? {

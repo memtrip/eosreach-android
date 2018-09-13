@@ -1,6 +1,6 @@
 package com.memtrip.eosreach.app.account
 
-import com.memtrip.eosreach.app.price.BalanceParser
+import com.memtrip.eosreach.app.price.CurrencyPairFormatter
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
@@ -63,7 +63,7 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
                 if (eosPrice.unavailable) {
                     layout.showPriceUnavailable()
                 } else {
-                    val formattedPrice = BalanceParser.formatFiatBalance(eosBalance * eosPrice.value, eosPrice.currency)
+                    val formattedPrice = CurrencyPairFormatter.formatAmountCurrencyPairValue(eosBalance, eosPrice)
                     if (accountView.eosPrice.unavailable) {
                         layout.showPriceUnavailable()
                     } else {

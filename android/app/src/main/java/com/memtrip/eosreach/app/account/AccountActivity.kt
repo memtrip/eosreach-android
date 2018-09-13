@@ -114,21 +114,6 @@ class AccountActivity
         account_viewpager.offscreenPageLimit = 3
         account_viewpager.currentItem = page.ordinal
         account_viewpager.visible()
-        account_viewpager.addOnPageChangeListener(object : ViewPagerOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    AccountPagerFragment.Page.BALANCE.ordinal -> {
-                        model().publish(AccountIntent.BalanceTabIdle)
-                    }
-                    AccountPagerFragment.Page.RESOURCES.ordinal -> {
-                        model().publish(AccountIntent.ResourceTabIdle)
-                    }
-                    AccountPagerFragment.Page.VOTE.ordinal -> {
-                        model().publish(AccountIntent.VoteTabIdle)
-                    }
-                }
-            }
-        })
 
         account_tablayout.setupWithViewPager(account_viewpager)
 
