@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.memtrip.eosreach.brand.ReachTextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/view_private_keys_instructions"
-    style="@style/Typography.Data"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textIsSelectable="true"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="@dimen/padding_medium"
+    android:layout_marginLeft="@dimen/padding_medium"
+    android:layout_marginRight="@dimen/padding_medium"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Typography.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:textAllCaps="true"
+        android:text="@string/view_private_keys_item_title"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/view_private_keys_item_public"
+        style="@style/Typography.Data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:textStyle="bold"
+        android:textIsSelectable="true"
+        tools:text="EOS6cKYToC4HCRiJADKBZSgj2oFyzZW98bfpctpffyQbmxErbRFnE" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/view_private_keys_item_private"
+        style="@style/Typography.Data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"
+        tools:text="EOS6cKYToC4HCRiJADKBZSgj2oFyzZW98bfpctpffyQbmxErbRFnE"/>
+
+</LinearLayout>

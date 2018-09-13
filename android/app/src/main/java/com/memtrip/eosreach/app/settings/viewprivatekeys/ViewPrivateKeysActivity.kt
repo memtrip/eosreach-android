@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -66,18 +67,21 @@ class ViewPrivateKeysActivity
         view_private_keys_progressbar.gone()
         view_private_keys_data_scrollview.visible()
         privateKeys.forEach { key ->
-            val privKeyLayout = with (LayoutInflater.from(this).inflate(
+            val privateKeyLayout = with (LayoutInflater.from(this).inflate(
                 R.layout.view_private_keys_item_layout,
                 null,
                 false
-            ) as TextView) {
-                text = key.toString()
+            ) as ViewGroup) {
+                findViewById<TextView>(R.id.view_private_keys_item_private)
+                    .text = key.toString()
+                findViewById<TextView>(R.id.view_private_keys_item_public)
+                    .text = key.publicKey.toString()
                 this
             }
 
-            view_private_keys_data_container.addView(privKeyLayout)
+            view_private_keys_data_container.addView(privateKeyLayout)
 
-            (privKeyLayout.layoutParams as
+            (privateKeyLayout.layoutParams as
                 LinearLayout.LayoutParams).bottomMargin = privateKeyMarginBottom
         }
     }
