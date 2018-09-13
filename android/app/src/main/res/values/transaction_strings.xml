@@ -19,4 +19,7 @@
     <string name="transaction_view_confirmed_error">
         We could not find any confirmed transactions, this is an indication that your local database is corrupted.
     </string>
+    <string name="transaction_view_confirm_block_explorer_url">
+        https://eosflare.io/tx/%s
+    </string>
 </resources>

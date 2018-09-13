@@ -10,5 +10,6 @@ data class ViewConfirmedTransactionsViewState(val view: View) : MxViewState {
         object OnProgress : View()
         object OnError : View()
         data class Populate(val transactionLogEntities: List<TransactionLogEntity>) : View()
+        data class NavigateToBlockExplorer(val transactionId: String) : View()
     }
 }

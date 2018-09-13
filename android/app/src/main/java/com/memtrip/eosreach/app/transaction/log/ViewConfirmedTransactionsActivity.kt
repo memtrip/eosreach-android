@@ -1,5 +1,7 @@
 package com.memtrip.eosreach.app.transaction.log
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
@@ -71,5 +73,12 @@ class ViewConfirmedTransactionsActivity
         transaction_view_confirmed_recyclerview.visible()
         adapter.clear()
         adapter.populate(transactionLogEntities)
+    }
+
+    override fun navigateToBlockExplorer(transactionId: String) {
+        model().publish(ViewConfirmedTransactionsIntent.Init)
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(
+            getString(R.string.transaction_view_confirm_block_explorer_url, transactionId)
+        )))
     }
 }

@@ -1,10 +1,15 @@
 <resources>
 
-    <!-- welcome_splash -->
+    <!-- welcome entry -->
+    <string name="welcome_entry_database_error">
+        The app database has been corrupted, you will need to clear all your app data to continue.
+    </string>
+
+    <!-- welcome splash -->
     <string name="welcome_splash_button_create_account">Create new account</string>
     <string name="welcome_splash_button_import_key">Import private key</string>
 
-    <!-- welcome_key_imported -->
+    <!-- welcome key imported -->
     <string name="welcome_key_imported_title">Private key</string>
     <string name="welcome_key_imported_menu_settings">Settings</string>
     <string name="welcome_key_imported_backup_notice">
@@ -12,8 +17,5 @@
         of paper.
     </string>
     <string name="welcome_key_imported_done">Done</string>
-
-    <!-- account_list -->
-    <string name="welcome_navigation_exit">accounts</string>
 
 </resources>

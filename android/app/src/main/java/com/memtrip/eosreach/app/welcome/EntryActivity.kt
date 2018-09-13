@@ -16,7 +16,7 @@ import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.welcome_account_list_activity.*
+import kotlinx.android.synthetic.main.welcome_entry_activity.*
 import javax.inject.Inject
 
 class EntryActivity
@@ -30,7 +30,7 @@ class EntryActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.welcome_account_list_activity)
+        setContentView(R.layout.welcome_entry_activity)
     }
 
     override fun inject() {
@@ -46,21 +46,22 @@ class EntryActivity
     override fun render(): AccountListViewRenderer = render
 
     override fun showProgress() {
-        welcome_account_list_progressbar.visible()
+        welcome_entry_progressbar.visible()
     }
 
     override fun showError() {
-        welcome_account_list_progressbar.gone()
+        welcome_entry_progressbar.gone()
+        welcome_entry_database_error.visible()
     }
 
     override fun navigateToSplash() {
-        welcome_account_list_progressbar.gone()
+        welcome_entry_progressbar.gone()
         startActivity(splashIntent(this))
         finish()
     }
 
     override fun navigateToAccount(accountEntity: AccountEntity) {
-        welcome_account_list_progressbar.gone()
+        welcome_entry_progressbar.gone()
         startActivity(
             accountIntent(
                 AccountBundle(
@@ -75,7 +76,7 @@ class EntryActivity
     }
 
     override fun navigateToAccountList() {
-        welcome_account_list_progressbar.gone()
+        welcome_entry_progressbar.gone()
         startActivity(accountListIntent(this))
         finish()
     }

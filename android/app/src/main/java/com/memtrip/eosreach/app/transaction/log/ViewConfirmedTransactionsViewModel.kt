@@ -16,6 +16,8 @@ class ViewConfirmedTransactionsViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: ViewConfirmedTransactionsIntent): Observable<ViewConfirmedTransactionsRenderAction> = when (intent) {
         is ViewConfirmedTransactionsIntent.Init -> getLogs()
+        ViewConfirmedTransactionsIntent.Idle -> Observable.just(ViewConfirmedTransactionsRenderAction.Idle)
+        is ViewConfirmedTransactionsIntent.NavigateToBlockExplorer -> Observable.just(ViewConfirmedTransactionsRenderAction.NavigateToBlockExplorer(intent.transactionId))
     }
 
     override fun reducer(previousState: ViewConfirmedTransactionsViewState, renderAction: ViewConfirmedTransactionsRenderAction): ViewConfirmedTransactionsViewState = when (renderAction) {
@@ -27,6 +29,8 @@ class ViewConfirmedTransactionsViewModel @Inject internal constructor(
             view = ViewConfirmedTransactionsViewState.View.OnError)
         is ViewConfirmedTransactionsRenderAction.Populate -> previousState.copy(
             view = ViewConfirmedTransactionsViewState.View.Populate(renderAction.transactionLogEntities))
+        is ViewConfirmedTransactionsRenderAction.NavigateToBlockExplorer -> previousState.copy(
+            view = ViewConfirmedTransactionsViewState.View.NavigateToBlockExplorer(renderAction.transactionId))
     }
 
     override fun filterIntents(intents: Observable<ViewConfirmedTransactionsIntent>): Observable<ViewConfirmedTransactionsIntent> = Observable.merge(
