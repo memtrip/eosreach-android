@@ -5,12 +5,12 @@
     style="@style/ItemButtonTransparent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/padding_medium"
+    android:layout_margin="@dimen/padding_large"
     android:padding="@dimen/padding_medium">
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/transaction_view_confirmed_list_item_id"
-        style="@style/Typography.Caption"
+        style="@style/Typography.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="1a77acd9752ddfc3797d16277d38133326a775aac576541afd225fe9424699ae"
@@ -20,7 +20,7 @@
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/transaction_view_confirmed_list_item_date"
-        style="@style/Typography.Caption"
+        style="@style/Typography.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_tiny"

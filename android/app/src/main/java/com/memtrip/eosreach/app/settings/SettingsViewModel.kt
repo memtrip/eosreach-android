@@ -27,6 +27,7 @@ class SettingsViewModel @Inject internal constructor(
         SettingsIntent.NavigateToCurrencyPairing -> Observable.just(SettingsRenderAction.NavigateToCurrencyPairing)
         SettingsIntent.NavigateToEosEndpoint -> Observable.just(SettingsRenderAction.NavigateToEosEndpoint)
         SettingsIntent.NavigateToPrivateKeys -> Observable.just(SettingsRenderAction.NavigateToPrivateKeys)
+        SettingsIntent.NavigateToViewConfirmedTransactions -> Observable.just(SettingsRenderAction.NavigateToViewConfirmedTransactions)
         SettingsIntent.NavigateToTelegram -> Observable.just(SettingsRenderAction.NavigateToTelegram)
         SettingsIntent.RequestClearDataAndLogout -> Observable.just(SettingsRenderAction.ConfirmClearData)
         SettingsIntent.ConfirmClearDataAndLogout -> purgeAll()
@@ -44,6 +45,8 @@ class SettingsViewModel @Inject internal constructor(
             view = SettingsViewState.View.NavigateToEosEndpoint)
         SettingsRenderAction.NavigateToPrivateKeys -> previousState.copy(
             view = SettingsViewState.View.NavigateToPrivateKeys)
+        SettingsRenderAction.NavigateToViewConfirmedTransactions -> previousState.copy(
+            view = SettingsViewState.View.NavigateToViewConfirmedTransactions)
         SettingsRenderAction.NavigateToTelegram -> previousState.copy(
             view = SettingsViewState.View.NavigateToTelegram)
         SettingsRenderAction.ConfirmClearData -> previousState.copy(

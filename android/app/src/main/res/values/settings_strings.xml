@@ -5,6 +5,7 @@
     <string name="settings_exchange_rate_currency">Currency pair</string>
     <string name="settings_change_eos_endpoint">Change EOS endpoint</string>
     <string name="settings_view_private_keys">View private keys</string>
+    <string name="settings_view_confirmed_transactions">View confirmed transactions</string>
     <string name="settings_telegram_link">Join us on telegram</string>
     <string name="settings_clear_data_and_logout">Clear data and Logout</string>
     <string name="settings_telegram_url">https://t.me/joinchat/JcIXl0x7wC9cRI5uF_EiQA</string>

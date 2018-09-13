@@ -13,6 +13,7 @@ import com.memtrip.mxandroid.MxViewModel
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.util.Date
 import javax.inject.Inject
 
@@ -60,21 +61,24 @@ class TransferConfirmViewModel @Inject internal constructor(
             transferRequestData.toAccount,
             transferRequestData.quantity,
             transferRequestData.memo
-        ).map { result ->
+        ).flatMap { result ->
             if (result.success) {
                 val transaction = result.data!!
                 insertTransactionLog.insert(TransactionLogEntity(
                     transactionId = transaction.transaction_id,
-                    formattedDate = Date().toLocalDateTime().fullDateTime()
-                )).to {
-                    TransferConfirmRenderAction.OnSuccess(TransferReceipt(
-                        transaction.transaction_id, transferRequestData.contractAccountBalance))
-                }
-            } else {
-                TransferConfirmRenderAction.OnError(
-                    context().getString(R.string.transfer_confirm_error_message),
-                    result.apiError!!.body
+                    formattedDate = Date().toLocalDateTime().fullDateTime())
+                ).toSingleDefault<TransferConfirmRenderAction>(
+                    TransferConfirmRenderAction.OnSuccess(
+                        TransferReceipt(
+                            transaction.transaction_id,
+                            transferRequestData.contractAccountBalance
+                        )
+                    )
                 )
+            } else {
+                Single.just(TransferConfirmRenderAction.OnError(
+                    context().getString(R.string.transfer_confirm_error_message),
+                    result.apiError!!.body))
             }
         }.toObservable().startWith(TransferConfirmRenderAction.OnProgress)
     }

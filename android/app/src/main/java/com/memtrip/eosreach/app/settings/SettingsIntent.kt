@@ -8,6 +8,7 @@ sealed class SettingsIntent : MxViewIntent {
     object NavigateToCurrencyPairing : SettingsIntent()
     object NavigateToEosEndpoint : SettingsIntent()
     object NavigateToPrivateKeys : SettingsIntent()
+    object NavigateToViewConfirmedTransactions : SettingsIntent()
     object NavigateToTelegram : SettingsIntent()
     object RequestClearDataAndLogout : SettingsIntent()
     object ConfirmClearDataAndLogout : SettingsIntent()

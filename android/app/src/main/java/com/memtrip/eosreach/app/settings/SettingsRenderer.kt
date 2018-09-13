@@ -11,6 +11,7 @@ sealed class SettingsRenderAction : MxRenderAction {
     object NavigateToCurrencyPairing : SettingsRenderAction()
     object NavigateToEosEndpoint : SettingsRenderAction()
     object NavigateToPrivateKeys : SettingsRenderAction()
+    object NavigateToViewConfirmedTransactions : SettingsRenderAction()
     object NavigateToTelegram : SettingsRenderAction()
     object ConfirmClearData : SettingsRenderAction()
     object NavigateToEntry : SettingsRenderAction()
@@ -22,6 +23,7 @@ interface SettingsViewLayout : MxViewLayout {
     fun navigateToCurrencyPairing()
     fun navigateToEosEndpoint()
     fun navigateToViewPrivateKeys()
+    fun navigateToViewConfirmedTransactionLog()
     fun navigateToTelegramGroup()
     fun confirmClearData()
     fun navigateToEntry()
@@ -40,6 +42,9 @@ class SettingsViewRenderer @Inject internal constructor() : MxViewRenderer<Setti
         }
         SettingsViewState.View.NavigateToPrivateKeys -> {
             layout.navigateToViewPrivateKeys()
+        }
+        SettingsViewState.View.NavigateToViewConfirmedTransactions -> {
+            layout.navigateToViewConfirmedTransactionLog()
         }
         SettingsViewState.View.NavigateToTelegram -> {
             layout.navigateToTelegramGroup()

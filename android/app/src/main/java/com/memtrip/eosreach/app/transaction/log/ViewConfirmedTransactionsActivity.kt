@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.app.transaction.log
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,6 +9,8 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.balance.AccountBalanceListAdapter
+import com.memtrip.eosreach.app.account.balance.BalanceIntent
+import com.memtrip.eosreach.app.settings.viewprivatekeys.ViewPrivateKeysActivity
 import com.memtrip.eosreach.db.transaction.TransactionLogEntity
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -35,7 +38,7 @@ class ViewConfirmedTransactionsActivity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transaction_view_confirmed_activity)
         setSupportActionBar(transaction_view_confirmed_toolbar)
-        supportActionBar!!.title = getString(R.string.settings_title)
+        supportActionBar!!.title = getString(R.string.settings_view_confirmed_transactions)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
@@ -48,7 +51,10 @@ class ViewConfirmedTransactionsActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<ViewConfirmedTransactionsIntent> = Observable.just(ViewConfirmedTransactionsIntent.Init)
+    override fun intents(): Observable<ViewConfirmedTransactionsIntent> = Observable.merge(
+        Observable.just(ViewConfirmedTransactionsIntent.Init),
+        adapter.interaction.map { ViewConfirmedTransactionsIntent.NavigateToBlockExplorer(it.data.transactionId) }
+    )
 
     override fun layout(): ViewConfirmedTransactionsViewLayout = this
 
@@ -76,9 +82,16 @@ class ViewConfirmedTransactionsActivity
     }
 
     override fun navigateToBlockExplorer(transactionId: String) {
-        model().publish(ViewConfirmedTransactionsIntent.Init)
+        model().publish(ViewConfirmedTransactionsIntent.Idle)
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(
             getString(R.string.transaction_view_confirm_block_explorer_url, transactionId)
         )))
+    }
+
+    companion object {
+
+        fun viewConfirmedTransactionsIntent(context: Context): Intent {
+            return Intent(context, ViewConfirmedTransactionsActivity::class.java)
+        }
     }
 }

@@ -12,6 +12,7 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.price.currencypairing.CurrencyPairingActivity.Companion.currencyPairingIntent
 import com.memtrip.eosreach.app.settings.eosendpoint.EosEndpointActivity.Companion.eosEndpointIntent
 import com.memtrip.eosreach.app.settings.viewprivatekeys.ViewPrivateKeysActivity.Companion.viewPrivateKeysIntent
+import com.memtrip.eosreach.app.transaction.log.ViewConfirmedTransactionsActivity.Companion.viewConfirmedTransactionsIntent
 import com.memtrip.eosreach.app.welcome.EntryActivity.Companion.entryIntent
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -52,6 +53,9 @@ class SettingsActivity
         RxView.clicks(settings_change_eos_endpoint_button).map {
             SettingsIntent.NavigateToEosEndpoint
         },
+        RxView.clicks(settings_view_confirmed_transactions_button).map {
+            SettingsIntent.NavigateToViewConfirmedTransactions
+        },
         RxView.clicks(settings_telegram_button).map {
             SettingsIntent.NavigateToTelegram
         },
@@ -84,10 +88,14 @@ class SettingsActivity
         startActivity(viewPrivateKeysIntent(this))
     }
 
+    override fun navigateToViewConfirmedTransactionLog() {
+        model().publish(SettingsIntent.Idle)
+        startActivity(viewConfirmedTransactionsIntent(this))
+    }
+
     override fun populate(exchangeRateCurrency: String) {
         settings_exchange_rate_currency_value.text = exchangeRateCurrency
     }
-
 
     override fun navigateToTelegramGroup() {
         model().publish(SettingsIntent.Idle)

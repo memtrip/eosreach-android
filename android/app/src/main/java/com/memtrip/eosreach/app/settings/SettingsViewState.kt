@@ -9,6 +9,7 @@ data class SettingsViewState(val view: View) : MxViewState {
         data class Populate(val exchangeRateCurrency: String) : View()
         object NavigateToCurrencyPairing : View()
         object NavigateToEosEndpoint : View()
+        object NavigateToViewConfirmedTransactions : View()
         object NavigateToPrivateKeys : View()
         object NavigateToTelegram : View()
         object ConfirmClearData : View()

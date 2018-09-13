@@ -57,6 +57,16 @@
         app:layout_constraintTop_toBottomOf="@+id/settings_change_eos_endpoint_button"/>
 
     <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/settings_view_confirmed_transactions_button"
+        style="@style/ButtonPreference"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_view_confirmed_transactions"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_view_private_keys_button"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/settings_telegram_button"
         style="@style/ButtonPreference"
         android:layout_width="0dp"
@@ -64,7 +74,7 @@
         android:text="@string/settings_telegram_link"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_view_private_keys_button"/>
+        app:layout_constraintTop_toBottomOf="@+id/settings_view_confirmed_transactions_button"/>
 
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/settings_clear_data_and_logout_button"
