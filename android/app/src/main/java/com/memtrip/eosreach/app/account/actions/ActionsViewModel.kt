@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.app.account.actions
 
 import android.app.Application
+import com.memtrip.eosreach.api.actions.AccountActionList
 import com.memtrip.eosreach.api.actions.AccountActionsRequest
 import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
@@ -77,16 +78,20 @@ class ActionsViewModel @Inject internal constructor(
         contractAccountBalance: ContractAccountBalance,
         accountAction: AccountAction
     ): Observable<ActionsRenderAction> {
-        return accountActionsRequest.getActionsForAccountName(
-            contractAccountBalance,
-            accountAction.next-1,
-            -50
-        ).map {
-            if (it.success) {
-                ActionsRenderAction.OnLoadMoreSuccess(it.data!!)
-            } else {
-                ActionsRenderAction.OnLoadMoreError
-            }
-        }.toObservable().startWith(ActionsRenderAction.OnLoadMoreProgress)
+        return if (accountAction.next > 0) {
+            accountActionsRequest.getActionsForAccountName(
+                contractAccountBalance,
+                accountAction.next - 1,
+                -50
+            ).map {
+                if (it.success) {
+                    ActionsRenderAction.OnLoadMoreSuccess(it.data!!)
+                } else {
+                    ActionsRenderAction.OnLoadMoreError
+                }
+            }.toObservable().startWith(ActionsRenderAction.OnLoadMoreProgress)
+        } else {
+            Observable.just(ActionsRenderAction.OnLoadMoreSuccess(AccountActionList(emptyList())))
+        }
     }
 }
