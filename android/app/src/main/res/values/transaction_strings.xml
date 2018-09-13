@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="transaction_toolbar_title">Transaction Log</string>
+
+    <!-- transaction view log -->
+    <string name="transaction_view_log_title">Transaction Log</string>
     <string name="transaction_view_log_position_button">View log</string>
     <string name="transaction_view_log_negative_button">Cancel</string>
 
+    <!-- transaction receipt -->
     <string name="transaction_receipt_title">Transaction committed</string>
     <string name="transaction_receipt_body">
         Your transaction has been committed to the EOS network, a record of this, and all other
         transactions performed on this device can be found in the transaction log of the settings section.
     </string>
     <string name="transaction_receipt_done_button">Done</string>
+
+    <!-- view confirmed transactions -->
+    <string name="transaction_view_confirmed_title">Confirmed transactions</string>
+    <string name="transaction_view_confirmed_error">
+        We could not find any confirmed transactions, this is an indication that your local database is corrupted.
+    </string>
 </resources>

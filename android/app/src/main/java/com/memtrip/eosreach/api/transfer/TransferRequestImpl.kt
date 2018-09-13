@@ -3,6 +3,7 @@ package com.memtrip.eosreach.api.transfer
 import com.memtrip.eos.chain.actions.transaction.TransactionContext
 import com.memtrip.eos.chain.actions.transaction.transfer.TransferChain
 import com.memtrip.eos.core.crypto.EosPrivateKey
+import com.memtrip.eos.http.rpc.model.transaction.response.TransactionCommitted
 
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.utils.RxSchedulers
@@ -21,9 +22,7 @@ class TransferRequestImpl @Inject constructor(
         quantity: String,
         memo: String,
         authorizingPrivateKey: EosPrivateKey
-    ): Single<Result<String, TransferError>> {
-        val privateKeyString = authorizingPrivateKey.toString()
-        print("PRIVATE KEY: $privateKeyString")
+    ): Single<Result<TransactionCommitted, TransferError>> {
         return transferChain.transfer(
             TransferChain.Args(
                 fromAccount,
@@ -39,9 +38,9 @@ class TransferRequestImpl @Inject constructor(
         ).map { response ->
             if (response.isSuccessful) {
                 response.body
-                Result(response.body!!.transaction_id)
+                Result(response.body!!)
             } else {
-                Result<String, TransferError>(TransferError(response.errorBody!!))
+                Result<TransactionCommitted, TransferError>(TransferError(response.errorBody!!))
             }
         }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }

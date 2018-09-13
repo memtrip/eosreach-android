@@ -5,12 +5,14 @@ import com.memtrip.eosreach.db.sharedpreferences.EosPriceCurrencyPair
 
 import com.memtrip.eosreach.db.PurgePreferences
 import com.memtrip.eosreach.db.account.DeleteAccounts
+import com.memtrip.eosreach.db.transaction.DeleteTransactionLog
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class SettingsViewModel @Inject internal constructor(
     private val deleteAccounts: DeleteAccounts,
+    private val deleteTransactionLog: DeleteTransactionLog,
     private val purgePreferences: PurgePreferences,
     private val eosPriceCurrencyPair: EosPriceCurrencyPair,
     application: Application
@@ -65,6 +67,9 @@ class SettingsViewModel @Inject internal constructor(
 
     private fun purgeAll(): Observable<SettingsRenderAction> {
         return deleteAccounts.remove()
+            .doOnComplete {
+                deleteTransactionLog.remove()
+            }
             .doOnComplete {
                 purgePreferences.purgeAll()
             }

@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.app.transfer.confirm
 
+import com.memtrip.eos.http.rpc.model.transaction.response.TransactionCommitted
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.transfer.TransferError
 import com.memtrip.eosreach.api.transfer.TransferRequest
@@ -19,7 +20,7 @@ class TransferUseCase @Inject internal constructor(
         toAccount: String,
         quantity: String,
         memo: String
-    ): Single<Result<String, TransferError>> {
+    ): Single<Result<TransactionCommitted, TransferError>> {
 
         return getAccountByName.select(fromAccount).flatMap { accountEntity ->
             eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { privateKey ->

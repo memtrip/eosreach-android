@@ -42,6 +42,7 @@
         <activity android:name=".app.account.actions.ViewTransferActionActivity" />
 
         <activity android:name=".app.transaction.log.TransactionLogActivity" />
+        <activity android:name=".app.transaction.log.ViewConfirmedTransactionsActivity" />
         <activity android:name=".app.transaction.receipt.TransactionReceiptActivity" />
 
         <activity android:name=".app.manage.ManageCreateAccountActivity" />

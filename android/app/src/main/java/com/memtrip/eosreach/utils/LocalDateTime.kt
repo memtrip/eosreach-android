@@ -9,6 +9,10 @@ fun LocalDateTime.fullDate(): String = DateTimeFormatter.ofPattern(
     "EEE dd MMM"
 ).format(this)
 
+fun LocalDateTime.fullDateTime(): String = DateTimeFormatter.ofPattern(
+    "EEE dd MMM HH:mm:ss"
+).format(this)
+
 fun Date.toLocalDateTime(): LocalDateTime {
     return LocalDateTime.ofEpochSecond(time / 1000, 0, ZoneOffset.UTC)
 }

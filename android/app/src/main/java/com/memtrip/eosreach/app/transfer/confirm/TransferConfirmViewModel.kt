@@ -1,15 +1,24 @@
 package com.memtrip.eosreach.app.transfer.confirm
 
 import android.app.Application
+import com.memtrip.eos.http.rpc.model.transaction.response.TransactionProcessed
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.transfer.TransferReceipt
+import com.memtrip.eosreach.db.transaction.InsertTransactionLog
+import com.memtrip.eosreach.db.transaction.TransactionLogEntity
+import com.memtrip.eosreach.utils.fullDateTime
+import com.memtrip.eosreach.utils.toLocalDateTime
 
 import com.memtrip.mxandroid.MxViewModel
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import io.reactivex.Observable
+import java.util.Date
 import javax.inject.Inject
 
 class TransferConfirmViewModel @Inject internal constructor(
     private val transferUseCase: TransferUseCase,
+    private val insertTransactionLog: InsertTransactionLog,
     application: Application
 ) : MxViewModel<TransferConfirmIntent, TransferConfirmRenderAction, TransferConfirmViewState>(
     TransferConfirmViewState(view = TransferConfirmViewState.View.Idle),
@@ -53,8 +62,14 @@ class TransferConfirmViewModel @Inject internal constructor(
             transferRequestData.memo
         ).map { result ->
             if (result.success) {
-                TransferConfirmRenderAction.OnSuccess(TransferReceipt(
-                    result.data!!, transferRequestData.contractAccountBalance))
+                val transaction = result.data!!
+                insertTransactionLog.insert(TransactionLogEntity(
+                    transactionId = transaction.transaction_id,
+                    formattedDate = Date().toLocalDateTime().fullDateTime()
+                )).to {
+                    TransferConfirmRenderAction.OnSuccess(TransferReceipt(
+                        transaction.transaction_id, transferRequestData.contractAccountBalance))
+                }
             } else {
                 TransferConfirmRenderAction.OnError(
                     context().getString(R.string.transfer_confirm_error_message),

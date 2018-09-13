@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.memtrip.eosreach.db.account.AccountDao
 import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
+import com.memtrip.eosreach.db.transaction.TransactionLogDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -26,4 +27,8 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun blockProducerDao(appDatabase: AppDatabase): BlockProducerDao = appDatabase.blockProducerDao()
+
+    @Provides
+    @Singleton
+    fun transactionLogDao(appDatabase: AppDatabase): TransactionLogDao = appDatabase.transactionLogDao()
 }

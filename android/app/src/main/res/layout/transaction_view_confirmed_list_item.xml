@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ItemButtonTransparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_medium"
+    android:padding="@dimen/padding_medium">
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/transaction_view_confirmed_list_item_id"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="1a77acd9752ddfc3797d16277d38133326a775aac576541afd225fe9424699ae"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/transaction_view_confirmed_list_item_date"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_tiny"
+        android:textColor="@color/colorSecondary"
+        tools:text="Sep-13-2018, 08:47:17 PM"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_view_confirmed_list_item_id" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@ internal class TransactionLogActivity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transaction_log_activity)
         setSupportActionBar(transaction_log_toolbar)
-        supportActionBar!!.title = getString(R.string.transaction_toolbar_title)
+        supportActionBar!!.title = getString(R.string.transaction_view_log_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }

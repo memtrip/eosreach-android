@@ -2,6 +2,8 @@ package com.memtrip.eosreach.app.transaction
 
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivityModule
+import com.memtrip.eosreach.app.transaction.log.ViewConfirmedTransactionsActivity
+import com.memtrip.eosreach.app.transaction.log.ViewConfirmedTransactionsActivityModule
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivityModule
 import dagger.Module
@@ -15,4 +17,7 @@ abstract class TransactionModule {
 
     @ContributesAndroidInjector(modules = [TransactionReceiptActivityModule::class])
     internal abstract fun contributeTransactionReceiptActivity(): TransactionReceiptActivity
+
+    @ContributesAndroidInjector(modules = [ViewConfirmedTransactionsActivityModule::class])
+    internal abstract fun contributeViewConfirmedTransactionsActivity(): ViewConfirmedTransactionsActivity
 }
