@@ -3,13 +3,13 @@
     - Implement the create account api 
     - Integrate with create account api with the app
     - Integrate the create account api with Google play store items
-- transaction pagination
 - airdropped tokens?
 - stake resources
 
 - import key / create account should trigger an account list refresh
 - Add a 'purchased' label to the button in create account if the product has been purchased but not used because of technical error
 - Populate the cast vote screen with the existing votes
+- add bottom padding to final items in the list
 
 ### Clean up
 - Ensure all screens support screen rotation correctly 

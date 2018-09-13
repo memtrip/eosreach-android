@@ -11,7 +11,7 @@ class EosPriceRequestImpl @Inject internal constructor(
 ) : EosPriceRequest {
 
     override fun getPrice(currencyCode: String): Single<Result<EosPrice, EosPriceError>> {
-        return eosPriceApi.getPrice(currencyCode)
+        return eosPriceApi.getPrice(currencyCode.toUpperCase())
             .subscribeOn(rxSchedulers.background())
             .observeOn(rxSchedulers.main())
             .map {

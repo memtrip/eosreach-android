@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.api.eoscreateaccount
 
+import androidx.annotation.Keep
 import com.squareup.moshi.JsonClass
 import io.reactivex.Single
 import retrofit2.Response
@@ -14,6 +15,7 @@ interface EosCreateAccountApi {
     ): Single<Response<CreateAccountResponse>>
 }
 
+@Keep
 @JsonClass(generateAdapter = true)
 data class CreateAccountRequest(
     val purchaseToken: String,
@@ -21,11 +23,13 @@ data class CreateAccountRequest(
     val publicKey: String
 )
 
+@Keep
 @JsonClass(generateAdapter = true)
 data class CreateAccountResponse(
     val transactionId: String
 )
 
+@Keep
 @JsonClass(generateAdapter = true)
 data class CreateAccountError(
     val error: String

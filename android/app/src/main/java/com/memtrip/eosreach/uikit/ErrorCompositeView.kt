@@ -3,6 +3,7 @@ package com.memtrip.eosreach.uikit
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.FrameLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R

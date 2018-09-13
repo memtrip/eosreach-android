@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.api.eosprice
 
+import androidx.annotation.Keep
 import com.squareup.moshi.JsonClass
 import io.reactivex.Single
 import retrofit2.Response
@@ -12,6 +13,7 @@ interface EosPriceApi {
     fun getPrice(@Path("currency") currency: String): Single<Response<Price>>
 }
 
+@Keep
 @JsonClass(generateAdapter = true)
 data class Price(
     val value: Double,

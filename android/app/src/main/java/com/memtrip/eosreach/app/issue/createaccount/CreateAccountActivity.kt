@@ -25,6 +25,7 @@ import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.issue_create_account_activity.*
+import kotlinx.android.synthetic.main.uikit_error_composite_view.view.*
 import javax.inject.Inject
 
 abstract class CreateAccountActivity
@@ -82,8 +83,8 @@ abstract class CreateAccountActivity
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         billing.billingClient.endConnection()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {
@@ -178,6 +179,9 @@ abstract class CreateAccountActivity
             getString(R.string.app_dialog_error_title),
             message
         )
+        issue_create_account_sku_error.view_error_composite_retry.setOnClickListener {
+            startBillingConnection()
+        }
     }
 
     override fun showAccountNameValidationPassed() {
