@@ -8,5 +8,6 @@ data class ViewTransferActionViewState(val view: View) : MxViewState {
     sealed class View {
         object Idle : View()
         data class Populate(val accountAction: AccountAction.Transfer) : View()
+        data class ViewTransactionBlockExplorer(val transactionId: String) : View()
     }
 }

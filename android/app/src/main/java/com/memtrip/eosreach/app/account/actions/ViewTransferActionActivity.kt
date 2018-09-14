@@ -2,7 +2,9 @@ package com.memtrip.eosreach.app.account.actions
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import com.jakewharton.rxbinding2.view.RxView
 
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
@@ -24,6 +26,8 @@ class ViewTransferActionActivity
     @Inject
     lateinit var render: ViewTransferActionViewRenderer
 
+    private lateinit var accountAction: AccountAction.Transfer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_actions_view_transfer)
@@ -31,15 +35,19 @@ class ViewTransferActionActivity
         supportActionBar!!.title = getString(R.string.account_actions_view_transfer_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        accountAction = actionsExtra(intent)
     }
 
     override fun inject() {
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<ViewTransferActionIntent> {
-        return Observable.just(ViewTransferActionIntent.Init(actionsExtra(intent)))
-    }
+    override fun intents(): Observable<ViewTransferActionIntent> = Observable.merge(
+        Observable.just(ViewTransferActionIntent.Init(accountAction)),
+        RxView.clicks(account_actions_view_transaction_block_explorer_button).map {
+            ViewTransferActionIntent.ViewTransactionBlockExplorer(accountAction.tranactionId)
+        }
+    )
 
     override fun layout(): ViewTransferActionViewLayout = this
 
@@ -58,6 +66,12 @@ class ViewTransferActionActivity
 
         account_actions_view_transfer_details.populateDate(
             accountAction.formattedDate)
+    }
+
+    override fun viewTransactionBlockExplorer(transactionId: String) {
+        model().publish(ViewTransferActionIntent.Idle)
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(
+            getString(R.string.transaction_view_confirm_block_explorer_url, transactionId))))
     }
 
     companion object {

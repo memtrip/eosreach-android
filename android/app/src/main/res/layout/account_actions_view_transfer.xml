@@ -20,4 +20,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/account_actions_view_transfer_action_toolbar"/>
 
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/account_actions_view_transaction_block_explorer_button"
+        style="@style/ButtonPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:text="@string/account_actions_view_transaction_block_explorer_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ sealed class AccountAction(
 
     @Parcelize
     data class Transfer(
+        val tranactionId: String,
         val actionActionSequence: Int,
         val from: String,
         val to: String,
@@ -49,6 +50,7 @@ sealed class AccountAction(
             val transferInteractingAccountName: String = if (transferIncoming) from else to
 
             return AccountAction.Transfer(
+                action.action_trace.trx_id,
                 action.account_action_seq,
                 from,
                 to,

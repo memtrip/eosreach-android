@@ -14,11 +14,17 @@ class ViewTransferActionViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: ViewTransferActionIntent): Observable<ViewTransferActionRenderAction> = when (intent) {
         is ViewTransferActionIntent.Init -> Observable.just(ViewTransferActionRenderAction.Populate(intent.accountAction))
+        ViewTransferActionIntent.Idle -> Observable.just(ViewTransferActionRenderAction.Idle)
+        is ViewTransferActionIntent.ViewTransactionBlockExplorer -> Observable.just(ViewTransferActionRenderAction.ViewTransactionBlockExplorer(intent.transactionId))
     }
 
     override fun reducer(previousState: ViewTransferActionViewState, renderAction: ViewTransferActionRenderAction): ViewTransferActionViewState = when (renderAction) {
         is ViewTransferActionRenderAction.Populate -> previousState.copy(
             view = ViewTransferActionViewState.View.Populate(renderAction.transferAccountAction))
+        ViewTransferActionRenderAction.Idle -> previousState.copy(
+            view = ViewTransferActionViewState.View.Idle)
+        is ViewTransferActionRenderAction.ViewTransactionBlockExplorer -> previousState.copy(
+            view = ViewTransferActionViewState.View.ViewTransactionBlockExplorer(renderAction.transactionId))
     }
 
     override fun filterIntents(intents: Observable<ViewTransferActionIntent>): Observable<ViewTransferActionIntent> = Observable.merge(

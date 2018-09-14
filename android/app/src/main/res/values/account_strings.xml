@@ -54,6 +54,9 @@
 
     <string name="account_actions_view_transfer_title">View transfer action</string>
 
+    <!-- view transfer action -->
+    <string name="account_actions_view_transaction_block_explorer_button">View in block explorer</string>
+
     <!-- voteForProducer -->
     <string name="vote_proxy_title">Your proxy voter is</string>
     <string name="vote_no_vote_body">It looks like you haven\'t voted for a block producer yet. Please vote for us, and help us build the future of EOS on mobile.</string>

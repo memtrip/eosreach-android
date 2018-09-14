@@ -8,10 +8,13 @@ import javax.inject.Inject
 
 sealed class ViewTransferActionRenderAction : MxRenderAction {
     data class Populate(val transferAccountAction: AccountAction.Transfer) : ViewTransferActionRenderAction()
+    object Idle : ViewTransferActionRenderAction()
+    data class ViewTransactionBlockExplorer(val transactionId: String) : ViewTransferActionRenderAction()
 }
 
 interface ViewTransferActionViewLayout : MxViewLayout {
     fun populate(accountAction: AccountAction.Transfer)
+    fun viewTransactionBlockExplorer(transactionId: String)
 }
 
 class ViewTransferActionViewRenderer @Inject internal constructor() : MxViewRenderer<ViewTransferActionViewLayout, ViewTransferActionViewState> {
@@ -20,6 +23,9 @@ class ViewTransferActionViewRenderer @Inject internal constructor() : MxViewRend
         }
         is ViewTransferActionViewState.View.Populate -> {
             layout.populate(state.view.accountAction)
+        }
+        is ViewTransferActionViewState.View.ViewTransactionBlockExplorer -> {
+            layout.viewTransactionBlockExplorer(state.view.transactionId)
         }
     }
 }

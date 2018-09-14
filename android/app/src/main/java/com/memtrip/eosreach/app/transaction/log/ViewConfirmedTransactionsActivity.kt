@@ -84,8 +84,7 @@ class ViewConfirmedTransactionsActivity
     override fun navigateToBlockExplorer(transactionId: String) {
         model().publish(ViewConfirmedTransactionsIntent.Idle)
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(
-            getString(R.string.transaction_view_confirm_block_explorer_url, transactionId)
-        )))
+            getString(R.string.transaction_view_confirm_block_explorer_url, transactionId))))
     }
 
     companion object {
