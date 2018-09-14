@@ -8,6 +8,8 @@ import com.memtrip.eosreach.api.actions.AccountActionsRequest
 import com.memtrip.eosreach.api.actions.AccountActionsRequestImpl
 import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceRequestImp
+import com.memtrip.eosreach.api.bandwidth.BandwidthRequest
+import com.memtrip.eosreach.api.bandwidth.BandwidthRequestImpl
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequest
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequestImpl
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
@@ -48,6 +50,11 @@ internal abstract class RequestModule {
     internal abstract fun bindTransferRequest(
         transferRequest: TransferRequestImpl
     ): TransferRequest
+
+    @Binds
+    internal abstract fun bindBandwidthRequest(
+        bandwidthRequest: BandwidthRequestImpl
+    ): BandwidthRequest
 
     @Binds
     internal abstract fun bindVoteRequest(

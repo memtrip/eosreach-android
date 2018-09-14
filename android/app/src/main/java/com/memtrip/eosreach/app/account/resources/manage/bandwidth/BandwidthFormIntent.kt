@@ -6,8 +6,9 @@ sealed class BandwidthFormIntent : MxViewIntent {
     object Init : BandwidthFormIntent()
     object Idle : BandwidthFormIntent()
     data class Commit(
+        val bandwidthCommitType: BandwidthCommitType,
         val netAmount: String,
         val cpuAmount: String,
-        val bandwidthCommitType: BandwidthCommitType
+        val fromAccount: String
     ) : BandwidthFormIntent()
 }

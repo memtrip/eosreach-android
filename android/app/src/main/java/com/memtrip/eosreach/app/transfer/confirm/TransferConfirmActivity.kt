@@ -70,7 +70,6 @@ class TransferConfirmActivity
 
     override fun render(): TransferConfirmViewRenderer = render
 
-
     override fun populate(transferFormData: TransferFormData) {
         transfer_confirm_form_details.populate(
             BalanceFormatter.create(
