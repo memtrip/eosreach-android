@@ -51,6 +51,30 @@
     <string name="resources_manage_bandwidth_button">Bandwidth</string>
     <string name="resources_manage_ram_button">Ram</string>
 
+    <!-- manage ram -->
+    <string name="manage_ram_title">Manage RAM</string>
+    <string name="manage_ram_tab_buy">Buy</string>
+    <string name="manage_ram_tab_sell">Sell</string>
+
+    <string name="manage_ram_form_amount_label">Ram amount (balance: %s)</string>
+    <string name="manage_ram_form_amount_hint">Enter the amount in EOS</string>
+    <string name="manage_ram_form_buy_button">Buy</string>
+    <string name="manage_ram_form_sell_button">Sell</string>
+
+    <!-- manage bandwidth -->
+    <string name="manage_bandwidth_title">Manage bandwidth</string>
+    <string name="manage_bandwidth_tab_delegate">Delegate</string>
+    <string name="manage_bandwidth_tab_undelegate">Undelegate</string>
+
+    <string name="manage_bandwidth_delegate_form_net_amount_label">Net amount (balance: %s)</string>
+    <string name="manage_bandwidth_delegate_form_net_amount_hint">Enter the amount in EOS</string>
+
+    <string name="manage_bandwidth_delegate_form_cpu_amount_label">Cpu amount (balance: %s)</string>
+    <string name="manage_bandwidth_delegate_form_cpu_amount_hint">Enter the amount in EOS</string>
+
+    <string name="manage_bandwidth_delegate_form_delegate_button">Delegate</string>
+    <string name="manage_bandwidth_delegate_form_undelegate_button">Undelegate</string>
+
     <!-- actions -->
     <string name="account_actions_generic_error_title">Failed to fetch actions</string>
     <string name="account_actions_generic_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>

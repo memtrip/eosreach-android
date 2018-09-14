@@ -6,12 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.transfer.TransferReceipt
+import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
+import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptRoute
 import com.memtrip.eosreach.app.transfer.form.TransferFormData
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
@@ -87,8 +88,12 @@ class TransferConfirmActivity
         transfer_confirm_confirm_button.invisible()
     }
 
-    override fun onSuccess(transferReceipt: TransferReceipt) {
-        startActivity(transactionReceiptIntent(transferReceipt, this))
+    override fun onSuccess(transferReceipt: ActionReceipt) {
+        startActivity(transactionReceiptIntent(
+            transferReceipt,
+            transferFormData.contractAccountBalance,
+            TransactionReceiptRoute.ACTIONS,
+            this))
         finish()
     }
 

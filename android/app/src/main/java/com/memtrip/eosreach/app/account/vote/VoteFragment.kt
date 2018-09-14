@@ -19,6 +19,7 @@ import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity.Companion.castVoteIntent
 import com.memtrip.eosreach.app.account.vote.cast.proxy.CastProxyVoteIntent
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
+import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
@@ -123,7 +124,7 @@ class VoteFragment
             .setMessage(message)
             .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
                 model().publish(VoteIntent.Idle)
-                startActivity(TransactionLogActivity.transactionLogIntent(log, context!!))
+                startActivity(transactionLogIntent(log, context!!))
             }
             .setNegativeButton(R.string.transaction_view_log_negative_button, null)
             .create()

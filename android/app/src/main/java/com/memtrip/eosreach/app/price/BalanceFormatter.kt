@@ -15,7 +15,11 @@ object BalanceFormatter {
     }
 
     fun create(balance: String, symbol: String): Balance {
-        return Balance(balance.toDouble(), symbol)
+        return create(balance.toDouble(), symbol)
+    }
+
+    fun create(balance: Double, symbol: String): Balance {
+        return Balance(balance, symbol)
     }
 
     fun formatEosBalance(balance: String, symbol: String): String {

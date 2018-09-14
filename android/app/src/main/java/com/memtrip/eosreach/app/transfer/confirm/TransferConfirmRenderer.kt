@@ -1,8 +1,6 @@
 package com.memtrip.eosreach.app.transfer.confirm
 
-import com.memtrip.eosreach.api.transfer.TransferReceipt
-import com.memtrip.eosreach.app.price.BalanceFormatter
-import com.memtrip.eosreach.app.price.CurrencyPairFormatter
+import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.transfer.form.TransferFormData
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
@@ -14,14 +12,14 @@ sealed class TransferConfirmRenderAction : MxRenderAction {
     data class Populate(val transferFormData: TransferFormData) : TransferConfirmRenderAction()
     object OnProgress : TransferConfirmRenderAction()
     data class OnError(val message: String, val log: String) : TransferConfirmRenderAction()
-    data class OnSuccess(val transferReceipt: TransferReceipt) : TransferConfirmRenderAction()
+    data class OnSuccess(val transferReceipt: ActionReceipt) : TransferConfirmRenderAction()
     data class ViewLog(val log: String) : TransferConfirmRenderAction()
 }
 
 interface TransferConfirmViewLayout : MxViewLayout {
     fun populate(transferFormData: TransferFormData)
     fun showProgress()
-    fun onSuccess(transferReceipt: TransferReceipt)
+    fun onSuccess(transferReceipt: ActionReceipt)
     fun showError(message: String, log: String)
     fun viewLog(log: String)
 }

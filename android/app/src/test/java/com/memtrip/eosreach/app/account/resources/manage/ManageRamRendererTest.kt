@@ -1,5 +1,8 @@
 package com.memtrip.eosreach.app.account.resources.manage
 
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamViewLayout
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamViewRenderer
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamViewState
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek

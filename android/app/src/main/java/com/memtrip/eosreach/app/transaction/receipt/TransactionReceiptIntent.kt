@@ -1,9 +1,10 @@
 package com.memtrip.eosreach.app.transaction.receipt
 
-import com.memtrip.eos.http.rpc.model.transaction.response.TransactionReceipt
+import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class TransactionReceiptIntent : MxViewIntent {
-    data class Init(val transactionReceipt: TransactionReceipt) : TransactionReceiptIntent()
+    data class Init(val actionReceipt: ActionReceipt) : TransactionReceiptIntent()
     object NavigateToActions : TransactionReceiptIntent()
+    object NavigateToAccount : TransactionReceiptIntent()
 }

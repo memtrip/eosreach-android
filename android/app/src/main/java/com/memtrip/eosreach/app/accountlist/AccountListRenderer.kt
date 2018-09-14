@@ -43,10 +43,7 @@ class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<Ac
             layout.showError()
         }
         is AccountListViewState.View.NavigateToAccount -> {
-            layout.navigateToAccount(AccountBundle(
-                state.view.accountEntity.accountName,
-                state.view.accountEntity.balance,
-                state.view.accountEntity.symbol))
+            layout.navigateToAccount(AccountBundle(state.view.accountEntity.accountName))
         }
         AccountListViewState.View.NoAccounts -> {
             layout.showNoAccounts()

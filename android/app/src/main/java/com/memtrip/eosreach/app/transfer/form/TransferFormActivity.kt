@@ -38,7 +38,7 @@ class TransferFormActivity
         supportActionBar!!.title = getString(R.string.transfer_form_toolbar_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        account_transfer_username_input.filters = arrayOf(
+        account_transfer_to_input.filters = arrayOf(
             AccountNameInputFilter(),
             InputFilter.LengthFilter(resources.getInteger(R.integer.app_account_name_length)))
         account_transfer_amount.filters = arrayOf(
@@ -62,7 +62,7 @@ class TransferFormActivity
             TransferFormIntent.SubmitForm(
                 TransferFormData(
                     contractAccountBalance,
-                    account_transfer_username_input.text.toString(),
+                    account_transfer_to_input.text.toString(),
                     account_transfer_amount.text.toString(),
                     account_transfer_memo.text.toString()
                 )

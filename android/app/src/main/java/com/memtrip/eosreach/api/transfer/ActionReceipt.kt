@@ -5,7 +5,7 @@ import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class TransferReceipt(
+data class ActionReceipt(
     val transactionId: String,
-    val contractAccountBalance: ContractAccountBalance
+    val authorizingAccountName: String
 ) : Parcelable

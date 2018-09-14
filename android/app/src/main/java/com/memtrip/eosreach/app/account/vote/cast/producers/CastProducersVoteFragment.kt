@@ -18,6 +18,7 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
+import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
 import com.memtrip.eosreach.uikit.invisible
@@ -152,7 +153,7 @@ class CastProducersVoteFragment
 
     override fun viewLog(log: String) {
         model().publish(CastProducersVoteIntent.Idle)
-        startActivity(TransactionLogActivity.transactionLogIntent(log, context!!))
+        startActivity(transactionLogIntent(log, context!!))
     }
 
     companion object {

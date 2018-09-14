@@ -11,6 +11,7 @@
 - stop the lazy loading from triggering multiple network requests
 - split the account strings into seperate files
 - fix the initial lag on pressing the import private key button
+- Implement collapsing header for AccountActivity
 
 ### Clean up
 - Ensure all screens support screen rotation correctly 

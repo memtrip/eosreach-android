@@ -8,10 +8,18 @@ import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.balance.BalanceFragmentModule
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragmentModule
-import com.memtrip.eosreach.app.account.resources.manage.ManageBandwidthActivity
-import com.memtrip.eosreach.app.account.resources.manage.ManageBandwidthActivityModule
-import com.memtrip.eosreach.app.account.resources.manage.ManageRamActivity
-import com.memtrip.eosreach.app.account.resources.manage.ManageRamActivityModule
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivity
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivityModule
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.DelegateBandwidthFormFragment
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.DelegateBandwidthFormFragmentModule
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.UnDelegateBandwidthFormFragment
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.UnDelegateBandwidthFormFragmentModule
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamActivity
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamActivityModule
+import com.memtrip.eosreach.app.account.resources.manage.manageram.form.BuyRamFormFragment
+import com.memtrip.eosreach.app.account.resources.manage.manageram.form.BuyRamFormFragmentModule
+import com.memtrip.eosreach.app.account.resources.manage.manageram.form.SellRamFormFragment
+import com.memtrip.eosreach.app.account.resources.manage.manageram.form.SellRamFormFragmentModule
 import com.memtrip.eosreach.app.account.vote.VoteFragment
 import com.memtrip.eosreach.app.account.vote.VoteFragmentModule
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
@@ -38,8 +46,20 @@ abstract class AccountModule {
     @ContributesAndroidInjector(modules = [ManageBandwidthActivityModule::class])
     internal abstract fun contributeManageBandwidthActivity(): ManageBandwidthActivity
 
+    @ContributesAndroidInjector(modules = [DelegateBandwidthFormFragmentModule::class])
+    internal abstract fun contributeDelegateBandwidthFormFragment(): DelegateBandwidthFormFragment
+
+    @ContributesAndroidInjector(modules = [UnDelegateBandwidthFormFragmentModule::class])
+    internal abstract fun contributeUnDelegateBandwidthFormFragment(): UnDelegateBandwidthFormFragment
+
     @ContributesAndroidInjector(modules = [ManageRamActivityModule::class])
     internal abstract fun contributeManageRamActivity(): ManageRamActivity
+
+    @ContributesAndroidInjector(modules = [BuyRamFormFragmentModule::class])
+    internal abstract fun contributeBuyRamFormFragment(): BuyRamFormFragment
+
+    @ContributesAndroidInjector(modules = [SellRamFormFragmentModule::class])
+    internal abstract fun contributeSellRamFormFragmentModule(): SellRamFormFragment
 
     @ContributesAndroidInjector(modules = [VoteFragmentModule::class])
     internal abstract fun contributeVoteFragment(): VoteFragment

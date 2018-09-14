@@ -4,8 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class AccountBundle(
-    val accountName: String,
-    val balance: Double?,
-    val symbol: String?
-) : Parcelable
+data class AccountBundle(val accountName: String) : Parcelable

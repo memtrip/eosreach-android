@@ -13,17 +13,14 @@ import com.memtrip.eos.core.utils.Pretty
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountResource
-import com.memtrip.eosreach.api.balance.Balance
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.AccountPagerFragment
-import com.memtrip.eosreach.app.account.AccountParentRefresh
-import com.memtrip.eosreach.app.account.resources.manage.ManageBandwidthActivity.Companion.manageBandwidthIntent
-import com.memtrip.eosreach.app.account.resources.manage.ManageRamActivity.Companion.manageRamIntent
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivity.Companion.manageBandwidthIntent
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamActivity.Companion.manageRamIntent
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_resources_fragment.*
-import kotlinx.android.synthetic.main.account_resources_fragment.view.*
 import javax.inject.Inject
 
 class ResourcesFragment
@@ -41,7 +38,7 @@ class ResourcesFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_resources_fragment, container, false)
-        eosAccount = fromBundle(arguments!!)
+        eosAccount = eosAccountExtra(arguments!!)
         return view
     }
 
@@ -166,7 +163,9 @@ class ResourcesFragment
 
     override fun navigateToManageBandwidth() {
         model().publish(ResourcesIntent.Idle)
-        startActivity(manageBandwidthIntent(eosAccount, context!!))
+        startActivity(manageBandwidthIntent(
+            eosAccount,
+            context!!))
     }
 
     override fun navigateToManageRam() {
@@ -177,16 +176,17 @@ class ResourcesFragment
 
     companion object {
 
+        private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT"
+
         fun newInstance(eosAccount: EosAccount): ResourcesFragment = with (ResourcesFragment()) {
-            arguments = toBundle(eosAccount)
+            arguments = with (Bundle()) {
+                putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
+                this
+            }
             this
         }
 
-        private fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
-            putParcelable("eosAccount", eosAccount)
-            this
-        }
-
-        private fun fromBundle(bundle: Bundle): EosAccount = bundle.getParcelable("eosAccount")
+        private fun eosAccountExtra(bundle: Bundle): EosAccount =
+            bundle.getParcelable(EOS_ACCOUNT_EXTRA)
     }
 }

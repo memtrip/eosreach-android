@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.app.account.resources.manage
+package com.memtrip.eosreach.app.account.resources.manage.manageram
 
 import androidx.lifecycle.ViewModel
 import com.memtrip.eosreach.app.ViewModelKey

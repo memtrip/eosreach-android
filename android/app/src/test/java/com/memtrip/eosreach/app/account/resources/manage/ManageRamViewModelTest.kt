@@ -1,5 +1,8 @@
 package com.memtrip.eosreach.app.account.resources.manage
 
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamIntent
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamViewModel
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamViewState
 import com.nhaarman.mockito_kotlin.mock
 
 import io.reactivex.Observable

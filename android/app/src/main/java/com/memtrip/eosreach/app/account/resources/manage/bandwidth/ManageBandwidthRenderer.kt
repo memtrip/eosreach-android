@@ -1,30 +1,27 @@
-package com.memtrip.eosreach.app.account.resources.manage
+package com.memtrip.eosreach.app.account.resources.manage.bandwidth
 
+import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class ManageBandwidthRenderAction : MxRenderAction {
-    object OnProgress : ManageBandwidthRenderAction()
-    object OnError : ManageBandwidthRenderAction()
+    object DelegateBandwidthTabIdle : ManageBandwidthRenderAction()
+    object UnDelegateBandwidthTabIdle : ManageBandwidthRenderAction()
+    data class Init(val eosAccount: EosAccount) : ManageBandwidthRenderAction()
 }
 
 interface ManageBandwidthViewLayout : MxViewLayout {
-    fun showProgress()
-    fun showError()
+    fun populate(eosAccount: EosAccount, page: ManageBandwidthFragmentPagerAdapter.Page)
 }
 
 class ManageBandwidthViewRenderer @Inject internal constructor() : MxViewRenderer<ManageBandwidthViewLayout, ManageBandwidthViewState> {
     override fun layout(layout: ManageBandwidthViewLayout, state: ManageBandwidthViewState): Unit = when (state.view) {
         ManageBandwidthViewState.View.Idle -> {
-
         }
-        ManageBandwidthViewState.View.OnProgress -> {
-            layout.showProgress()
-        }
-        ManageBandwidthViewState.View.OnError -> {
-            layout.showError()
+        is ManageBandwidthViewState.View.Populate -> {
+            layout.populate(state.view.eosAccount, state.page)
         }
     }
 }

@@ -1,17 +1,14 @@
 package com.memtrip.eosreach.app.transfer.confirm
 
 import android.app.Application
-import com.memtrip.eos.http.rpc.model.transaction.response.TransactionProcessed
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.transfer.TransferReceipt
+import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.db.transaction.InsertTransactionLog
 import com.memtrip.eosreach.db.transaction.TransactionLogEntity
 import com.memtrip.eosreach.utils.fullDateTime
 import com.memtrip.eosreach.utils.toLocalDateTime
 
 import com.memtrip.mxandroid.MxViewModel
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.util.Date
@@ -69,10 +66,9 @@ class TransferConfirmViewModel @Inject internal constructor(
                     formattedDate = Date().toLocalDateTime().fullDateTime())
                 ).toSingleDefault<TransferConfirmRenderAction>(
                     TransferConfirmRenderAction.OnSuccess(
-                        TransferReceipt(
+                        ActionReceipt(
                             transaction.transaction_id,
-                            transferRequestData.contractAccountBalance
-                        )
+                            transferRequestData.fromAccount)
                     )
                 )
             } else {

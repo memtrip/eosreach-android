@@ -16,15 +16,13 @@ class AccountUseCase @Inject internal constructor(
 ) {
 
     fun getAccountDetails(contractName: String, accountName: String): Single<AccountView> {
-        return eosPriceUseCase.getPrice().flatMap { price ->
-            getAccount(contractName, accountName, price)
-        }.onErrorResumeNext {
-            getAccount(
-                contractName,
-                accountName,
+        return eosPriceUseCase.getPrice()
+            .onErrorReturn {
                 EosPrice.unavailable()
-            )
-        }
+            }
+            .flatMap { price ->
+                getAccount(contractName, accountName, price)
+            }
     }
 
     private fun getAccount(

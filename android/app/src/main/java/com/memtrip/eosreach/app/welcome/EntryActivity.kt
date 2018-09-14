@@ -64,11 +64,7 @@ class EntryActivity
         welcome_entry_progressbar.gone()
         startActivity(
             accountIntent(
-                AccountBundle(
-                    accountEntity.accountName,
-                    accountEntity.balance,
-                    accountEntity.symbol
-                ),
+                AccountBundle(accountEntity.accountName),
                 this
             )
         )
