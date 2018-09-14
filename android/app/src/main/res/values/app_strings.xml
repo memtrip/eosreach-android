@@ -4,6 +4,7 @@
     <string name="app_shared_preferences_package">com.memtrip.eosreach</string>
     <string name="app_keys_shared_preferences_package">com.memtrip.eosreach.keys</string>
     <string name="app_default_currency">USD</string>
+    <string name="app_empty_value">-</string>
 
     <string name="app_dialog_error_title">Sorry</string>
     <string name="app_dialog_positive_button">OK</string>

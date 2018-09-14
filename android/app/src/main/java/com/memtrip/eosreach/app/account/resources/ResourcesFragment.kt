@@ -1,6 +1,5 @@
 package com.memtrip.eosreach.app.account.resources
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,14 +8,18 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.StringRes
+import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eos.core.utils.Pretty
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountResource
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountPagerFragment
 import com.memtrip.eosreach.app.account.AccountParentRefresh
+import com.memtrip.eosreach.app.account.resources.manage.ManageBandwidthActivity.Companion.manageBandwidthIntent
+import com.memtrip.eosreach.app.account.resources.manage.ManageRamActivity.Companion.manageRamIntent
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_resources_fragment.*
@@ -32,19 +35,29 @@ class ResourcesFragment
     @Inject
     lateinit var render: ResourcesViewRenderer
 
+    lateinit var eosAccount: EosAccount
+
     private val pretty = Pretty()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.account_resources_fragment, container, false)
+        val view = inflater.inflate(R.layout.account_resources_fragment, container, false)
+        eosAccount = fromBundle(arguments!!)
+        return view
     }
 
     override fun inject() {
         AndroidSupportInjection.inject(this)
     }
 
-    override fun intents(): Observable<ResourcesIntent> {
-        return Observable.just(ResourcesIntent.Init(fromBundle(arguments!!)))
-    }
+    override fun intents(): Observable<ResourcesIntent> = Observable.merge(
+        Observable.just(ResourcesIntent.Init(eosAccount)),
+        RxView.clicks(resources_manage_bandwidth_button).map {
+            ResourcesIntent.NavigateToManageBandwidth
+        },
+        RxView.clicks(resources_unstake_resources_button).map {
+            ResourcesIntent.NavigateToManageRam
+        }
+    )
 
     override fun layout(): ResourcesViewLayout = this
 
@@ -118,6 +131,49 @@ class ResourcesFragment
             ((remaining * 100) / resource.available.toFloat()).toLong()
         }
     }
+
+    override fun populateNetStake(staked: String) {
+        resources_net_staked_value.text = staked
+    }
+
+    override fun emptyNetStake() {
+        resources_net_staked_value.text = getString(R.string.app_empty_value)
+    }
+
+    override fun populateNetDelegated(delegated: String) {
+        resources_net_delegated_value.text = delegated
+    }
+
+    override fun emptyNetDelegated() {
+        resources_net_delegated_value.text = getString(R.string.app_empty_value)
+    }
+
+    override fun populateCpuStake(staked: String) {
+        resources_cpu_staked_value.text = staked
+    }
+
+    override fun emptyCpuStake() {
+        resources_cpu_staked_value.text = getString(R.string.app_empty_value)
+    }
+
+    override fun populateCpuDelegated(delegated: String) {
+        resources_cpu_delegated_value.text = delegated
+    }
+
+    override fun emptyCpuDelegated() {
+        resources_cpu_delegated_value.text = getString(R.string.app_empty_value)
+    }
+
+    override fun navigateToManageBandwidth() {
+        model().publish(ResourcesIntent.Idle)
+        startActivity(manageBandwidthIntent(eosAccount, context!!))
+    }
+
+    override fun navigateToManageRam() {
+        model().publish(ResourcesIntent.Idle)
+        startActivity(manageRamIntent(eosAccount, context!!))
+    }
+
 
     companion object {
 

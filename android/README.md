@@ -6,11 +6,11 @@
 - airdropped tokens?
 - stake resources
 
-- import key / create account should trigger an account list refresh
 - Remove the price from the button in create account if the product has been purchased but not used because of technical error
 - Populate the cast vote screen with the existing votes
-
-- add bottom padding to final items in the list
+- stop the lazy loading from triggering multiple network requests
+- split the account strings into seperate files
+- fix the initial lag on pressing the import private key button
 
 ### Clean up
 - Ensure all screens support screen rotation correctly 
@@ -20,14 +20,11 @@
 - write integration tests
 
 ### Backlog
+- import key / create account should trigger an account list refresh
 - Support all action types
-- Stake resources
 - Explore accounts without importing a private key
 - use https://github.com/ThreeTen/threetenbp for time throughout eos-jvm project
-- View action screen
-- Transaction receipts 
-    - Store transaction receipts in a database
-    - View a list of transaction receipts in settings
 - pull to refresh on block producer screen
 AccountBundle -> AccountContext
+- Add a loading indicator to the action lazy loading
 ContractAccountBalance -> AccountContractContext

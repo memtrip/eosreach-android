@@ -8,14 +8,15 @@ import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.Observable
+import com.memtrip.eosreach.R
 import io.reactivex.subjects.PublishSubject
 
 abstract class SimpleAdapter<T>(
     context: Context,
     val interaction: PublishSubject<Interaction<T>>,
     protected val inflater: LayoutInflater = LayoutInflater.from(context),
-    internal val data: MutableList<T> = ArrayList()
+    internal val data: MutableList<T> = ArrayList(),
+    private val bottomMargin: Int = context.resources.getDimensionPixelOffset(R.dimen.padding_large)
 ) : RecyclerView.Adapter<SimpleAdapterViewHolder<T>>() {
 
     fun populate(items: List<T>) {
@@ -41,6 +42,7 @@ abstract class SimpleAdapter<T>(
 
     override fun onBindViewHolder(viewHolder: SimpleAdapterViewHolder<T>, position: Int) {
         viewHolder.populate(position, data[position])
+        rowMargin(position, viewHolder.itemView)
     }
 
     override fun getItemCount(): Int {
@@ -52,6 +54,14 @@ abstract class SimpleAdapter<T>(
     }
 
     abstract fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<T>
+
+    private fun rowMargin(position: Int, view: View) {
+        if (position == data.size-1) {
+            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = bottomMargin
+        } else {
+            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
+        }
+    }
 
     fun atEnd(id: Int) {
         interaction.onNext(Interaction(id, data[data.size-1]))

@@ -33,7 +33,7 @@ class AccountActionsViewHolder(itemView: View) : SimpleAdapterViewHolder<Account
                 itemView.account_actions_list_item_interaction_account_name.text = value.transferInteractingAccountName
                 itemView.account_actions_list_item_icon.setImageDrawable(itemView.context.getDrawable(value.transferIncomingIcon))
                 itemView.account_actions_list_item_interaction_crypto_value.text = value.quantityString
-                itemView.account_actions_list_item_interaction_fiat_value.text = value.memo
+                itemView.account_actions_list_item_interaction_fiat_value.text = value.currencyPairValue
                 itemView.account_actions_list_item_date_created.text = value.formattedDate
             }
         }

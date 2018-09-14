@@ -81,7 +81,7 @@
     <string name="issue_import_key_error_invalid_private_key_format">Invalid private key format.</string>
     <string name="issue_import_key_error_no_accounts">
         We did not find any accounts associated with this private key, the Create Account option is the
-        easiest way to get started.
+        easiest way to get started. If this is unexpected, try changing the EOS endpoint in settings.
     </string>
     <string name="issue_import_key_private_key_already_imported">
         You have already imported this private key, sync your accounts to update the details for this key.

@@ -5,4 +5,7 @@ import com.memtrip.mxandroid.MxViewIntent
 
 sealed class ResourcesIntent : MxViewIntent {
     data class Init(val eosAccount: EosAccount) : ResourcesIntent()
+    object Idle : ResourcesIntent()
+    object NavigateToManageBandwidth : ResourcesIntent()
+    object NavigateToManageRam : ResourcesIntent()
 }

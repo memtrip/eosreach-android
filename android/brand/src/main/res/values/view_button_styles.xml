@@ -28,6 +28,16 @@
         <item name="android:paddingEnd">@dimen/viewButtonHorizontalPadding</item>
     </style>
 
+    <style name="ButtonTransparentCaption" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/view_button_transparent_background</item>
+        <item name="android:textColor">@color/viewButtonTransparentText</item>
+        <item name="android:textSize">@dimen/typography_caption_12</item>
+        <item name="android:minWidth">@dimen/viewButtonCaptionMinWidth</item>
+        <item name="android:minHeight">@dimen/viewButtonCaptionMinHeight</item>
+        <item name="android:paddingStart">@dimen/viewButtonCaptionHorizontalPadding</item>
+        <item name="android:paddingEnd">@dimen/viewButtonCaptionHorizontalPadding</item>
+    </style>
+
     <style name="ItemButtonTransparent" parent="ButtonTransparent">
         <item name="android:background">@drawable/view_button_transparent_background</item>
         <item name="android:textColor">@color/viewButtonTransparentText</item>

@@ -2,9 +2,11 @@ package com.memtrip.eosreach.api.account
 
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.account.request.AccountName
+import com.memtrip.eos.http.rpc.model.account.response.TotalResources
 import com.memtrip.eos.http.rpc.model.account.response.VoterInfo
 
 import com.memtrip.eosreach.api.Result
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
@@ -29,10 +31,12 @@ class EosAccountRequestImpl @Inject internal constructor(
                             BalanceFormatter.deserialize(account.core_liquid_balance!!),
                             EosAccountResource(
                                 account.net_limit.used,
-                                account.net_limit.available),
+                                account.net_limit.available,
+                                stakedNetBalance(account.total_resources)),
                             EosAccountResource(
                                 account.cpu_limit.used,
-                                account.cpu_limit.available),
+                                account.cpu_limit.available,
+                                stakedCpuBalance(account.total_resources)),
                             EosAccountResource(
                                 account.ram_usage,
                                 account.ram_quota),
@@ -44,6 +48,22 @@ class EosAccountRequestImpl @Inject internal constructor(
                         AccountError.FailedRetrievingAccount(it.code(), it.errorBody()))
                 }
         }.onErrorReturn { Result(AccountError.GenericError) }
+    }
+
+    private fun stakedNetBalance(resources: TotalResources?): Balance? {
+        return if (resources != null) {
+            return BalanceFormatter.deserialize(resources.net_weight)
+        } else {
+            null
+        }
+    }
+
+    private fun stakedCpuBalance(resources: TotalResources?): Balance? {
+        return if (resources != null) {
+            return BalanceFormatter.deserialize(resources.cpu_weight)
+        } else {
+            null
+        }
     }
 
     private fun eosCurrentVote(voterInfo: VoterInfo?): EosAccountVote? {

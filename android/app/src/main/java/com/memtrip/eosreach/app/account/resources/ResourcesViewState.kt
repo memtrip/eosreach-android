@@ -8,5 +8,7 @@ data class ResourcesViewState(val view: View) : MxViewState {
     sealed class View {
         object Idle : View()
         data class Populate(val eosAccount: EosAccount) : View()
+        object NavigateToManageBandwidth : View()
+        object NavigateToManageRam : View()
     }
 }

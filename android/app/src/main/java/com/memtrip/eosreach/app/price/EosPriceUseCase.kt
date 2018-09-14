@@ -31,8 +31,7 @@ class EosPriceUseCase @Inject constructor(
                         if (eosPriceLastUpdated.exists()) {
                             EosPrice(
                                 eosPriceValue.get().toDouble(),
-                                eosPriceCurrencyPair.get(),
-                                true)
+                                eosPriceCurrencyPair.get())
                         } else {
                             EosPrice.unavailable()
                         }

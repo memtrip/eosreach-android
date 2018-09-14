@@ -45,6 +45,12 @@
     <string name="resources_net_title">NET</string>
     <string name="resources_net_values">%1$s / %2$s</string>
 
+    <string name="resources_staked">Staked</string>
+    <string name="resources_delegated">Delegated</string>
+    <string name="resources_manage_title">Manage resources</string>
+    <string name="resources_manage_bandwidth_button">Bandwidth</string>
+    <string name="resources_manage_ram_button">Ram</string>
+
     <!-- actions -->
     <string name="account_actions_generic_error_title">Failed to fetch actions</string>
     <string name="account_actions_generic_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>

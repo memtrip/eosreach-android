@@ -35,11 +35,13 @@
 
         <activity android:name=".app.account.AccountActivity" />
         <activity android:name=".app.account.actions.ActionsActivity" />
+        <activity android:name=".app.account.actions.ViewTransferActionActivity" />
+        <activity android:name=".app.account.resources.manage.ManageBandwidthActivity" />
+        <activity android:name=".app.account.resources.manage.ManageRamActivity" />
         <activity android:name=".app.account.vote.cast.CastVoteActivity" />
 
         <activity android:name=".app.transfer.form.TransferFormActivity" />
         <activity android:name=".app.transfer.confirm.TransferConfirmActivity" />
-        <activity android:name=".app.account.actions.ViewTransferActionActivity" />
 
         <activity android:name=".app.transaction.log.TransactionLogActivity" />
         <activity android:name=".app.transaction.log.ViewConfirmedTransactionsActivity" />

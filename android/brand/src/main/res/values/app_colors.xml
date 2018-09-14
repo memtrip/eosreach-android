@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF7442</color>
     <color name="colorWindowBackground">#1b1b1b</color>
+    <color name="colorSpacerBorder">#303030</color>
 
     <color name="viewUtilDrawableMask">#FFFFFF</color>
 

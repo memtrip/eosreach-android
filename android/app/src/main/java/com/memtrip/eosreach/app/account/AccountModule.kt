@@ -8,6 +8,10 @@ import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.balance.BalanceFragmentModule
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragmentModule
+import com.memtrip.eosreach.app.account.resources.manage.ManageBandwidthActivity
+import com.memtrip.eosreach.app.account.resources.manage.ManageBandwidthActivityModule
+import com.memtrip.eosreach.app.account.resources.manage.ManageRamActivity
+import com.memtrip.eosreach.app.account.resources.manage.ManageRamActivityModule
 import com.memtrip.eosreach.app.account.vote.VoteFragment
 import com.memtrip.eosreach.app.account.vote.VoteFragmentModule
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
@@ -30,6 +34,12 @@ abstract class AccountModule {
 
     @ContributesAndroidInjector(modules = [ResourcesFragmentModule::class])
     internal abstract fun contributeResourcesFragment(): ResourcesFragment
+
+    @ContributesAndroidInjector(modules = [ManageBandwidthActivityModule::class])
+    internal abstract fun contributeManageBandwidthActivity(): ManageBandwidthActivity
+
+    @ContributesAndroidInjector(modules = [ManageRamActivityModule::class])
+    internal abstract fun contributeManageRamActivity(): ManageRamActivity
 
     @ContributesAndroidInjector(modules = [VoteFragmentModule::class])
     internal abstract fun contributeVoteFragment(): VoteFragment
