@@ -8,6 +8,8 @@ import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.balance.BalanceFragmentModule
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragmentModule
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthConfirmActivity
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthConfirmActivityModule
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivity
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivityModule
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.DelegateBandwidthFormFragment
@@ -51,6 +53,9 @@ abstract class AccountModule {
 
     @ContributesAndroidInjector(modules = [UnDelegateBandwidthFormFragmentModule::class])
     internal abstract fun contributeUnDelegateBandwidthFormFragment(): UnDelegateBandwidthFormFragment
+
+    @ContributesAndroidInjector(modules = [BandwidthConfirmActivityModule::class])
+    internal abstract fun contributeBandwidthConfirmActivity(): BandwidthConfirmActivity
 
     @ContributesAndroidInjector(modules = [ManageRamActivityModule::class])
     internal abstract fun contributeManageRamActivity(): ManageRamActivity

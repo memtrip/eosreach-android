@@ -1,6 +1,5 @@
 package com.memtrip.eosreach.app.account.resources.manage.bandwidth
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +8,10 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
-import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
-import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
-import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptRoute
-import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthConfirmActivity.Companion.confirmBandwidthIntent
 import com.memtrip.eosreach.uikit.inputfilter.CurrencyFormatInputFilter
-import com.memtrip.eosreach.uikit.invisible
-import com.memtrip.eosreach.uikit.visible
 
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
@@ -60,11 +53,11 @@ abstract class BandwidthFormFragment
             RxView.clicks(manage_bandwidth_form_cta_button),
             RxTextView.editorActions(manage_bandwidth_cpu_amount_form_input)
         ).map {
-            BandwidthFormIntent.Commit(
+            BandwidthFormIntent.Confirm(
+                bandwidthCommitType,
                 manage_bandwidth_net_amount_form_input.editableText.toString(),
                 manage_bandwidth_cpu_amount_form_input.editableText.toString(),
-                bandwidthCommitType
-            )
+                eosAccount.accountName)
         }
     )
 
@@ -74,32 +67,8 @@ abstract class BandwidthFormFragment
 
     override fun render(): BandwidthFormViewRenderer = render
 
-    override fun showProgress() {
-        manage_bandwidth_form_progress.visible()
-        manage_bandwidth_form_cta_button.invisible()
-    }
-
-    override fun showError(message: String, log: String) {
-        manage_bandwidth_form_progress.gone()
-        manage_bandwidth_form_cta_button.visible()
-
-        AlertDialog.Builder(context!!)
-            .setMessage(message)
-            .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
-                model().publish(BandwidthFormIntent.Idle)
-                startActivity(transactionLogIntent(log, context!!))
-            }
-            .setNegativeButton(R.string.transaction_view_log_negative_button, null)
-            .create()
-            .show()
-    }
-
-    override fun showSuccess(transactionId: String) {
-        startActivity(transactionReceiptIntent(
-            ActionReceipt(transactionId, eosAccount.accountName),
-            TransactionReceiptRoute.ACCOUNT,
-            context!!))
-        activity!!.finish()
+    override fun navigateToConfirm(bandwidthBundle: BandwidthBundle) {
+        startActivity(confirmBandwidthIntent(bandwidthBundle, context!!))
     }
 
     companion object {

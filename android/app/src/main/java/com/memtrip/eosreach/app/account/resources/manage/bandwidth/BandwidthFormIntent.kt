@@ -5,7 +5,7 @@ import com.memtrip.mxandroid.MxViewIntent
 sealed class BandwidthFormIntent : MxViewIntent {
     object Init : BandwidthFormIntent()
     object Idle : BandwidthFormIntent()
-    data class Commit(
+    data class Confirm(
         val bandwidthCommitType: BandwidthCommitType,
         val netAmount: String,
         val cpuAmount: String,

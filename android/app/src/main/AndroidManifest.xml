@@ -38,6 +38,7 @@
         <activity android:name=".app.account.actions.ViewTransferActionActivity" />
         <activity android:name=".app.account.resources.manage.bandwidth.ManageBandwidthActivity" />
         <activity android:name=".app.account.resources.manage.manageram.ManageRamActivity" />
+        <activity android:name=".app.account.resources.manage.bandwidth.BandwidthConfirmActivity" />
         <activity android:name=".app.account.vote.cast.CastVoteActivity" />
 
         <activity android:name=".app.transfer.form.TransferFormActivity" />

@@ -75,6 +75,7 @@
             android:layout_marginTop="@dimen/padding_medium"
             android:layout_marginLeft="@dimen/padding_medium"
             android:text="@string/resources_manage_ram_button"
+            android:enabled="false"
             app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_manage_title"/>

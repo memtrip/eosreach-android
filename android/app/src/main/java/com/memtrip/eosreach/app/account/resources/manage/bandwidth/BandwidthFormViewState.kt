@@ -6,8 +6,6 @@ data class BandwidthFormViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
-        object OnProgress : View()
-        data class OnError(val message: String, val log: String) : View()
-        data class OnSuccess(val transactionId: String) : View()
+        data class NavigateToConfirm(val bandwidthBundle: BandwidthBundle) : View()
     }
 }

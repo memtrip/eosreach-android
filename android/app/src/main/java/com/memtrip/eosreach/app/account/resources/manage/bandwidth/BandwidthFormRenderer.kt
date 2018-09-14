@@ -7,29 +7,19 @@ import javax.inject.Inject
 
 sealed class BandwidthFormRenderAction : MxRenderAction {
     object Idle : BandwidthFormRenderAction()
-    object OnProgress : BandwidthFormRenderAction()
-    data class OnError(val message: String, val log: String) : BandwidthFormRenderAction()
-    data class OnSuccess(val transactionId: String) : BandwidthFormRenderAction()
+    data class NavigateToConfirm(val bandwidthBundle: BandwidthBundle) : BandwidthFormRenderAction()
 }
 
 interface BandwidthFormViewLayout : MxViewLayout {
-    fun showProgress()
-    fun showError(message: String, log: String)
-    fun showSuccess(transactionId: String)
+    fun navigateToConfirm(bandwidthBundle: BandwidthBundle)
 }
 
 class BandwidthFormViewRenderer @Inject internal constructor() : MxViewRenderer<BandwidthFormViewLayout, BandwidthFormViewState> {
     override fun layout(layout: BandwidthFormViewLayout, state: BandwidthFormViewState): Unit = when (state.view) {
         BandwidthFormViewState.View.Idle -> {
         }
-        BandwidthFormViewState.View.OnProgress -> {
-            layout.showProgress()
-        }
-        is BandwidthFormViewState.View.OnError -> {
-            layout.showError(state.view.message, state.view.log)
-        }
-        is BandwidthFormViewState.View.OnSuccess -> {
-            layout.showSuccess(state.view.transactionId)
+        is BandwidthFormViewState.View.NavigateToConfirm -> {
+            layout.navigateToConfirm(state.view.bandwidthBundle)
         }
     }
 }
