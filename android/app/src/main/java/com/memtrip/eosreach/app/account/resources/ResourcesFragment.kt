@@ -16,8 +16,10 @@ import com.memtrip.eosreach.api.account.EosAccountResource
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivity.Companion.manageBandwidthIntent
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthManageActivity.Companion.manageBandwidthIntent
 import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamActivity.Companion.manageRamIntent
+import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_resources_fragment.*
@@ -33,12 +35,12 @@ class ResourcesFragment
     lateinit var render: ResourcesViewRenderer
 
     lateinit var eosAccount: EosAccount
-
-    private val pretty = Pretty()
+    lateinit var contractAccountBalance: ContractAccountBalance
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_resources_fragment, container, false)
         eosAccount = eosAccountExtra(arguments!!)
+        contractAccountBalance = contractAccountBalanceExtra(arguments!!)
         return view
     }
 
@@ -47,7 +49,7 @@ class ResourcesFragment
     }
 
     override fun intents(): Observable<ResourcesIntent> = Observable.merge(
-        Observable.just(ResourcesIntent.Init(eosAccount)),
+        Observable.just(ResourcesIntent.Init(eosAccount, contractAccountBalance)),
         RxView.clicks(resources_manage_bandwidth_button).map {
             ResourcesIntent.NavigateToManageBandwidth
         },
@@ -62,6 +64,14 @@ class ResourcesFragment
 
     override fun render(): ResourcesViewRenderer = render
 
+    override fun showManageResourcesNavigation() {
+        resources_manage_navigation_group.visible()
+    }
+
+    override fun hideManageResourcesNavigation() {
+        resources_manage_navigation_group.gone()
+    }
+
     override fun populate(eosAccount: EosAccount) {
 
         render(
@@ -70,7 +80,7 @@ class ResourcesFragment
             R.string.resources_ram_values,
             eosAccount.ramResource
         ) {
-            pretty.ram(it)
+            Pretty.ram(it)
         }
 
         render(
@@ -79,7 +89,7 @@ class ResourcesFragment
             R.string.resources_cpu_values,
             eosAccount.cpuResource
         ) {
-            pretty.cpu(it)
+            Pretty.cpu(it)
         }
 
         render(
@@ -88,7 +98,7 @@ class ResourcesFragment
             R.string.resources_net_values,
             eosAccount.netResource
         ) {
-            pretty.net(it)
+            Pretty.net(it)
         }
     }
 
@@ -97,7 +107,7 @@ class ResourcesFragment
         valuesTextView: TextView,
         @StringRes formattingStringRes: Int,
         resource: EosAccountResource,
-        pretty: (value: Float) -> String
+        pretty: (value: Long) -> String
     ) {
         progressBar.progress = resourcePercentage(resource).toInt()
 
@@ -111,11 +121,11 @@ class ResourcesFragment
         valuesTextView.text = getString(
             formattingStringRes,
             pretty(resourceRemaining(resource)),
-            pretty(resource.available.toFloat()))
+            pretty(resource.available))
     }
 
-    private fun resourceRemaining(resource: EosAccountResource): Float {
-        return (resource.available - resource.used).toFloat()
+    private fun resourceRemaining(resource: EosAccountResource): Long {
+        return (resource.available - resource.used)
     }
 
     private fun resourcePercentage(resource: EosAccountResource): Long {
@@ -165,6 +175,7 @@ class ResourcesFragment
         model().publish(ResourcesIntent.Idle)
         startActivity(manageBandwidthIntent(
             eosAccount,
+            contractAccountBalance,
             context!!))
     }
 
@@ -173,14 +184,18 @@ class ResourcesFragment
         startActivity(manageRamIntent(eosAccount, context!!))
     }
 
-
     companion object {
 
         private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT"
+        private const val CONTRACT_ACCOUNT_BALANCE = "CONTRACT_ACCOUNT_BALANCE"
 
-        fun newInstance(eosAccount: EosAccount): ResourcesFragment = with (ResourcesFragment()) {
+        fun newInstance(
+            eosAccount: EosAccount,
+            contractBalanceAccount: ContractAccountBalance
+        ): ResourcesFragment = with (ResourcesFragment()) {
             arguments = with (Bundle()) {
                 putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
+                putParcelable(CONTRACT_ACCOUNT_BALANCE, contractBalanceAccount)
                 this
             }
             this
@@ -188,5 +203,8 @@ class ResourcesFragment
 
         private fun eosAccountExtra(bundle: Bundle): EosAccount =
             bundle.getParcelable(EOS_ACCOUNT_EXTRA)
+
+        private fun contractAccountBalanceExtra(bundle: Bundle): ContractAccountBalance =
+            bundle.getParcelable(CONTRACT_ACCOUNT_BALANCE)
     }
 }

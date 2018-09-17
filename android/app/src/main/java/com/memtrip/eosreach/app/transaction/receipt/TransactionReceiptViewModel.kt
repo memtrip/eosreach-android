@@ -13,14 +13,20 @@ class TransactionReceiptViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: TransactionReceiptIntent): Observable<TransferReceiptRenderAction> = when (intent) {
+        TransactionReceiptIntent.Idle -> Observable.just(TransferReceiptRenderAction.Idle)
         is TransactionReceiptIntent.Init -> Observable.just(TransferReceiptRenderAction.Populate(intent.actionReceipt))
+        is TransactionReceiptIntent.NavigateToBlockExplorer -> Observable.just(TransferReceiptRenderAction.NavigateToBlockExplorer(intent.transactionId))
         TransactionReceiptIntent.NavigateToActions -> Observable.just(TransferReceiptRenderAction.NavigateToActions)
         TransactionReceiptIntent.NavigateToAccount -> Observable.just(TransferReceiptRenderAction.NavigateToAccount)
     }
 
     override fun reducer(previousState: TransactionReceiptViewState, renderAction: TransferReceiptRenderAction): TransactionReceiptViewState = when (renderAction) {
+        TransferReceiptRenderAction.Idle -> previousState.copy(
+            view = TransactionReceiptViewState.View.Idle)
         is TransferReceiptRenderAction.Populate -> previousState.copy(
             view = TransactionReceiptViewState.View.Populate(renderAction.actionReceipt))
+        is TransferReceiptRenderAction.NavigateToBlockExplorer -> previousState.copy(
+            view = TransactionReceiptViewState.View.NavigateToBlockExplorer(renderAction.transactionId))
         TransferReceiptRenderAction.NavigateToActions -> previousState.copy(
             view = TransactionReceiptViewState.View.NavigateToActions)
         TransferReceiptRenderAction.NavigateToAccount -> previousState.copy(

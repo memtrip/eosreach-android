@@ -5,7 +5,7 @@ import com.memtrip.mxandroid.MxViewState
 
 data class CastVoteViewState(
     val view: View,
-    val page: CastVotePagerFragment.Page = CastVotePagerFragment.Page.PRODUCER
+    val page: CastVoteFragmentPagerFragment.Page = CastVoteFragmentPagerFragment.Page.PRODUCER
 ) : MxViewState {
 
     sealed class View {

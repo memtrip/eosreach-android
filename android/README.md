@@ -4,7 +4,6 @@
     - Integrate with create account api with the app
     - Integrate the create account api with Google play store items
 - airdropped tokens?
-- stake resources
 
 - Remove the price from the button in create account if the product has been purchased but not used because of technical error
 - Populate the cast vote screen with the existing votes
@@ -12,6 +11,7 @@
 - split the account strings into seperate files
 - fix the initial lag on pressing the import private key button
 - Implement collapsing header for AccountActivity
+- update balances after staking resources
 
 ### Clean up
 - Ensure all screens support screen rotation correctly 
@@ -21,6 +21,7 @@
 - write integration tests
 
 ### Backlog
+- implement buy / sell ram
 - import key / create account should trigger an account list refresh
 - Support all action types
 - Explore accounts without importing a private key
@@ -28,4 +29,4 @@
 - pull to refresh on block producer screen
 AccountBundle -> AccountContext
 - Add a loading indicator to the action lazy loading
-ContractAccountBalance -> AccountContractContext
+ContractAccountBalance -> AccountContractConteCxt

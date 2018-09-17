@@ -13,12 +13,11 @@ import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountVote
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.AccountPagerFragment
+import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
 import com.memtrip.eosreach.app.account.AccountParentRefresh
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity.Companion.castVoteIntent
-import com.memtrip.eosreach.app.account.vote.cast.proxy.CastProxyVoteIntent
-import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteFragmentPagerFragment
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -27,12 +26,13 @@ import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.vote_fragment.*
-import kotlinx.android.synthetic.main.vote_fragment.view.*
+import kotlinx.android.synthetic.main.account_vote_fragment.*
+import kotlinx.android.synthetic.main.account_vote_fragment.view.*
 import javax.inject.Inject
 
 class VoteFragment
     : MviFragment<VoteIntent, VoteRenderAction, VoteViewState, VoteViewLayout>(), VoteViewLayout {
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -49,9 +49,9 @@ class VoteFragment
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.vote_fragment, container, false)
+        val view = inflater.inflate(R.layout.account_vote_fragment, container, false)
 
-        eosAccount = fromBundle(arguments!!)
+        eosAccount = eosAccountBundle(arguments!!)
 
         val adapterInteraction: PublishSubject<Interaction<String>> = PublishSubject.create()
         adapter = VoteProducerAdapter(context!!, adapterInteraction)
@@ -64,7 +64,7 @@ class VoteFragment
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CastVoteActivity.CAST_VOTE_REQUEST_CODE &&
             resultCode == CastVoteActivity.CAST_VOTE_RESULT_CODE) {
-            accountParentRefresh.triggerRefresh(AccountPagerFragment.Page.VOTE)
+            accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.VOTE)
         }
     }
 
@@ -73,8 +73,9 @@ class VoteFragment
     }
 
     override fun intents(): Observable<VoteIntent> = Observable.merge(
-        Observable.just(VoteIntent.Init(fromBundle(arguments!!).eosAcconuntVote)),
-        RxView.clicks(vote_cast_button).map { VoteIntent.NavigateToCastVote },
+        Observable.just(VoteIntent.Init(eosAccountBundle(arguments!!).eosAcconuntVote)),
+        RxView.clicks(vote_cast_vote_producer_button).map { VoteIntent.NavigateToCastProducerVote },
+        RxView.clicks(vote_cast_vote_proxy_button).map { VoteIntent.NavigateToCastProxyVote },
         RxView.clicks(vote_no_vote_castvote_button).map { VoteIntent.VoteForUs(eosAccount) }
     )
 
@@ -102,9 +103,22 @@ class VoteFragment
         vote_no_vote_group.visible()
     }
 
-    override fun navigateToCastVote() {
+    override fun navigateToCastProducerVote() {
         model().publish(VoteIntent.Idle)
-        startActivityForResult(castVoteIntent(eosAccount, context!!), CastVoteActivity.CAST_VOTE_REQUEST_CODE)
+        startActivityForResult(castVoteIntent(
+            eosAccount,
+            CastVoteFragmentPagerFragment.Page.PRODUCER,
+            context!!
+        ), CastVoteActivity.CAST_VOTE_REQUEST_CODE)
+    }
+
+    override fun navigateToCastProxyVote() {
+        model().publish(VoteIntent.Idle)
+        startActivityForResult(castVoteIntent(
+            eosAccount,
+            CastVoteFragmentPagerFragment.Page.PROXY,
+            context!!
+        ), CastVoteActivity.CAST_VOTE_REQUEST_CODE)
     }
 
     override fun showVoteForUsProgress() {
@@ -113,7 +127,7 @@ class VoteFragment
     }
 
     override fun voteForUsSuccess() {
-        accountParentRefresh.triggerRefresh(AccountPagerFragment.Page.VOTE)
+        accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.VOTE)
     }
 
     override fun voteForUsError(message: String, log: String) {
@@ -133,16 +147,18 @@ class VoteFragment
 
     companion object {
 
+        private const val EOS_ACCOUNT = "EOS_ACCOUNT"
+
         fun newInstance(eosAccount: EosAccount): VoteFragment = with (VoteFragment()) {
             arguments = toBundle(eosAccount)
             this
         }
 
         private fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
-            putParcelable("eosAccount", eosAccount)
+            putParcelable(EOS_ACCOUNT, eosAccount)
             this
         }
 
-        private fun fromBundle(bundle: Bundle): EosAccount = bundle.getParcelable("eosAccount")
+        private fun eosAccountBundle(bundle: Bundle): EosAccount = bundle.getParcelable(EOS_ACCOUNT)
     }
 }

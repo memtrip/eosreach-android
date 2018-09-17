@@ -8,7 +8,7 @@ import com.memtrip.eosreach.app.account.resources.manage.manageram.RamFormFragme
 
 class BuyRamFormFragment : RamFormFragment() {
 
-    override fun buttonLabel(): String = context!!.getString(R.string.manage_ram_form_buy_button)
+    override fun buttonLabel(): String = context!!.getString(R.string.resources_manage_ram_form_buy_button)
     override val ramCommitType: RamCommitType = RamCommitType.BUY
 
     companion object {

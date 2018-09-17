@@ -7,15 +7,18 @@ import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class TransferReceiptRenderAction : MxRenderAction {
+    object Idle : TransferReceiptRenderAction()
     data class Populate(val actionReceipt: ActionReceipt) : TransferReceiptRenderAction()
     object NavigateToActions : TransferReceiptRenderAction()
     object NavigateToAccount : TransferReceiptRenderAction()
+    data class NavigateToBlockExplorer(val transactionId: String) : TransferReceiptRenderAction()
 }
 
 interface TransferReceiptViewLayout : MxViewLayout {
     fun populate(actionReceipt: ActionReceipt)
     fun navigateToActions()
     fun navigateToAccount()
+    fun navigateToBlockExplorer(transactionId: String)
 }
 
 class TransferReceiptViewRenderer @Inject internal constructor() : MxViewRenderer<TransferReceiptViewLayout, TransactionReceiptViewState> {
@@ -24,6 +27,9 @@ class TransferReceiptViewRenderer @Inject internal constructor() : MxViewRendere
         }
         is TransactionReceiptViewState.View.Populate -> {
             layout.populate(state.view.actionReceipt)
+        }
+        is TransactionReceiptViewState.View.NavigateToBlockExplorer -> {
+            layout.navigateToBlockExplorer(state.view.transactionId)
         }
         TransactionReceiptViewState.View.NavigateToActions -> {
             layout.navigateToActions()

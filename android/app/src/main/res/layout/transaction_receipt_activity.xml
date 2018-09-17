@@ -60,7 +60,18 @@
         style="@style/ButtonPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_medium"
         android:text="@string/transaction_receipt_done_button"
+        app:layout_constraintBottom_toTopOf="@id/transaction_receipt_view_block_explorer_button"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/transaction_receipt_view_block_explorer_button"
+        style="@style/ButtonTransparent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/transaction_receipt_view_block_explorer"
         app:layout_constraintBottom_toBottomOf="@id/horizontal_end_guideline"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline" />

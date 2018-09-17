@@ -5,12 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
-
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.actions.model.AccountAction
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_actions_view_transfer.*

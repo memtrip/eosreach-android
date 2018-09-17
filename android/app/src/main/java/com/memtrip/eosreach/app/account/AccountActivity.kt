@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.core.content.ContextCompat
-import com.jakewharton.rxbinding2.support.v4.view.RxViewPager
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.accountlist.AccountListActivity.Companion.accountListIntent
@@ -34,7 +32,8 @@ class AccountActivity
     @Inject
     lateinit var render: AccountViewRenderer
 
-    lateinit var accountBundle: AccountBundle
+    private lateinit var accountBundle: AccountBundle
+    private lateinit var page: AccountFragmentPagerAdapter.Page
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,8 @@ class AccountActivity
         account_toolbar.title = ""
         setSupportActionBar(account_toolbar)
         accountBundle = accountExtra(intent)
+        page = pageExtra(intent)
+        account_viewpager.currentItem = page.ordinal
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -71,17 +72,9 @@ class AccountActivity
     }
 
     override fun intents(): Observable<AccountIntent> = Observable.mergeArray(
-        Observable.just(AccountIntent.Init(accountBundle)),
+        Observable.just(AccountIntent.Init(accountBundle, page)),
         account_error_view.retryClick().map { AccountIntent.Retry(accountBundle) },
-        RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList },
-        RxViewPager.pageSelections(account_viewpager).map { position ->
-            when (position) {
-                AccountPagerFragment.Page.BALANCE.ordinal -> AccountIntent.BalanceTabIdle
-                AccountPagerFragment.Page.RESOURCES.ordinal -> AccountIntent.ResourceTabIdle
-                AccountPagerFragment.Page.VOTE.ordinal -> AccountIntent.VoteTabIdle
-                else -> AccountIntent.BalanceTabIdle
-            }
-        }
+        RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList }
     )
 
     override fun layout(): AccountViewLayout = this
@@ -99,14 +92,15 @@ class AccountActivity
         account_toolbar_account_name.text = accountName
     }
 
-    override fun populate(accountView: AccountView, page: AccountPagerFragment.Page) {
-        model().publish(AccountIntent.BalanceTabIdle)
+    override fun populate(accountView: AccountView, page: AccountFragmentPagerAdapter.Page) {
+
+        publishIdleTab(page)
 
         account_toolbar_account_name.text = accountView.eosAccount!!.accountName
         account_swipelayout.stop()
         account_header_group.visible()
 
-        val accountPagerFragment = AccountPagerFragment(
+        val accountPagerFragment = AccountFragmentPagerAdapter(
             supportFragmentManager,
             this,
             accountView)
@@ -114,6 +108,24 @@ class AccountActivity
         account_viewpager.offscreenPageLimit = 3
         account_viewpager.currentItem = page.ordinal
         account_viewpager.visible()
+        account_viewpager.addOnPageChangeListener(object : ViewPagerOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    AccountFragmentPagerAdapter.Page.BALANCE.ordinal -> {
+                        model().publish(AccountIntent.BalanceTabIdle)
+                    }
+                    AccountFragmentPagerAdapter.Page.RESOURCES.ordinal -> {
+                        model().publish(AccountIntent.ResourceTabIdle)
+                    }
+                    AccountFragmentPagerAdapter.Page.VOTE.ordinal -> {
+                        model().publish(AccountIntent.VoteTabIdle)
+                    }
+                    else -> {
+                        model().publish(AccountIntent.BalanceTabIdle)
+                    }
+                }
+            }
+        })
 
         account_tablayout.setupWithViewPager(account_viewpager)
 
@@ -170,23 +182,43 @@ class AccountActivity
         startActivity(settingsIntent(this))
     }
 
-    override fun triggerRefresh(page: AccountPagerFragment.Page) {
+    override fun triggerRefresh(page: AccountFragmentPagerAdapter.Page) {
         model().publish(AccountIntent.Refresh(accountBundle))
+    }
+
+    private fun publishIdleTab(page: AccountFragmentPagerAdapter.Page): Unit = when(page) {
+        AccountFragmentPagerAdapter.Page.BALANCE -> {
+            model().publish(AccountIntent.BalanceTabIdle)
+        }
+        AccountFragmentPagerAdapter.Page.RESOURCES -> {
+            model().publish(AccountIntent.ResourceTabIdle)
+        }
+        AccountFragmentPagerAdapter.Page.VOTE -> {
+            model().publish(AccountIntent.VoteTabIdle)
+        }
     }
 
     companion object {
 
         private const val ACCOUNT_EXTRA = "ACCOUNT_EXTRA"
+        private const val PAGE_SELECTION = "PAGE_SELECTION"
 
-        fun accountIntent(accountBundle: AccountBundle, context: Context): Intent {
+        fun accountIntent(
+            accountBundle: AccountBundle,
+            context: Context,
+            page: AccountFragmentPagerAdapter.Page = AccountFragmentPagerAdapter.Page.BALANCE
+        ): Intent {
             return with (Intent(context, AccountActivity::class.java)) {
                 putExtra(ACCOUNT_EXTRA, accountBundle)
+                putExtra(PAGE_SELECTION, page)
                 this
             }
         }
 
-        fun accountExtra(intent: Intent): AccountBundle {
-            return intent.getParcelableExtra(ACCOUNT_EXTRA) as AccountBundle
-        }
+        fun accountExtra(intent: Intent): AccountBundle =
+            intent.getParcelableExtra(ACCOUNT_EXTRA) as AccountBundle
+
+        fun pageExtra(intent: Intent): AccountFragmentPagerAdapter.Page =
+            intent.getSerializableExtra(PAGE_SELECTION) as AccountFragmentPagerAdapter.Page
     }
 }

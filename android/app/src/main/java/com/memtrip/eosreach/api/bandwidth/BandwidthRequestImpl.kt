@@ -10,8 +10,9 @@ import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.eosreach.utils.transactionDefaultExpiry
 import io.reactivex.Single
+import javax.inject.Inject
 
-class BandwidthRequestImpl(
+class BandwidthRequestImpl @Inject internal constructor(
     private val delegateBandwidthChain: DelegateBandwidthChain,
     private val unDelegateBandwidthChain: UnDelegateBandwidthChain,
     private val rxSchedulers: RxSchedulers

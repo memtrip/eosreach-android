@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="vote_cast_vote_title">Cast vote</string>
+    <string name="vote_cast_vote_producer_button">Producer</string>
+    <string name="vote_cast_vote_proxy_button">Proxy</string>
+
+    <string name="vote_proxy_title">Your proxy voter is</string>
+
+    <string name="vote_no_vote_body">It looks like you haven\'t voted for a block producer yet. Please vote for us, and help us build the future of EOS on mobile.</string>
+    <string name="vote_no_vote_cast_vote_button">Give us your vote</string>
+    <string name="vote_producer_vote_title">You are voting for</string>
+    <string name="vote_no_vote_for_us_error">
+        An error occurred while processing your vote, see the log for more information.
+    </string>
+
+    <!-- cast vote -->
+    <string name="vote_cast_title">Cast vote</string>
+    <string name="vote_cast_page_block_producers_tab">Block producers</string>
+    <string name="vote_cast_page_proxy_tab">Proxy</string>
+
+    <string name="vote_cast_block_producer_name_hint">Enter block producer name</string>
+    <string name="vote_cast_producers_vote_instructions">
+        Vote for up to 30 Block Producer Candidates.
+    </string>
+    <string name="vote_cast_producers_vote_add_button">Add</string>
+    <string name="vote_cast_producers_vote_remove_button">Remove</string>
+    <string name="vote_cast_vote_pick_from_blockproducer">Choose block producer</string>
+    <string name="vote_cast_vote_button">Vote</string>
+    <string name="vote_cast_vote_error_message">
+        An error occurred while processing your vote transaction, see the log for more information.
+    </string>
+
+    <string name="vote_cast_proxy_vote_name_label">
+        The account that will vote on your behalf.
+    </string>
+    <string name="vote_cast_proxy_vote_name_hint">Proxy vote account name</string>
+    <string name="vote_cast_proxy_vote_error">
+        An error occurred while processing your vote, see the log for more information.
+    </string>
+
+</resources>

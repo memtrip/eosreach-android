@@ -8,6 +8,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthConfirmActivity.Companion.confirmBandwidthIntent
@@ -29,6 +30,7 @@ abstract class BandwidthFormFragment
     lateinit var render: BandwidthFormViewRenderer
 
     private lateinit var eosAccount: EosAccount
+    private lateinit var contractAccountBalance: ContractAccountBalance
 
     abstract fun buttonLabel(): String
 
@@ -37,6 +39,7 @@ abstract class BandwidthFormFragment
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.manage_bandwidth_form_fragment, container, false)
         eosAccount = eosAccountExtra(arguments!!)
+        contractAccountBalance = contractAccountBalanceExtra(arguments!!)
         view.manage_bandwidth_net_amount_form_input.filters = arrayOf(CurrencyFormatInputFilter())
         view.manage_bandwidth_cpu_amount_form_input.filters = arrayOf(CurrencyFormatInputFilter())
         view.manage_bandwidth_form_cta_button.text = buttonLabel()
@@ -48,7 +51,7 @@ abstract class BandwidthFormFragment
     }
 
     override fun intents(): Observable<BandwidthFormIntent> = Observable.merge(
-        Observable.just(BandwidthFormIntent.Init),
+        Observable.just(BandwidthFormIntent.Init(contractAccountBalance)),
         Observable.merge(
             RxView.clicks(manage_bandwidth_form_cta_button),
             RxTextView.editorActions(manage_bandwidth_cpu_amount_form_input)
@@ -57,7 +60,8 @@ abstract class BandwidthFormFragment
                 bandwidthCommitType,
                 manage_bandwidth_net_amount_form_input.editableText.toString(),
                 manage_bandwidth_cpu_amount_form_input.editableText.toString(),
-                eosAccount.accountName)
+                eosAccount.accountName,
+                contractAccountBalance)
         }
     )
 
@@ -67,20 +71,34 @@ abstract class BandwidthFormFragment
 
     override fun render(): BandwidthFormViewRenderer = render
 
+    override fun populate(formattedBalance: String) {
+        manage_bandwidth_cpu_amount_form_label.text = getString(R.string.resources_manage_bandwidth_delegate_form_cpu_amount_label, formattedBalance)
+        manage_bandwidth_net_amount_form_label.text = getString(R.string.resources_manage_bandwidth_delegate_form_net_amount_label, formattedBalance)
+    }
+
     override fun navigateToConfirm(bandwidthBundle: BandwidthBundle) {
-        startActivity(confirmBandwidthIntent(bandwidthBundle, context!!))
+        model().publish(BandwidthFormIntent.Idle)
+        startActivity(confirmBandwidthIntent(bandwidthBundle, contractAccountBalance, context!!))
     }
 
     companion object {
 
-        private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
+        private const val EOS_ACCOUNT = "EOS_ACCOUNT"
+        private const val CONTRACT_ACCOUNT_BALANCE = "CONTRACT_ACCOUNT_BALANCE"
 
-        fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
-            putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
+        fun toBundle(
+            eosAccount: EosAccount,
+            contractAccountBalance: ContractAccountBalance
+        ): Bundle = with (Bundle()) {
+            putParcelable(EOS_ACCOUNT, eosAccount)
+            putParcelable(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
             this
         }
 
         private fun eosAccountExtra(bundle: Bundle): EosAccount =
-            bundle.getParcelable(EOS_ACCOUNT_EXTRA)
+            bundle.getParcelable(EOS_ACCOUNT)
+
+        private fun contractAccountBalanceExtra(bundle: Bundle): ContractAccountBalance =
+            bundle.getParcelable(CONTRACT_ACCOUNT_BALANCE)
     }
 }

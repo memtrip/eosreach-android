@@ -1,7 +1,6 @@
 package com.memtrip.eosreach.app.account
 
 import android.app.Application
-import com.memtrip.eosreach.R
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -16,8 +15,15 @@ class AccountViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: AccountIntent): Observable<AccountRenderAction> = when (intent) {
         is AccountIntent.Init -> getAccount(intent.accountBundle.accountName)
+            .startWith(AccountRenderAction.OnProgressWithStartingTab(
+                intent.accountBundle.accountName,
+                intent.page))
         is AccountIntent.Retry -> getAccount(intent.accountBundle.accountName)
+            .startWith(AccountRenderAction.OnProgress(
+                intent.accountBundle.accountName))
         is AccountIntent.Refresh -> getAccount(intent.accountBundle.accountName)
+            .startWith(AccountRenderAction.OnProgress(
+                intent.accountBundle.accountName))
         AccountIntent.BalanceTabIdle -> Observable.just(AccountRenderAction.BalanceTabIdle)
         AccountIntent.ResourceTabIdle -> Observable.just(AccountRenderAction.ResourceTabIdle)
         AccountIntent.VoteTabIdle -> Observable.just(AccountRenderAction.VoteTabIdle)
@@ -30,16 +36,20 @@ class AccountViewModel @Inject internal constructor(
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
         AccountRenderAction.BalanceTabIdle -> previousState.copy(
             view = AccountViewState.View.Idle,
-            page =  AccountPagerFragment.Page.BALANCE)
+            page =  AccountFragmentPagerAdapter.Page.BALANCE)
         AccountRenderAction.ResourceTabIdle -> previousState.copy(
             view = AccountViewState.View.Idle,
-            page =  AccountPagerFragment.Page.RESOURCES)
+            page =  AccountFragmentPagerAdapter.Page.RESOURCES)
         AccountRenderAction.VoteTabIdle -> previousState.copy(
             view = AccountViewState.View.Idle,
-            page =  AccountPagerFragment.Page.VOTE)
+            page =  AccountFragmentPagerAdapter.Page.VOTE)
         is AccountRenderAction.OnProgress -> previousState.copy(
             accountName = renderAction.accountName,
             view = AccountViewState.View.OnProgress)
+        is AccountRenderAction.OnProgressWithStartingTab -> previousState.copy(
+            view = AccountViewState.View.OnProgress,
+            accountName = renderAction.accountName,
+            page = renderAction.page)
         is AccountRenderAction.OnSuccess -> previousState.copy(
             view = AccountViewState.View.OnSuccess,
             accountView = renderAction.accountView)

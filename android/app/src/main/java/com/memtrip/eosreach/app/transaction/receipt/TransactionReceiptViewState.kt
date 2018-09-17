@@ -8,6 +8,7 @@ data class TransactionReceiptViewState(val view: View) : MxViewState {
     sealed class View {
         object Idle : View()
         data class Populate(val actionReceipt: ActionReceipt) : View()
+        data class NavigateToBlockExplorer(val transactionId: String) : View()
         object NavigateToActions : View()
         object NavigateToAccount : View()
     }

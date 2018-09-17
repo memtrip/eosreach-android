@@ -8,5 +8,6 @@ sealed class VoteIntent : MxViewIntent {
     object Idle : VoteIntent()
     data class Init(val eosAccountVote: EosAccountVote?) : VoteIntent()
     data class VoteForUs(val eosAccount: EosAccount) : VoteIntent()
-    object NavigateToCastVote : VoteIntent()
+    object NavigateToCastProducerVote : VoteIntent()
+    object NavigateToCastProxyVote : VoteIntent()
 }

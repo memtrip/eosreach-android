@@ -13,7 +13,9 @@ class ResourcesViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: ResourcesIntent): Observable<ResourcesRenderAction> = when (intent) {
-        is ResourcesIntent.Init -> Observable.just(ResourcesRenderAction.Populate(intent.eosAccount))
+        is ResourcesIntent.Init -> Observable.just(ResourcesRenderAction.Populate(
+            intent.eosAccount,
+            intent.contractAccountBalance))
         ResourcesIntent.Idle -> Observable.just(ResourcesRenderAction.Idle)
         ResourcesIntent.NavigateToManageBandwidth -> Observable.just(ResourcesRenderAction.NavigateToManageBandwidth)
         ResourcesIntent.NavigateToManageRam -> Observable.just(ResourcesRenderAction.NavigateToManageRam)
@@ -21,7 +23,7 @@ class ResourcesViewModel @Inject internal constructor(
 
     override fun reducer(previousState: ResourcesViewState, renderAction: ResourcesRenderAction): ResourcesViewState = when (renderAction) {
         is ResourcesRenderAction.Populate -> previousState.copy(
-            view = ResourcesViewState.View.Populate(renderAction.eosAccount))
+            view = ResourcesViewState.View.Populate(renderAction.eosAccount, renderAction.contractAccountBalance))
         ResourcesRenderAction.Idle -> previousState.copy(
             view = ResourcesViewState.View.Idle)
         ResourcesRenderAction.NavigateToManageBandwidth -> previousState.copy(

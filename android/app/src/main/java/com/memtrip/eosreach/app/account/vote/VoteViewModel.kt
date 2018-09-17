@@ -5,7 +5,6 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountVote
 import com.memtrip.eosreach.api.vote.VoteRequest
-import com.memtrip.eosreach.api.vote.VoteRequestImpl
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import java.util.Arrays.asList
@@ -23,7 +22,8 @@ class VoteViewModel @Inject internal constructor(
         VoteIntent.Idle -> Observable.just(VoteRenderAction.Idle)
         is VoteIntent.Init -> Observable.just(populate(intent.eosAccountVote))
         is VoteIntent.VoteForUs -> voteForUs(intent.eosAccount)
-        VoteIntent.NavigateToCastVote -> Observable.just(VoteRenderAction.NavigateToCastVote)
+        VoteIntent.NavigateToCastProducerVote -> Observable.just(VoteRenderAction.NavigateToCastProducerVote)
+        VoteIntent.NavigateToCastProxyVote -> Observable.just(VoteRenderAction.NavigateToCastProxyVote)
     }
 
     override fun reducer(previousState: VoteViewState, renderAction: VoteRenderAction): VoteViewState = when (renderAction) {
@@ -35,8 +35,10 @@ class VoteViewModel @Inject internal constructor(
             view = VoteViewState.View.PopulateProducerVotes(renderAction.eosAccountVote))
         VoteRenderAction.NoVoteCast -> previousState.copy(
             view = VoteViewState.View.NoVoteCast)
-        VoteRenderAction.NavigateToCastVote -> previousState.copy(
-            view = VoteViewState.View.NavigateToCastVote)
+        VoteRenderAction.NavigateToCastProducerVote -> previousState.copy(
+            view = VoteViewState.View.NavigateToCastProducerVote)
+        VoteRenderAction.NavigateToCastProxyVote -> previousState.copy(
+            view = VoteViewState.View.NavigateToCastProxyVote)
         VoteRenderAction.OnVoteForUsProgress -> previousState.copy(
             view = VoteViewState.View.OnVoteForUsProgress)
         VoteRenderAction.OnVoteForUsSuccess -> previousState.copy(

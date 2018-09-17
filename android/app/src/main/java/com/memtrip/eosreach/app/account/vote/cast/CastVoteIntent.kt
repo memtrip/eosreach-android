@@ -6,5 +6,5 @@ import com.memtrip.mxandroid.MxViewIntent
 sealed class CastVoteIntent : MxViewIntent {
     object CastProducerVoteTabIdle : CastVoteIntent()
     object CastProxyVoteTabIdle : CastVoteIntent()
-    data class Init(val eosAccount: EosAccount) : CastVoteIntent()
+    data class Init(val eosAccount: EosAccount, val page: CastVoteFragmentPagerFragment.Page) : CastVoteIntent()
 }

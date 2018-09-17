@@ -1,11 +1,8 @@
 package com.memtrip.eosreach.app.price
 
 import com.memtrip.eosreach.api.balance.Balance
-import com.memtrip.eosreach.api.eosprice.EosPrice
-import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.util.Currency
 
 object BalanceFormatter {
 
@@ -15,7 +12,11 @@ object BalanceFormatter {
     }
 
     fun create(balance: String, symbol: String): Balance {
-        return create(balance.toDouble(), symbol)
+        return if (balance.isEmpty()) {
+            create(0.0, symbol)
+        } else {
+            create(balance.toDouble(), symbol)
+        }
     }
 
     fun create(balance: Double, symbol: String): Balance {

@@ -9,28 +9,26 @@ import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.DelegateBandwidthFormFragment
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.UnDelegateBandwidthFormFragment
-import com.memtrip.eosreach.app.account.vote.cast.CastVotePagerFragment.Page.*
 
-import com.memtrip.eosreach.app.account.vote.cast.producers.CastProducersVoteFragment
-import com.memtrip.eosreach.app.account.vote.cast.proxy.CastProxyVoteFragment
 import java.util.Arrays
 
-class ManageBandwidthFragmentPagerAdapter(
+class BandwidthManageFragmentPagerAdapter(
     fragmentManager: FragmentManager,
     private val context: Context,
     private val eosAccount: EosAccount,
+    private val contractAccountBalance: ContractAccountBalance,
     private val pages: List<Page> = Arrays.asList(Page.DELEGATE, Page.UNDELEGATE),
     private val delegateBandwidthFormFragment: DelegateBandwidthFormFragment =
-        DelegateBandwidthFormFragment.newInstance(eosAccount),
+        DelegateBandwidthFormFragment.newInstance(eosAccount, contractAccountBalance),
     private val unDelegateBandwidthFormFragment: UnDelegateBandwidthFormFragment =
-        UnDelegateBandwidthFormFragment.newInstance(eosAccount)
+        UnDelegateBandwidthFormFragment.newInstance(eosAccount, contractAccountBalance)
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getPageTitle(position: Int): CharSequence? {
         val page = pages[position]
         return when (page) {
-            Page.DELEGATE -> context.getString(R.string.manage_bandwidth_tab_delegate)
-            Page.UNDELEGATE -> context.getString(R.string.manage_bandwidth_tab_undelegate)
+            Page.DELEGATE -> context.getString(R.string.resources_manage_bandwidth_tab_delegate)
+            Page.UNDELEGATE -> context.getString(R.string.resources_manage_bandwidth_tab_undelegate)
         }
     }
 

@@ -1,18 +1,13 @@
 package com.memtrip.eosreach.app.issue.createaccount
 
 import android.app.Application
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.SkuDetailsParams
-import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountError
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
 import com.memtrip.eosreach.billing.BillingError
-import com.memtrip.eosreach.billing.BillingRequest
-import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
 import com.memtrip.eosreach.db.account.InsertAccountsForPublicKey
+import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
 import com.memtrip.eosreach.db.sharedpreferences.UnusedBillingPurchaseId
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel

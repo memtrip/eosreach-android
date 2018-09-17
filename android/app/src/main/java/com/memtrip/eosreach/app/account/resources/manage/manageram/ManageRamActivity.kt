@@ -31,7 +31,7 @@ class ManageRamActivity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.manage_ram_activity)
         setSupportActionBar(manage_ram_toolbar)
-        supportActionBar!!.title = getString(R.string.manage_ram_title)
+        supportActionBar!!.title = getString(R.string.resources_manage_ram_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         eosAccount = eosAccountExtra(intent)

@@ -43,7 +43,7 @@ class CastProxyVoteViewModel @Inject internal constructor(
                 CastProxyVoteRenderAction.OnSuccess
             } else {
                 CastProxyVoteRenderAction.OnError(
-                    context().getString(R.string.cast_proxy_vote_error),
+                    context().getString(R.string.vote_cast_proxy_vote_error),
                     result.apiError!!.body)
             }
         }.toObservable().startWith(CastProxyVoteRenderAction.OnProgress)

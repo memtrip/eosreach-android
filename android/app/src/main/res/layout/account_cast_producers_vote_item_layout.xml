@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_medium"
         android:layout_marginEnd="@dimen/padding_medium"
-        android:hint="@string/cast_vote_block_producer_name_hint"
+        android:hint="@string/vote_cast_block_producer_name_hint"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/cast_producers_vote_endpoint_block_producer"
         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -26,7 +26,7 @@
         android:layout_marginTop="@dimen/padding_medium"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
-        android:text="@string/cast_producers_vote_remove_button"
+        android:text="@string/vote_cast_producers_vote_remove_button"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

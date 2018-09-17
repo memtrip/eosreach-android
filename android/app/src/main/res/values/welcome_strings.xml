@@ -3,7 +3,7 @@
     <!-- welcome entry -->
     <string name="welcome_entry_database_error">
         The last update brought non-backward compatible changes to the app database,
-        you will need to clear all your app data to continue. This is a development error, our
+        you will need to clear all your app data to continue.\n\nThis is a development error, our
         database updates should upgrade seamlessly. If you have data that cannot be recovered, please
         contact us ASAP and we will attempt to push a version that fixes this issue.
     </string>

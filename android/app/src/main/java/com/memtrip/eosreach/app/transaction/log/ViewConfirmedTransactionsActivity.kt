@@ -4,22 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.balance.ContractAccountBalance
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.balance.AccountBalanceListAdapter
-import com.memtrip.eosreach.app.account.balance.BalanceIntent
-import com.memtrip.eosreach.app.settings.viewprivatekeys.ViewPrivateKeysActivity
 import com.memtrip.eosreach.db.transaction.TransactionLogEntity
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_balance_fragment.view.*
 import kotlinx.android.synthetic.main.transaction_view_confirmed_activity.*
 import javax.inject.Inject
 

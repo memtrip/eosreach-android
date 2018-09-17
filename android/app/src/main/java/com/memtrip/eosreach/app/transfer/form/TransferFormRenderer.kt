@@ -14,7 +14,7 @@ sealed class TransferFormRenderAction : MxRenderAction {
 }
 
 interface TransferFormViewLayout : MxViewLayout {
-    fun populate(contractAccountBalance: ContractAccountBalance)
+    fun populate(formattedBalance: String)
     fun showValidationError(message: String)
     fun navigateToConfirmation(transferFormData: TransferFormData)
 }
@@ -24,7 +24,9 @@ class TransferFormViewRenderer @Inject internal constructor() : MxViewRenderer<T
         TransferFormViewState.View.Idle -> {
         }
         is TransferFormViewState.View.Populate -> {
-            layout.populate(state.view.contractAccountBalance)
+            val contractAccountBalance = state.view.contractAccountBalance
+            layout.populate(
+                "${contractAccountBalance.balance.amount} ${contractAccountBalance.balance.symbol}")
         }
         is TransferFormViewState.View.OnValidationError -> {
             layout.showValidationError(state.view.message)

@@ -45,6 +45,14 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/resources_manage_navigation_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="resources_manage_title,resources_manage_bandwidth_button,resources_unstake_resources_button"
+            tools:ignore="MissingConstraints" />
+
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/resources_manage_title"
             style="@style/Typography.Medium"

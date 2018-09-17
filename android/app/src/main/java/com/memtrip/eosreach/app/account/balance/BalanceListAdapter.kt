@@ -3,11 +3,8 @@ package com.memtrip.eosreach.app.account.balance
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
-import com.memtrip.eosreach.app.price.BalanceFormatter
-
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.SimpleAdapter
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder

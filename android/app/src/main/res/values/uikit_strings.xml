@@ -1,3 +1,9 @@
 <resources>
+
+    <!-- error_composite_view -->
     <string name="uikit_error_composite_view_retry">Retry</string>
+
+    <!-- details_layout -->
+    <string name="uikit_details_layout_amount">%1$s</string>
+    <string name="uikit_details_layout_amount_with_currency_pair">%1$s (%2$s)</string>
 </resources>

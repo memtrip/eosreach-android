@@ -10,8 +10,8 @@ import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragmentModule
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthConfirmActivity
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthConfirmActivityModule
-import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivity
-import com.memtrip.eosreach.app.account.resources.manage.bandwidth.ManageBandwidthActivityModule
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthManageActivity
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthManageActivityModule
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.DelegateBandwidthFormFragment
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.DelegateBandwidthFormFragmentModule
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.form.UnDelegateBandwidthFormFragment
@@ -45,8 +45,8 @@ abstract class AccountModule {
     @ContributesAndroidInjector(modules = [ResourcesFragmentModule::class])
     internal abstract fun contributeResourcesFragment(): ResourcesFragment
 
-    @ContributesAndroidInjector(modules = [ManageBandwidthActivityModule::class])
-    internal abstract fun contributeManageBandwidthActivity(): ManageBandwidthActivity
+    @ContributesAndroidInjector(modules = [BandwidthManageActivityModule::class])
+    internal abstract fun contributeManageBandwidthActivity(): BandwidthManageActivity
 
     @ContributesAndroidInjector(modules = [DelegateBandwidthFormFragmentModule::class])
     internal abstract fun contributeDelegateBandwidthFormFragment(): DelegateBandwidthFormFragment

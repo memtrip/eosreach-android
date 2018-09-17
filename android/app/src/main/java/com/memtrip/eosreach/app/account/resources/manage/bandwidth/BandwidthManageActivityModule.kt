@@ -9,10 +9,10 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ManageBandwidthActivityModule {
+abstract class BandwidthManageActivityModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ManageBandwidthViewModel::class)
-    internal abstract fun contributesManageBandwidthViewModel(viewModel: ManageBandwidthViewModel): ViewModel
+    @ViewModelKey(BandwidthManageViewModel::class)
+    internal abstract fun contributesManageBandwidthViewModel(viewModel: BandwidthManageViewModel): ViewModel
 }

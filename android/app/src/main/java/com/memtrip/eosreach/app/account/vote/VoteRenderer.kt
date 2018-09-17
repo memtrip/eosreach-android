@@ -11,7 +11,8 @@ sealed class VoteRenderAction : MxRenderAction {
     data class PopulateProxyVote(val proxyAccountName: String) : VoteRenderAction()
     data class PopulateProducerVotes(val eosAccountVote: EosAccountVote) : VoteRenderAction()
     object NoVoteCast : VoteRenderAction()
-    object NavigateToCastVote : VoteRenderAction()
+    object NavigateToCastProducerVote : VoteRenderAction()
+    object NavigateToCastProxyVote : VoteRenderAction()
     object OnVoteForUsProgress : VoteRenderAction()
     data class OnVoteForUsError(val message: String, val log: String) : VoteRenderAction()
     object OnVoteForUsSuccess : VoteRenderAction()
@@ -21,7 +22,8 @@ interface VoteViewLayout : MxViewLayout {
     fun populateProxyVote(proxyVoter: String)
     fun populateProducerVotes(eosAccountVote: EosAccountVote)
     fun showNoVoteCast()
-    fun navigateToCastVote()
+    fun navigateToCastProducerVote()
+    fun navigateToCastProxyVote()
     fun showVoteForUsProgress()
     fun voteForUsSuccess()
     fun voteForUsError(message: String, log: String)
@@ -40,8 +42,11 @@ class VoteViewRenderer @Inject internal constructor() : MxViewRenderer<VoteViewL
         VoteViewState.View.NoVoteCast -> {
             layout.showNoVoteCast()
         }
-        VoteViewState.View.NavigateToCastVote -> {
-            layout.navigateToCastVote()
+        VoteViewState.View.NavigateToCastProducerVote -> {
+            layout.navigateToCastProducerVote()
+        }
+        VoteViewState.View.NavigateToCastProxyVote -> {
+            layout.navigateToCastProxyVote()
         }
         VoteViewState.View.OnVoteForUsProgress -> {
             layout.showVoteForUsProgress()

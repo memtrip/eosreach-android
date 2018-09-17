@@ -11,6 +11,10 @@ sealed class AccountRenderAction : MxRenderAction {
     object ResourceTabIdle : AccountRenderAction()
     object VoteTabIdle : AccountRenderAction()
     data class OnProgress(val accountName: String) : AccountRenderAction()
+    data class OnProgressWithStartingTab(
+        val accountName: String,
+        val page: AccountFragmentPagerAdapter.Page
+    ) : AccountRenderAction()
     data class OnSuccess(val accountView: AccountView) : AccountRenderAction()
     object OnErrorFetchingAccount : AccountRenderAction()
     object OnErrorFetchingBalances : AccountRenderAction()
@@ -23,7 +27,7 @@ sealed class AccountRenderAction : MxRenderAction {
 interface AccountViewLayout : MxViewLayout {
     fun showProgress()
     fun populateTitle(accountName: String)
-    fun populate(accountView: AccountView, page: AccountPagerFragment.Page)
+    fun populate(accountView: AccountView, page: AccountFragmentPagerAdapter.Page)
     fun showPrice(price: String)
     fun showPriceUnavailable()
     fun showGetAccountError()

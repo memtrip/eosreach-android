@@ -73,7 +73,7 @@ class TransferConfirmViewModel @Inject internal constructor(
                 )
             } else {
                 Single.just(TransferConfirmRenderAction.OnError(
-                    context().getString(R.string.transfer_confirm_error_message),
+                    context().getString(R.string.app_dialog_transaction_error_body),
                     result.apiError!!.body))
             }
         }.toObservable().startWith(TransferConfirmRenderAction.OnProgress)

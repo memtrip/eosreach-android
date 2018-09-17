@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- resources -->
+    <string name="resources_ram_title">RAM</string>
+    <string name="resources_ram_values">%1$s kb / %2$s kb</string>
+
+    <string name="resources_cpu_title">CPU</string>
+    <string name="resources_cpu_values">%1$s / %2$s</string>
+    <string name="resource_cpu_unlimited">Unlimited</string>
+
+    <string name="resources_net_title">NET</string>
+    <string name="resources_net_values">%1$s / %2$s</string>
+
+    <string name="resources_staked">Staked</string>
+    <string name="resources_delegated">Delegated</string>
+    <string name="resources_manage_title">Manage resources</string>
+    <string name="resources_manage_bandwidth_button">Bandwidth</string>
+    <string name="resources_manage_ram_button">Ram</string>
+
+    <!-- manage ram -->
+    <string name="resources_manage_ram_title">Manage RAM</string>
+    <string name="resources_manage_ram_tab_buy">Buy</string>
+    <string name="resources_manage_ram_tab_sell">Sell</string>
+
+    <string name="resources_manage_ram_form_amount_label">Ram amount (balance: %s)</string>
+    <string name="resources_manage_ram_form_amount_hint">Enter the amount in EOS</string>
+    <string name="resources_manage_ram_form_buy_button">Buy</string>
+    <string name="resources_manage_ram_form_sell_button">Sell</string>
+
+    <!-- manage bandwidth -->
+    <string name="resources_manage_bandwidth_title">Manage bandwidth</string>
+    <string name="resources_manage_bandwidth_tab_delegate">Delegate</string>
+    <string name="resources_manage_bandwidth_tab_undelegate">Undelegate</string>
+
+    <string name="resources_manage_bandwidth_delegate_form_net_amount_label">Net amount (balance: %s)</string>
+    <string name="resources_manage_bandwidth_delegate_form_net_amount_hint">Enter the amount in EOS</string>
+
+    <string name="resources_manage_bandwidth_delegate_form_cpu_amount_label">Cpu amount (balance: %s)</string>
+    <string name="resources_manage_bandwidth_delegate_form_cpu_amount_hint">Enter the amount in EOS</string>
+
+    <string name="resources_manage_bandwidth_delegate_form_delegate_button">Delegate</string>
+    <string name="resources_manage_bandwidth_delegate_form_undelegate_button">Undelegate</string>
+
+    <!-- confirm bandwidth -->
+    <string name="resources_bandwidth_confirm_delegate_title">Delegate bandwidth</string>
+    <string name="resources_bandwidth_confirm_undelegate_title">Undelegate bandwidth</string>
+    <string name="resources_bandwidth_confirm_cta_button">Confirm</string>
+
+    <string name="resources_bandwidth_details_net_label">Net</string>
+    <string name="resources_bandwidth_details_cpu_label">Cpu</string>
+
+</resources>

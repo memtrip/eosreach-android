@@ -23,8 +23,8 @@ class ManageRamFragmentPagerAdapter(
     override fun getPageTitle(position: Int): CharSequence? {
         val page = pages[position]
         return when (page) {
-            Page.BUY -> context.getString(R.string.manage_ram_tab_buy)
-            Page.SELL -> context.getString(R.string.manage_ram_tab_sell)
+            Page.BUY -> context.getString(R.string.resources_manage_ram_tab_buy)
+            Page.SELL -> context.getString(R.string.resources_manage_ram_tab_sell)
         }
     }
 

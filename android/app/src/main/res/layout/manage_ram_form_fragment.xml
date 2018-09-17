@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"
         android:layout_marginStart="@dimen/padding_small"
-        android:text="@string/manage_ram_form_amount_label"
+        android:text="@string/resources_manage_ram_form_amount_label"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
         app:layout_constraintTop_toBottomOf="@id/horizontal_start_guideline"/>
@@ -51,7 +51,7 @@
         style="@style/EditTextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/manage_ram_form_amount_hint"
+        android:hint="@string/resources_manage_ram_form_amount_hint"
         android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"

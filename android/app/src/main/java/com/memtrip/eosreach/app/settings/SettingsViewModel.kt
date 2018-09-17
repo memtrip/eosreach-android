@@ -1,10 +1,9 @@
 package com.memtrip.eosreach.app.settings
 
 import android.app.Application
-import com.memtrip.eosreach.db.sharedpreferences.EosPriceCurrencyPair
-
 import com.memtrip.eosreach.db.PurgePreferences
 import com.memtrip.eosreach.db.account.DeleteAccounts
+import com.memtrip.eosreach.db.sharedpreferences.EosPriceCurrencyPair
 import com.memtrip.eosreach.db.transaction.DeleteTransactionLog
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable

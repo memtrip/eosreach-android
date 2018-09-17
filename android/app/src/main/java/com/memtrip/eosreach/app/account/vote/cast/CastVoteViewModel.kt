@@ -13,20 +13,18 @@ class CastVoteViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: CastVoteIntent): Observable<CastVoteRenderAction> = when (intent) {
-        CastVoteIntent.CastProducerVoteTabIdle -> Observable.just(CastVoteRenderAction.CastProducerVoteTabIdle)
-        CastVoteIntent.CastProxyVoteTabIdle -> Observable.just(CastVoteRenderAction.CastProxyVoteTabIdle)
-        is CastVoteIntent.Init -> Observable.just(CastVoteRenderAction.Populate(intent.eosAccount))
+        is CastVoteIntent.Init -> Observable.just(CastVoteRenderAction.Populate(intent.eosAccount, intent.page))
+        CastVoteIntent.CastProducerVoteTabIdle -> startingTab(CastVoteFragmentPagerFragment.Page.PRODUCER)
+        CastVoteIntent.CastProxyVoteTabIdle -> startingTab(CastVoteFragmentPagerFragment.Page.PROXY)
     }
 
     override fun reducer(previousState: CastVoteViewState, renderAction: CastVoteRenderAction): CastVoteViewState = when (renderAction) {
-        CastVoteRenderAction.CastProducerVoteTabIdle -> previousState.copy(
+        is CastVoteRenderAction.TabIdle -> previousState.copy(
             view = CastVoteViewState.View.Idle,
-            page = CastVotePagerFragment.Page.PRODUCER)
-        CastVoteRenderAction.CastProxyVoteTabIdle -> previousState.copy(
-            view = CastVoteViewState.View.Idle,
-            page = CastVotePagerFragment.Page.PROXY)
+            page = renderAction.page)
         is CastVoteRenderAction.Populate -> previousState.copy(
-            view = CastVoteViewState.View.Populate(renderAction.eosAccount))
+            view = CastVoteViewState.View.Populate(renderAction.eosAccount),
+            page = renderAction.page)
     }
 
     override fun filterIntents(intents: Observable<CastVoteIntent>): Observable<CastVoteIntent> = Observable.merge(
@@ -35,4 +33,9 @@ class CastVoteViewModel @Inject internal constructor(
             !CastVoteIntent.Init::class.java.isInstance(it)
         }
     )
+
+    private fun startingTab(page: CastVoteFragmentPagerFragment.Page): Observable<CastVoteRenderAction> = when(page) {
+        CastVoteFragmentPagerFragment.Page.PRODUCER -> Observable.just(CastVoteRenderAction.TabIdle(CastVoteFragmentPagerFragment.Page.PRODUCER))
+        CastVoteFragmentPagerFragment.Page.PROXY -> Observable.just(CastVoteRenderAction.TabIdle(CastVoteFragmentPagerFragment.Page.PROXY))
+    }
 }

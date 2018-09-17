@@ -6,13 +6,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
-import com.memtrip.eosreach.app.account.vote.cast.CastVotePagerFragment.Page.*
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteFragmentPagerFragment.Page.*
 
 import com.memtrip.eosreach.app.account.vote.cast.producers.CastProducersVoteFragment
 import com.memtrip.eosreach.app.account.vote.cast.proxy.CastProxyVoteFragment
 import java.util.Arrays
 
-class CastVotePagerFragment(
+class CastVoteFragmentPagerFragment(
     fragmentManager: FragmentManager,
     private val context: Context,
     private val eosAccount: EosAccount,
@@ -24,8 +24,8 @@ class CastVotePagerFragment(
     override fun getPageTitle(position: Int): CharSequence? {
         val page = pages[position]
         return when (page) {
-            PRODUCER -> context.getString(R.string.cast_vote_page_block_producers)
-            PROXY -> context.getString(R.string.cast_vote_page_proxy)
+            PRODUCER -> context.getString(R.string.vote_cast_page_block_producers_tab)
+            PROXY -> context.getString(R.string.vote_cast_page_proxy_tab)
         }
     }
 

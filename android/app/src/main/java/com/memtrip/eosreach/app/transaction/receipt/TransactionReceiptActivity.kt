@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.transaction.receipt
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
@@ -13,8 +14,8 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountActivity.Companion.accountIntent
 import com.memtrip.eosreach.app.account.AccountBundle
+import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
 import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
-import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormFragment
 
 import dagger.android.AndroidInjection
 
@@ -45,18 +46,14 @@ class TransactionReceiptActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<TransactionReceiptIntent> {
-        return RxView.clicks(transaction_receipt_done_button).map {
-            when (transactionReceiptRoute) {
-                TransactionReceiptRoute.ACTIONS -> {
-                    TransactionReceiptIntent.NavigateToActions
-                }
-                TransactionReceiptRoute.ACCOUNT -> {
-                    TransactionReceiptIntent.NavigateToActions
-                }
-            }
+    override fun intents(): Observable<TransactionReceiptIntent> = Observable.merge(
+        RxView.clicks(transaction_receipt_done_button).map {
+            navigateToRoute(transactionReceiptRoute)
+        },
+        RxView.clicks(transaction_receipt_view_block_explorer_button).map {
+            TransactionReceiptIntent.NavigateToBlockExplorer(actionReceipt.transactionId)
         }
-    }
+    )
 
     override fun layout(): TransferReceiptViewLayout = this
 
@@ -66,6 +63,12 @@ class TransactionReceiptActivity
 
     override fun populate(actionReceipt: ActionReceipt) {
 
+    }
+
+    override fun navigateToBlockExplorer(transactionId: String) {
+        model().publish(TransactionReceiptIntent.Idle)
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(
+            getString(R.string.transaction_view_confirm_block_explorer_url, transactionId))))
     }
 
     override fun navigateToActions() {
@@ -89,7 +92,7 @@ class TransactionReceiptActivity
     override fun navigateToAccount() {
         startActivity(with(accountIntent(AccountBundle(
             actionReceipt.authorizingAccountName
-        ), this)) {
+        ), this, AccountFragmentPagerAdapter.Page.RESOURCES)) {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or
                 Intent.FLAG_ACTIVITY_NEW_TASK)
             this
@@ -97,7 +100,16 @@ class TransactionReceiptActivity
     }
 
     override fun onBackPressed() {
-        navigateToActions()
+        navigateToRoute(transactionReceiptRoute)
+    }
+
+    private fun navigateToRoute(transactionReceiptRoute: TransactionReceiptRoute): TransactionReceiptIntent = when (transactionReceiptRoute) {
+        TransactionReceiptRoute.ACTIONS -> {
+            TransactionReceiptIntent.NavigateToActions
+        }
+        TransactionReceiptRoute.ACCOUNT -> {
+            TransactionReceiptIntent.NavigateToAccount
+        }
     }
 
     companion object {
@@ -120,27 +132,13 @@ class TransactionReceiptActivity
             }
         }
 
-        fun transactionReceiptIntent(
-            actionReceipt: ActionReceipt,
-            transactionReceiptRoute: TransactionReceiptRoute,
-            context: Context
-        ): Intent {
-            return with (Intent(context, TransactionReceiptActivity::class.java)) {
-                putExtra(ACTION_RECEIPT, actionReceipt)
-                putExtra(TRANSACTION_RECEIPT_ROUTE, transactionReceiptRoute)
-                this
-            }
-        }
-
-        fun actionReceiptExtra(intent: Intent): ActionReceipt {
-            return intent.getParcelableExtra(ACTION_RECEIPT) as ActionReceipt
-        }
+        fun actionReceiptExtra(intent: Intent): ActionReceipt =
+            intent.getParcelableExtra(ACTION_RECEIPT)
 
         private fun contractAccountBalanceExtra(intent: Intent): ContractAccountBalance =
             intent.getParcelableExtra(CONTRACT_ACCOUNT_BALANCE)
 
-        fun transactionReceiptRouteExtra(intent: Intent) : TransactionReceiptRoute {
-            return intent.getSerializableExtra(TRANSACTION_RECEIPT_ROUTE) as TransactionReceiptRoute
-        }
+        fun transactionReceiptRouteExtra(intent: Intent) : TransactionReceiptRoute =
+            intent.getSerializableExtra(TRANSACTION_RECEIPT_ROUTE) as TransactionReceiptRoute
     }
 }

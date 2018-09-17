@@ -13,6 +13,7 @@
         transactions performed on this device can be found in the transaction log of the settings section.
     </string>
     <string name="transaction_receipt_done_button">Done</string>
+    <string name="transaction_receipt_view_block_explorer">View block explorer</string>
 
     <!-- view confirmed transactions -->
     <string name="transaction_view_confirmed_title">Confirmed transactions</string>

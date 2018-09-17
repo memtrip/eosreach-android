@@ -1,6 +1,5 @@
 package com.memtrip.eosreach.app.account.balance
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,6 @@ import com.memtrip.eosreach.api.balance.AccountBalanceList
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.AccountPagerFragment
-import com.memtrip.eosreach.app.account.AccountParentRefresh
 import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.uikit.Interaction

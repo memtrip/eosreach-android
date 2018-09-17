@@ -76,9 +76,8 @@ class TransferFormActivity
 
     override fun render(): TransferFormViewRenderer = render
 
-    override fun populate(contractAccountBalance: ContractAccountBalance) {
-        val cryptoAmount = "${contractAccountBalance.balance.amount} ${contractAccountBalance.balance.symbol}"
-        account_transfer_amount_label.text = getString(R.string.transfer_form_amount_label, cryptoAmount)
+    override fun populate(formattedBalance: String) {
+        account_transfer_amount_label.text = getString(R.string.transfer_form_amount_label, formattedBalance)
     }
 
     override fun showValidationError(message: String) {

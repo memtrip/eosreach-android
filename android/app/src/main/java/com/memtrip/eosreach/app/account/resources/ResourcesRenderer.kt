@@ -1,7 +1,7 @@
 package com.memtrip.eosreach.app.account.resources
 
 import com.memtrip.eosreach.api.account.EosAccount
-import com.memtrip.eosreach.api.balance.Balance
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
@@ -10,12 +10,17 @@ import javax.inject.Inject
 
 sealed class ResourcesRenderAction : MxRenderAction {
     object Idle : ResourcesRenderAction()
-    data class Populate(val eosAccount: EosAccount) : ResourcesRenderAction()
+    data class Populate(
+        val eosAccount: EosAccount,
+        val contractAccountBalance: ContractAccountBalance
+    ) : ResourcesRenderAction()
     object NavigateToManageBandwidth : ResourcesRenderAction()
     object NavigateToManageRam : ResourcesRenderAction()
 }
 
 interface ResourcesViewLayout : MxViewLayout {
+    fun showManageResourcesNavigation()
+    fun hideManageResourcesNavigation()
     fun populate(eosAccount: EosAccount)
     fun populateNetStake(staked: String)
     fun emptyNetStake()
@@ -34,6 +39,12 @@ class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<Reso
         ResourcesViewState.View.Idle -> {
         }
         is ResourcesViewState.View.Populate -> {
+
+            if (state.view.contractAccountBalance.unavailable) {
+                layout.hideManageResourcesNavigation()
+            } else {
+                layout.showManageResourcesNavigation()
+            }
 
             val netStaked = state.view.eosAccount.netResource.staked
             if (netStaked != null) {

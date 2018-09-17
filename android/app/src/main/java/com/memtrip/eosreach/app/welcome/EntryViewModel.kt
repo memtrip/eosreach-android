@@ -1,10 +1,9 @@
 package com.memtrip.eosreach.app.welcome
 
 import android.app.Application
-import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
 import com.memtrip.eosreach.db.account.CountAccounts
 import com.memtrip.eosreach.db.account.GetAccountByName
-
+import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single

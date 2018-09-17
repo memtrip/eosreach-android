@@ -7,13 +7,12 @@ import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class CastVoteRenderAction : MxRenderAction {
-    object CastProducerVoteTabIdle : CastVoteRenderAction()
-    object CastProxyVoteTabIdle : CastVoteRenderAction()
-    data class Populate(val eosAccount: EosAccount) : CastVoteRenderAction()
+    data class TabIdle(val page: CastVoteFragmentPagerFragment.Page) : CastVoteRenderAction()
+    data class Populate(val eosAccount: EosAccount, val page: CastVoteFragmentPagerFragment.Page) : CastVoteRenderAction()
 }
 
 interface CastVoteViewLayout : MxViewLayout {
-    fun populate(eosAccount: EosAccount, page: CastVotePagerFragment.Page)
+    fun populate(eosAccount: EosAccount, page: CastVoteFragmentPagerFragment.Page)
 }
 
 class CastVoteViewRenderer @Inject internal constructor() : MxViewRenderer<CastVoteViewLayout, CastVoteViewState> {

@@ -38,7 +38,7 @@
         style="@style/Typography.Caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/cast_proxy_vote_name_label"
+        android:text="@string/vote_cast_proxy_vote_name_label"
         app:layout_constraintTop_toTopOf="@+id/horizontal_start_guideline"
         app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
         app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"/>
@@ -48,7 +48,7 @@
         style="@style/EditTextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/cast_proxy_vote_name_hint"
+        android:hint="@string/vote_cast_proxy_vote_name_hint"
         android:imeOptions="actionDone"
         app:layout_constraintTop_toBottomOf="@+id/cast_proxy_vote_name_label"
         app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
@@ -69,7 +69,7 @@
         style="@style/ButtonPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/cast_vote_button"
+        android:text="@string/vote_cast_vote_button"
         app:layout_constraintBottom_toBottomOf="@+id/horizontal_end_guideline"
         app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
         app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"/>

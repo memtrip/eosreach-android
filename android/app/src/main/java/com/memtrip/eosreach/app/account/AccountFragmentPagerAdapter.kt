@@ -5,18 +5,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.vote.VoteFragment
 import java.util.Arrays.asList
 
-class AccountPagerFragment(
+class AccountFragmentPagerAdapter(
     fragmentManager: FragmentManager,
     private val context: Context,
     private val accountView: AccountView,
     private val pages: List<Page> = asList(Page.BALANCE, Page.RESOURCES, Page.VOTE),
     private val balanceFragment: BalanceFragment = BalanceFragment.newInstance(accountView.balances!!),
-    private val resourcesFragment: ResourcesFragment = ResourcesFragment.newInstance(accountView.eosAccount!!),
+    private val resourcesFragment: ResourcesFragment = ResourcesFragment.newInstance(
+        accountView.eosAccount!!,
+        contractAccountBalance(accountView)
+    ),
     private val voteFragment: VoteFragment = VoteFragment.newInstance(accountView.eosAccount!!)
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
@@ -44,5 +48,15 @@ class AccountPagerFragment(
         BALANCE,
         RESOURCES,
         VOTE
+    }
+
+    companion object {
+        fun contractAccountBalance(accountView: AccountView): ContractAccountBalance {
+            return if (accountView.balances != null && accountView.balances.balances.isNotEmpty()) {
+                accountView.balances.balances[0]
+            } else {
+                ContractAccountBalance.unavailable()
+            }
+        }
     }
 }

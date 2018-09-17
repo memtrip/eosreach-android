@@ -1,8 +1,5 @@
 package com.memtrip.eosreach.app.transaction
 
-import com.memtrip.eosreach.app.transaction.log.TransactionLogListViewLayout
-import com.memtrip.eosreach.app.transaction.log.TransactionLogListViewRenderer
-import com.memtrip.eosreach.app.transaction.log.TransactionLogListViewState
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek

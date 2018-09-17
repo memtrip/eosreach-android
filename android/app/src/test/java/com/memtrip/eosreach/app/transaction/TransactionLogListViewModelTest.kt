@@ -1,10 +1,6 @@
 package com.memtrip.eosreach.app.transaction
 
-import com.memtrip.eosreach.app.transaction.log.TransactionLogListIntent
-import com.memtrip.eosreach.app.transaction.log.TransactionLogListViewModel
-import com.memtrip.eosreach.app.transaction.log.TransactionLogListViewState
 import com.nhaarman.mockito_kotlin.mock
-
 import io.reactivex.Observable
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek

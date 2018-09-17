@@ -2,7 +2,10 @@ package com.memtrip.eosreach.app.account.resources.manage.bandwidth
 
 import android.app.Application
 import com.memtrip.eos.core.crypto.EosPrivateKey
+import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.bandwidth.BandwidthRequest
+import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.db.account.GetAccountByName
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
@@ -70,7 +73,7 @@ class BandwidthConfirmViewModel @Inject internal constructor(
                 }
             }.onErrorReturn {
                 BandwidthConfirmRenderAction.OnError(
-                    "error message",
+                    context().getString(R.string.app_dialog_transaction_error_body),
                     it.message!!)
             }
         }.toObservable().startWith(BandwidthConfirmRenderAction.OnProgress)
@@ -78,21 +81,21 @@ class BandwidthConfirmViewModel @Inject internal constructor(
 
     private fun delegateBandwidth(
         fromAccount: String,
-        netAmount: String,
-        cpuAmount: String,
+        netAmount: Balance,
+        cpuAmount: Balance,
         privateKey: EosPrivateKey
     ) : Single<BandwidthConfirmRenderAction> {
         return bandWidthRequest.delegate(
             fromAccount,
-            netAmount,
-            cpuAmount,
+            BalanceFormatter.formatEosBalance(netAmount),
+            BalanceFormatter.formatEosBalance(cpuAmount),
             privateKey
         ).map { result ->
             if (result.success) {
                 BandwidthConfirmRenderAction.OnSuccess(result.data!!.transactionId)
             } else {
                 BandwidthConfirmRenderAction.OnError(
-                    "error message",
+                    context().getString(R.string.app_dialog_transaction_error_body),
                     result.apiError!!.body)
             }
         }
@@ -100,21 +103,21 @@ class BandwidthConfirmViewModel @Inject internal constructor(
 
     private fun unDelegateBandwidth(
         fromAccount: String,
-        netAmount: String,
-        cpuAmount: String,
+        netAmount: Balance,
+        cpuAmount: Balance,
         privateKey: EosPrivateKey
     ) : Single<BandwidthConfirmRenderAction> {
         return bandWidthRequest.unDelegate(
             fromAccount,
-            netAmount,
-            cpuAmount,
+            BalanceFormatter.formatEosBalance(netAmount),
+            BalanceFormatter.formatEosBalance(cpuAmount),
             privateKey
         ).map { result ->
             if (result.success) {
                 BandwidthConfirmRenderAction.OnSuccess(result.data!!.transactionId)
             } else {
                 BandwidthConfirmRenderAction.OnError(
-                    "error message",
+                    context().getString(R.string.app_dialog_transaction_error_body),
                     result.apiError!!.body)
             }
         }

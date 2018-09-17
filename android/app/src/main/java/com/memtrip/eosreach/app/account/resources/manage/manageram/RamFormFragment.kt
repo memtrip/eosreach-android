@@ -9,9 +9,11 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormFragment
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptRoute
@@ -41,10 +43,12 @@ abstract class RamFormFragment
     abstract val ramCommitType: RamCommitType
 
     private lateinit var eosAccount: EosAccount
+    private lateinit var contractAccountBalance: ContractAccountBalance
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.manage_ram_form_fragment, container, false)
         eosAccount = eosAccountExtra(arguments!!)
+        contractAccountBalance = contractAccountBalanceExtra(arguments!!)
         view.manage_ram_form_amount_input.filters = arrayOf(CurrencyFormatInputFilter())
         view.manage_ram_form_cta_button.text = buttonLabel()
         return view
@@ -97,6 +101,7 @@ abstract class RamFormFragment
     override fun showSuccess(transactionId: String) {
         startActivity(transactionReceiptIntent(
             ActionReceipt(transactionId, eosAccount.accountName),
+            contractAccountBalance,
             TransactionReceiptRoute.ACCOUNT,
             context!!))
         activity!!.finish()
@@ -105,6 +110,7 @@ abstract class RamFormFragment
     companion object {
 
         private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
+        private const val CONTRACT_ACCOUNT_BALANCE = "CONTRACT_ACCOUNT_BALANCE"
 
         fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
             putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
@@ -113,5 +119,8 @@ abstract class RamFormFragment
 
         private fun eosAccountExtra(bundle: Bundle): EosAccount =
             bundle.getParcelable(EOS_ACCOUNT_EXTRA)
+
+        private fun contractAccountBalanceExtra(bundle: Bundle): ContractAccountBalance =
+            bundle.getParcelable(CONTRACT_ACCOUNT_BALANCE)
     }
 }

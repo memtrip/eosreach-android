@@ -6,7 +6,7 @@ data class AccountViewState(
     val view: View,
     val accountName: String? = null,
     val accountView: AccountView? = null,
-    val page: AccountPagerFragment.Page = AccountPagerFragment.Page.BALANCE
+    val page: AccountFragmentPagerAdapter.Page = AccountFragmentPagerAdapter.Page.BALANCE
 ) : MxViewState {
 
     sealed class View {

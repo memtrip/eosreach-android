@@ -1,9 +1,9 @@
 package com.memtrip.eosreach.app.accountlist
 
 import android.app.Application
-import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.db.account.GetAccounts
+import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject

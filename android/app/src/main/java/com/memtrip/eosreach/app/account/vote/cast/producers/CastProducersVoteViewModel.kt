@@ -6,7 +6,6 @@ import com.memtrip.eosreach.api.vote.VoteRequest
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
-import java.util.Arrays
 import javax.inject.Inject
 
 class CastProducersVoteViewModel @Inject internal constructor(
@@ -62,7 +61,7 @@ class CastProducersVoteViewModel @Inject internal constructor(
                 Single.just(CastProducersVoteRenderAction.OnSuccess)
             } else {
                 Single.just(CastProducersVoteRenderAction.OnError(
-                    context().getString(R.string.cast_vote_error_message),
+                    context().getString(R.string.vote_cast_vote_error_message),
                     result.apiError!!.body))
             }
         }.toObservable().startWith(CastProducersVoteRenderAction.OnProgress)

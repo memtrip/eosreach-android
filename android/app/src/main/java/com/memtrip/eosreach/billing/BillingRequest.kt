@@ -2,10 +2,8 @@ package com.memtrip.eosreach.billing
 
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
-
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
-import io.reactivex.Completable
 import io.reactivex.Single
 
 class BillingRequest(
