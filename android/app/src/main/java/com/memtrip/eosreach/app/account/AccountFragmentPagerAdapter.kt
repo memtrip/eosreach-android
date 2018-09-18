@@ -16,7 +16,9 @@ class AccountFragmentPagerAdapter(
     private val context: Context,
     private val accountView: AccountView,
     private val pages: List<Page> = asList(Page.BALANCE, Page.RESOURCES, Page.VOTE),
-    private val balanceFragment: BalanceFragment = BalanceFragment.newInstance(accountView.balances!!),
+    private val balanceFragment: BalanceFragment = BalanceFragment.newInstance(
+        accountView.eosAccount!!.accountName,
+        accountView.balances!!),
     private val resourcesFragment: ResourcesFragment = ResourcesFragment.newInstance(
         accountView.eosAccount!!,
         contractAccountBalance(accountView)

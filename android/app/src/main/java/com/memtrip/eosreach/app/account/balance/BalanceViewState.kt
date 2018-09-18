@@ -9,6 +9,8 @@ data class BalanceViewState(val view: View) : MxViewState {
     sealed class View {
         object Idle : View()
         data class Populate(val accountBalances: AccountBalanceList) : View()
+        data class OnAirdropError(val message: String) :  View()
+        object OnAirdropProgress : View()
         object NavigateToCreateAccount : View()
         data class NavigateToActions(val contractAccountBalance: ContractAccountBalance) : View()
     }

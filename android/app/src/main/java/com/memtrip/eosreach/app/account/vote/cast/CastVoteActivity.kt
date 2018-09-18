@@ -7,8 +7,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
-import com.memtrip.eosreach.app.account.AccountIntent
+
 import com.memtrip.eosreach.uikit.visible
 import com.memtrip.eosreach.utils.ViewPagerOnPageChangeListener
 import dagger.android.AndroidInjection

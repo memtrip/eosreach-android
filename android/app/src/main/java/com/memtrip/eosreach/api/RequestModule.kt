@@ -12,6 +12,8 @@ import com.memtrip.eosreach.api.bandwidth.BandwidthRequest
 import com.memtrip.eosreach.api.bandwidth.BandwidthRequestImpl
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequest
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequestImpl
+import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
+import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequestImpl
 import com.memtrip.eosreach.api.eosprice.EosPriceRequest
@@ -45,6 +47,11 @@ internal abstract class RequestModule {
     internal abstract fun bindAccountActionsRequest(
         accountActionsRequest: AccountActionsRequestImpl
     ): AccountActionsRequest
+
+    @Binds
+    internal abstract fun bindCustomTokensRequest(
+        customTokensRequest: CustomTokensRequestImpl
+    ): CustomTokensRequest
 
     @Binds
     internal abstract fun bindTransferRequest(

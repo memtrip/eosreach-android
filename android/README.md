@@ -5,10 +5,9 @@
     - Integrate the create account api with Google play store items
 - airdropped tokens?
 
-- Remove the price from the button in create account if the product has been purchased but not used because of technical error
 - Populate the cast vote screen with the existing votes
 - stop the lazy loading from triggering multiple network requests
-- split the account strings into seperate files
+- split the account strings into separate files
 - fix the initial lag on pressing the import private key button
 - Implement collapsing header for AccountActivity
 - update balances after staking resources
@@ -29,4 +28,7 @@
 - pull to refresh on block producer screen
 AccountBundle -> AccountContext
 - Add a loading indicator to the action lazy loading
-ContractAccountBalance -> AccountContractConteCxt
+- Add an error indicator to the action lazy loading
+ContractAccountBalance -> AccountContractContext
+- Remove the price from the button in create account if the product has been purchased but not used because of technical error
+- Handle all airdrop token decimal formats, currently only supporting `0.0000`

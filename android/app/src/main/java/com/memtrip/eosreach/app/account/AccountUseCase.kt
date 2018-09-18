@@ -25,6 +25,10 @@ class AccountUseCase @Inject internal constructor(
             }
     }
 
+    /**
+     * - Save the supported contracts for each account in a database table
+     * - Loop through the supported contract for each account and get the balance
+     */
     private fun getAccount(
         contractName: String,
         accountName: String,

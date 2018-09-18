@@ -13,6 +13,7 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.uikit.Interaction
+import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
@@ -31,9 +32,14 @@ class BalanceFragment
     lateinit var render: BalanceViewRenderer
 
     private lateinit var adapter: AccountBalanceListAdapter
+    private lateinit var accountName: String
+    private lateinit var accountBalanceList: AccountBalanceList
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_balance_fragment, container, false)
+
+        accountName = accountName(arguments!!)
+        accountBalanceList = accountBalanceListExtra(arguments!!)
 
         val adapterInteraction: PublishSubject<Interaction<ContractAccountBalance>> = PublishSubject.create()
         adapter = AccountBalanceListAdapter(context!!, adapterInteraction)
@@ -47,7 +53,8 @@ class BalanceFragment
     }
 
     override fun intents(): Observable<BalanceIntent> = Observable.merge(
-        Observable.just(BalanceIntent.Init(fromBundle(arguments!!))),
+        Observable.just(BalanceIntent.Init(accountBalanceList)),
+        RxView.clicks(balance_airdrop_button).map { BalanceIntent.ScanForAirdropTokens },
         RxView.clicks(balance_create_account).map { BalanceIntent.NavigateToCreateAccount },
         adapter.interaction.map { BalanceIntent.NavigateToActions(it.data) }
     )
@@ -59,12 +66,26 @@ class BalanceFragment
     override fun render(): BalanceViewRenderer = render
 
     override fun showBalances(accountBalanceList: AccountBalanceList) {
+        balance_list_recyclerview.visible()
+        balance_airdrop_progress_group.gone()
         adapter.clear()
         adapter.populate(accountBalanceList.balances)
     }
 
     override fun showEmptyBalance() {
+        balance_list_recyclerview.gone()
+        balance_airdrop_progress_group.gone()
         balance_empty_group.visible()
+    }
+
+    override fun showAirdropError(message: String) {
+        balance_list_recyclerview.gone()
+        balance_airdrop_progress_group.gone()
+    }
+
+    override fun showAirdropProgress() {
+        balance_list_recyclerview.gone()
+        balance_airdrop_progress_group.visible()
     }
 
     override fun navigateToCreateAccount() {
@@ -78,16 +99,31 @@ class BalanceFragment
     }
 
     companion object {
-        fun newInstance(accountBalances: AccountBalanceList): BalanceFragment = with (BalanceFragment()) {
-            arguments = toBundle(accountBalances)
+
+        private const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        private const val ACCOUNT_BALANCES = "ACCOUNT_BALANCES"
+
+        fun newInstance(
+            accountName: String,
+            accountBalances: AccountBalanceList
+        ): BalanceFragment = with (BalanceFragment()) {
+            arguments = toBundle(accountName, accountBalances)
             this
         }
 
-        private fun toBundle(accountBalances: AccountBalanceList): Bundle = with (Bundle()) {
-            putParcelable("accountBalances", accountBalances)
+        private fun toBundle(
+            accountName: String,
+            accountBalances: AccountBalanceList
+        ): Bundle = with (Bundle()) {
+            putString(ACCOUNT_NAME, accountName)
+            putParcelable(ACCOUNT_BALANCES, accountBalances)
             this
         }
 
-        private fun fromBundle(bundle: Bundle): AccountBalanceList = bundle.getParcelable("accountBalances")
+        private fun accountBalanceListExtra(bundle: Bundle): AccountBalanceList =
+            bundle.getParcelable(ACCOUNT_BALANCES)
+
+        private fun accountName(bundle: Bundle): String =
+            bundle.getString(ACCOUNT_NAME)
     }
 }

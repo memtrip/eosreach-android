@@ -8,7 +8,7 @@ import androidx.room.Query
 interface AccountDao {
 
     @Insert
-    fun insertAll(pinyin: List<AccountEntity>)
+    fun insertAll(accounts: List<AccountEntity>)
 
     @Query("DELETE FROM Account WHERE publicKey = :publicKey")
     fun deleteBy(publicKey: String)
