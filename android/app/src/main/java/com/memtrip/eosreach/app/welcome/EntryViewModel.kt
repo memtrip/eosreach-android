@@ -4,12 +4,14 @@ import android.app.Application
 import com.memtrip.eosreach.db.account.CountAccounts
 import com.memtrip.eosreach.db.account.GetAccountByName
 import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
+import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class EntryViewModel @Inject internal constructor(
+    private val eosKeyManager: EosKeyManager,
     private val countAccounts: CountAccounts,
     private val getAccountByName: GetAccountByName,
     private val selectedAccount: SelectedAccount,
@@ -29,26 +31,34 @@ class EntryViewModel @Inject internal constructor(
         AccountListRenderAction.NavigateToAccountList -> previousState.copy(view = EntryViewState.View.NavigateToAccountList)
         is AccountListRenderAction.NavigateToAccount -> previousState.copy(view = EntryViewState.View.NavigateToAccount(renderAction.accountEntity))
         AccountListRenderAction.OnError -> previousState.copy(view = EntryViewState.View.OnError)
+        AccountListRenderAction.OnRsaEncryptionFailed -> previousState.copy(view = EntryViewState.View.OnRsaEncryptionFailed)
     }
 
     private fun hasAccounts(): Observable<AccountListRenderAction> {
-        return countAccounts.count()
-            .flatMap<AccountListRenderAction> { count ->
-                if (count > 0) {
-                    if (selectedAccount.exists()) {
-                        getAccountByName.select(selectedAccount.get())
-                            .map {
-                                AccountListRenderAction.NavigateToAccount(it)
+        return eosKeyManager.verifyDeviceSupportsRsaEncryption().flatMap<AccountListRenderAction> { rsaVerified ->
+            if (rsaVerified) {
+                countAccounts.count()
+                    .flatMap<AccountListRenderAction> { count ->
+                        if (count > 0) {
+                            if (selectedAccount.exists()) {
+                                getAccountByName.select(selectedAccount.get())
+                                    .map { accountEntity ->
+                                        AccountListRenderAction.NavigateToAccount(accountEntity)
+                                    }
+                            } else {
+                                Single.just(AccountListRenderAction.NavigateToAccountList)
                             }
-                    } else {
-                        Single.just(AccountListRenderAction.NavigateToAccountList)
+                        } else {
+                            Single.just(AccountListRenderAction.NavigateToSplash)
+                        }
                     }
-                } else {
-                    Single.just(AccountListRenderAction.NavigateToSplash)
-                }
+            } else {
+                Single.just(AccountListRenderAction.OnRsaEncryptionFailed)
             }
-            .onErrorReturn { AccountListRenderAction.OnError }
-            .toObservable()
-            .startWith(AccountListRenderAction.OnProgress)
+        }.onErrorReturn {
+            AccountListRenderAction.OnRsaEncryptionFailed
+        }.onErrorReturn {
+            AccountListRenderAction.OnError
+        }.toObservable().startWith(AccountListRenderAction.OnProgress)
     }
 }

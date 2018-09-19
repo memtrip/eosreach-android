@@ -3,16 +3,11 @@ package com.memtrip.eosreach.app.account.balance
 import android.app.Application
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
-import com.memtrip.eosreach.api.Result
-import com.memtrip.eosreach.api.accountforkey.AccountForKeyError
 import com.memtrip.eosreach.api.accountforkey.AccountNameSystemBalance
-import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKey
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
-import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import retrofit2.Response
 import javax.inject.Inject

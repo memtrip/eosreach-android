@@ -3,7 +3,6 @@ package com.memtrip.eosreach.app.account.resources.manage.manageram
 import android.app.Application
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import javax.inject.Inject
 
 abstract class RamFormViewModel(
     application: Application

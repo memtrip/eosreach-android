@@ -16,7 +16,7 @@ abstract class SimpleAdapter<T>(
     val interaction: PublishSubject<Interaction<T>>,
     protected val inflater: LayoutInflater = LayoutInflater.from(context),
     internal val data: MutableList<T> = ArrayList(),
-    private val bottomMargin: Int = context.resources.getDimensionPixelOffset(R.dimen.padding_large)
+    private val marginSize: Int = context.resources.getDimensionPixelOffset(R.dimen.padding_large)
 ) : RecyclerView.Adapter<SimpleAdapterViewHolder<T>>() {
 
     fun populate(items: List<T>) {
@@ -42,7 +42,7 @@ abstract class SimpleAdapter<T>(
 
     override fun onBindViewHolder(viewHolder: SimpleAdapterViewHolder<T>, position: Int) {
         viewHolder.populate(position, data[position])
-        rowMargin(position, viewHolder.itemView)
+        defaultRowMargin(position, viewHolder.itemView)
     }
 
     override fun getItemCount(): Int {
@@ -55,9 +55,16 @@ abstract class SimpleAdapter<T>(
 
     abstract fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<T>
 
-    private fun rowMargin(position: Int, view: View) {
+    private fun defaultRowMargin(position: Int, view: View) {
+
+        if (position == 0) {
+            (view.layoutParams as RecyclerView.LayoutParams).topMargin = 0
+        } else {
+            (view.layoutParams as RecyclerView.LayoutParams).topMargin = marginSize
+        }
+
         if (position == data.size-1) {
-            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = bottomMargin
+            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = marginSize
         } else {
             (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
         }

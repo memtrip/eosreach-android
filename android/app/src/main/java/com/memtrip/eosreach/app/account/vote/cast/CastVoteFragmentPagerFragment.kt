@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
-import com.memtrip.eosreach.app.account.vote.cast.CastVoteFragmentPagerFragment.Page.*
-
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteFragmentPagerFragment.Page.PRODUCER
+import com.memtrip.eosreach.app.account.vote.cast.CastVoteFragmentPagerFragment.Page.PROXY
 import com.memtrip.eosreach.app.account.vote.cast.producers.CastProducersVoteFragment
 import com.memtrip.eosreach.app.account.vote.cast.proxy.CastProxyVoteFragment
 import java.util.Arrays

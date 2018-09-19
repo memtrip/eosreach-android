@@ -13,8 +13,8 @@
     <string name="issue_create_account_private_key_instruction_title_label">Your account has been created.</string>
     <string name="issue_create_account_private_key_instruction_label">
         The private key below was added as both the active and owner permission
-        of your new account. Please backup this private key somewhere in the physical world and avoid storing it
-        digitally.
+        of your new account. Please backup this private key and do not share it with anyone, under any
+        circumstances!
     </string>
     <string name="issue_create_account_create_button">Create Account (%s)</string>
     <string name="issue_create_account_done_button">Done</string>

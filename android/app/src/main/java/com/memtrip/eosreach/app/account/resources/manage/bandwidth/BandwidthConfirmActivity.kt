@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.transfer.ActionReceipt
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
@@ -16,7 +16,6 @@ import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptRoute
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.bandwidth_confirm_activity.*

@@ -6,6 +6,7 @@ import android.content.Context
 import com.android.billingclient.api.BillingClient
 
 import com.android.billingclient.api.BillingFlowParams
+import com.android.billingclient.api.ConsumeResponseListener
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.db.sharedpreferences.UnusedBillingPurchaseId
 

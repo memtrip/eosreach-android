@@ -4,17 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.jakewharton.rxbinding2.support.v4.view.RxViewPager
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import javax.inject.Inject
-
 import kotlinx.android.synthetic.main.manage_ram_activity.*
+import javax.inject.Inject
 
 class ManageRamActivity
     : MviActivity<ManageRamIntent, ManageRamRenderAction, ManageRamViewState, ManageRamViewLayout>(), ManageRamViewLayout {

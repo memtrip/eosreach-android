@@ -43,7 +43,6 @@ class EosCreateAccountRequestImpl @Inject constructor(
                                     Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                                 }
                             }
-                            Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                         } catch (e: Exception) {
                             Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                         }

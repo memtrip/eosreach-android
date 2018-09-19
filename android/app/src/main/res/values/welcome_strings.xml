@@ -7,6 +7,10 @@
         database updates should upgrade seamlessly. If you have data that cannot be recovered, please
         contact us ASAP and we will attempt to push a version that fixes this issue.
     </string>
+    <string name="welcome_entry_rsa_error">
+        Your device does not supported our RSA encryption implementation, we use RSA to encrypt your
+        public keys locally. Without this support your private keys would not be safe.
+    </string>
 
     <!-- welcome splash -->
     <string name="welcome_splash_button_create_account">Create new account</string>

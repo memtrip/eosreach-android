@@ -4,6 +4,7 @@ import com.memtrip.eos.core.crypto.EosPrivateKey
 import io.reactivex.Single
 
 interface EosKeyManager {
+    fun verifyDeviceSupportsRsaEncryption(): Single<Boolean>
     fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String>
     fun getPrivateKey(eosPublicKey: String): Single<EosPrivateKey>
     fun publicKeyExists(eosPublicKey: String): Boolean

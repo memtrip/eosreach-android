@@ -54,6 +54,11 @@ class EntryActivity
         welcome_entry_database_error.visible()
     }
 
+    override fun showRsaEncryptionFailed() {
+        welcome_entry_progressbar.gone()
+        welcome_entry_rsa_error.visible()
+    }
+
     override fun navigateToSplash() {
         welcome_entry_progressbar.gone()
         startActivity(splashIntent(this))

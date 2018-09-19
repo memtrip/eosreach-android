@@ -4,11 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
-import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.uikit.BalanceDetailsLayout
 import com.memtrip.eosreach.uikit.BalanceDetailsLayoutImpl
 import kotlinx.android.synthetic.main.bandwidth_details_layout.view.*

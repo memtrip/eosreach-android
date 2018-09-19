@@ -9,6 +9,7 @@ data class EntryViewState(val view: View) : MxViewState {
         object Idle : View()
         object OnProgress : View()
         object OnError : View()
+        object OnRsaEncryptionFailed : View()
         object NavigateToSplash : View()
         data class NavigateToAccount(val accountEntity: AccountEntity) : View()
         object NavigateToAccountList : View()

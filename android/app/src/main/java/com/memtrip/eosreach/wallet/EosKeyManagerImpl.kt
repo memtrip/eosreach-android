@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.db.sharedpreferences.RsaEncryptionVerified
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
 import javax.inject.Inject
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class EosKeyManagerImpl @Inject constructor(
     private val keyStoreWrapper: KeyStoreWrapper,
     private val cipherWrapper: CipherWrapper,
+    private val rsaEncryptionVerified: RsaEncryptionVerified,
     private val rxSchedulers: RxSchedulers,
     application: Application
 ) : EosKeyManager {
@@ -19,6 +21,28 @@ class EosKeyManagerImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences = application.getSharedPreferences(
         application.getString(R.string.app_keys_shared_preferences_package),
         Context.MODE_PRIVATE)
+
+    override fun verifyDeviceSupportsRsaEncryption(): Single<Boolean> {
+        return Single.create<Boolean> { single ->
+            if (rsaEncryptionVerified.get()) {
+                single.onSuccess(true)
+            } else {
+                val verifyKey = "VERIFY_RSA_SUPPORTED_KEY"
+                keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(verifyKey)
+                val encryptPrivateKey = EosPrivateKey()
+                encryptAndSavePrivateKey(verifyKey, encryptPrivateKey)
+                val privateKeyBytes = getPrivateKeyBytes(verifyKey)
+                val decryptPrivateKey = EosPrivateKey(privateKeyBytes)
+
+                if (encryptPrivateKey.toString() == decryptPrivateKey.toString()) {
+                    rsaEncryptionVerified.put(true)
+                    single.onSuccess(true)
+                } else {
+                    single.onSuccess(false)
+                }
+            }
+        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
+    }
 
     override fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String> {
         return Single.create<String> { single ->

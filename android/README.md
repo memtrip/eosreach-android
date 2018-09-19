@@ -1,35 +1,28 @@
 ### TODO:
-- Create account api 
-    - Implement the create account api 
-    - Integrate with create account api with the app
-    - Integrate the create account api with Google play store items
-- airdropped tokens?
-
 - Populate the cast vote screen with the existing votes
-- stop the lazy loading from triggering multiple network requests
-- split the account strings into separate files
-- fix the initial lag on pressing the import private key button
-- Implement collapsing header for AccountActivity
+- Add logo to the WelcomeActivity
+- Move the settings menu from import key to the welcome activity
+- airdropped tokens?
 - update balances after staking resources
-- encrypt some dummy data using RSA to verify it works
+- Remove the price from the button in create account if the product has been purchased but not used because of technical error
 
-### Clean up
+### Stability
 - Ensure all screens support screen rotation correctly 
-- Ensure every rx call is handling error, easily verified by unit tests
+- Ensure every rx call is handling errors properly, easily verified by unit tests
 - sanity check for unused resources and files
 - write tests for all the ViewModels
-- write integration tests
+- write UI integration tests
 
 ### Backlog
-- implement buy / sell ram
-- import key / create account should trigger an account list refresh
-- Support all action types
+- Implement buy / sell ram
+- Import key / create account should trigger an account list refresh
+- Support a generic action type in the action list
 - Explore accounts without importing a private key
-- use https://github.com/ThreeTen/threetenbp for time throughout eos-jvm project
+- use https://github.com/ThreeTen/threetenbp rather than Date for times
 - pull to refresh on block producer screen
-AccountBundle -> AccountContext
 - Add a loading indicator to the action lazy loading
 - Add an error indicator to the action lazy loading
-ContractAccountBalance -> AccountContractContext
-- Remove the price from the button in create account if the product has been purchased but not used because of technical error
 - Handle all airdrop token decimal formats, currently only supporting `0.0000`
+- stop the lazy loading from triggering multiple network requests
+- fix the initial jank on pressing the import private key button
+- Implement collapsing header for AccountActivity
