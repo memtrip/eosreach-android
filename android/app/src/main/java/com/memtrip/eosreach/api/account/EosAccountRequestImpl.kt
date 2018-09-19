@@ -31,7 +31,7 @@ class EosAccountRequestImpl @Inject internal constructor(
                     Result(
                         EosAccount(
                             account.account_name,
-                            BalanceFormatter.deserialize(account.core_liquid_balance!!),
+                            inferBalanceSymbol(account.core_liquid_balance, stakedNetBalance, stakedCpuBalance),
                             EosAccountResource(
                                 account.net_limit.used,
                                 account.net_limit.available,
@@ -53,6 +53,22 @@ class EosAccountRequestImpl @Inject internal constructor(
                         AccountError.FailedRetrievingAccount(it.code(), it.errorBody()))
                 }
         }.onErrorReturn { Result(AccountError.GenericError) }
+    }
+
+    private fun inferBalanceSymbol(
+        balance: String?,
+        netBalance: Balance?,
+        cpuBalance: Balance?
+    ): Balance {
+        return if (balance != null) {
+            BalanceFormatter.deserialize(balance)
+        } else if (netBalance != null) {
+            BalanceFormatter.create(0.0, netBalance.symbol)
+        } else if (cpuBalance != null) {
+            BalanceFormatter.create(0.0, cpuBalance.symbol)
+        } else {
+            throw IllegalStateException("Could not infer account balance symbol")
+        }
     }
 
     private fun stakedNetBalance(selfDelegatedBandwidth: SelfDelegatedBandwidth?): Balance? {

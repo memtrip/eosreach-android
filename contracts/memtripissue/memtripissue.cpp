@@ -5,7 +5,7 @@ void memtripissue::receipt(
   const account_name account,
   const checksum256& uniqueId
 ) {
-  require_auth(account);
+  require_auth(_self);
 
   purchase_table purchase(_self, _self);
 

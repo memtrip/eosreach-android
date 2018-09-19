@@ -11,6 +11,7 @@
 - fix the initial lag on pressing the import private key button
 - Implement collapsing header for AccountActivity
 - update balances after staking resources
+- encrypt some dummy data using RSA to verify it works
 
 ### Clean up
 - Ensure all screens support screen rotation correctly 

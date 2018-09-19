@@ -32,7 +32,7 @@ class EosCreateAccountRequestImpl @Inject constructor(
                             val createAccountError = moshi.adapter(CreateAccountError::class.java)
                                 .fromJson(response.errorBody()!!.string())
 
-                            when(createAccountError!!.error) {
+                            when(createAccountError!!.errorCode) {
                                 "PUBLIC_KEY_INVALID_FORMAT" -> {
                                     Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.FatalError)
                                 }

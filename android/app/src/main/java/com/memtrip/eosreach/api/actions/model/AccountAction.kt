@@ -38,11 +38,15 @@ sealed class AccountAction(
             action: HistoricAccountAction,
             contractAccountBalance: ContractAccountBalance
         ): AccountAction.Transfer {
-            val from = action.action_trace.act.data["from"].toString()
-            val to = action.action_trace.act.data["to"].toString()
-            val memo = action.action_trace.act.data["memo"].toString()
+
+            @Suppress("UNCHECKED_CAST")
+            val data = action.action_trace.act.data as Map<String, Any>
+
+            val from = data["from"].toString()
+            val to = data["to"].toString()
+            val memo = data["memo"].toString()
             val formattedDate = action.block_time.toLocalDateTime().fullDate()
-            val quantity = action.action_trace.act.data["quantity"].toString()
+            val quantity = data["quantity"].toString()
             val quantityBalance: Balance = BalanceFormatter.deserialize(quantity)
             val transferIncoming = (contractAccountBalance.accountName == to)
             val transferIncomingIcon = if (transferIncoming)

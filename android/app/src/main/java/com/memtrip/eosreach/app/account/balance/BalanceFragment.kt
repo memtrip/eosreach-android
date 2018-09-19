@@ -54,7 +54,7 @@ class BalanceFragment
 
     override fun intents(): Observable<BalanceIntent> = Observable.merge(
         Observable.just(BalanceIntent.Init(accountBalanceList)),
-        RxView.clicks(balance_airdrop_button).map { BalanceIntent.ScanForAirdropTokens },
+        RxView.clicks(balance_airdrop_button).map { BalanceIntent.ScanForAirdropTokens(accountName) },
         RxView.clicks(balance_create_account).map { BalanceIntent.NavigateToCreateAccount },
         adapter.interaction.map { BalanceIntent.NavigateToActions(it.data) }
     )
@@ -73,6 +73,7 @@ class BalanceFragment
     }
 
     override fun showEmptyBalance() {
+        balance_token_title.gone()
         balance_list_recyclerview.gone()
         balance_airdrop_progress_group.gone()
         balance_empty_group.visible()

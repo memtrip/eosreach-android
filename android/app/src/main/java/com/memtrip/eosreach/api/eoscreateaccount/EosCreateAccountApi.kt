@@ -32,5 +32,5 @@ data class CreateAccountResponse(
 @Keep
 @JsonClass(generateAdapter = true)
 data class CreateAccountError(
-    val error: String
+    val errorCode: String
 )
