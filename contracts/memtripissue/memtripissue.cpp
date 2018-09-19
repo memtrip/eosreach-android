@@ -14,7 +14,7 @@ void memtripissue::receipt(
 
   eosio_assert(itr == idx.end(), "PurchaseId already exists.");
 
-  purchase.emplace(account, [&](auto& p) {
+  purchase.emplace(_self, [&](auto& p) {
     p.account = account;
     p.uniqueId = uniqueId;
   });

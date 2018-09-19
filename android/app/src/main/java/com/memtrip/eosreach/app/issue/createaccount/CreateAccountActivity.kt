@@ -66,13 +66,11 @@ abstract class CreateAccountActivity
 
         billing = Billing(this, { response ->
             if (response.success) {
-                billing.billingClient.consumeAsync(response.purchaseToken!!) { responseCode, purchaseToken ->
-                    handler.post {
-                        model().publish(CreateAccountIntent.CreateAccount(
-                            purchaseToken,
-                            issue_create_account_name_input.text.toString()
-                        ))
-                    }
+                handler.post {
+                    model().publish(CreateAccountIntent.CreateAccount(
+                        response.purchaseToken!!,
+                        issue_create_account_name_input.text.toString()
+                    ))
                 }
             } else {
                 handler.post {
