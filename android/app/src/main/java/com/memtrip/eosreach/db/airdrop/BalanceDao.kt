@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.db.contract
+package com.memtrip.eosreach.db.airdrop
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,6 +12,9 @@ interface BalanceDao {
 
     @Query("SELECT DISTINCT uid, accountName, contractName, symbol FROM Balance WHERE accountName = :accountName ORDER BY uid ASC LIMIT 0, 100")
     fun getBalancesForAccount(accountName: String): List<BalanceEntity>
+
+    @Query("DELETE FROM Balance WHERE accountName = :accountName")
+    fun deleteBy(accountName: String)
 
     @Query("DELETE FROM Balance")
     fun delete()

@@ -7,8 +7,8 @@ import com.memtrip.eosreach.db.account.AccountDao
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
 import com.memtrip.eosreach.db.blockproducer.BlockProducerEntity
-import com.memtrip.eosreach.db.contract.BalanceDao
-import com.memtrip.eosreach.db.contract.BalanceEntity
+import com.memtrip.eosreach.db.airdrop.BalanceDao
+import com.memtrip.eosreach.db.airdrop.BalanceEntity
 import com.memtrip.eosreach.db.transaction.TransactionLogDao
 import com.memtrip.eosreach.db.transaction.TransactionLogEntity
 

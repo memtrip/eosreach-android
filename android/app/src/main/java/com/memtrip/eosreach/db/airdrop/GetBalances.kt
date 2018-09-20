@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.db.contract
+package com.memtrip.eosreach.db.airdrop
 
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single

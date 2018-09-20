@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.memtrip.eosreach.db.account.AccountDao
 import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
-import com.memtrip.eosreach.db.contract.BalanceDao
+import com.memtrip.eosreach.db.airdrop.BalanceDao
 import com.memtrip.eosreach.db.transaction.TransactionLogDao
 import dagger.Module
 import dagger.Provides

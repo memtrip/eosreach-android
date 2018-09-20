@@ -104,6 +104,10 @@ class BalanceFragment
         balance_airdrop_progress_group.visible()
     }
 
+    override fun showAirdropSuccess() {
+        accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.BALANCE)
+    }
+
     override fun navigateToCreateAccount() {
         model().publish(BalanceIntent.Idle)
         startActivity(manageCreateAccountIntent(context!!))

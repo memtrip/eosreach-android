@@ -33,7 +33,6 @@ class InsertAccountsForPublicKey @Inject internal constructor(
             .andThen(insertPublicKeys(publicKeyAccountEntities))
             .toSingle { publicKeyAccountEntities }
     }
-
     private fun deletePublicKey(publicKey: String): Completable {
         return Completable
             .fromAction { accountDao.deleteBy(publicKey) }
@@ -46,4 +45,5 @@ class InsertAccountsForPublicKey @Inject internal constructor(
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
     }
+
 }

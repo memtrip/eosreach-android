@@ -32,7 +32,6 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
             }
     }
 
-    @Suppress("NAME_SHADOWING")
     private fun getBalance(publicKey: String, accountNameList: List<String>): Single<Result<AccountsForPublicKey, AccountForKeyError>> {
 
         return Observable.fromIterable(accountNameList)
@@ -43,7 +42,7 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
                         "eosio.token",
                         accountName
                     )).toObservable(),
-                    BiFunction<String, Response<List<String>>, AccountNameSystemBalance> { accountName, response ->
+                    BiFunction<String, Response<List<String>>, AccountNameSystemBalance> { _, response ->
                         if (response.isSuccessful) {
                             val balance = response.body()!!
                             if (balance.isNotEmpty()) {

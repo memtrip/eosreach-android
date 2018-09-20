@@ -4,7 +4,6 @@ import android.app.Application
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.accountforkey.AccountNameSystemBalance
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
 import com.memtrip.eosreach.api.balance.AccountBalanceList
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
@@ -12,7 +11,7 @@ import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
 import com.memtrip.eosreach.api.eosprice.EosPrice
 import com.memtrip.eosreach.app.price.BalanceFormatter
-import com.memtrip.eosreach.db.contract.InsertBalances
+import com.memtrip.eosreach.db.airdrop.InsertBalances
 import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -54,15 +53,7 @@ class BalanceViewModel @Inject internal constructor(
         BalanceRenderAction.OnAirdropProgress -> previousState.copy(
             view = BalanceViewState.View.OnAirdropProgress)
         is BalanceRenderAction.OnAirdropSuccess -> previousState.copy(
-            view = BalanceViewState.View.Populate,
-            accountBalances = AccountBalanceList(with (ArrayList<ContractAccountBalance>()) {
-                addAll(previousState.accountBalances.balances)
-                addAll(renderAction.newBalances)
-                distinctBy { contractAccountBalance ->
-                    contractAccountBalance.contractName
-                }
-                this
-            }))
+            view = BalanceViewState.View.OnAirdropSuccess)
     }
 
     override fun filterIntents(intents: Observable<BalanceIntent>): Observable<BalanceIntent> = Observable.merge(
@@ -106,7 +97,7 @@ class BalanceViewModel @Inject internal constructor(
                 }
 
                 if (results.isNotEmpty()) {
-                    insertAirdrops(results)
+                    insertAirdrops(accountName, results)
                 } else {
                     Single.just(BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_no_airdrops)))
                 }
@@ -120,9 +111,9 @@ class BalanceViewModel @Inject internal constructor(
         }.toObservable().startWith(BalanceRenderAction.OnAirdropProgress)
     }
 
-    private fun insertAirdrops(balances: List<ContractAccountBalance>): Single<BalanceRenderAction> {
-        return insertBalances.insert(balances).map { _ ->
-            BalanceRenderAction.OnAirdropSuccess(balances)
+    private fun insertAirdrops(accountName: String, balances: List<ContractAccountBalance>): Single<BalanceRenderAction> {
+        return insertBalances.insert(accountName, balances).map { _ ->
+            BalanceRenderAction.OnAirdropSuccess
         }
     }
 }

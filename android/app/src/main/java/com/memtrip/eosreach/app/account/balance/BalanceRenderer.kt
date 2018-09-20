@@ -11,7 +11,7 @@ sealed class BalanceRenderAction : MxRenderAction {
     object Idle : BalanceRenderAction()
     data class Populate(val accountBalances: AccountBalanceList) : BalanceRenderAction()
     data class OnAirdropError(val message: String) : BalanceRenderAction()
-    data class OnAirdropSuccess(val newBalances: List<ContractAccountBalance>) : BalanceRenderAction()
+    object OnAirdropSuccess : BalanceRenderAction()
     object OnAirdropProgress : BalanceRenderAction()
     object NavigateToCreateAccount : BalanceRenderAction()
     data class NavigateToActions(val contractAccountBalance: ContractAccountBalance) : BalanceRenderAction()
@@ -22,6 +22,7 @@ interface BalanceViewLayout : MxViewLayout {
     fun showEmptyBalance()
     fun showAirdropError(message: String)
     fun showAirdropProgress()
+    fun showAirdropSuccess()
     fun navigateToCreateAccount()
     fun navigateToActions(contractAccountBalance: ContractAccountBalance)
 }
@@ -39,6 +40,9 @@ class BalanceViewRenderer @Inject internal constructor() : MxViewRenderer<Balanc
         }
         BalanceViewState.View.OnAirdropProgress -> {
             layout.showAirdropProgress()
+        }
+        BalanceViewState.View.OnAirdropSuccess -> {
+            layout.showAirdropSuccess()
         }
         BalanceViewState.View.NavigateToCreateAccount -> {
             layout.navigateToCreateAccount()

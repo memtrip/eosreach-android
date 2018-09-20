@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.db.contract
+package com.memtrip.eosreach.db.airdrop
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
