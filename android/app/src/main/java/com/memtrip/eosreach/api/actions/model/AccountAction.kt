@@ -8,6 +8,7 @@ import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.app.price.CurrencyPairFormatter
 import com.memtrip.eosreach.utils.fullDate
+import com.memtrip.eosreach.utils.fullDateTime
 import com.memtrip.eosreach.utils.toLocalDateTime
 import kotlinx.android.parcel.Parcelize
 
@@ -45,7 +46,7 @@ sealed class AccountAction(
             val from = data["from"].toString()
             val to = data["to"].toString()
             val memo = data["memo"].toString()
-            val formattedDate = action.block_time.toLocalDateTime().fullDate()
+            val formattedDate = action.block_time.toLocalDateTime().fullDateTime()
             val quantity = data["quantity"].toString()
             val quantityBalance: Balance = BalanceFormatter.deserialize(quantity)
             val transferIncoming = (contractAccountBalance.accountName == to)

@@ -35,6 +35,9 @@ android {
     androidExtensions {
         experimental = true
     }
+    packagingOptions {
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+    }
 }
 
 dependencies {
@@ -52,7 +55,9 @@ dependencies {
     implementation 'com.android.billingclient:billing:1.1'
 
     /* eos-jvm */
-    implementation "com.memtrip.eos-jvm:eos-chain-actions:1.0.0-alpha01"
+    implementation ("com.memtrip.eos-jvm:eos-chain-actions:1.0.0-alpha02") {
+        exclude group: "com.lambdaworks", module: "scrypt"
+    }
 
     /* okhttp */
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
