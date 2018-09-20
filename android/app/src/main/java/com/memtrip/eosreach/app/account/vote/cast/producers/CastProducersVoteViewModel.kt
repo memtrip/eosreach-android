@@ -2,6 +2,8 @@ package com.memtrip.eosreach.app.account.vote.cast.producers
 
 import android.app.Application
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.api.account.EosAccountVote
 import com.memtrip.eosreach.api.vote.VoteRequest
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -18,7 +20,7 @@ class CastProducersVoteViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: CastProducersVoteIntent): Observable<CastProducersVoteRenderAction> = when (intent) {
         CastProducersVoteIntent.Idle -> Observable.just(CastProducersVoteRenderAction.Idle)
-        is CastProducersVoteIntent.Init -> Observable.just(CastProducersVoteRenderAction.AddProducerField(0))
+        is CastProducersVoteIntent.Init -> Observable.just(populate(intent.eosAccountVote))
         is CastProducersVoteIntent.AddProducerField -> Observable.just(addProducerField(intent.nextPosition, intent.currentTotal))
         is CastProducersVoteIntent.RemoveProducerField -> Observable.just(removeProducerField(intent.removePosition))
         is CastProducersVoteIntent.Vote -> vote(intent.voterAccountName, intent.blockProducers)
@@ -30,6 +32,8 @@ class CastProducersVoteViewModel @Inject internal constructor(
             view = CastProducersVoteViewState.View.Idle)
         is CastProducersVoteRenderAction.AddProducerField -> previousState.copy(
             view = CastProducersVoteViewState.View.AddProducerField(renderAction.nextPosition))
+        is CastProducersVoteRenderAction.AddExistingProducers -> previousState.copy(
+            view = CastProducersVoteViewState.View.AddExistingProducers(renderAction.producers))
         is CastProducersVoteRenderAction.RemoveProducerField -> previousState.copy(
             view = CastProducersVoteViewState.View.RemoveProducerField(renderAction.position))
         CastProducersVoteRenderAction.OnProgress -> previousState.copy(
@@ -48,6 +52,14 @@ class CastProducersVoteViewModel @Inject internal constructor(
             !CastProducersVoteIntent.Init::class.java.isInstance(it)
         }
     )
+
+    private fun populate(eosAccountVote: EosAccountVote?): CastProducersVoteRenderAction {
+        if (eosAccountVote != null && eosAccountVote.producers.isNotEmpty()) {
+            return CastProducersVoteRenderAction.AddExistingProducers(eosAccountVote.producers)
+        } else {
+            return CastProducersVoteRenderAction.AddProducerField(0)
+        }
+    }
 
     private fun vote(
         voterAccountName: String,

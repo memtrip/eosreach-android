@@ -37,7 +37,7 @@ class CastProducersVoteFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_cast_producers_vote_fragment, container, false)
-        eosAccount = fromBundle(arguments!!)
+        eosAccount = eosAccountExtra(arguments!!)
         return view
     }
 
@@ -46,7 +46,7 @@ class CastProducersVoteFragment
     }
 
     override fun intents(): Observable<CastProducersVoteIntent> = Observable.merge(
-        Observable.just(CastProducersVoteIntent.Init),
+        Observable.just(CastProducersVoteIntent.Init(eosAccount.eosAcconuntVote)),
         RxView.clicks(cast_producers_vote_button).map {
             CastProducersVoteIntent.Vote(
                 eosAccount.accountName,
@@ -83,7 +83,19 @@ class CastProducersVoteFragment
 
     override fun render(): CastProducersVoteViewRenderer = render
 
-    override fun addProducerField(position: Int) {
+    override fun populateWidthExistingProducerList(producers: List<String>) {
+        model().publish(CastProducersVoteIntent.Idle)
+        producers.forEachIndexed { index, producer ->
+            insertProducerField(index, producer)
+        }
+    }
+
+    override fun adProducerRow(position: Int) {
+        model().publish(CastProducersVoteIntent.Idle)
+        insertProducerField(position)
+    }
+
+    private fun insertProducerField(position: Int, value: String = "") {
         model().publish(CastProducersVoteIntent.Idle)
         cast_producers_vote_blockproducer_form_container.addView(
             with (LayoutInflater.from(context!!).inflate(
@@ -96,6 +108,7 @@ class CastProducersVoteFragment
                     AccountNameInputFilter(),
                     InputFilter.LengthFilter(12)
                 )
+                producerEditText.setText(value)
 
                 val removeButton: Button = (this.getChildAt(1) as Button)
                 if (position == 0)  {
@@ -165,6 +178,6 @@ class CastProducersVoteFragment
             this
         }
 
-        private fun fromBundle(bundle: Bundle): EosAccount = bundle.getParcelable(EOS_ACCOUNT_EXTRA)
+        private fun eosAccountExtra(bundle: Bundle): EosAccount = bundle.getParcelable(EOS_ACCOUNT_EXTRA)
     }
 }

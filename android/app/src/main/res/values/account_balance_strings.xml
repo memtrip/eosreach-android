@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="balance_empty">This account does not have a balance, you must stake it resources using an existing account.</string>
+    <string name="balance_create_account">Create an account</string>
+    <string name="balance_airdrop_button">Scan for airdrop tokens</string>
+    <string name="balance_airdrop_progress_label">Scanning for airdrop tokens, this can take a while, please be patient.</string>
+    <string name="balance_tokens_title">Tokens</string>
+    <string name="balance_tokens_no_customtokens">
+        We could not find any airdrops on this network, try changing the EOS endpoint URL.
+    </string>
+    <string name="balance_tokens_no_airdrops">
+        We could not find any airdrops associated with this account, the token must be committed to the customtokens contract
+         for it to be considered valid by this app.
+    </string>
+    <string name="balance_tokens_airdrop_generic_error">
+        We could not fetch airdrops, please check your internet and try again. If this problem persists, try changing the EOS endpoint URL.
+    </string>
+    <string name="balance_tokens_success">Airdrop tokens found.</string>
+
+</resources>

@@ -7,6 +7,8 @@ import com.memtrip.eosreach.db.sharedpreferences.EosEndpoint
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.net.MalformedURLException
+import java.net.URL
 import javax.inject.Inject
 
 class EosEndpointViewModel @Inject internal constructor(
@@ -50,7 +52,9 @@ class EosEndpointViewModel @Inject internal constructor(
     )
 
     private fun changeEndpoint(endpointUrl: String): Observable<EosEndpointRenderAction> {
-        if (!endpointUrl.startsWith("http://") && !endpointUrl.startsWith("https://")) {
+        if ((!endpointUrl.startsWith("http://") &&
+                !endpointUrl.startsWith("https://")) || !validUrl(endpointUrl)
+        ) {
             return Observable.just(EosEndpointRenderAction.OnError(
                 context().getString(R.string.eos_endpoint_validation_invalid_url)))
         } else if (endpointUrl == eosEndPoint.get()) {
@@ -74,5 +78,12 @@ class EosEndpointViewModel @Inject internal constructor(
                     }
                 }.toObservable().startWith(EosEndpointRenderAction.OnProgress)
         }
+    }
+
+    private fun validUrl(url: String): Boolean = try {
+        URL(url)
+        true
+    } catch (e: MalformedURLException) {
+        false
     }
 }

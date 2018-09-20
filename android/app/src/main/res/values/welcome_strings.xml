@@ -15,6 +15,7 @@
     <!-- welcome splash -->
     <string name="welcome_splash_button_create_account">Create new account</string>
     <string name="welcome_splash_button_import_key">Import private key</string>
+    <string name="welcome_splash_blurb">THE WHEEL\nPUT THE GIANTS\nOUT OF BUSINESS</string>
 
     <!-- welcome key imported -->
     <string name="welcome_key_imported_title">Private key</string>

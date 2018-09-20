@@ -3,9 +3,12 @@ package com.memtrip.eosreach.app.account.balance
 import android.app.Application
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
+import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountNameSystemBalance
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
+import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
+import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -15,6 +18,7 @@ import javax.inject.Inject
 class BalanceViewModel @Inject internal constructor(
     private val customTokensRequest: CustomTokensRequest,
     private val chainApi: ChainApi,
+    private val rxSchedulers: RxSchedulers,
     application: Application
 ) : MxViewModel<BalanceIntent, BalanceRenderAction, BalanceViewState>(
     BalanceViewState(view = BalanceViewState.View.Idle),
@@ -32,7 +36,8 @@ class BalanceViewModel @Inject internal constructor(
     override fun reducer(previousState: BalanceViewState, renderAction: BalanceRenderAction): BalanceViewState = when (renderAction) {
         BalanceRenderAction.Idle -> previousState.copy(view = BalanceViewState.View.Idle)
         is BalanceRenderAction.Populate -> previousState.copy(
-            view = BalanceViewState.View.Populate(renderAction.accountBalances))
+            view = BalanceViewState.View.Populate,
+            accountBalances = renderAction.accountBalances)
         BalanceRenderAction.NavigateToCreateAccount -> previousState.copy(
             view = BalanceViewState.View.NavigateToCreateAccount)
         is BalanceRenderAction.NavigateToActions -> previousState.copy(
@@ -41,6 +46,8 @@ class BalanceViewModel @Inject internal constructor(
             view = BalanceViewState.View.OnAirdropError(renderAction.message))
         BalanceRenderAction.OnAirdropProgress -> previousState.copy(
             view = BalanceViewState.View.OnAirdropProgress)
+        BalanceRenderAction.OnAirdropSuccess -> previousState.copy(
+            view = BalanceViewState.View.OnAirdropSuccess)
     }
 
     override fun filterIntents(intents: Observable<BalanceIntent>): Observable<BalanceIntent> = Observable.merge(
@@ -50,26 +57,6 @@ class BalanceViewModel @Inject internal constructor(
         }
     )
 
-    /**
-    Observable.zip(
-        Observable.just(accountName),
-        chainApi.getCurrencyBalance(GetCurrencyBalance(
-            "eosio.token",
-            accountName
-        )).toObservable(),
-        BiFunction<String, Response<List<String>>, AccountNameSystemBalance> { accountName, response ->
-            if (response.isSuccessful) {
-                    val balance = response.body()!!
-                    if (balance.isNotEmpty()) {
-                        AccountNameSystemBalance(accountName, balance[0])
-                    } else {
-                        AccountNameSystemBalance(accountName)
-                    }
-            } else {
-                throw InnerAccountFailed()
-            }
-        })
-     */
     private fun scanForAirdropTokens(accountName: String): Observable<BalanceRenderAction> {
         return customTokensRequest.getCustomTokens().flatMap<BalanceRenderAction> { tokenParent ->
             Observable.fromIterable(tokenParent.tokens).flatMap { token ->
@@ -78,7 +65,7 @@ class BalanceViewModel @Inject internal constructor(
                     chainApi.getCurrencyBalance(GetCurrencyBalance(
                         token.customtoken,
                         accountName
-                    )).toObservable(),
+                    )).observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()).toObservable(),
                     BiFunction<String, Response<List<String>>, AccountNameSystemBalance> { accountName, response ->
                         if (response.isSuccessful) {
                             val balance = response.body()!!
@@ -94,10 +81,26 @@ class BalanceViewModel @Inject internal constructor(
             }
             .toList()
             .map { accountSystemBalanceList ->
-                BalanceRenderAction.OnAirdropError("error")
+                val results = accountSystemBalanceList.filter { accountNameSystemBalance ->
+                    accountNameSystemBalance != null
+                }
+
+                if (results.isNotEmpty()) {
+                    insertAirdrops()
+                } else {
+                    BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_no_airdrops))
+                }
             }
-        }.onErrorReturn {
-            BalanceRenderAction.OnAirdropError("error")
+        }.onErrorReturn { error ->
+            if (error is CustomTokensRequestImpl.CouldNotFetchTokens) {
+                BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_no_customtokens))
+            } else {
+                BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_airdrop_generic_error))
+            }
         }.toObservable().startWith(BalanceRenderAction.OnAirdropProgress)
+    }
+
+    private fun insertAirdrops(): BalanceRenderAction {
+        return BalanceRenderAction.OnAirdropSuccess
     }
 }

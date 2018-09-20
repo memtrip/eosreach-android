@@ -1,5 +1,8 @@
 package com.memtrip.eosreach.app.account.balance
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +10,14 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.AccountBalanceList
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
+import com.memtrip.eosreach.app.account.AccountParentRefresh
 import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
+import com.memtrip.eosreach.app.account.vote.cast.proxy.CastProxyVoteIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -34,6 +41,12 @@ class BalanceFragment
     private lateinit var adapter: AccountBalanceListAdapter
     private lateinit var accountName: String
     private lateinit var accountBalanceList: AccountBalanceList
+    private lateinit var accountParentRefresh: AccountParentRefresh
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        accountParentRefresh = context as AccountParentRefresh
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_balance_fragment, container, false)
@@ -65,28 +78,48 @@ class BalanceFragment
 
     override fun render(): BalanceViewRenderer = render
 
-    override fun showBalances(accountBalanceList: AccountBalanceList) {
-        balance_list_recyclerview.visible()
+    override fun showBalances(balances: List<ContractAccountBalance>) {
+        balance_list_group.visible()
         balance_airdrop_progress_group.gone()
         adapter.clear()
-        adapter.populate(accountBalanceList.balances)
+        adapter.populate(balances)
     }
 
     override fun showEmptyBalance() {
-        balance_token_title.gone()
-        balance_list_recyclerview.gone()
+        balance_list_group.gone()
         balance_airdrop_progress_group.gone()
         balance_empty_group.visible()
     }
 
     override fun showAirdropError(message: String) {
-        balance_list_recyclerview.gone()
-        balance_airdrop_progress_group.gone()
+        AlertDialog.Builder(context!!)
+            .setMessage(message)
+            .setPositiveButton(R.string.app_dialog_positive_button, null)
+            .create()
+            .show()
     }
 
     override fun showAirdropProgress() {
-        balance_list_recyclerview.gone()
+        balance_list_group.gone()
         balance_airdrop_progress_group.visible()
+    }
+
+    override fun showAirdropSuccess() {
+        balance_airdrop_progress_group.gone()
+        balance_list_group.visible()
+
+        AlertDialog.Builder(context!!)
+            .setMessage(R.string.balance_tokens_success)
+            .setPositiveButton(R.string.app_dialog_positive_button, object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+                    accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.BALANCE)
+                }
+            })
+            .setOnCancelListener {
+                accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.BALANCE)
+            }
+            .create()
+            .show()
     }
 
     override fun navigateToCreateAccount() {

@@ -2,12 +2,14 @@ package com.memtrip.eosreach.api.customtokens
 
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetTableRows
+import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
 import java.io.IOException
 import javax.inject.Inject
 
 class CustomTokensRequestImpl @Inject internal constructor(
-    private val chainApi: ChainApi
+    private val chainApi: ChainApi,
+    private val rxSchedulers: RxSchedulers
 ) : CustomTokensRequest {
 
     override fun getCustomTokens(): Single<TokenParent> {
@@ -26,15 +28,20 @@ class CustomTokensRequestImpl @Inject internal constructor(
             if (response.isSuccessful) {
                 TokenParent(response.body()!!.rows.map { token ->
                     Token(
-                        token.get("uuid") as Long,
+                        token.get("uuid") as Double,
                         token.get("owner") as String,
                         token.get("customtoken") as String,
                         token.get("customasset") as String)
+                }.filter { token ->
+                    token.customtoken != "eosio.token"
                 })
             } else {
                 throw CouldNotFetchTokens()
             }
-        }
+        }.onErrorReturn {
+            it.printStackTrace()
+            throw CouldNotFetchTokens()
+        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 
     class CouldNotFetchTokens : IOException()

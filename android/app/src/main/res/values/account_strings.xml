@@ -30,13 +30,6 @@
     <string name="account_menu_create_account">Create account</string>
     <string name="account_menu_settings">Settings</string>
 
-    <!-- balance -->
-    <string name="balance_empty">This account does not have a balance, you must stake it resources using an existing account.</string>
-    <string name="balance_create_account">Create an account</string>
-    <string name="balance_airdrop_button">Scan for airdrop tokens</string>
-    <string name="balance_airdrop_progress_label">Scanning for airdrop tokens, this can take a while, please be patient.</string>
-    <string name="balance_tokens_title">Tokens</string>
-
     <!-- actions -->
     <string name="account_actions_generic_error_title">Failed to fetch actions</string>
     <string name="account_actions_generic_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>

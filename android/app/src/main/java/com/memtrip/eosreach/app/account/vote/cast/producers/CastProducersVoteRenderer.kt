@@ -8,6 +8,7 @@ import javax.inject.Inject
 sealed class CastProducersVoteRenderAction : MxRenderAction {
     object Idle : CastProducersVoteRenderAction()
     object OnProgress : CastProducersVoteRenderAction()
+    data class AddExistingProducers(val producers: List<String>): CastProducersVoteRenderAction()
     data class AddProducerField(val nextPosition: Int) : CastProducersVoteRenderAction()
     data class RemoveProducerField(val position: Int) : CastProducersVoteRenderAction()
     data class OnError(val message: String, val log: String) : CastProducersVoteRenderAction()
@@ -16,7 +17,8 @@ sealed class CastProducersVoteRenderAction : MxRenderAction {
 }
 
 interface CastProducersVoteViewLayout : MxViewLayout {
-    fun addProducerField(position: Int)
+    fun populateWidthExistingProducerList(producers: List<String>)
+    fun adProducerRow(position: Int)
     fun removeProducerField(position: Int)
     fun showProgress()
     fun showError(message: String, log: String)
@@ -29,7 +31,10 @@ class CastProducersVoteViewRenderer @Inject internal constructor() : MxViewRende
         CastProducersVoteViewState.View.Idle -> {
         }
         is CastProducersVoteViewState.View.AddProducerField -> {
-            layout.addProducerField(state.view.nextPosition)
+            layout.adProducerRow(state.view.nextPosition)
+        }
+        is CastProducersVoteViewState.View.AddExistingProducers -> {
+            layout.populateWidthExistingProducerList(state.view.producers)
         }
         is CastProducersVoteViewState.View.RemoveProducerField -> {
             layout.removeProducerField(state.view.position)

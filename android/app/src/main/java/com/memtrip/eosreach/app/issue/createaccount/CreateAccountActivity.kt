@@ -191,6 +191,7 @@ abstract class CreateAccountActivity
     override fun showCreateAccountProgress() {
         issue_create_account_progress.visible()
         issue_create_account_create_button.invisible()
+        issue_create_account_create_button.text = getString(R.string.issue_create_account_create_purchased_button)
     }
 
     override fun showCreateAccountError(error: String) {

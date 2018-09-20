@@ -37,6 +37,13 @@
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@id/horizontal_start_guideline"/>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/balance_list_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="balance_token_title,balance_list_recyclerview"
+        tools:ignore="MissingConstraints" />
+
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/balance_token_title"
         style="@style/Typography.Medium"
@@ -73,7 +80,8 @@
         style="@style/Typography.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/padding_medium"
         android:text="@string/balance_airdrop_progress_label"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"

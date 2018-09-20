@@ -17,6 +17,7 @@
         circumstances!
     </string>
     <string name="issue_create_account_create_button">Create Account (%s)</string>
+    <string name="issue_create_account_create_purchased_button">Create Account</string>
     <string name="issue_create_account_done_button">Done</string>
     <string name="issue_create_account_sku_error">
         Our create account feature is currently unavailable, you can still use this app by importing an
