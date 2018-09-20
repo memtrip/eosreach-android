@@ -2,5 +2,5 @@
 <resources>
     <string name="app_default_eos_endpoint_root">http://eos.greymass.com/</string>
     <string name="app_default_create_account_sku_id">memtrip_issue_create_account</string>
-    <string name="app_default_utility_endpoint_root">https://util.memtrip.com/</string>
+    <string name="app_default_utility_endpoint_root">https://eosreach.memtrip.com/</string>
 </resources>
