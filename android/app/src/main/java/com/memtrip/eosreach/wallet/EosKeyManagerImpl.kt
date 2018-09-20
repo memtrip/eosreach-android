@@ -37,7 +37,7 @@ class EosKeyManagerImpl @Inject constructor(
 
                 if (encryptPrivateKey.toString() == decryptPrivateKey.toString()) {
                     rsaEncryptionVerified.put(true)
-                    sharedPreferences.edit().remove(verifyKey)
+                    sharedPreferences.edit().remove(verifyKey).apply()
                     keyStoreWrapper.deleteEntry(verifyKey)
                     single.onSuccess(true)
                 } else {

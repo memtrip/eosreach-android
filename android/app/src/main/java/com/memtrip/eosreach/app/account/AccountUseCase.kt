@@ -95,10 +95,11 @@ class AccountUseCase @Inject internal constructor(
                         })
                 }.toList()
                 .map { contractAccountBalances ->
+                    val accountBalanceList = AccountBalanceList(contractAccountBalances)
                     AccountView.success(
-                        EosPrice.unavailable(),
+                        accountBalanceList.balances[0].exchangeRate,
                         eosAccount,
-                        AccountBalanceList(contractAccountBalances)
+                        accountBalanceList
                     )
                 }
         }
