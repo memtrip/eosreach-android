@@ -1,6 +1,7 @@
 package com.memtrip.eosreach.wallet
 
 import com.memtrip.eos.core.crypto.EosPrivateKey
+import io.reactivex.Completable
 import io.reactivex.Single
 
 interface EosKeyManager {
@@ -12,6 +13,7 @@ interface EosKeyManager {
     fun getPrivateKeys(): Single<List<EosPrivateKey>>
     fun createEosPrivateKey(value: String): Single<EosPrivateKey>
     fun createEosPrivateKey(): Single<EosPrivateKey>
+    fun removeKeystoreEntries(): Completable
 
     class NotFoundException : RuntimeException()
 }

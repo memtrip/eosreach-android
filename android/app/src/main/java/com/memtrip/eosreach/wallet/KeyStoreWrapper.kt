@@ -32,6 +32,10 @@ class KeyStoreWrapper(private val context: Context) {
         }
     }
 
+    fun deleteEntry(alias: String) {
+        keyStore.deleteEntry(alias)
+    }
+
     fun createAndroidKeyStoreAsymmetricKey(alias: String): KeyPair {
         val generator = KeyPairGenerator.getInstance("RSA", "AndroidKeyStore")
 

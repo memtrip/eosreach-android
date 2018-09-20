@@ -10,7 +10,7 @@
         We could not find any airdrops on this network, try changing the EOS endpoint URL.
     </string>
     <string name="balance_tokens_no_airdrops">
-        We could not find any airdrops associated with this account, the token must be committed to the customtokens contract
+        We could not find any airdrops associated with this account, the token must be pushed to the customtokens contract
          for it to be considered valid by this app.
     </string>
     <string name="balance_tokens_airdrop_generic_error">

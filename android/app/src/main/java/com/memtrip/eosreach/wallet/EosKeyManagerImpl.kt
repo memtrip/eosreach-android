@@ -7,6 +7,7 @@ import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.db.sharedpreferences.RsaEncryptionVerified
 import com.memtrip.eosreach.utils.RxSchedulers
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -36,6 +37,8 @@ class EosKeyManagerImpl @Inject constructor(
 
                 if (encryptPrivateKey.toString() == decryptPrivateKey.toString()) {
                     rsaEncryptionVerified.put(true)
+                    sharedPreferences.edit().remove(verifyKey)
+                    keyStoreWrapper.deleteEntry(verifyKey)
                     single.onSuccess(true)
                 } else {
                     single.onSuccess(false)
@@ -111,5 +114,14 @@ class EosKeyManagerImpl @Inject constructor(
         } else {
             throw EosKeyManager.NotFoundException()
         }
+    }
+
+    override fun removeKeystoreEntries(): Completable {
+        return Completable.create { completable ->
+            sharedPreferences.all.entries.map { alias ->
+                keyStoreWrapper.deleteEntry(alias.key)
+            }
+            completable.onComplete()
+        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 }
