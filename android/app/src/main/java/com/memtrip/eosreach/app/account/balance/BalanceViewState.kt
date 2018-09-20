@@ -6,7 +6,7 @@ import com.memtrip.mxandroid.MxViewState
 
 data class BalanceViewState(
     val view: View,
-    val accountBalances: AccountBalanceList = AccountBalanceList(emptyList())
+    val accountBalances: AccountBalanceList = AccountBalanceList(ArrayList())
 ) : MxViewState {
 
     sealed class View {
@@ -14,7 +14,6 @@ data class BalanceViewState(
         object Populate : View()
         data class OnAirdropError(val message: String) :  View()
         object OnAirdropProgress : View()
-        object OnAirdropSuccess : View()
         object NavigateToCreateAccount : View()
         data class NavigateToActions(val contractAccountBalance: ContractAccountBalance) : View()
     }

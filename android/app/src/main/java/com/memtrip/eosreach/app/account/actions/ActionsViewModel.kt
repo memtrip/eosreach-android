@@ -82,7 +82,7 @@ class ActionsViewModel @Inject internal constructor(
             accountActionsRequest.getActionsForAccountName(
                 contractAccountBalance,
                 accountAction.next - 1,
-                -50
+                -500
             ).map {
                 if (it.success) {
                     ActionsRenderAction.OnLoadMoreSuccess(it.data!!)

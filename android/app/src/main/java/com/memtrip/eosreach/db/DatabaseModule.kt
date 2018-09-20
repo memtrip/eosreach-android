@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.memtrip.eosreach.db.account.AccountDao
 import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
+import com.memtrip.eosreach.db.contract.BalanceDao
 import com.memtrip.eosreach.db.transaction.TransactionLogDao
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,10 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun accountDao(appDatabase: AppDatabase): AccountDao = appDatabase.accountDao()
+
+    @Provides
+    @Singleton
+    fun balanceDao(appDatabase: AppDatabase): BalanceDao = appDatabase.balanceDao()
 
     @Provides
     @Singleton

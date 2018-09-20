@@ -104,24 +104,6 @@ class BalanceFragment
         balance_airdrop_progress_group.visible()
     }
 
-    override fun showAirdropSuccess() {
-        balance_airdrop_progress_group.gone()
-        balance_list_group.visible()
-
-        AlertDialog.Builder(context!!)
-            .setMessage(R.string.balance_tokens_success)
-            .setPositiveButton(R.string.app_dialog_positive_button, object : DialogInterface.OnClickListener {
-                override fun onClick(p0: DialogInterface?, p1: Int) {
-                    accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.BALANCE)
-                }
-            })
-            .setOnCancelListener {
-                accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.BALANCE)
-            }
-            .create()
-            .show()
-    }
-
     override fun navigateToCreateAccount() {
         model().publish(BalanceIntent.Idle)
         startActivity(manageCreateAccountIntent(context!!))

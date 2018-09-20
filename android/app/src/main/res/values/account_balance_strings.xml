@@ -16,6 +16,5 @@
     <string name="balance_tokens_airdrop_generic_error">
         We could not fetch airdrops, please check your internet and try again. If this problem persists, try changing the EOS endpoint URL.
     </string>
-    <string name="balance_tokens_success">Airdrop tokens found.</string>
 
 </resources>

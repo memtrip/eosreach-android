@@ -6,17 +6,24 @@ import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountNameSystemBalance
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
+import com.memtrip.eosreach.api.balance.AccountBalanceList
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
+import com.memtrip.eosreach.api.eosprice.EosPrice
+import com.memtrip.eosreach.app.price.BalanceFormatter
+import com.memtrip.eosreach.db.contract.InsertBalances
 import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import retrofit2.Response
 import javax.inject.Inject
 
 class BalanceViewModel @Inject internal constructor(
     private val customTokensRequest: CustomTokensRequest,
+    private val insertBalances: InsertBalances,
     private val chainApi: ChainApi,
     private val rxSchedulers: RxSchedulers,
     application: Application
@@ -46,8 +53,16 @@ class BalanceViewModel @Inject internal constructor(
             view = BalanceViewState.View.OnAirdropError(renderAction.message))
         BalanceRenderAction.OnAirdropProgress -> previousState.copy(
             view = BalanceViewState.View.OnAirdropProgress)
-        BalanceRenderAction.OnAirdropSuccess -> previousState.copy(
-            view = BalanceViewState.View.OnAirdropSuccess)
+        is BalanceRenderAction.OnAirdropSuccess -> previousState.copy(
+            view = BalanceViewState.View.Populate,
+            accountBalances = AccountBalanceList(with (ArrayList<ContractAccountBalance>()) {
+                addAll(previousState.accountBalances.balances)
+                addAll(renderAction.newBalances)
+                distinctBy { contractAccountBalance ->
+                    contractAccountBalance.contractName
+                }
+                this
+            }))
     }
 
     override fun filterIntents(intents: Observable<BalanceIntent>): Observable<BalanceIntent> = Observable.merge(
@@ -66,13 +81,17 @@ class BalanceViewModel @Inject internal constructor(
                         token.customtoken,
                         accountName
                     )).observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()).toObservable(),
-                    BiFunction<String, Response<List<String>>, AccountNameSystemBalance> { accountName, response ->
+                    BiFunction<String, Response<List<String>>, ContractAccountBalance> { accountName, response ->
                         if (response.isSuccessful) {
                             val balance = response.body()!!
                             if (balance.isNotEmpty()) {
-                                AccountNameSystemBalance(accountName, balance[0])
+                                ContractAccountBalance(
+                                    token.customtoken,
+                                    accountName,
+                                    BalanceFormatter.deserialize(balance[0]),
+                                    EosPrice.unavailable())
                             } else {
-                                AccountNameSystemBalance(accountName)
+                                ContractAccountBalance.unavailable()
                             }
                         } else {
                             throw AccountsForPublicKeyRequestImpl.InnerAccountFailed()
@@ -80,15 +99,16 @@ class BalanceViewModel @Inject internal constructor(
                     })
             }
             .toList()
-            .map { accountSystemBalanceList ->
-                val results = accountSystemBalanceList.filter { accountNameSystemBalance ->
-                    accountNameSystemBalance != null
+            .flatMap { contractAccountBalances ->
+                val results = contractAccountBalances.filter { balance ->
+                    balance.accountName != "unavailable" &&
+                        balance.contractName != "unavailable"
                 }
 
                 if (results.isNotEmpty()) {
-                    insertAirdrops()
+                    insertAirdrops(results)
                 } else {
-                    BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_no_airdrops))
+                    Single.just(BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_no_airdrops)))
                 }
             }
         }.onErrorReturn { error ->
@@ -100,7 +120,9 @@ class BalanceViewModel @Inject internal constructor(
         }.toObservable().startWith(BalanceRenderAction.OnAirdropProgress)
     }
 
-    private fun insertAirdrops(): BalanceRenderAction {
-        return BalanceRenderAction.OnAirdropSuccess
+    private fun insertAirdrops(balances: List<ContractAccountBalance>): Single<BalanceRenderAction> {
+        return insertBalances.insert(balances).map { _ ->
+            BalanceRenderAction.OnAirdropSuccess(balances)
+        }
     }
 }

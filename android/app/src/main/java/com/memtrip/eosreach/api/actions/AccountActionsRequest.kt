@@ -10,7 +10,7 @@ interface AccountActionsRequest {
     fun getActionsForAccountName(
         contractAccountBalance: ContractAccountBalance,
         position: Int = -1,
-        offset: Int = -50
+        offset: Int = -500
     ): Single<Result<AccountActionList, AccountActionsError>>
 }
 
