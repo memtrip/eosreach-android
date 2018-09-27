@@ -17,7 +17,15 @@ class StubConnection(
 
     private fun match(request: Request): Response {
         return stubs
-            .first { it.matcher.urlMatcher.containsMatchIn(request.url().toString()) }
+            .first { stub ->
+                val urlMatch = stub.matcher.urlMatcher.containsMatchIn(request.url().toString())
+                if (stub.matcher.bodyMatcher != null) {
+                    val bodyMatch = stub.matcher.bodyMatcher == bodyToString(request)
+                    urlMatch && bodyMatch
+                } else {
+                    urlMatch
+                }
+            }
             .stubRequest
             .call(request)
     }

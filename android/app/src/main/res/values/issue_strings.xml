@@ -27,7 +27,7 @@
         We could not connect to Google play, please check your internet connection and try again.
     </string>
     <string name="issue_create_account_billing_purchase_cancelled_error">
-        You cancelled the Google play purchase, you can alternatively import an existing private key
+        You cancelled the Google play purchase. You can import an existing private key
         if you do not want to pay our fee.
     </string>
     <string name="issue_create_account_billing_purchase_item_unavailable_error">
@@ -36,6 +36,7 @@
     </string>
     <string name="issue_create_account_billing_purchase_failed_error">
         Google play could not process your payment, please check your internet connection and try again.
+        You have not been charged for this transaction.
     </string>
     <string name="issue_create_account_billing_purchase_fatal_error">
         You have already purchased an account, but unfortunately an issue occurred while processing your transaction.
@@ -45,13 +46,16 @@
     <string name="issue_create_account_username_validation_error">
         Please enter an account name that is 12 characters in length.
     </string>
+    <string name="issue_create_account_username_number_start_validation_error">
+        Please use a-z for the first character of your account name.
+    </string>
     <string name="issue_create_account_generic_error">
         We could not create an account at this time, please check your connection and try again.
     </string>
     <string name="issue_create_account_fatal_error">
         We could not create an account at this time, please check your connection and try again. If you
         continue to encounter difficulties, please contact support@memtrip.com and quote your purchase id.
-        A list of your purchase ids can be found in settings -> transaction history.
+        The purchase id will have been sent to your google play email account.
     </string>
     <string name="issue_create_account_account_name_exists">
         The account name you chose already exists, please choose another name.
@@ -67,6 +71,15 @@
         the EOS network. Please wait a few minutes and try again. If you continue to encounter difficulties, please
         change the EOS endpoint URL in settings and import the private key that you just backed up.
     </string>
+    <string name="issue_create_account_limbo_title">
+        Could not create account
+    </string>
+    <string name="issue_create_account_limbo_body">
+        An error occurred while creating you account, please check your internet connection
+        and try again. If this problem continues to persist, please change your EOS endpoint from
+        settings.
+    </string>
+    <string name="issue_create_account_settings_button">Go to Settings</string>
 
     <!-- issue_import_key -->
     <string name="issue_import_key_toolbar_title">Import existing key</string>
@@ -80,10 +93,7 @@
     <string name="issue_import_key_import">Import</string>
     <string name="issue_import_key_error_generic">Could not import private key, please check your connection and try again.</string>
     <string name="issue_import_key_error_invalid_private_key_format">Invalid private key format.</string>
-    <string name="issue_import_key_error_no_accounts">
-        We did not find any accounts associated with this private key, the Create Account option is the
-        easiest way to get started. If this is unexpected, try changing the EOS endpoint in settings.
-    </string>
+    <string name="issue_import_key_error_no_accounts">We did not find any accounts associated with this private key, the Create Account option is the easiest way to get started. If this is unexpected, try changing the EOS endpoint in settings.</string>
     <string name="issue_import_key_private_key_already_imported">
         You have already imported this private key, sync your accounts to update the details for this key.
     </string>

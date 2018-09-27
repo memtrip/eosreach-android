@@ -63,7 +63,7 @@ abstract class SimpleAdapter<T>(
             (view.layoutParams as RecyclerView.LayoutParams).topMargin = marginSize
         }
 
-        if (position == data.size-1) {
+        if (position == data.size - 1) {
             (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = marginSize
         } else {
             (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
@@ -71,7 +71,7 @@ abstract class SimpleAdapter<T>(
     }
 
     fun atEnd(id: Int) {
-        interaction.onNext(Interaction(id, data[data.size-1]))
+        interaction.onNext(Interaction(id, data[data.size - 1]))
     }
 
     companion object {

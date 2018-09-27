@@ -2,9 +2,10 @@ package com.memtrip.eosreach.db
 
 import android.app.Application
 import androidx.room.Room
+import com.memtrip.eosreach.R
 import com.memtrip.eosreach.db.account.AccountDao
-import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
 import com.memtrip.eosreach.db.airdrop.BalanceDao
+import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
 import com.memtrip.eosreach.db.transaction.TransactionLogDao
 import dagger.Module
 import dagger.Provides
@@ -16,9 +17,11 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun appDatabase(application: Application): AppDatabase {
-        return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java, "eosreach")
-            .fallbackToDestructiveMigration()
-            .build()
+        return Room.databaseBuilder(
+            application.applicationContext,
+            AppDatabase::class.java,
+            application.getString(R.string.app_database_name)
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

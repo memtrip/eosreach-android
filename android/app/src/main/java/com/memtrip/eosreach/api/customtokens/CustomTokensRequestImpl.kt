@@ -36,13 +36,13 @@ class CustomTokensRequestImpl @Inject internal constructor(
                     token.customtoken != "eosio.token"
                 })
             } else {
-                throw CouldNotFetchTokens()
+                throw NoAirdropsFound()
             }
         }.onErrorReturn {
             it.printStackTrace()
-            throw CouldNotFetchTokens()
+            throw NoAirdropsFound()
         }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 
-    class CouldNotFetchTokens : IOException()
+    class NoAirdropsFound : IOException()
 }

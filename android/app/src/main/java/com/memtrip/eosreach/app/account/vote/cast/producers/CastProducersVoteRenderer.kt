@@ -8,7 +8,7 @@ import javax.inject.Inject
 sealed class CastProducersVoteRenderAction : MxRenderAction {
     object Idle : CastProducersVoteRenderAction()
     object OnProgress : CastProducersVoteRenderAction()
-    data class AddExistingProducers(val producers: List<String>): CastProducersVoteRenderAction()
+    data class AddExistingProducers(val producers: List<String>) : CastProducersVoteRenderAction()
     data class AddProducerField(val nextPosition: Int) : CastProducersVoteRenderAction()
     data class RemoveProducerField(val position: Int) : CastProducersVoteRenderAction()
     data class OnError(val message: String, val log: String) : CastProducersVoteRenderAction()

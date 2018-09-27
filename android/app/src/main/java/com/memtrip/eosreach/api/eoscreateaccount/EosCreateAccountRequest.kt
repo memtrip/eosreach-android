@@ -10,7 +10,7 @@ interface EosCreateAccountRequest {
         purchaseToken: String,
         accountName: String,
         publicKey: String
-    ) : Single<Result<CreateAccountReceipt, EosCreateAccountError>>
+    ): Single<Result<CreateAccountReceipt, EosCreateAccountError>>
 }
 
 sealed class EosCreateAccountError : ApiError {

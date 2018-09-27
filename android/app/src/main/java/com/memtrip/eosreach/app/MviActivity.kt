@@ -30,15 +30,19 @@ abstract class MviActivity<VI : MxViewIntent, RA : MxRenderAction, VS : MxViewSt
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
-            finish()
+            onHomeUp()
             true
         }
         else ->
             super.onOptionsItemSelected(item)
     }
 
+    open fun onHomeUp() {
+        finish()
+    }
+
     protected inline fun <reified T : ViewModel> getViewModel(viewModelFactory: ViewModelProvider.Factory): T =
         ViewModelProviders.of(this, viewModelFactory)[T::class.java]
 }
 
-typealias ParentActivity = MviActivity<*,*,*,*>
+typealias ParentActivity = MviActivity<*, *, *, *>

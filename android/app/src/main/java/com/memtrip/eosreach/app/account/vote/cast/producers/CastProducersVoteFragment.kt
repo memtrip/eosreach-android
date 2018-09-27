@@ -111,7 +111,7 @@ class CastProducersVoteFragment
                 producerEditText.setText(value)
 
                 val removeButton: Button = (this.getChildAt(1) as Button)
-                if (position == 0)  {
+                if (position == 0) {
                     removeButton.gone()
                 } else {
                     removeButton.setOnClickListener {

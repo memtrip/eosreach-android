@@ -2,7 +2,6 @@ package com.memtrip.eosreach.app.account.vote.cast.producers
 
 import android.app.Application
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.account.EosAccountVote
 import com.memtrip.eosreach.api.vote.VoteRequest
 import com.memtrip.mxandroid.MxViewModel

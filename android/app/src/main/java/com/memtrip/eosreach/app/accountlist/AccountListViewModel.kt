@@ -3,14 +3,14 @@ package com.memtrip.eosreach.app.accountlist
 import android.app.Application
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.db.account.GetAccounts
-import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
+import com.memtrip.eosreach.db.sharedpreferences.AccountListSelection
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class AccountListViewModel @Inject internal constructor(
     private val getAccounts: GetAccounts,
-    private val selectedAccount: SelectedAccount,
+    private val selectedAccount: AccountListSelection,
     private val accountListUseCase: AccountListUseCase,
     application: Application
 ) : MxViewModel<AccountListIntent, AccountListRenderAction, AccountListViewState>(
@@ -80,7 +80,7 @@ class AccountListViewModel @Inject internal constructor(
             .startWith(AccountListRenderAction.OnProgress)
     }
 
-    private fun refreshAccountsError(error: AccountListUseCase.AccountsListError): Observable<AccountListRenderAction> = when(error) {
+    private fun refreshAccountsError(error: AccountListUseCase.AccountsListError): Observable<AccountListRenderAction> = when (error) {
         AccountListUseCase.AccountsListError.RefreshAccountsFailed -> {
             Observable.just(AccountListRenderAction.OnError)
         }

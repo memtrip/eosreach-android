@@ -13,7 +13,6 @@ abstract class TransferModule {
     @ContributesAndroidInjector(modules = [TransferFormActivityModule::class])
     internal abstract fun contributeTransferActivity(): TransferFormActivity
 
-
     @ContributesAndroidInjector(modules = [TransferConfirmActivityModule::class])
     internal abstract fun contributeTransferConfirmActivity(): TransferConfirmActivity
 }

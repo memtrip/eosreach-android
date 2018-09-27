@@ -41,11 +41,12 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/padding_large" />
 
-    <!-- sku -->
+    <!-- skuDetails -->
     <ProgressBar
         android:id="@+id/issue_create_account_sku_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +61,7 @@
         app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-    <!-- sku -->
+    <!-- skuDetails -->
 
     <!-- form -->
     <androidx.constraintlayout.widget.Group
@@ -124,7 +125,6 @@
         app:layout_constraintLeft_toLeftOf="@+id/issue_create_account_create_button"
         app:layout_constraintBottom_toBottomOf="@+id/issue_create_account_create_button"
         app:layout_constraintRight_toRightOf="@+id/issue_create_account_create_button"/>
-
     <!-- / form -->
 
     <!-- import key -->
@@ -199,7 +199,53 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonTransparent"
+        android:id="@+id/issue_create_account_import_key_settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
+        android:text="@string/issue_create_account_settings_button"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/issue_create_account_import_key_error" />
     <!-- / import key -->
 
+    <!-- limbo -->
+    <ProgressBar
+        android:id="@+id/issue_create_account_limbo_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.memtrip.eosreach.uikit.ErrorCompositeView
+        android:id="@+id/issue_create_account_limbo_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonTransparent"
+        android:id="@+id/issue_create_account_limbo_settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
+        android:text="@string/issue_create_account_settings_button"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/issue_create_account_limbo_error" />
+    <!-- / limbo -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

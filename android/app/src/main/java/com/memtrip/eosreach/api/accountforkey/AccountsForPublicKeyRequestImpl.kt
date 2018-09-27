@@ -27,7 +27,7 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
                     getBalance(publicKey, it.body()!!.account_names)
                 } else {
                     Single.just(Result<AccountsForPublicKey, AccountForKeyError>(
-                        AccountForKeyError.FailedRetrievingAccountList(it.code(), it.errorBody())))
+                        AccountForKeyError.FailedRetrievingAccountList))
                 }
             }
     }

@@ -53,7 +53,7 @@ class AccountActionsRequestImpl @Inject internal constructor(
         contractAccountBalance: ContractAccountBalance,
         action: HistoricAccountAction
     ): AccountAction = when (action.action_trace.act.name) {
-        "transfer" -> AccountAction.createTransfer(action,contractAccountBalance)
+        "transfer" -> AccountAction.createTransfer(action, contractAccountBalance)
         else -> throw IllegalStateException("transfer is currently the only supported action type.")
     }
 }

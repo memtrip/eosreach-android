@@ -8,10 +8,12 @@ import javax.inject.Inject
 
 sealed class CreateAccountRenderAction : MxRenderAction {
     object Idle : CreateAccountRenderAction()
-    object OnSkuProgress : CreateAccountRenderAction()
+    object StartBillingConnection : CreateAccountRenderAction()
     data class OnSkuSuccess(val skuDetails: SkuDetails) : CreateAccountRenderAction()
     data class OnGetSkuError(val message: String) : CreateAccountRenderAction()
     object OnAccountNameValidationPassed : CreateAccountRenderAction()
+    object OnCreateAccountLimbo : CreateAccountRenderAction()
+    object OnCreateAccountLimboProgress : CreateAccountRenderAction()
     object OnCreateAccountProgress : CreateAccountRenderAction()
     data class OnCreateAccountSuccess(val purchaseToken: String, val privateKey: String) : CreateAccountRenderAction()
     data class OnCreateAccountError(val error: String) : CreateAccountRenderAction()
@@ -21,12 +23,14 @@ sealed class CreateAccountRenderAction : MxRenderAction {
 }
 
 interface CreateAccountViewLayout : MxViewLayout {
-    fun showSkuProgress()
+    fun startBillingConnection()
     fun showSkuSuccess(skuDetails: SkuDetails)
     fun showSkuError(message: String)
     fun showAccountNameValidationPassed()
+    fun showCreateAccountLimbo()
+    fun showCreateAccountLimboProgress()
     fun showCreateAccountProgress()
-    fun showAccountCreated(purchaseToken: String,privateKey: String)
+    fun showAccountCreated(purchaseToken: String, privateKey: String)
     fun showCreateAccountError(error: String)
     fun showImportKeyProgress()
     fun showImportKeyError(error: String)
@@ -37,8 +41,8 @@ class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<
     override fun layout(layout: CreateAccountViewLayout, state: CreateAccountViewState) = when (state.view) {
         CreateAccountViewState.View.Idle -> {
         }
-        CreateAccountViewState.View.OnSkuProgress -> {
-            layout.showSkuProgress()
+        CreateAccountViewState.View.StartBillingConnection -> {
+            layout.startBillingConnection()
         }
         is CreateAccountViewState.View.OnSkuSuccess -> {
             layout.showSkuSuccess(state.view.skuDetails)
@@ -51,6 +55,12 @@ class CreateAccountViewRenderer @Inject internal constructor() : MxViewRenderer<
         }
         CreateAccountViewState.View.OnCreateAccountProgress -> {
             layout.showCreateAccountProgress()
+        }
+        is CreateAccountViewState.View.OnCreateAccountLimbo -> {
+            layout.showCreateAccountLimbo()
+        }
+        CreateAccountViewState.View.OnCreateAccountLimboProgress -> {
+            layout.showCreateAccountLimboProgress()
         }
         is CreateAccountViewState.View.OnCreateAccountSuccess -> {
             layout.showAccountCreated(state.view.purchaseToken, state.view.privateKey)

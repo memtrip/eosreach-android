@@ -2,13 +2,22 @@ package com.memtrip.eosreach.app.issue.importkey
 
 import android.app.Application
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.accountforkey.AccountForKeyError
+
+import com.memtrip.eosreach.api.accountforkey.AccountForPublicKeyRequest
+
+import com.memtrip.eosreach.db.account.InsertAccountsForPublicKey
+import com.memtrip.eosreach.utils.RxSchedulers
+import com.memtrip.eosreach.wallet.EosKeyManager
 
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
 
 abstract class ImportKeyViewModel(
-    private val importKeyUseCase: ImportKeyUseCase,
+    private val accountForKeyRequest: AccountForPublicKeyRequest,
+    private val eosKeyManager: EosKeyManager,
+    private val insertAccountsForPublicKey: InsertAccountsForPublicKey,
+    private val rxSchedulers: RxSchedulers,
     application: Application
 ) : MxViewModel<ImportKeyIntent, ImportKeyRenderAction, ImportKeyViewState>(
     ImportKeyViewState(view = ImportKeyViewState.View.Idle),
@@ -32,29 +41,36 @@ abstract class ImportKeyViewModel(
     }
 
     private fun importKey(privateKey: String): Observable<ImportKeyRenderAction> {
-        return importKeyUseCase
-            .importKey(privateKey)
-            .map {
-                if (it.success) {
-                    ImportKeyRenderAction.OnSuccess
-                } else {
-                    onError(it.apiError!!)
+        return eosKeyManager.createEosPrivateKey(privateKey).flatMap { eosPrivateKey ->
+            eosKeyManager.importPrivateKey(eosPrivateKey)
+                .observeOn(rxSchedulers.main())
+                .subscribeOn(rxSchedulers.background())
+                .flatMap {
+                    accountForKeyRequest.getAccountsForKey(it)
+                }.flatMap { result ->
+                    if (result.success) {
+                        if (result.data!!.accounts.isEmpty()) {
+                            Single.just(ImportKeyRenderAction.OnError(
+                                context().getString(R.string.issue_import_key_error_no_accounts)))
+                        } else {
+                            insertAccountsForPublicKey.replace(
+                                result.data.publicKey,
+                                result.data.accounts
+                            ).map {
+                                ImportKeyRenderAction.OnSuccess
+                            }
+                        }
+                    } else {
+                        Single.just(ImportKeyRenderAction.OnError(
+                            context().getString(R.string.issue_import_key_error_generic)))
+                    }
+                }.onErrorReturn {
+                    ImportKeyRenderAction.OnError(
+                        context().getString(R.string.issue_import_key_error_generic))
                 }
-            }
-            .toObservable()
-            .startWith(ImportKeyRenderAction.OnProgress)
-    }
-
-    private fun onError(error: AccountForKeyError): ImportKeyRenderAction.OnError = when (error) {
-        AccountForKeyError.Generic -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.issue_import_key_error_generic))
-        AccountForKeyError.InvalidPrivateKey -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.issue_import_key_error_invalid_private_key_format))
-        is AccountForKeyError.FailedRetrievingAccountList -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.issue_import_key_error_generic))
-        AccountForKeyError.NoAccounts -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.issue_import_key_error_no_accounts))
-        AccountForKeyError.PrivateKeyAlreadyImported -> ImportKeyRenderAction.OnError(
-            context().getString(R.string.issue_import_key_private_key_already_imported))
+        }.onErrorReturn {
+            ImportKeyRenderAction.OnError(
+                context().getString(R.string.issue_import_key_error_invalid_private_key_format))
+        }.toObservable()
     }
 }

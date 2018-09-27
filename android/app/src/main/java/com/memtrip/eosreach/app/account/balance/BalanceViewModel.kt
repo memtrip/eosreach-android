@@ -5,7 +5,6 @@ import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetCurrencyBalance
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
-import com.memtrip.eosreach.api.balance.AccountBalanceList
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
@@ -103,8 +102,8 @@ class BalanceViewModel @Inject internal constructor(
                 }
             }
         }.onErrorReturn { error ->
-            if (error is CustomTokensRequestImpl.CouldNotFetchTokens) {
-                BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_no_customtokens))
+            if (error is CustomTokensRequestImpl.NoAirdropsFound) {
+                BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_customtokens_empty))
             } else {
                 BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_airdrop_generic_error))
             }

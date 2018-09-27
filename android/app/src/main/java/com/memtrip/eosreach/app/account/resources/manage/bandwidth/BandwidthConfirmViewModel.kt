@@ -84,7 +84,7 @@ class BandwidthConfirmViewModel @Inject internal constructor(
         netAmount: Balance,
         cpuAmount: Balance,
         privateKey: EosPrivateKey
-    ) : Single<BandwidthConfirmRenderAction> {
+    ): Single<BandwidthConfirmRenderAction> {
         return bandWidthRequest.delegate(
             fromAccount,
             BalanceFormatter.formatEosBalance(netAmount),
@@ -106,7 +106,7 @@ class BandwidthConfirmViewModel @Inject internal constructor(
         netAmount: Balance,
         cpuAmount: Balance,
         privateKey: EosPrivateKey
-    ) : Single<BandwidthConfirmRenderAction> {
+    ): Single<BandwidthConfirmRenderAction> {
         return bandWidthRequest.unDelegate(
             fromAccount,
             BalanceFormatter.formatEosBalance(netAmount),

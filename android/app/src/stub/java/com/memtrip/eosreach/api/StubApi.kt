@@ -18,7 +18,7 @@ abstract class StubApi(
             Regex("v1/chain/get_account$")
         ),
         BasicStubRequest(200, {
-            readJsonFile("stub/happypath/happy_path_get_account.json")
+            readJsonFile("stub/happypath/happy_path_get_account_unstaked.json")
         })
     )
 
@@ -38,7 +38,7 @@ abstract class StubApi(
             Regex("v1/chain/get_currency_balance$")
         ),
         BasicStubRequest(200, {
-            readJsonFile("stub/happypath/happy_path_get_currency_balance.json")
+            readJsonFile("stub/happypath/happy_path_get_sys_currency_balance.json")
         })
     )
 
@@ -48,7 +48,7 @@ abstract class StubApi(
             Regex("v1/history/get_actions$")
         ),
         BasicStubRequest(200, {
-            readJsonFile("")
+            readJsonFile("stub/happypath/happy_path_get_actions.json")
         })
     )
 
@@ -62,7 +62,28 @@ abstract class StubApi(
         })
     )
 
-    private fun readJsonFile(fileName: String): String {
+    open fun createAccount(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_utility_endpoint_root),
+            Regex("createAccount$")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_create_account.json")
+        })
+    )
+
+    open fun getCustomTokensTableRows(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_table_rows$"),
+            readJsonFile("stub/request/request_get_customtoken_table_rows.json")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_customtoken_table_rows.json")
+        })
+    )
+
+    fun readJsonFile(fileName: String): String {
         return context.assets.open(fileName).bufferedReader().use {
             it.readText()
         }
@@ -73,6 +94,8 @@ abstract class StubApi(
         getKeyAccounts(),
         getCurrencyBalance(),
         getActions(),
-        getPriceForCurrency()
+        getPriceForCurrency(),
+        createAccount(),
+        getCustomTokensTableRows()
     )
 }

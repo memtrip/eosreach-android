@@ -5,7 +5,6 @@ import com.memtrip.eosreach.api.ApiConfig
 import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountModule
-
 import com.memtrip.eosreach.app.accountlist.AccountListModule
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListModule
 import com.memtrip.eosreach.app.manage.ManageModule
@@ -14,8 +13,9 @@ import com.memtrip.eosreach.app.settings.SettingsModule
 import com.memtrip.eosreach.app.transaction.TransactionModule
 import com.memtrip.eosreach.app.transfer.TransferModule
 import com.memtrip.eosreach.app.welcome.WelcomeModule
+import com.memtrip.eosreach.billing.BillingConfig
+import com.memtrip.eosreach.billing.BillingModule
 import com.memtrip.eosreach.db.DatabaseModule
-
 import com.memtrip.eosreach.utils.UtilModule
 import com.memtrip.eosreach.wallet.SecurityModule
 import dagger.BindsInstance
@@ -37,6 +37,7 @@ import javax.inject.Singleton
         SettingsModule::class,
         AccountListModule::class,
         BlockProducerListModule::class,
+        BillingModule::class,
         DatabaseModule::class,
         SecurityModule::class,
         ApiModule::class,
@@ -44,7 +45,7 @@ import javax.inject.Singleton
         UtilModule::class
     ]
 )
-interface EosReachApplicationComponent : AndroidInjector<EosReachApplication> {
+interface EosReachApplicationComponent : AndroidInjector<BaseEosReachApplication> {
 
     @Component.Builder
     interface Builder {
@@ -54,6 +55,9 @@ interface EosReachApplicationComponent : AndroidInjector<EosReachApplication> {
 
         @BindsInstance
         fun apiConfig(apiConfig: ApiConfig): Builder
+
+        @BindsInstance
+        fun billingConfig(billingConfig: BillingConfig?): Builder
 
         fun build(): EosReachApplicationComponent
     }

@@ -6,4 +6,4 @@ import javax.inject.Inject
 
 class UnDelegateBandwidthFormViewModel @Inject internal constructor(
     application: Application
-): BandwidthFormViewModel(application)
+) : BandwidthFormViewModel(application)

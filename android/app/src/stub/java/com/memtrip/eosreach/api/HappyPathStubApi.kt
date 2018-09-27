@@ -1,5 +1,5 @@
 package com.memtrip.eosreach.api
 
-import android.app.Application
+import android.content.Context
 
-class HappyPathStubApi(application: Application) : StubApi(application)
+class HappyPathStubApi(context: Context) : StubApi(context)

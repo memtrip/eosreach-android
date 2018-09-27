@@ -8,10 +8,12 @@ data class CreateAccountViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
-        object OnSkuProgress : View()
+        object StartBillingConnection : View()
         data class OnSkuSuccess(val skuDetails: SkuDetails) : View()
         data class OnGetSkuError(val message: String) : View()
         data class OnAccountNameValidationPassed(val unique: Int = id()) : View()
+        object OnCreateAccountLimbo : View()
+        object OnCreateAccountLimboProgress : View()
         object OnCreateAccountProgress : View()
         data class OnCreateAccountSuccess(val purchaseToken: String, val privateKey: String) : View()
         data class CreateAccountError(val error: String, val unique: Int = id()) : View()

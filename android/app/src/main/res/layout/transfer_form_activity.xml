@@ -20,7 +20,7 @@
         app:layout_constraintGuide_end="@dimen/padding_large" />
     
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/account_transfer_toolbar"
+        android:id="@+id/transfer_form_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/account_transfer_to_label"
+        android:id="@+id/transfer_form_to_label"
         style="@style/Typography.Caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,10 +37,10 @@
         android:text="@string/transfer_form_to_label"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/account_transfer_toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/transfer_form_toolbar"/>
 
     <com.memtrip.eosreach.brand.ReachEditText
-        android:id="@+id/account_transfer_to_input"
+        android:id="@+id/transfer_form_to_input"
         style="@style/EditTextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -49,10 +49,10 @@
         android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/account_transfer_to_label" />
+        app:layout_constraintTop_toBottomOf="@id/transfer_form_to_label" />
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/account_transfer_amount_label"
+        android:id="@+id/transfer_form_amount_label"
         style="@style/Typography.Caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -61,10 +61,10 @@
         android:text="@string/transfer_form_amount_label"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/account_transfer_to_input"/>
+        app:layout_constraintTop_toBottomOf="@id/transfer_form_to_input"/>
 
     <com.memtrip.eosreach.brand.ReachEditText
-        android:id="@+id/account_transfer_amount"
+        android:id="@+id/transfer_form_amount_input"
         style="@style/EditTextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,10 +73,10 @@
         android:imeOptions="actionNext"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/account_transfer_amount_label" />
+        app:layout_constraintTop_toBottomOf="@id/transfer_form_amount_label" />
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/account_transfer_memo_label"
+        android:id="@+id/transfer_form_memo_label"
         style="@style/Typography.Caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -85,10 +85,10 @@
         android:text="@string/transfer_form_memo_label"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/account_transfer_amount"/>
+        app:layout_constraintTop_toBottomOf="@id/transfer_form_amount_input"/>
 
     <com.memtrip.eosreach.brand.ReachEditText
-        android:id="@+id/account_transfer_memo"
+        android:id="@+id/transfer_form_memo_input"
         style="@style/EditTextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -97,11 +97,11 @@
         android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/account_transfer_memo_label" />
+        app:layout_constraintTop_toBottomOf="@id/transfer_form_memo_label" />
 
     <com.memtrip.eosreach.brand.ReachButton
         style="@style/ButtonPrimary"
-        android:id="@+id/account_transfer_button"
+        android:id="@+id/transfer_form_next_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_large"

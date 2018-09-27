@@ -19,7 +19,6 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.settings_activity.*
 import javax.inject.Inject
 
-
 class SettingsActivity
     : MviActivity<SettingsIntent, SettingsRenderAction, SettingsViewState, SettingsViewLayout>(), SettingsViewLayout {
 

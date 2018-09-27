@@ -14,7 +14,6 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_actions_view_transfer.*
 import javax.inject.Inject
 
-
 class ViewTransferActionActivity
     : MviActivity<ViewTransferActionIntent, ViewTransferActionRenderAction, ViewTransferActionViewState, ViewTransferActionViewLayout>(), ViewTransferActionViewLayout {
 

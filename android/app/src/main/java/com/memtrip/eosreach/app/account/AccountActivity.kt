@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.app.account
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -34,6 +35,8 @@ class AccountActivity
 
     private lateinit var accountBundle: AccountBundle
     private lateinit var page: AccountFragmentPagerAdapter.Page
+
+    private var loaded = false // after data has loaded a dialog is displayed for errors
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +97,8 @@ class AccountActivity
 
     override fun populate(accountView: AccountView, page: AccountFragmentPagerAdapter.Page) {
 
+        loaded = true
+
         publishIdleTab(page)
 
         account_toolbar_account_name.text = accountView.eosAccount!!.accountName
@@ -145,11 +150,21 @@ class AccountActivity
 
     override fun showGetAccountError() {
         account_swipelayout.stop()
-        account_error_view.visible()
-        account_error_view.populate(
-            getString(R.string.account_error_get_account_title),
-            getString(R.string.account_error_get_account_body)
-        )
+
+        if (!loaded) {
+            account_error_view.visible()
+            account_error_view.populate(
+                getString(R.string.account_error_get_account_title),
+                getString(R.string.account_error_get_account_body)
+            )
+        } else {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.account_error_get_account_title)
+                .setMessage(R.string.account_error_get_account_body)
+                .setPositiveButton(R.string.app_dialog_positive_button, null)
+                .create()
+                .show()
+        }
     }
 
     override fun showGetBalancesError() {
@@ -186,7 +201,7 @@ class AccountActivity
         model().publish(AccountIntent.Refresh(accountBundle))
     }
 
-    private fun publishIdleTab(page: AccountFragmentPagerAdapter.Page): Unit = when(page) {
+    private fun publishIdleTab(page: AccountFragmentPagerAdapter.Page): Unit = when (page) {
         AccountFragmentPagerAdapter.Page.BALANCE -> {
             model().publish(AccountIntent.BalanceTabIdle)
         }

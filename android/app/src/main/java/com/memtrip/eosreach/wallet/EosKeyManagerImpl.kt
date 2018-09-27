@@ -25,34 +25,42 @@ class EosKeyManagerImpl @Inject constructor(
 
     override fun verifyDeviceSupportsRsaEncryption(): Single<Boolean> {
         return Single.create<Boolean> { single ->
-            if (rsaEncryptionVerified.get()) {
-                single.onSuccess(true)
-            } else {
-                val verifyKey = "VERIFY_RSA_SUPPORTED_KEY"
-                keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(verifyKey)
-                val encryptPrivateKey = EosPrivateKey()
-                encryptAndSavePrivateKey(verifyKey, encryptPrivateKey)
-                val privateKeyBytes = getPrivateKeyBytes(verifyKey)
-                val decryptPrivateKey = EosPrivateKey(privateKeyBytes)
-
-                if (encryptPrivateKey.toString() == decryptPrivateKey.toString()) {
-                    rsaEncryptionVerified.put(true)
-                    sharedPreferences.edit().remove(verifyKey).apply()
-                    keyStoreWrapper.deleteEntry(verifyKey)
+            try {
+                if (rsaEncryptionVerified.get()) {
                     single.onSuccess(true)
                 } else {
-                    single.onSuccess(false)
+                    val verifyKey = "VERIFY_RSA_SUPPORTED_KEY"
+                    keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(verifyKey)
+                    val encryptPrivateKey = EosPrivateKey()
+                    encryptAndSavePrivateKey(verifyKey, encryptPrivateKey)
+                    val privateKeyBytes = getPrivateKeyBytes(verifyKey)
+                    val decryptPrivateKey = EosPrivateKey(privateKeyBytes)
+
+                    if (encryptPrivateKey.toString() == decryptPrivateKey.toString()) {
+                        rsaEncryptionVerified.put(true)
+                        sharedPreferences.edit().remove(verifyKey).apply()
+                        keyStoreWrapper.deleteEntry(verifyKey)
+                        single.onSuccess(true)
+                    } else {
+                        single.onSuccess(false)
+                    }
                 }
+            } catch (e: Throwable) {
+                single.onError(e)
             }
         }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 
     override fun importPrivateKey(eosPrivateKey: EosPrivateKey): Single<String> {
         return Single.create<String> { single ->
-            val keyAlias = eosPrivateKey.publicKey.toString()
-            keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(keyAlias)
-            encryptAndSavePrivateKey(keyAlias, eosPrivateKey)
-            single.onSuccess(keyAlias)
+            try {
+                val keyAlias = eosPrivateKey.publicKey.toString()
+                keyStoreWrapper.createAndroidKeyStoreAsymmetricKey(keyAlias)
+                encryptAndSavePrivateKey(keyAlias, eosPrivateKey)
+                single.onSuccess(keyAlias)
+            } catch (e: Throwable) {
+                single.onError(e)
+            }
         }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 
@@ -67,7 +75,12 @@ class EosKeyManagerImpl @Inject constructor(
 
     override fun getPrivateKey(eosPublicKey: String): Single<EosPrivateKey> {
         return Single.create<EosPrivateKey> { single ->
-            single.onSuccess(EosPrivateKey(getPrivateKeyBytes(eosPublicKey)))
+            try {
+                val privateKey = EosPrivateKey(getPrivateKeyBytes(eosPublicKey))
+                single.onSuccess(privateKey)
+            } catch (e: Throwable) {
+                single.onError(e)
+            }
         }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
 
@@ -92,14 +105,28 @@ class EosKeyManagerImpl @Inject constructor(
 
     override fun createEosPrivateKey(value: String): Single<EosPrivateKey> {
         return Single
-            .just(EosPrivateKey(value))
+            .create<EosPrivateKey> { single ->
+                try {
+                    val privateKey = EosPrivateKey(value)
+                    single.onSuccess(privateKey)
+                } catch (e: Throwable) {
+                    single.onError(e)
+                }
+            }
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
     }
 
     override fun createEosPrivateKey(): Single<EosPrivateKey> {
         return Single
-            .just(EosPrivateKey())
+            .create<EosPrivateKey> { single ->
+                try {
+                    val privateKey = EosPrivateKey()
+                    single.onSuccess(privateKey)
+                } catch (e: Throwable) {
+                    single.onError(e)
+                }
+            }
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
     }

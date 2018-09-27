@@ -45,5 +45,4 @@ class InsertAccountsForPublicKey @Inject internal constructor(
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
     }
-
 }

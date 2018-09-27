@@ -3,7 +3,7 @@ package com.memtrip.eosreach.app.welcome
 import android.app.Application
 import com.memtrip.eosreach.db.account.CountAccounts
 import com.memtrip.eosreach.db.account.GetAccountByName
-import com.memtrip.eosreach.db.sharedpreferences.SelectedAccount
+import com.memtrip.eosreach.db.sharedpreferences.AccountListSelection
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -14,7 +14,7 @@ class EntryViewModel @Inject internal constructor(
     private val eosKeyManager: EosKeyManager,
     private val countAccounts: CountAccounts,
     private val getAccountByName: GetAccountByName,
-    private val selectedAccount: SelectedAccount,
+    private val selectedAccount: AccountListSelection,
     application: Application
 ) : MxViewModel<EntryIntent, AccountListRenderAction, EntryViewState>(
     EntryViewState(view = EntryViewState.View.Idle),

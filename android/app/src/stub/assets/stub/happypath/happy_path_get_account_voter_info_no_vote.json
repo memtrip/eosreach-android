@@ -1,0 +1,69 @@
+{
+  "account_name": "memtripissue",
+  "head_block_num": 5288,
+  "head_block_time": "2018-09-02T15:24:18.000",
+  "privileged": false,
+  "last_code_update": "1970-01-01T00:00:00.000",
+  "created": "2018-09-02T14:40:45.500",
+  "ram_quota": 34170938,
+  "net_weight": 10000,
+  "cpu_weight": 110000,
+  "net_limit": {
+    "used": 3488624936000,
+    "available": "4488624936000",
+    "max": "4488624936000"
+  },
+  "cpu_limit": {
+    "used": 854398497600,
+    "available": "854398497600",
+    "max": "854398497600"
+  },
+  "ram_usage": 14170938,
+  "permissions": [{
+    "perm_name": "active",
+    "parent": "owner",
+    "required_auth": {
+      "threshold": 1,
+      "keys": [{
+        "key": "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
+        "weight": 1
+      }],
+      "accounts": [],
+      "waits": []
+    }
+  }, {
+    "perm_name": "owner",
+    "parent": "",
+    "required_auth": {
+      "threshold": 1,
+      "keys": [{
+        "key": "EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV",
+        "weight": 1
+      }],
+      "accounts": [],
+      "waits": []
+    }
+  }],
+  "total_resources": {
+    "owner": "134221242312",
+    "net_weight": "1.0000 SYS",
+    "cpu_weight": "11.0000 SYS",
+    "ram_bytes": 34170938
+  },
+  "self_delegated_bandwidth": {
+    "from": "memtripissue",
+    "to": "memtripissue",
+    "net_weight": "1.0000 SYS",
+    "cpu_weight": "1.0000 SYS"
+  },
+  "refund_request": null,
+  "voter_info": {
+    "owner": "memtripissue",
+    "proxy": "",
+    "producers": [],
+    "staked": 20000,
+    "last_vote_weight": "0.00000000000000000",
+    "proxied_vote_weight": "0.00000000000000000",
+    "is_proxy": 0
+  }
+}

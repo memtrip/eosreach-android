@@ -71,7 +71,7 @@ class ActionsActivity
                 }
             }
         },
-        RxView.clicks(account_actions_send).map {
+        RxView.clicks(account_actions_transfer_button).map {
             ActionsIntent.NavigateToTransfer(contractAccountBalance)
         },
         RxSwipeRefreshLayout.refreshes(account_actions_list_swiperefresh).map {

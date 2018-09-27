@@ -95,13 +95,25 @@ class AccountUseCase @Inject internal constructor(
                         })
                 }.toList()
                 .map { contractAccountBalances ->
-                    val accountBalanceList = AccountBalanceList(contractAccountBalances)
+                    val accountBalanceList = AccountBalanceList(
+                        contractAccountBalances.filter { balance ->
+                            !balance.unavailable
+                        }
+                    )
                     AccountView.success(
-                        accountBalanceList.balances[0].exchangeRate,
+                        inferEosPrice(accountBalanceList.balances),
                         eosAccount,
                         accountBalanceList
                     )
                 }
+        }
+    }
+
+    private fun inferEosPrice(balances: List<ContractAccountBalance>): EosPrice {
+        return if (balances.isNotEmpty()) {
+            balances[0].exchangeRate
+        } else {
+            EosPrice.unavailable()
         }
     }
 

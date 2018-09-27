@@ -34,6 +34,5 @@ class BlockProducerViewHolder(itemView: View) : SimpleAdapterViewHolder<BlockPro
         itemView.block_producer_list_item_candidate_name.text = value.candidateName
         itemView.block_producer_list_item_logo.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_CROP
         itemView.block_producer_list_item_logo.setImageURI(value.logoUrl)
-
     }
 }

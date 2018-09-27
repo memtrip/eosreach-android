@@ -36,13 +36,13 @@ class AccountViewModel @Inject internal constructor(
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
         AccountRenderAction.BalanceTabIdle -> previousState.copy(
             view = AccountViewState.View.Idle,
-            page =  AccountFragmentPagerAdapter.Page.BALANCE)
+            page = AccountFragmentPagerAdapter.Page.BALANCE)
         AccountRenderAction.ResourceTabIdle -> previousState.copy(
             view = AccountViewState.View.Idle,
-            page =  AccountFragmentPagerAdapter.Page.RESOURCES)
+            page = AccountFragmentPagerAdapter.Page.RESOURCES)
         AccountRenderAction.VoteTabIdle -> previousState.copy(
             view = AccountViewState.View.Idle,
-            page =  AccountFragmentPagerAdapter.Page.VOTE)
+            page = AccountFragmentPagerAdapter.Page.VOTE)
         is AccountRenderAction.OnProgress -> previousState.copy(
             accountName = renderAction.accountName,
             view = AccountViewState.View.OnProgress)

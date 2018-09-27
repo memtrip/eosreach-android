@@ -29,7 +29,7 @@ class AccountFragmentPagerAdapter(
     override fun getPageTitle(position: Int): CharSequence? {
         val page = pages[position]
         return when (page) {
-            Page.BALANCE-> context.getString(R.string.account_page_balance)
+            Page.BALANCE -> context.getString(R.string.account_page_balance)
             Page.RESOURCES -> context.getString(R.string.account_page_resources)
             Page.VOTE -> context.getString(R.string.account_page_vote)
         }

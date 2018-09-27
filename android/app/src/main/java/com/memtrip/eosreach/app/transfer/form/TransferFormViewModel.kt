@@ -30,7 +30,7 @@ class TransferFormViewModel @Inject internal constructor(
         )
     }
 
-    private fun validateForm(transferFormData: TransferFormData) : Observable<TransferFormRenderAction> {
+    private fun validateForm(transferFormData: TransferFormData): Observable<TransferFormRenderAction> {
         if (transferFormData.amount.isEmpty()) {
             return Observable.just(TransferFormRenderAction.OnValidationError(
                 context().getString(R.string.transfer_form_account_validation)

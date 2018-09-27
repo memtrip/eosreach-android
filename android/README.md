@@ -1,5 +1,6 @@
 ### TODO:
-- airdropped tokens?
+- Preserve the order of the account balances
+- Vote for us button is not displaying an error
 
 ### Stability
 - Ensure all screens support screen rotation correctly 
@@ -24,3 +25,4 @@
 - Move the settings menu from import key to the welcome activity
 - update balances after staking resources
 - Returning to the vote screen after an error is resetting the form
+- All EOS values in the app should be formatted with 0.0000 

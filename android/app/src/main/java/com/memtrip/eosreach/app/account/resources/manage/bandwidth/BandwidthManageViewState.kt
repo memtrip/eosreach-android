@@ -9,6 +9,6 @@ data class BandwidthManageViewState(
 
     sealed class View {
         object Idle : View()
-        object  Populate : View()
+        object Populate : View()
     }
 }

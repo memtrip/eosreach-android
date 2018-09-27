@@ -6,7 +6,7 @@
     <string name="balance_airdrop_button">Scan for airdrop tokens</string>
     <string name="balance_airdrop_progress_label">Scanning for airdrop tokens, this can take a while, please be patient.</string>
     <string name="balance_tokens_title">Tokens</string>
-    <string name="balance_tokens_no_customtokens">
+    <string name="balance_tokens_customtokens_empty">
         We could not find any airdrops on this network, try changing the EOS endpoint URL.
     </string>
     <string name="balance_tokens_no_airdrops">

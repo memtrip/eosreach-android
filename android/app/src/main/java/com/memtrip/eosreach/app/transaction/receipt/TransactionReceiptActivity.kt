@@ -62,7 +62,6 @@ class TransactionReceiptActivity
     override fun render(): TransferReceiptViewRenderer = render
 
     override fun populate(actionReceipt: ActionReceipt) {
-
     }
 
     override fun navigateToBlockExplorer(transactionId: String) {
@@ -138,7 +137,7 @@ class TransactionReceiptActivity
         private fun contractAccountBalanceExtra(intent: Intent): ContractAccountBalance =
             intent.getParcelableExtra(CONTRACT_ACCOUNT_BALANCE)
 
-        fun transactionReceiptRouteExtra(intent: Intent) : TransactionReceiptRoute =
+        fun transactionReceiptRouteExtra(intent: Intent): TransactionReceiptRoute =
             intent.getSerializableExtra(TRANSACTION_RECEIPT_ROUTE) as TransactionReceiptRoute
     }
 }

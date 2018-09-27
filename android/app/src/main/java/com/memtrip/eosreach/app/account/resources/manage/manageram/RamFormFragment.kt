@@ -51,7 +51,6 @@ abstract class RamFormFragment
         return view
     }
 
-
     override fun inject() {
         AndroidSupportInjection.inject(this)
     }

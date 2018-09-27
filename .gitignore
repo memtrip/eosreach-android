@@ -16,3 +16,6 @@ service/build
 service/out
 android/build
 android/app/prod
+*.abi
+*.wasm
+*.wast

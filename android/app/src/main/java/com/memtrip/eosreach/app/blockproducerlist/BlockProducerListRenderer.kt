@@ -23,7 +23,6 @@ interface BlockProducerListViewLayout : MxViewLayout {
 class BlockProducerListViewRenderer @Inject internal constructor() : MxViewRenderer<BlockProducerListViewLayout, BlockProducerListViewState> {
     override fun layout(layout: BlockProducerListViewLayout, state: BlockProducerListViewState): Unit = when (state.view) {
         BlockProducerListViewState.View.Idle -> {
-
         }
         BlockProducerListViewState.View.OnProgress -> {
             layout.showProgress()

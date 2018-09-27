@@ -34,7 +34,7 @@ class CastVoteViewModel @Inject internal constructor(
         }
     )
 
-    private fun startingTab(page: CastVoteFragmentPagerFragment.Page): Observable<CastVoteRenderAction> = when(page) {
+    private fun startingTab(page: CastVoteFragmentPagerFragment.Page): Observable<CastVoteRenderAction> = when (page) {
         CastVoteFragmentPagerFragment.Page.PRODUCER -> Observable.just(CastVoteRenderAction.TabIdle(CastVoteFragmentPagerFragment.Page.PRODUCER))
         CastVoteFragmentPagerFragment.Page.PROXY -> Observable.just(CastVoteRenderAction.TabIdle(CastVoteFragmentPagerFragment.Page.PROXY))
     }

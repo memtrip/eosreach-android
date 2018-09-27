@@ -28,7 +28,6 @@ class InsertBalances @Inject internal constructor(
             .toSingle { balanceEntities }
     }
 
-
     private fun deleteByAccountName(accountName: String): Completable {
         return Completable
             .fromAction { balanceDao.deleteBy(accountName) }

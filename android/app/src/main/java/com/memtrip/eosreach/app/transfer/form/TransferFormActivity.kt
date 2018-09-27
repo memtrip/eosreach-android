@@ -19,7 +19,6 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.transfer_form_activity.*
 import javax.inject.Inject
 
-
 class TransferFormActivity
     : MviActivity<TransferFormIntent, TransferFormRenderAction, TransferFormViewState, TransferFormViewLayout>(), TransferFormViewLayout {
 
@@ -34,14 +33,14 @@ class TransferFormActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.transfer_form_activity)
-        setSupportActionBar(account_transfer_toolbar)
+        setSupportActionBar(transfer_form_toolbar)
         supportActionBar!!.title = getString(R.string.transfer_form_toolbar_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        account_transfer_to_input.filters = arrayOf(
+        transfer_form_to_input.filters = arrayOf(
             AccountNameInputFilter(),
             InputFilter.LengthFilter(resources.getInteger(R.integer.app_account_name_length)))
-        account_transfer_amount.filters = arrayOf(
+        transfer_form_amount_input.filters = arrayOf(
             CurrencyFormatInputFilter(),
             InputFilter.LengthFilter(resources.getInteger(R.integer.transfer_amount_length)))
 
@@ -52,19 +51,19 @@ class TransferFormActivity
         AndroidInjection.inject(this)
     }
 
-    override fun intents(): Observable<TransferFormIntent> =Observable.merge(
+    override fun intents(): Observable<TransferFormIntent> = Observable.merge(
         Observable.just(TransferFormIntent.Init(contractAccountBalance)),
         Observable.merge(
-            RxView.clicks(account_transfer_button),
-            RxTextView.editorActions(account_transfer_memo)
+            RxView.clicks(transfer_form_next_button),
+            RxTextView.editorActions(transfer_form_memo_input)
         ).map {
             hideKeyboard()
             TransferFormIntent.SubmitForm(
                 TransferFormData(
                     contractAccountBalance,
-                    account_transfer_to_input.text.toString(),
-                    account_transfer_amount.text.toString(),
-                    account_transfer_memo.text.toString()
+                    transfer_form_to_input.text.toString(),
+                    transfer_form_amount_input.text.toString(),
+                    transfer_form_memo_input.text.toString()
                 )
             )
         }
@@ -77,7 +76,7 @@ class TransferFormActivity
     override fun render(): TransferFormViewRenderer = render
 
     override fun populate(formattedBalance: String) {
-        account_transfer_amount_label.text = getString(R.string.transfer_form_amount_label, formattedBalance)
+        transfer_form_amount_label.text = getString(R.string.transfer_form_amount_label, formattedBalance)
     }
 
     override fun showValidationError(message: String) {

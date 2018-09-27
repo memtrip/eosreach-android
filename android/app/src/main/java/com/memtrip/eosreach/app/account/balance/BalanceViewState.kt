@@ -12,7 +12,7 @@ data class BalanceViewState(
     sealed class View {
         object Idle : View()
         object Populate : View()
-        data class OnAirdropError(val message: String) :  View()
+        data class OnAirdropError(val message: String) : View()
         object OnAirdropProgress : View()
         object OnAirdropSuccess : View()
         object NavigateToCreateAccount : View()

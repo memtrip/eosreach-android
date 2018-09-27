@@ -59,7 +59,7 @@ class KeyStoreWrapper(private val context: Context) {
         val builder = KeyPairGeneratorSpec.Builder(context)
                 .setAlias(alias)
                 .setSerialNumber(BigInteger.ONE)
-                .setSubject(X500Principal("CN=${alias} CA Certificate"))
+                .setSubject(X500Principal("CN=$alias CA Certificate"))
                 .setStartDate(startDate.time)
                 .setEndDate(endDate.time)
 

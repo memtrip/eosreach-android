@@ -20,7 +20,7 @@ abstract class BaseEosReachApplication : DaggerApplication(), HasSupportFragment
     @Inject
     lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
-    override fun applicationInjector(): AndroidInjector<EosReachApplication> = daggerEosReachApplicationComponent
+    override fun applicationInjector(): AndroidInjector<BaseEosReachApplication> = daggerEosReachApplicationComponent
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = supportFragmentInjector
 

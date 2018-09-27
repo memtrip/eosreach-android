@@ -84,7 +84,7 @@ class CastVoteActivity
         cast_producer_vote_tablayout.setupWithViewPager(cast_producer_vote_viewpager)
     }
 
-    private fun publishIdleTab(page: CastVoteFragmentPagerFragment.Page): Unit = when(page) {
+    private fun publishIdleTab(page: CastVoteFragmentPagerFragment.Page): Unit = when (page) {
         CastVoteFragmentPagerFragment.Page.PRODUCER -> {
             model().publish(CastVoteIntent.CastProducerVoteTabIdle)
         }

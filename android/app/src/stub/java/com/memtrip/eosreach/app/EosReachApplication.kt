@@ -3,6 +3,8 @@ package com.memtrip.eosreach.app
 import com.memtrip.eosreach.api.ApiConfig
 import com.memtrip.eosreach.api.HappyPathStubApi
 import com.memtrip.eosreach.api.stub.StubInterceptor
+import com.memtrip.eosreach.billing.BillingConfig
+import com.memtrip.eosreach.billing.BillingConnectionResponse
 import java.util.Arrays.asList
 
 class EosReachApplication : BaseEosReachApplication() {
@@ -12,6 +14,7 @@ class EosReachApplication : BaseEosReachApplication() {
             .builder()
             .application(this)
             .apiConfig(ApiConfig(asList(StubInterceptor(HappyPathStubApi(this)))))
+            .billingConfig(BillingConfig(BillingConnectionResponse.BillingSetupFailed))
             .build()
     }
 }

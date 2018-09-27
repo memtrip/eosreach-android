@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.memtrip.eosreach.brand.ReachButton
-            android:id="@+id/account_actions_send"
+            android:id="@+id/account_actions_transfer_button"
             style="@style/ButtonPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -6,4 +6,4 @@ import javax.inject.Inject
 
 class BuyRamFormViewModel @Inject internal constructor(
     application: Application
-): RamFormViewModel(application)
+) : RamFormViewModel(application)

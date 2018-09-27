@@ -1,14 +1,13 @@
 package com.memtrip.eosreach.db
 
 import androidx.room.Database
-
 import androidx.room.RoomDatabase
 import com.memtrip.eosreach.db.account.AccountDao
 import com.memtrip.eosreach.db.account.AccountEntity
-import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
-import com.memtrip.eosreach.db.blockproducer.BlockProducerEntity
 import com.memtrip.eosreach.db.airdrop.BalanceDao
 import com.memtrip.eosreach.db.airdrop.BalanceEntity
+import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
+import com.memtrip.eosreach.db.blockproducer.BlockProducerEntity
 import com.memtrip.eosreach.db.transaction.TransactionLogDao
 import com.memtrip.eosreach.db.transaction.TransactionLogEntity
 
@@ -22,5 +21,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun accountDao(): AccountDao
     abstract fun balanceDao(): BalanceDao
     abstract fun blockProducerDao(): BlockProducerDao
-    abstract fun transactionLogDao() : TransactionLogDao
+    abstract fun transactionLogDao(): TransactionLogDao
 }
