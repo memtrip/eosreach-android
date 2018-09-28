@@ -13,9 +13,10 @@ import com.memtrip.eosreach.R
 import javax.inject.Inject
 
 class BillingImpl @Inject constructor(
-    private val application: Application,
-    private val skuId: String = application.getString(R.string.app_default_create_account_sku_id)
+    application: Application
 ) : Billing {
+
+    private val skuId: String = application.getString(R.string.app_default_create_account_sku_id)
 
     lateinit var billingFlowResponse: (response: BillingFlowResponse) -> Unit
     lateinit var billingConnectionResponse: (response: BillingConnectionResponse) -> Unit
