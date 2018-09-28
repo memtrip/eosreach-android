@@ -43,6 +43,7 @@ class VoteRequestImpl @Inject constructor(
                             Result(VoteError(response.errorBody!!))
                         }
                     }.onErrorReturn {
+                        it.printStackTrace()
                         Result(VoteError(it.message!!))
                     }
             }.onErrorReturn {

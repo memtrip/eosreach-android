@@ -1,4 +1,4 @@
-package com.memtrip.eosreach.robot.account.balance
+package com.memtrip.eosreach.robot.account.actions
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click

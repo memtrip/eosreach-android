@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/manage_ram_toolbar"
@@ -12,23 +13,78 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/manage_ram_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="manage_ram_tablayout,manage_ram_viewpager,manage_ram_current_price_value,manage_ram_current_price_label"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/manage_ram_current_price_value"
+        style="@style/Typography.H6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/padding_large"
+        tools:text="0.11980974 EOS"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manage_ram_toolbar"/>
+
+    <TextView
+        android:id="@+id/manage_ram_current_price_label"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/padding_tiny"
+        android:text="@string/resources_manage_ram_current_price"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manage_ram_current_price_value"/>
+
     <com.google.android.material.tabs.TabLayout
         style="@style/TabLayout"
         android:id="@+id/manage_ram_tablayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginTop="@dimen/padding_large"
+        tools:background="#FF00FF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/manage_ram_toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/manage_ram_current_price_label"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/manage_ram_viewpager"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        tools:background="#0000FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/manage_ram_tablayout"/>
+
+    <com.memtrip.eosreach.uikit.ErrorCompositeView
+        android:id="@+id/manage_ram_error"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manage_ram_toolbar"/>
+
+    <ProgressBar
+        android:id="@+id/manage_ram_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manage_ram_toolbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

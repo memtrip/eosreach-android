@@ -26,9 +26,6 @@ class SearchForAirdropsBalanceAccountTestCase : StubTestCase() {
             .verifyBalanceScreen()
             .verifyTokenTitle()
             .selectAirDropButton()
-
-        SystemClock.sleep(1500) // TODO: why does this require a sleep? This indicates a threading bug.
-
         balanceRobot
             .verifySysBalanceRow()
             .verifyEdnaBalanceRow()

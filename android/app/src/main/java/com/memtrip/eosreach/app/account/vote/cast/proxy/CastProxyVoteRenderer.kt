@@ -8,7 +8,11 @@ import javax.inject.Inject
 sealed class CastProxyVoteRenderAction : MxRenderAction {
     object Idle : CastProxyVoteRenderAction()
     object OnProgress : CastProxyVoteRenderAction()
-    data class OnError(val message: String, val log: String) : CastProxyVoteRenderAction()
+    data class OnError(
+        val message: String,
+        val log: String,
+        val proxyVote: String
+    ) : CastProxyVoteRenderAction()
     object OnSuccess : CastProxyVoteRenderAction()
     data class ViewLog(val log: String) : CastProxyVoteRenderAction()
 }
@@ -18,10 +22,19 @@ interface CastProxyVoteViewLayout : MxViewLayout {
     fun showError(message: String, log: String)
     fun onSuccess()
     fun viewLog(log: String)
+    fun populateProxyVoteInput(value: String)
 }
 
 class CastProxyVoteViewRenderer @Inject internal constructor() : MxViewRenderer<CastProxyVoteViewLayout, CastProxyVoteViewState> {
-    override fun layout(layout: CastProxyVoteViewLayout, state: CastProxyVoteViewState): Unit = when (state.view) {
+    override fun layout(layout: CastProxyVoteViewLayout, state: CastProxyVoteViewState) {
+        state.proxyVote?.let {
+            layout.populateProxyVoteInput(state.proxyVote)
+        }
+
+        doLayout(layout, state)
+    }
+
+    private fun doLayout(layout: CastProxyVoteViewLayout, state: CastProxyVoteViewState): Unit = when (state.view) {
         CastProxyVoteViewState.View.Idle -> {
         }
         CastProxyVoteViewState.View.OnProgress -> {

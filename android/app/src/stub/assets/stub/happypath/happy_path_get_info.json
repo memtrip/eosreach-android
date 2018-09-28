@@ -1,0 +1,15 @@
+{
+  "server_version": "c71d2245",
+  "chain_id": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+  "head_block_num": 18764924,
+  "last_irreversible_block_num": 18764588,
+  "last_irreversible_block_id": "011e532cf11a14f843aa2057221dcdf0fb11aa2a6ce80e2dad8787c39f5c31f9",
+  "head_block_id": "011e547cc166405e0f503501c8181843e842e8fed7288b8b992563adab7779ae",
+  "head_block_time": "2018-09-28T09:13:23.500",
+  "head_block_producer": "eosswedenorg",
+  "virtual_block_cpu_limit": 200000000,
+  "virtual_block_net_limit": 1048576000,
+  "block_cpu_limit": 199900,
+  "block_net_limit": 1048576,
+  "server_version_string": "mainnet-1.3.0"
+}

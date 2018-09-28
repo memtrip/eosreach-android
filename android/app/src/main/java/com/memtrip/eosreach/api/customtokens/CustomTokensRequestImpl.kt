@@ -43,6 +43,4 @@ class CustomTokensRequestImpl @Inject internal constructor(
             throw NoAirdropsFound()
         }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
     }
-
-    class NoAirdropsFound : IOException()
 }

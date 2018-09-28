@@ -30,7 +30,6 @@
             android:textColor="@color/typographyColorInverse"
             android:textIsSelectable="true"/>
 
-
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

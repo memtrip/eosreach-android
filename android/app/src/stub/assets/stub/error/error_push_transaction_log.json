@@ -1,0 +1,18 @@
+{
+  "code":500,
+  "message":"Internal Service Error",
+  "error":
+  {
+    "code":3060002,
+    "name":"account_query_exception",
+    "what":"Account Query Exception",
+    "details":[
+      {
+        "message":"Fail to retrieve account for wubcoinissue",
+        "file":"chain_plugin.cpp",
+        "line_number":1030,
+        "method":"get_abi"
+      }
+    ]
+  }
+}

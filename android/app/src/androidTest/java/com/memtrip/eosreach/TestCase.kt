@@ -2,8 +2,9 @@ package com.memtrip.eosreach
 
 import com.memtrip.eosreach.robot.CommonRobot
 import com.memtrip.eosreach.robot.account.AccountRobot
-import com.memtrip.eosreach.robot.account.balance.ActionsRobot
+import com.memtrip.eosreach.robot.account.actions.ActionsRobot
 import com.memtrip.eosreach.robot.account.balance.BalanceRobot
+import com.memtrip.eosreach.robot.account.vote.VoteRobot
 import com.memtrip.eosreach.robot.accountlist.AccountListRobot
 import com.memtrip.eosreach.robot.issue.CreateAccountRobot
 import com.memtrip.eosreach.robot.issue.ImportKeyRobot
@@ -24,6 +25,7 @@ abstract class TestCase {
     internal val accountListRobot = AccountListRobot()
     internal val accountRobot = AccountRobot()
     internal val balanceRobot = BalanceRobot()
+    internal val voteRobot = VoteRobot()
     internal val actionsRobot = ActionsRobot()
     internal val transferRobot = TransferRobot()
     internal val transactionRobot = TransactionRobot()

@@ -1,13 +1,11 @@
-### TODO:
-- Preserve the order of the account balances
-- Vote for us button is not displaying an error
-
 ### Stability
 - Ensure all screens support screen rotation correctly 
 - Ensure every rx call is handling errors properly, easily verified by unit tests
-- sanity check for unused resources and files
-- write tests for all the ViewModels
+- sanity check for unused resources and files (lint)
+- write unit tests for all the ViewModels
 - write UI integration tests
+- Ensure that all OnError states include a unique ID (required by mx for repated states)
+- Ensure Idle model is published after a dialog is shown to stop the dialog being shown on return 
 
 ### Backlog
 - Implement buy / sell ram

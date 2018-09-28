@@ -23,6 +23,10 @@ object BalanceFormatter {
         return Balance(balance, symbol)
     }
 
+    fun formatEosBalance(balance: Double, symbol: String): String {
+        return formatEosBalance(balance.toString(), symbol)
+    }
+
     fun formatEosBalance(balance: String, symbol: String): String {
         return formatEosBalance(create(balance, symbol))
     }

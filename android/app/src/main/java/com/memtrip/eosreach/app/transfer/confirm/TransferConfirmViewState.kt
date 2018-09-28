@@ -12,7 +12,11 @@ data class TransferConfirmViewState(val view: View) : MxViewState {
         data class Populate(val transferFormData: TransferFormData) : View()
         object OnProgress : View()
         data class OnSuccess(val transferReceipt: ActionReceipt) : View()
-        data class OnError(val message: String, val log: String) : View()
+        data class OnError(
+            val message: String,
+            val log: String,
+            val unique: Int = MxViewState.id()
+        ) : View()
         data class ViewLog(val log: String) : View()
     }
 }

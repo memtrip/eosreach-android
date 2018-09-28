@@ -22,11 +22,28 @@
     <string name="resources_manage_ram_title">Manage RAM</string>
     <string name="resources_manage_ram_tab_buy">Buy</string>
     <string name="resources_manage_ram_tab_sell">Sell</string>
+    <string name="resources_manage_ram_current_price">RAM Price per KiB</string>
+    <string name="resources_manage_ram_error">
+        We could not fetch the latest RAM price, please check your internet and try again. If this problem
+        continues to persist, please change your EOS endpoint in settings.
+    </string>
 
-    <string name="resources_manage_ram_form_amount_label">Ram amount (balance: %s)</string>
-    <string name="resources_manage_ram_form_amount_hint">Enter the amount in EOS</string>
+    <string name="resources_manage_ram_form_amount_label">Ram amount (cost in EOS: %s)</string>
+    <string name="resources_manage_ram_form_amount_hint">Enter the amount in kilobytes</string>
     <string name="resources_manage_ram_form_buy_button">Buy</string>
     <string name="resources_manage_ram_form_sell_button">Sell</string>
+    <string name="resources_manage_ram_form_empty">You must enter a RAM value greater than zero</string>
+
+    <!-- confirm ram -->
+    <string name="resources_ram_confirm_form_buy_label">Confirm Buy Ram</string>
+    <string name="resources_ram_confirm_form_sell_label">Confirm Sell Ram</string>
+    <string name="resources_ram_confirm_form_kilobytes_label">k/b</string>
+    <string name="resources_ram_confirm_form_cost_label">Price</string>
+    <string name="resources_ram_confirm_form_price_change_warning_label">
+        The price of RAM is determined by the market. We checked the market price for you on
+        the previous screen, but it is possible for the price to fluctuate within a small time
+        period.
+    </string>
 
     <!-- manage bandwidth -->
     <string name="resources_manage_bandwidth_title">Manage bandwidth</string>

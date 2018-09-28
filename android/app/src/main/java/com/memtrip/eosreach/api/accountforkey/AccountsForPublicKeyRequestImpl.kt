@@ -35,7 +35,7 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
     private fun getBalance(publicKey: String, accountNameList: List<String>): Single<Result<AccountsForPublicKey, AccountForKeyError>> {
 
         return Observable.fromIterable(accountNameList)
-            .flatMap { accountName ->
+            .concatMap { accountName ->
                 Observable.zip(
                     Observable.just(accountName),
                     chainApi.getCurrencyBalance(GetCurrencyBalance(

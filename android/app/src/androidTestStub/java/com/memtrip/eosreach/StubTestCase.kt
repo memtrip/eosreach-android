@@ -7,6 +7,7 @@ import com.android.billingclient.api.SkuDetails
 
 import com.memtrip.eosreach.api.HappyPathStubApi
 import com.memtrip.eosreach.api.StubApi
+import com.memtrip.eosreach.api.stub.readFile
 import com.memtrip.eosreach.billing.BillingConnectionResponse
 import com.memtrip.eosreach.billing.SkuStub
 
@@ -40,6 +41,10 @@ abstract class StubTestCase : TestCase() {
 
     open fun billingConnectionResponse(): BillingConnectionResponse {
         return BillingConnectionResponse.BillingSetupFailed
+    }
+
+    internal fun readJsonFile(fileName: String): String {
+        return readFile(fileName, getTargetContext())
     }
 
     internal fun skuDetails(skuStub: SkuStub): SkuDetails {

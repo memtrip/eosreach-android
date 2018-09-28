@@ -68,44 +68,43 @@ class AccountUseCase @Inject internal constructor(
             Observable.fromIterable(with(ArrayList(asList(primaryBalance))) {
                 addAll(balanceEntities)
                 this
-            })
-                .flatMap { balanceEntity ->
-                    Observable.zip(
-                        Observable.just(balanceEntity),
-                        chainApi.getCurrencyBalance(GetCurrencyBalance(
-                            balanceEntity.contractName,
-                            balanceEntity.accountName
-                        )).toObservable().observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()),
-                        BiFunction<BalanceEntity, Response<List<String>>, ContractAccountBalance> { _, response ->
-                            if (response.isSuccessful) {
-                                val balanceList = response.body()!!
-                                if (balanceList.isNotEmpty()) {
-                                    val balance = BalanceFormatter.deserialize(balanceList[0])
-                                    ContractAccountBalance(
-                                        balanceEntity.contractName,
-                                        balanceEntity.accountName,
-                                        balance,
-                                        parsePrice(eosAccount, primaryEosPrice, balance))
-                                } else {
-                                    ContractAccountBalance.unavailable()
-                                }
+            }).concatMap { balanceEntity ->
+                Observable.zip(
+                    Observable.just(balanceEntity),
+                    chainApi.getCurrencyBalance(GetCurrencyBalance(
+                        balanceEntity.contractName,
+                        balanceEntity.accountName
+                    )).toObservable().observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()),
+                    BiFunction<BalanceEntity, Response<List<String>>, ContractAccountBalance> { _, response ->
+                        if (response.isSuccessful) {
+                            val balanceList = response.body()!!
+                            if (balanceList.isNotEmpty()) {
+                                val balance = BalanceFormatter.deserialize(balanceList[0])
+                                ContractAccountBalance(
+                                    balanceEntity.contractName,
+                                    balanceEntity.accountName,
+                                    balance,
+                                    parsePrice(eosAccount, primaryEosPrice, balance))
                             } else {
-                                throw AccountsForPublicKeyRequestImpl.InnerAccountFailed()
+                                ContractAccountBalance.unavailable()
                             }
-                        })
-                }.toList()
-                .map { contractAccountBalances ->
-                    val accountBalanceList = AccountBalanceList(
-                        contractAccountBalances.filter { balance ->
-                            !balance.unavailable
+                        } else {
+                            throw AccountsForPublicKeyRequestImpl.InnerAccountFailed()
                         }
-                    )
-                    AccountView.success(
-                        inferEosPrice(accountBalanceList.balances),
-                        eosAccount,
-                        accountBalanceList
-                    )
-                }
+                    })
+            }.toList()
+            .map { contractAccountBalances ->
+                val accountBalanceList = AccountBalanceList(
+                    contractAccountBalances.filter { balance ->
+                        !balance.unavailable
+                    }
+                )
+                AccountView.success(
+                    inferEosPrice(accountBalanceList.balances),
+                    eosAccount,
+                    accountBalanceList
+                )
+            }
         }
     }
 

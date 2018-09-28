@@ -5,6 +5,10 @@ import com.memtrip.eosreach.api.ApiConfig
 import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountModule
+import com.memtrip.eosreach.app.account.actions.ActionsModule
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthModule
+import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamModule
+import com.memtrip.eosreach.app.account.vote.cast.CastModule
 import com.memtrip.eosreach.app.accountlist.AccountListModule
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListModule
 import com.memtrip.eosreach.app.manage.ManageModule
@@ -30,6 +34,10 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         WelcomeModule::class,
         AccountModule::class,
+        CastModule::class,
+        BandwidthModule::class,
+        ManageRamModule::class,
+        ActionsModule::class,
         ManageModule::class,
         TransferModule::class,
         TransactionModule::class,

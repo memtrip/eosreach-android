@@ -2,5 +2,6 @@
 <resources>
 
     <integer name="app_account_name_length">12</integer>
+    <integer name="app_kb_input_max_length_length">10</integer>
 
 </resources>

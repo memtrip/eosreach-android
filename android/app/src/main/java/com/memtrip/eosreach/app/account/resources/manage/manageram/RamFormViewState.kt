@@ -6,8 +6,11 @@ data class RamFormViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
-        object OnProgress : View()
-        data class OnError(val message: String, val log: String) : View()
-        data class OnSuccess(val transactionId: String) : View()
+        data class UpdateCostPerKiloByte(val eosCost: String) : View()
+        data class NavigateToConfirmRamForm(
+            val kilobytes: String,
+            val ramCommitType: RamCommitType
+        ) : View()
+        object EmptyRamError : View()
     }
 }

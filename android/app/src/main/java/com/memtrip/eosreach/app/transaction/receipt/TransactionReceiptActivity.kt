@@ -88,10 +88,10 @@ class TransactionReceiptActivity
         )
     }
 
-    override fun navigateToAccount() {
+    override fun navigateToAccount(page: AccountFragmentPagerAdapter.Page) {
         startActivity(with(accountIntent(AccountBundle(
             actionReceipt.authorizingAccountName
-        ), this, AccountFragmentPagerAdapter.Page.RESOURCES)) {
+        ), this, page)) {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or
                 Intent.FLAG_ACTIVITY_NEW_TASK)
             this
@@ -107,7 +107,10 @@ class TransactionReceiptActivity
             TransactionReceiptIntent.NavigateToActions
         }
         TransactionReceiptRoute.ACCOUNT -> {
-            TransactionReceiptIntent.NavigateToAccount
+            TransactionReceiptIntent.NavigateToAccount(AccountFragmentPagerAdapter.Page.BALANCE)
+        }
+        TransactionReceiptRoute.ACCOUNT_RESOURCES -> {
+            TransactionReceiptIntent.NavigateToAccount(AccountFragmentPagerAdapter.Page.RESOURCES)
         }
     }
 

@@ -3,6 +3,7 @@ package com.memtrip.eosreach.app.account.vote.cast.proxy
 import android.app.Application
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.vote.VoteRequest
+import com.memtrip.eosreach.app.account.vote.VoteIntent
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -27,7 +28,8 @@ class CastProxyVoteViewModel @Inject internal constructor(
         CastProxyVoteRenderAction.OnProgress -> previousState.copy(
             view = CastProxyVoteViewState.View.OnProgress)
         is CastProxyVoteRenderAction.OnError -> previousState.copy(
-            view = CastProxyVoteViewState.View.OnError(renderAction.message, renderAction.log))
+            view = CastProxyVoteViewState.View.OnError(renderAction.message, renderAction.log),
+            proxyVote = renderAction.proxyVote)
         CastProxyVoteRenderAction.OnSuccess -> previousState.copy(
             view = CastProxyVoteViewState.View.OnSuccess)
         is CastProxyVoteRenderAction.ViewLog -> previousState.copy(
@@ -44,7 +46,8 @@ class CastProxyVoteViewModel @Inject internal constructor(
             } else {
                 CastProxyVoteRenderAction.OnError(
                     context().getString(R.string.vote_cast_proxy_vote_error),
-                    result.apiError!!.body)
+                    result.apiError!!.body,
+                    proxyVoteAccountName)
             }
         }.toObservable().startWith(CastProxyVoteRenderAction.OnProgress)
     }

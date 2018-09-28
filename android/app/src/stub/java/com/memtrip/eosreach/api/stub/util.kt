@@ -1,5 +1,6 @@
 package com.memtrip.eosreach.api.stub
 
+import android.content.Context
 import okhttp3.Headers
 import okhttp3.Request
 import okhttp3.Response
@@ -28,4 +29,10 @@ fun bodyToString(request: Request): String {
     val buffer = Buffer()
     copy.body()!!.writeTo(buffer)
     return buffer.readUtf8()
+}
+
+fun readFile(fileName: String, context: Context): String {
+    return context.assets.open(fileName).bufferedReader().use {
+        it.readText()
+    }
 }

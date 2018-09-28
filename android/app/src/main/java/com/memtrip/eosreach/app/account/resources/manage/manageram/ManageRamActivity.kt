@@ -6,12 +6,18 @@ import android.os.Bundle
 import com.jakewharton.rxbinding2.support.v4.view.RxViewPager
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.api.balance.Balance
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.price.BalanceFormatter
+import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.manage_ram_activity.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ManageRamActivity
@@ -24,6 +30,7 @@ class ManageRamActivity
     lateinit var render: ManageRamViewRenderer
 
     lateinit var eosAccount: EosAccount
+    lateinit var contractAccountBalance: ContractAccountBalance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +40,7 @@ class ManageRamActivity
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         eosAccount = eosAccountExtra(intent)
+        contractAccountBalance = contractAccountBalance(intent)
     }
 
     override fun inject() {
@@ -40,7 +48,7 @@ class ManageRamActivity
     }
 
     override fun intents(): Observable<ManageRamIntent> = Observable.merge(
-        Observable.just(ManageRamIntent.Init(eosAccount)),
+        Observable.just(ManageRamIntent.Init(contractAccountBalance.balance.symbol)),
         RxViewPager.pageSelections(manage_ram_viewpager).map {
             when (it) {
                 ManageRamFragmentPagerAdapter.Page.BUY.ordinal ->
@@ -59,13 +67,39 @@ class ManageRamActivity
 
     override fun render(): ManageRamViewRenderer = render
 
-    override fun populate(eosAccount: EosAccount, page: ManageRamFragmentPagerAdapter.Page) {
+    override fun showProgress() {
+        manage_ram_group.gone()
+        manage_ram_error.gone()
+        manage_ram_progress.visible()
+    }
+
+    override fun showRamPriceError() {
+        manage_ram_progress.gone()
+        manage_ram_error.populate(
+            getString(R.string.app_dialog_error_title),
+            getString(R.string.resources_manage_ram_error)
+        )
+    }
+
+    override fun populate(
+        ramPricePerKb: Balance,
+        formattedRamPrice: String,
+        page: ManageRamFragmentPagerAdapter.Page
+    ) {
+
         model().publish(ManageRamIntent.BuyRamTabIdle)
+
+        manage_ram_progress.gone()
+        manage_ram_group.visible()
+        manage_ram_current_price_value.text = formattedRamPrice
 
         val manageRamFragmentPagerAdapter = ManageRamFragmentPagerAdapter(
             supportFragmentManager,
             this,
-            eosAccount)
+            eosAccount,
+            contractAccountBalance,
+            ramPricePerKb
+        )
 
         manage_ram_viewpager.adapter = manageRamFragmentPagerAdapter
         manage_ram_viewpager.offscreenPageLimit = 2
@@ -78,16 +112,26 @@ class ManageRamActivity
     companion object {
 
         private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
+        private const val CONTRACT_ACCOUNT_BALANCE = "CONTRACT_ACCOUNT_BALANCE"
 
-        fun manageRamIntent(eosAccount: EosAccount, context: Context): Intent {
+        fun manageRamIntent(
+            eosAccount: EosAccount,
+            contractAccountBalance: ContractAccountBalance,
+            context: Context
+        ): Intent {
             return with (Intent(context, ManageRamActivity::class.java)) {
                 putExtra(EOS_ACCOUNT_EXTRA, eosAccount)
+                putExtra(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
                 this
             }
         }
 
         private fun eosAccountExtra(intent: Intent): EosAccount {
-            return intent.getParcelableExtra(EOS_ACCOUNT_EXTRA) as EosAccount
+            return intent.getParcelableExtra(EOS_ACCOUNT_EXTRA)
+        }
+
+        private fun contractAccountBalance(intent: Intent): ContractAccountBalance {
+            return intent.getParcelableExtra(CONTRACT_ACCOUNT_BALANCE)
         }
     }
 }

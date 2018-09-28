@@ -1,7 +1,6 @@
 package com.memtrip.eosreach.app.account.resources.manage.manageram
 
-import com.memtrip.eosreach.api.account.EosAccount
-
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.mxandroid.MxViewState
 
 data class ManageRamViewState(
@@ -10,7 +9,9 @@ data class ManageRamViewState(
 ) : MxViewState {
 
     sealed class View {
-        object Idle : ManageRamViewState.View()
-        data class Populate(val eosAccount: EosAccount) : ManageRamViewState.View()
+        object Idle : View()
+        object OnProgress : View()
+        data class Populate(val ramPrice: Balance) : View()
+        object OnRamPriceError : View()
     }
 }

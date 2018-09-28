@@ -2,6 +2,7 @@ package com.memtrip.eosreach.app.account.resources.manage.manageram
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,12 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.resources.manage.manageram.RamConfirmActivity.Companion.ramConfirmIntent
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptRoute
@@ -41,12 +44,17 @@ abstract class RamFormFragment
 
     private lateinit var eosAccount: EosAccount
     private lateinit var contractAccountBalance: ContractAccountBalance
+    private lateinit var ramPricePerKb: Balance
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.manage_ram_form_fragment, container, false)
         eosAccount = eosAccountExtra(arguments!!)
         contractAccountBalance = contractAccountBalanceExtra(arguments!!)
-        view.manage_ram_form_amount_input.filters = arrayOf(CurrencyFormatInputFilter())
+        ramPricePerKb = ramPricePerKb(arguments!!)
+        view.manage_ram_form_amount_input.filters = arrayOf(
+            CurrencyFormatInputFilter(),
+            InputFilter.LengthFilter(resources.getInteger(R.integer.app_kb_input_max_length_length))
+        )
         view.manage_ram_form_cta_button.text = buttonLabel()
         return view
     }
@@ -61,10 +69,17 @@ abstract class RamFormFragment
             RxView.clicks(manage_ram_form_cta_button),
             RxTextView.editorActions(manage_ram_form_amount_input)
         ).map {
+            hideKeyboard()
             RamFormIntent.Commit(
                 manage_ram_form_amount_input.editableText.toString(),
                 ramCommitType
             )
+        },
+        RxTextView.afterTextChangeEvents(manage_ram_form_amount_input).map { event ->
+            val value = if (event.editable().isNullOrEmpty()) { "0" } else {
+                event.editable().toString()
+            }
+            RamFormIntent.ConvertKiloBytesToEOSCost(value, ramPricePerKb)
         }
     )
 
@@ -74,42 +89,48 @@ abstract class RamFormFragment
 
     override fun render(): RamFormViewRenderer = render
 
-    override fun showProgress() {
-        manage_ram_form_progress.visible()
-        manage_ram_form_cta_button.invisible()
+    override fun updateEosCost(eosCost: String) {
+        manage_ram_amount_form_label.text = getString(
+            R.string.resources_manage_ram_form_amount_label, eosCost)
     }
 
-    override fun showError(message: String, log: String) {
-        manage_ram_form_progress.gone()
-        manage_ram_form_cta_button.visible()
+    override fun navigateToConfirmRamForm(
+        kilobytes: String,
+        ramCommitType: RamCommitType
+    ) {
+        model().publish(RamFormIntent.Idle)
 
+        startActivity(ramConfirmIntent(
+            kilobytes,
+            ramPricePerKb,
+            ramCommitType,
+            contractAccountBalance,
+            context!!))
+    }
+
+    override fun emptyRamError() {
         AlertDialog.Builder(context!!)
-            .setMessage(message)
-            .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
-                model().publish(RamFormIntent.Idle)
-                startActivity(transactionLogIntent(log, context!!))
-            }
-            .setNegativeButton(R.string.transaction_view_log_negative_button, null)
+            .setTitle(R.string.app_dialog_error_title)
+            .setMessage(R.string.resources_manage_ram_form_empty)
+            .setPositiveButton(R.string.app_dialog_positive_button, null)
             .create()
             .show()
-    }
-
-    override fun showSuccess(transactionId: String) {
-        startActivity(transactionReceiptIntent(
-            ActionReceipt(transactionId, eosAccount.accountName),
-            contractAccountBalance,
-            TransactionReceiptRoute.ACCOUNT,
-            context!!))
-        activity!!.finish()
     }
 
     companion object {
 
         private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
         private const val CONTRACT_ACCOUNT_BALANCE = "CONTRACT_ACCOUNT_BALANCE"
+        private const val RAM_PRICE_PER_KB = "RAM_PRICE_PER_KB"
 
-        fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
+        fun toBundle(
+            eosAccount: EosAccount,
+            contractAccountBalance: ContractAccountBalance,
+            ramPricePerKb: Balance
+        ): Bundle = with (Bundle()) {
             putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
+            putParcelable(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
+            putParcelable(RAM_PRICE_PER_KB, ramPricePerKb)
             this
         }
 
@@ -118,5 +139,8 @@ abstract class RamFormFragment
 
         private fun contractAccountBalanceExtra(bundle: Bundle): ContractAccountBalance =
             bundle.getParcelable(CONTRACT_ACCOUNT_BALANCE)
+
+        private fun ramPricePerKb(bundle: Bundle): Balance =
+            bundle.getParcelable(RAM_PRICE_PER_KB)
     }
 }

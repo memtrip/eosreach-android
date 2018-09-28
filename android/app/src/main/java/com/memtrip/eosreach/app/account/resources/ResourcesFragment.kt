@@ -181,7 +181,10 @@ class ResourcesFragment
 
     override fun navigateToManageRam() {
         model().publish(ResourcesIntent.Idle)
-        startActivity(manageRamIntent(eosAccount, context!!))
+        startActivity(manageRamIntent(
+            eosAccount,
+            contractAccountBalance,
+            context!!))
     }
 
     companion object {

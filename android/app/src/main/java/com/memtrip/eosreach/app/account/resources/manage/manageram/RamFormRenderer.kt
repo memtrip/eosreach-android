@@ -7,29 +7,32 @@ import javax.inject.Inject
 
 sealed class RamFormRenderAction : MxRenderAction {
     object Idle : RamFormRenderAction()
-    object OnProgress : RamFormRenderAction()
-    data class OnError(val message: String, val log: String) : RamFormRenderAction()
-    data class OnSuccess(val transactionId: String) : RamFormRenderAction()
+    data class NavigateToConfirmRamForm(
+        val kilobytes: String,
+        val ramCommitType: RamCommitType
+    ) : RamFormRenderAction()
+    data class UpdateCostPerKiloByte(val eosCost: String) : RamFormRenderAction()
+    object EmptyRamError : RamFormRenderAction()
 }
 
 interface RamFormViewLayout : MxViewLayout {
-    fun showProgress()
-    fun showError(message: String, log: String)
-    fun showSuccess(transactionId: String)
+    fun updateEosCost(eosCost: String)
+    fun navigateToConfirmRamForm(kilobytes: String, ramCommitType: RamCommitType)
+    fun emptyRamError()
 }
 
 class RamFormViewRenderer @Inject internal constructor() : MxViewRenderer<RamFormViewLayout, RamFormViewState> {
     override fun layout(layout: RamFormViewLayout, state: RamFormViewState): Unit = when (state.view) {
         RamFormViewState.View.Idle -> {
         }
-        RamFormViewState.View.OnProgress -> {
-            layout.showProgress()
+        is RamFormViewState.View.UpdateCostPerKiloByte -> {
+            layout.updateEosCost(state.view.eosCost)
         }
-        is RamFormViewState.View.OnError -> {
-            layout.showError(state.view.message, state.view.log)
+        is RamFormViewState.View.NavigateToConfirmRamForm -> {
+            layout.navigateToConfirmRamForm(state.view.kilobytes, state.view.ramCommitType)
         }
-        is RamFormViewState.View.OnSuccess -> {
-            layout.showSuccess(state.view.transactionId)
+        RamFormViewState.View.EmptyRamError -> {
+            layout.emptyRamError()
         }
     }
 }

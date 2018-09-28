@@ -18,6 +18,10 @@ import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequestImpl
 import com.memtrip.eosreach.api.eosprice.EosPriceRequest
 import com.memtrip.eosreach.api.eosprice.EosPriceRequestImpl
+import com.memtrip.eosreach.api.ram.RamRequest
+import com.memtrip.eosreach.api.ram.RamRequestImpl
+import com.memtrip.eosreach.api.ramprice.RamPriceRequest
+import com.memtrip.eosreach.api.ramprice.RamPriceRequestImpl
 import com.memtrip.eosreach.api.transfer.TransferRequest
 import com.memtrip.eosreach.api.transfer.TransferRequestImpl
 import com.memtrip.eosreach.api.vote.VoteRequest
@@ -54,6 +58,11 @@ internal abstract class RequestModule {
     ): CustomTokensRequest
 
     @Binds
+    internal abstract fun bindGetRamPriceRequest(
+        ramPriceRequest: RamPriceRequestImpl
+    ): RamPriceRequest
+
+    @Binds
     internal abstract fun bindTransferRequest(
         transferRequest: TransferRequestImpl
     ): TransferRequest
@@ -62,6 +71,11 @@ internal abstract class RequestModule {
     internal abstract fun bindBandwidthRequest(
         bandwidthRequest: BandwidthRequestImpl
     ): BandwidthRequest
+
+    @Binds
+    internal abstract fun bindRamRequest(
+        ramRequest: RamRequestImpl
+    ): RamRequest
 
     @Binds
     internal abstract fun bindVoteRequest(

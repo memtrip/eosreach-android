@@ -87,4 +87,11 @@ class AccountRobot {
 
         return this
     }
+
+    fun selectVoteTab(): AccountRobot {
+        onView(withText(R.string.account_page_vote))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
 }

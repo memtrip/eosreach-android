@@ -17,7 +17,7 @@ class TransactionReceiptViewModel @Inject internal constructor(
         is TransactionReceiptIntent.Init -> Observable.just(TransferReceiptRenderAction.Populate(intent.actionReceipt))
         is TransactionReceiptIntent.NavigateToBlockExplorer -> Observable.just(TransferReceiptRenderAction.NavigateToBlockExplorer(intent.transactionId))
         TransactionReceiptIntent.NavigateToActions -> Observable.just(TransferReceiptRenderAction.NavigateToActions)
-        TransactionReceiptIntent.NavigateToAccount -> Observable.just(TransferReceiptRenderAction.NavigateToAccount)
+        is TransactionReceiptIntent.NavigateToAccount -> Observable.just(TransferReceiptRenderAction.NavigateToAccount(intent.page))
     }
 
     override fun reducer(previousState: TransactionReceiptViewState, renderAction: TransferReceiptRenderAction): TransactionReceiptViewState = when (renderAction) {
@@ -29,8 +29,8 @@ class TransactionReceiptViewModel @Inject internal constructor(
             view = TransactionReceiptViewState.View.NavigateToBlockExplorer(renderAction.transactionId))
         TransferReceiptRenderAction.NavigateToActions -> previousState.copy(
             view = TransactionReceiptViewState.View.NavigateToActions)
-        TransferReceiptRenderAction.NavigateToAccount -> previousState.copy(
-            view = TransactionReceiptViewState.View.NavigateToAccount)
+        is TransferReceiptRenderAction.NavigateToAccount -> previousState.copy(
+            view = TransactionReceiptViewState.View.NavigateToAccount(renderAction.page))
     }
 
     override fun filterIntents(intents: Observable<TransactionReceiptIntent>): Observable<TransactionReceiptIntent> = Observable.merge(

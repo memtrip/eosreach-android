@@ -102,6 +102,10 @@ class CastProxyVoteFragment
         startActivity(TransactionLogActivity.transactionLogIntent(log, context!!))
     }
 
+    override fun populateProxyVoteInput(value: String) {
+        cast_proxy_vote_name_input.setText(value)
+    }
+
     companion object {
 
         private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"

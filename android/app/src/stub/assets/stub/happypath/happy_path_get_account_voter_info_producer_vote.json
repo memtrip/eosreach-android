@@ -60,7 +60,7 @@
   "voter_info": {
     "owner": "memtripissue",
     "proxy": "",
-    "producers": ["memtripblock"],
+    "producers": ["memtripblock","eosflareiobp"],
     "staked": 20000,
     "last_vote_weight": "0.00000000000000000",
     "proxied_vote_weight": "0.00000000000000000",

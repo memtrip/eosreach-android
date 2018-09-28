@@ -3,7 +3,10 @@ package com.memtrip.eosreach.api
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.memtrip.eos.chain.actions.query.producer.GetBlockProducersAggregate
+import com.memtrip.eos.chain.actions.query.ramprice.GetRamPrice
+import com.memtrip.eos.chain.actions.transaction.account.BuyRamBytesChain
 import com.memtrip.eos.chain.actions.transaction.account.DelegateBandwidthChain
+import com.memtrip.eos.chain.actions.transaction.account.SellRamChain
 import com.memtrip.eos.chain.actions.transaction.account.UnDelegateBandwidthChain
 import com.memtrip.eos.chain.actions.transaction.transfer.TransferChain
 import com.memtrip.eos.chain.actions.transaction.vote.VoteChain
@@ -89,6 +92,10 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
+    fun getRamPrice(chainApi: ChainApi): GetRamPrice = GetRamPrice(chainApi)
+
+    @JvmStatic
+    @Provides
     fun voteChain(chainApi: ChainApi): VoteChain = VoteChain(chainApi)
 
     @JvmStatic
@@ -98,6 +105,14 @@ internal object ApiModule {
     @JvmStatic
     @Provides
     fun unDelegateBandwidthChain(chainApi: ChainApi): UnDelegateBandwidthChain = UnDelegateBandwidthChain(chainApi)
+
+    @JvmStatic
+    @Provides
+    fun buyRamBytesChain(chainApi: ChainApi): BuyRamBytesChain = BuyRamBytesChain(chainApi)
+
+    @JvmStatic
+    @Provides
+    fun sellRamBytesChain(chainApi: ChainApi): SellRamChain = SellRamChain(chainApi)
 
     @JvmStatic
     @Provides

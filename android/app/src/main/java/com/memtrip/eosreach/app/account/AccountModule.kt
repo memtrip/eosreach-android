@@ -45,42 +45,6 @@ abstract class AccountModule {
     @ContributesAndroidInjector(modules = [ResourcesFragmentModule::class])
     internal abstract fun contributeResourcesFragment(): ResourcesFragment
 
-    @ContributesAndroidInjector(modules = [BandwidthManageActivityModule::class])
-    internal abstract fun contributeManageBandwidthActivity(): BandwidthManageActivity
-
-    @ContributesAndroidInjector(modules = [DelegateBandwidthFormFragmentModule::class])
-    internal abstract fun contributeDelegateBandwidthFormFragment(): DelegateBandwidthFormFragment
-
-    @ContributesAndroidInjector(modules = [UnDelegateBandwidthFormFragmentModule::class])
-    internal abstract fun contributeUnDelegateBandwidthFormFragment(): UnDelegateBandwidthFormFragment
-
-    @ContributesAndroidInjector(modules = [BandwidthConfirmActivityModule::class])
-    internal abstract fun contributeBandwidthConfirmActivity(): BandwidthConfirmActivity
-
-    @ContributesAndroidInjector(modules = [ManageRamActivityModule::class])
-    internal abstract fun contributeManageRamActivity(): ManageRamActivity
-
-    @ContributesAndroidInjector(modules = [BuyRamFormFragmentModule::class])
-    internal abstract fun contributeBuyRamFormFragment(): BuyRamFormFragment
-
-    @ContributesAndroidInjector(modules = [SellRamFormFragmentModule::class])
-    internal abstract fun contributeSellRamFormFragmentModule(): SellRamFormFragment
-
     @ContributesAndroidInjector(modules = [VoteFragmentModule::class])
     internal abstract fun contributeVoteFragment(): VoteFragment
-
-    @ContributesAndroidInjector(modules = [CastVoteActivityModule::class])
-    internal abstract fun contributeCastVoteActivity(): CastVoteActivity
-
-    @ContributesAndroidInjector(modules = [CastProxyVoteFragmentModule::class])
-    internal abstract fun contributeCastProxyVoteFragment(): CastProxyVoteFragment
-
-    @ContributesAndroidInjector(modules = [CastProducersVoteFragmentModule::class])
-    internal abstract fun contributeCastProducersVoteFragment(): CastProducersVoteFragment
-
-    @ContributesAndroidInjector(modules = [ActionsActivityModule::class])
-    internal abstract fun contributeActionsActivity(): ActionsActivity
-
-    @ContributesAndroidInjector(modules = [ViewTransferActionActivityModule::class])
-    internal abstract fun contributeViewTransferActionActivity(): ViewTransferActionActivity
 }

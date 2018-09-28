@@ -7,7 +7,8 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.accountforkey.AccountsForPublicKeyRequestImpl
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
-import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
+import com.memtrip.eosreach.api.customtokens.NoAirdropsFound
+
 import com.memtrip.eosreach.api.eosprice.EosPrice
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.db.airdrop.InsertBalances
@@ -102,7 +103,7 @@ class BalanceViewModel @Inject internal constructor(
                 }
             }
         }.onErrorReturn { error ->
-            if (error is CustomTokensRequestImpl.NoAirdropsFound) {
+            if (error is NoAirdropsFound) {
                 BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_customtokens_empty))
             } else {
                 BalanceRenderAction.OnAirdropError(context().getString(R.string.balance_tokens_airdrop_generic_error))

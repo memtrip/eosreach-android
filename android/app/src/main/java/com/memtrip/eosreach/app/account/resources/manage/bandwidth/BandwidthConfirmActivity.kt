@@ -101,7 +101,7 @@ class BandwidthConfirmActivity
         startActivity(transactionReceiptIntent(
             ActionReceipt(transactionId, bandwidthBundle.fromAccount),
             contractAccountBalance,
-            TransactionReceiptRoute.ACCOUNT,
+            TransactionReceiptRoute.ACCOUNT_RESOURCES,
             this))
         finish()
     }

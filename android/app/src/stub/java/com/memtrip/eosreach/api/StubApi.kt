@@ -4,6 +4,7 @@ import android.content.Context
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.stub.Stub
 import com.memtrip.eosreach.api.stub.StubMatcher
+import com.memtrip.eosreach.api.stub.readFile
 import com.memtrip.eosreach.api.stub.request.BasicStubRequest
 
 import java.util.Arrays.asList
@@ -11,6 +12,16 @@ import java.util.Arrays.asList
 abstract class StubApi(
     val context: Context
 ) {
+
+    open fun getInfo(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_info$")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_info.json")
+        })
+    )
 
     open fun getAccount(): Stub = Stub(
         StubMatcher(
@@ -42,6 +53,17 @@ abstract class StubApi(
         })
     )
 
+    open fun getCustomTokensTableRows(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_table_rows$"),
+            readJsonFile("stub/request/request_get_customtoken_table_rows.json")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_customtoken_table_rows.json")
+        })
+    )
+
     open fun getActions(): Stub = Stub(
         StubMatcher(
             context.getString(R.string.app_default_eos_endpoint_root),
@@ -49,6 +71,16 @@ abstract class StubApi(
         ),
         BasicStubRequest(200, {
             readJsonFile("stub/happypath/happy_path_get_actions.json")
+        })
+    )
+
+    open fun pushTransaction(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/push_transaction$")
+        ),
+        BasicStubRequest(400, {
+            readJsonFile("stub/error/error_push_transaction_log.json")
         })
     )
 
@@ -72,28 +104,17 @@ abstract class StubApi(
         })
     )
 
-    open fun getCustomTokensTableRows(): Stub = Stub(
-        StubMatcher(
-            context.getString(R.string.app_default_eos_endpoint_root),
-            Regex("v1/chain/get_table_rows$"),
-            readJsonFile("stub/request/request_get_customtoken_table_rows.json")
-        ),
-        BasicStubRequest(200, {
-            readJsonFile("stub/happypath/happy_path_get_customtoken_table_rows.json")
-        })
-    )
-
     fun readJsonFile(fileName: String): String {
-        return context.assets.open(fileName).bufferedReader().use {
-            it.readText()
-        }
+        return readFile(fileName, context)
     }
 
     fun stubs(): List<Stub> = asList(
+        getInfo(),
         getAccount(),
         getKeyAccounts(),
         getCurrencyBalance(),
         getActions(),
+        pushTransaction(),
         getPriceForCurrency(),
         createAccount(),
         getCustomTokensTableRows()
