@@ -20,7 +20,7 @@ class EosCreateAccountRequestImpl @Inject constructor(
     ): Single<Result<CreateAccountReceipt, EosCreateAccountError>> {
         return eosCreateAccountApi.createAccount(CreateAccountRequest(
             purchaseToken,
-            accountName,
+            accountName.toLowerCase(),
             publicKey
         )).observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background()).map { response ->
