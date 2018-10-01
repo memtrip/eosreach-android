@@ -43,8 +43,8 @@ class RamDetailLayout @JvmOverloads constructor(
         kb: String,
         pricePerKb: Balance
     ) {
-        bandwidth_details_kb_value.text = kb
-        bandwidth_details_cost_value.text = cost(kb, pricePerKb)
+        ram_details_kb_value.text = kb
+        ram_details_cost_value.text = cost(kb, pricePerKb)
     }
 
     private fun cost(kb: String, pricePerKb: Balance): String {

@@ -1,0 +1,54 @@
+/*
+Copyright (C) 2018-present memtrip
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package com.memtrip.eosreach.app.resources
+
+import com.memtrip.eosreach.DevTestCase
+import com.memtrip.eosreach.R
+import com.memtrip.eosreach.app.Config
+
+class BuyRamTestCase : DevTestCase() {
+
+    override fun test() {
+        splashRobot.navigateImportKey()
+        importKeyRobot
+            .typePrivateKey(Config.PRIVATE_KEY)
+            .selectImportButton()
+        accountListRobot
+            .selectFirstAccountRow()
+        accountRobot
+            .verifyAccountSuccess()
+            .selectResourcesTab()
+        resourcesRobot
+            .verifyResourcesScreen()
+            .selectRamButton()
+            .verifyManageRamScreen()
+            .enterRamAmount("1000", R.id.account_resources_manage_ram_buy_fragment)
+            .selectCtaButton(R.id.account_resources_manage_ram_buy_fragment)
+            .verifyConfirmBuyTitle()
+            .verifyConfirmKb("1000")
+            .verifyPrice()
+            .selectConfirmCta()
+
+        transactionRobot
+            .verifyTransactionReceiptScreen()
+            .selectDoneButton()
+
+        resourcesRobot
+            .verifyResourcesScreen()
+    }
+
+}

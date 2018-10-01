@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/bandwidth_details_kb_value"
+        android:id="@+id/ram_details_kb_value"
         style="@style/Typography.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toTopOf="@+id/ram_details_form"/>
 
     <View
-        android:id="@+id/bandwidth_details_spacer"
+        android:id="@+id/ram_details_spacer"
         style="@style/ViewFormSpacer"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -74,10 +74,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_middle_guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bandwidth_details_spacer" />
+        app:layout_constraintTop_toBottomOf="@+id/ram_details_spacer" />
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/bandwidth_details_cost_value"
+        android:id="@+id/ram_details_cost_value"
         style="@style/Typography.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
         android:textColor="@color/typographyColorInverse"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/ram_details_label_middle_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/bandwidth_details_spacer"
+        app:layout_constraintTop_toBottomOf="@+id/ram_details_spacer"
         tools:hint="0.1250 EOS" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

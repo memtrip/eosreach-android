@@ -22,7 +22,7 @@ import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
+
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -40,6 +40,13 @@ class ResourcesRobot {
 
     fun selectBandwidthButton(): ResourcesRobot {
         onView(withId(R.id.resources_manage_bandwidth_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun selectRamButton(): ResourcesRobot {
+        onView(withId(R.id.resources_manage_ram_button))
             .check(matches(isDisplayed()))
             .perform(click())
         return this
@@ -113,6 +120,87 @@ class ResourcesRobot {
 
     fun selectConfirmButton(): ResourcesRobot {
         onView(withId(R.id.bandwidth_confirm_cta_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun verifyManageRamScreen(): ResourcesRobot {
+        onView(withId(R.id.manage_ram_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.manage_ram_current_price_value))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.manage_ram_current_price_label))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.manage_ram_tablayout))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.manage_ram_viewpager))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectSellTab(): ResourcesRobot {
+        onView(allOf(
+            withText(R.string.resources_manage_ram_tab_sell),
+            isDescendantOfA(withId(R.id.manage_ram_tablayout))
+        ))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun enterRamAmount(amount: String, fragmentId: Int): ResourcesRobot {
+        onView(allOf(
+            withId(R.id.manage_ram_form_amount_input),
+            isDescendantOfA(withId(fragmentId))
+        ))
+            .check(matches(isDisplayed()))
+            .perform(typeText(amount))
+            .perform(closeSoftKeyboard())
+        return this
+    }
+
+    fun selectCtaButton(fragmentId: Int): ResourcesRobot {
+        onView(allOf(
+            withId(R.id.manage_ram_form_cta_button),
+            isDescendantOfA(withId(fragmentId))
+        ))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun verifyConfirmBuyTitle(): ResourcesRobot {
+        onView(withId(R.id.ram_confirm_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withText(R.string.resources_ram_confirm_form_buy_label))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun verifyConfirmSellTitle(): ResourcesRobot {
+        onView(withId(R.id.ram_confirm_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withText(R.string.resources_ram_confirm_form_sell_label))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun verifyConfirmKb(amount: String): ResourcesRobot {
+        onView(withId(R.id.ram_details_kb_value))
+            .check(matches(isDisplayed()))
+            .check(matches(withText(amount)))
+        return this
+    }
+
+    fun verifyPrice(): ResourcesRobot {
+        onView(withId(R.id.ram_details_cost_value))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectConfirmCta(): ResourcesRobot {
+        onView(withId(R.id.ram_confirm_cta_button))
             .check(matches(isDisplayed()))
             .perform(click())
         return this

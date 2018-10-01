@@ -69,7 +69,7 @@ class ResourcesFragment
         RxView.clicks(resources_manage_bandwidth_button).map {
             ResourcesIntent.NavigateToManageBandwidth
         },
-        RxView.clicks(resources_unstake_resources_button).map {
+        RxView.clicks(resources_manage_ram_button).map {
             ResourcesIntent.NavigateToManageRam
         }
     )

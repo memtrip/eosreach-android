@@ -54,6 +54,8 @@ abstract class RamFormFragment
     @Inject
     lateinit var render: RamFormViewRenderer
 
+    abstract fun rootViewId(): Int
+
     abstract fun buttonLabel(): String
 
     abstract val ramCommitType: RamCommitType
@@ -72,6 +74,7 @@ abstract class RamFormFragment
             InputFilter.LengthFilter(resources.getInteger(R.integer.app_kb_input_max_length_length))
         )
         view.manage_ram_form_cta_button.text = buttonLabel()
+        view.id = rootViewId()
         return view
     }
 
