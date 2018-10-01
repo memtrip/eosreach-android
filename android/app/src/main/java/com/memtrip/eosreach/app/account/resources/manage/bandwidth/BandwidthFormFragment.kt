@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
@@ -48,6 +49,8 @@ abstract class BandwidthFormFragment
     private lateinit var eosAccount: EosAccount
     private lateinit var contractAccountBalance: ContractAccountBalance
 
+    abstract fun rootViewId(): Int
+
     abstract fun buttonLabel(): String
 
     abstract val bandwidthCommitType: BandwidthCommitType
@@ -59,6 +62,7 @@ abstract class BandwidthFormFragment
         view.manage_bandwidth_net_amount_form_input.filters = arrayOf(CurrencyFormatInputFilter())
         view.manage_bandwidth_cpu_amount_form_input.filters = arrayOf(CurrencyFormatInputFilter())
         view.manage_bandwidth_form_cta_button.text = buttonLabel()
+        view.id = rootViewId()
         return view
     }
 

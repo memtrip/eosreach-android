@@ -104,6 +104,13 @@ class AccountRobot {
         return this
     }
 
+    fun selectResourcesTab(): AccountRobot {
+        onView(withText(R.string.account_page_resources))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
     fun selectVoteTab(): AccountRobot {
         onView(withText(R.string.account_page_vote))
             .check(matches(isDisplayed()))

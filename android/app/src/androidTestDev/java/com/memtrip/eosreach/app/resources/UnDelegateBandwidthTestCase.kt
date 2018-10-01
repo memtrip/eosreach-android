@@ -14,12 +14,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.transfer
+package com.memtrip.eosreach.app.resources
 
 import com.memtrip.eosreach.DevTestCase
+import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.Config
 
-class TransferFundsTestCase : DevTestCase() {
+class UnDelegateBandwidthTestCase : DevTestCase() {
 
     override fun test() {
         splashRobot.navigateImportKey()
@@ -30,33 +31,24 @@ class TransferFundsTestCase : DevTestCase() {
             .selectFirstAccountRow()
         accountRobot
             .verifyAccountSuccess()
-        balanceRobot
-            .verifyBalanceScreen()
-            .selectFirstTokenRow()
-        actionsRobot
-            .selectTransferButton()
-
-        val to = "memtripissue"
-        val from = "memtripadmin"
-        val amount = "0.0001"
-        val memo = "Here is some coin, from android integration test."
-
-        transferRobot
-            .enterRecipient(to)
-            .enterAmount(amount)
-            .enterMemo(memo)
-            .selectNextButton()
-            .verifyAmount("$amount SYS")
-            .verifyTo(to)
-            .verifyFrom(from)
-            .verifyMemo(memo)
+            .selectResourcesTab()
+        resourcesRobot
+            .verifyResourcesScreen()
+            .selectBandwidthButton()
+            .verifyManageBandwidthScreen()
+            .selectUndelegateTab()
+            .enterNetBalance("0.0100", R.id.account_resources_undelegate_bandwidth_fragment)
+            .enterCpuBalance("0.0100", R.id.account_resources_undelegate_bandwidth_fragment)
+            .selectDelegateButton(R.id.account_resources_undelegate_bandwidth_fragment)
+            .verifyConfirmNetBalance("0.0100 SYS")
+            .verifyConfirmCpuBalance("0.0100 SYS")
             .selectConfirmButton()
 
         transactionRobot
             .verifyTransactionReceiptScreen()
             .selectDoneButton()
 
-        balanceRobot
-            .verifyBalanceScreen()
+        resourcesRobot
+            .verifyResourcesScreen()
     }
 }

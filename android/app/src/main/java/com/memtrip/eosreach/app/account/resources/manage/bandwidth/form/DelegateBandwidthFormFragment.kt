@@ -23,6 +23,7 @@ import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthComm
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormFragment
 
 class DelegateBandwidthFormFragment : BandwidthFormFragment() {
+    override fun rootViewId(): Int = R.id.account_resources_delegate_bandwidth_fragment
     override fun buttonLabel(): String = context!!.getString(R.string.resources_manage_bandwidth_delegate_form_delegate_button)
     override val bandwidthCommitType: BandwidthCommitType = BandwidthCommitType.DELEGATE
 

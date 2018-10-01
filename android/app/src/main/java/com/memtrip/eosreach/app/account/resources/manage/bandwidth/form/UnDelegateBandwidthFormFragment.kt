@@ -24,6 +24,7 @@ import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthComm
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormFragment
 
 class UnDelegateBandwidthFormFragment : BandwidthFormFragment() {
+    override fun rootViewId(): Int = R.id.account_resources_undelegate_bandwidth_fragment
     override fun buttonLabel(): String = context!!.getString(R.string.resources_manage_bandwidth_delegate_form_undelegate_button)
     override val bandwidthCommitType: BandwidthCommitType = BandwidthCommitType.UNDELEGATE
 

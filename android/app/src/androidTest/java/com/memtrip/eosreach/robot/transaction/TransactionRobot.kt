@@ -26,6 +26,14 @@ import com.memtrip.eosreach.R
 
 class TransactionRobot {
 
+    fun verifyTransactionReceiptScreen(): TransactionRobot {
+        onView(withId(R.id.transaction_receipt_title_label))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transaction_receipt_body_label))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
     fun selectDoneButton(): TransactionRobot {
         onView(withId(R.id.transaction_receipt_done_button))
             .check(matches(isDisplayed()))

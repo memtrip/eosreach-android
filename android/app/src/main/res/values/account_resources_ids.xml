@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="account_resources_delegate_bandwidth_fragment" type="id" />
+    <item name="account_resources_undelegate_bandwidth_fragment" type="id" />
+
+</resources>
