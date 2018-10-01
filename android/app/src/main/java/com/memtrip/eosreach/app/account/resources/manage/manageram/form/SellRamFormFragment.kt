@@ -24,7 +24,7 @@ import com.memtrip.eosreach.app.account.resources.manage.manageram.RamCommitType
 import com.memtrip.eosreach.app.account.resources.manage.manageram.RamFormFragment
 
 class SellRamFormFragment : RamFormFragment() {
-
+    override fun rootViewId(): Int = R.id.account_resources_manage_ram_sell_fragment
     override fun buttonLabel(): String = context!!.getString(R.string.resources_manage_ram_form_sell_button)
     override val ramCommitType: RamCommitType = RamCommitType.SELL
 

@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="resources_manage_title,resources_manage_bandwidth_button,resources_unstake_resources_button"
+            app:constraint_referenced_ids="resources_manage_title,resources_manage_bandwidth_button,resources_manage_ram_button"
             tools:ignore="MissingConstraints" />
 
         <com.memtrip.eosreach.brand.ReachTextView
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toBottomOf="@id/resources_manage_title"/>
 
         <com.memtrip.eosreach.brand.ReachButton
-            android:id="@+id/resources_unstake_resources_button"
+            android:id="@+id/resources_manage_ram_button"
             style="@style/ButtonTransparentCaption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

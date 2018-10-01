@@ -4,4 +4,8 @@
     <item name="account_resources_delegate_bandwidth_fragment" type="id" />
     <item name="account_resources_undelegate_bandwidth_fragment" type="id" />
 
+
+    <item name="account_resources_manage_ram_buy_fragment" type="id" />
+    <item name="account_resources_manage_ram_sell_fragment" type="id" />
+
 </resources>
