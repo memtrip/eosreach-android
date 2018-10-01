@@ -35,7 +35,7 @@ ext.versions = [
     'compileSdkVersion': 28,
     'minSdkVersion': 21,
     'targetSdkVersion': 28,
-    'versionCode': 11,
-    'versionName': '1.0.10',
+    'versionCode': 13,
+    'versionName': '1.0.12',
     'daggerVersion': '2.16'
 ]
