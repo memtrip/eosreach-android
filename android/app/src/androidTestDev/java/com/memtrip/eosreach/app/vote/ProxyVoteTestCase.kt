@@ -14,12 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.transfer
+package com.memtrip.eosreach.app.vote
 
 import com.memtrip.eosreach.DevTestCase
 import com.memtrip.eosreach.app.Config
 
-class TransferFundsTestCase : DevTestCase() {
+class ProxyVoteTestCase : DevTestCase() {
 
     override fun test() {
         splashRobot.navigateImportKey()
@@ -30,33 +30,14 @@ class TransferFundsTestCase : DevTestCase() {
             .selectFirstAccountRow()
         accountRobot
             .verifyAccountSuccess()
-        balanceRobot
-            .verifyBalanceScreen()
-            .selectFirstTokenRow()
-        actionsRobot
-            .selectTransferButton()
+            .selectVoteTab()
+        voteRobot
+            .selectVoteForProxy()
+            .verifyCastProxyVoteScreen()
+            .typeCastProxyVote("memtripproxy")
+            .selectCastProxyVoteButton()
 
-        val to = "memtripissue"
-        val from = "memtripadmin"
-        val amount = "0.0001"
-        val memo = "Here is some coin, from android integration test."
-
-        transferRobot
-            .enterRecipient(to)
-            .enterAmount(amount)
-            .enterMemo(memo)
-            .selectNextButton()
-            .verifyAmount("$amount SYS")
-            .verifyTo(to)
-            .verifyFrom(from)
-            .verifyMemo(memo)
-            .selectConfirmButton()
-
-        transactionRobot
-            .verifyTransactionReceiptScreen()
-            .selectDoneButton()
-
-        actionsRobot
-            .verifyActionsScreen()
+        voteRobot
+            .verifyProxyVoteScreen()
     }
 }

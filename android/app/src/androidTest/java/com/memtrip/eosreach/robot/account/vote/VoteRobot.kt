@@ -66,6 +66,31 @@ class VoteRobot {
         return this
     }
 
+    fun selectVoteForProducers(): VoteRobot {
+        onView(withId(R.id.vote_cast_vote_producer_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun verifyVoteForProducersScreen(): VoteRobot {
+        onView(withId(R.id.cast_producers_vote_blockproducer_instructions_label))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.cast_producers_vote_blockproducer_form_add))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.cast_producers_vote_blockproducer_form_scrollview))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.cast_producers_vote_button))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun typeCastProducerVote(value: String): VoteRobot {
+        onView(withId(R.id.cast_producers_vote_blockproducer_form_scrollview))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
     fun selectVoteForProxy(): VoteRobot {
         onView(withId(R.id.vote_cast_vote_proxy_button))
             .check(matches(isDisplayed()))
