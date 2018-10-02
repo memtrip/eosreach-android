@@ -56,6 +56,8 @@ class AccountActionsRequestImpl @Inject internal constructor(
         val historicActions = historicAccountActionParent.actions.filter {
             it.action_trace.act.account == contractAccountBalance.contractName &&
                 it.action_trace.act.name == "transfer"
+        }.distinctBy { historicAccountAction ->
+            historicAccountAction.action_trace.trx_id
         }
 
         return if (historicActions.isNotEmpty()) {

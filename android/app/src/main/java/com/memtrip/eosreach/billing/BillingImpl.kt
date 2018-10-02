@@ -108,7 +108,6 @@ class BillingImpl @Inject constructor(
     override fun consumeItem(purchaseToken: String, purchaseConsumed: () -> Unit) {
         billingClient.consumeAsync(purchaseToken) { _, _ ->
             purchaseConsumed()
-            billingClient.endConnection()
         }
     }
 

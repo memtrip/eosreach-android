@@ -257,6 +257,8 @@ abstract class CreateAccountActivity
 
     override fun showImportKeyError(error: String) {
         triggerAccountCreatedOnExit = false
+        issue_create_account_form_group.gone()
+        issue_create_account_progress.gone()
         issue_create_account_import_key_progress.gone()
         issue_create_account_import_key_error.visible()
         issue_create_account_import_key_settings_button.visible()
