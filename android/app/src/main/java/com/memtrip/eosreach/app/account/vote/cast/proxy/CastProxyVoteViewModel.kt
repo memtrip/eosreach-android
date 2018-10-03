@@ -20,12 +20,19 @@ import android.app.Application
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.vote.VoteRequest
 import com.memtrip.eosreach.app.account.vote.VoteIntent
+import com.memtrip.eosreach.db.transaction.InsertTransactionLog
+import com.memtrip.eosreach.db.transaction.TransactionLogEntity
+import com.memtrip.eosreach.utils.fullDateTime
+import com.memtrip.eosreach.utils.toLocalDateTime
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
+import java.util.Date
 import javax.inject.Inject
 
 class CastProxyVoteViewModel @Inject internal constructor(
     private val voteRequest: VoteRequest,
+    private val insertTransactionLog: InsertTransactionLog,
     application: Application
 ) : MxViewModel<CastProxyVoteIntent, CastProxyVoteRenderAction, CastProxyVoteViewState>(
     CastProxyVoteViewState(view = CastProxyVoteViewState.View.Idle),
@@ -56,14 +63,19 @@ class CastProxyVoteViewModel @Inject internal constructor(
         return voteRequest.voteForProxy(
             voterAccountName,
             proxyVoteAccountName
-        ).map<CastProxyVoteRenderAction> { result ->
+        ).flatMap<CastProxyVoteRenderAction> { result ->
             if (result.success) {
-                CastProxyVoteRenderAction.OnSuccess
+                val transaction = result.data!!
+                insertTransactionLog.insert(TransactionLogEntity(
+                    transactionId = transaction.transactionId,
+                    formattedDate = Date().toLocalDateTime().fullDateTime())).toSingleDefault<CastProxyVoteRenderAction>(
+                    CastProxyVoteRenderAction.OnSuccess
+                )
             } else {
-                CastProxyVoteRenderAction.OnError(
+                Single.just(CastProxyVoteRenderAction.OnError(
                     context().getString(R.string.vote_cast_proxy_vote_error),
                     result.apiError!!.body,
-                    proxyVoteAccountName)
+                    proxyVoteAccountName))
             }
         }.toObservable().startWith(CastProxyVoteRenderAction.OnProgress)
     }

@@ -45,13 +45,13 @@ class CastVoteActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_cast_vote_activity)
-        setSupportActionBar(cast_producers_vote_toolbar)
+        setSupportActionBar(account_cast_vote_toolbar)
         supportActionBar!!.title = getString(R.string.vote_cast_title)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         eosAccount = eosAccountExtra(intent)
         page = pageExtra(intent)
-        cast_producer_vote_viewpager.currentItem = page.ordinal
+        account_cast_vote_viewpager.currentItem = page.ordinal
     }
 
     override fun inject() {
@@ -76,11 +76,11 @@ class CastVoteActivity
             supportFragmentManager,
             this,
             eosAccount)
-        cast_producer_vote_viewpager.adapter = castVotePagerFragment
-        cast_producer_vote_viewpager.offscreenPageLimit = 2
-        cast_producer_vote_viewpager.currentItem = page.ordinal
-        cast_producer_vote_viewpager.visible()
-        cast_producer_vote_viewpager.addOnPageChangeListener(object : ViewPagerOnPageChangeListener() {
+        account_cast_vote_viewpager.adapter = castVotePagerFragment
+        account_cast_vote_viewpager.offscreenPageLimit = 2
+        account_cast_vote_viewpager.currentItem = page.ordinal
+        account_cast_vote_viewpager.visible()
+        account_cast_vote_viewpager.addOnPageChangeListener(object : ViewPagerOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     CastVoteFragmentPagerFragment.Page.PRODUCER.ordinal -> {
@@ -96,7 +96,7 @@ class CastVoteActivity
             }
         })
 
-        cast_producer_vote_tablayout.setupWithViewPager(cast_producer_vote_viewpager)
+        account_cast_vote_tablayout.setupWithViewPager(account_cast_vote_viewpager)
     }
 
     private fun publishIdleTab(page: CastVoteFragmentPagerFragment.Page): Unit = when (page) {

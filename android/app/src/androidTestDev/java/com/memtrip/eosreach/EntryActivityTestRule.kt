@@ -16,7 +16,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach
 
+import android.app.Application
+import androidx.test.InstrumentationRegistry.getInstrumentation
+import com.memtrip.eosreach.api.ApiConfig
+import com.memtrip.eosreach.app.DaggerEosReachApplicationComponent
+
 class EntryActivityTestRule : BaseActivityTestRule() {
-    override fun inject() { }
-    override fun resetInjector() { }
+
+    override fun inject() {
+        val injector = DaggerEosReachApplicationComponent
+            .builder()
+            .application(getInstrumentation().targetContext.applicationContext as Application)
+            .apiConfig(ApiConfig())
+            .build()
+
+        TestDevEosReachApplication.setInjector(injector)
+    }
+
+    override fun resetInjector() {
+        TestDevEosReachApplication.resetInjector()
+    }
 }

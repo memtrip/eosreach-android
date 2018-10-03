@@ -20,13 +20,19 @@ import android.app.Application
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccountVote
 import com.memtrip.eosreach.api.vote.VoteRequest
+import com.memtrip.eosreach.db.transaction.InsertTransactionLog
+import com.memtrip.eosreach.db.transaction.TransactionLogEntity
+import com.memtrip.eosreach.utils.fullDateTime
+import com.memtrip.eosreach.utils.toLocalDateTime
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.util.Date
 import javax.inject.Inject
 
 class CastProducersVoteViewModel @Inject internal constructor(
     private val voteRequest: VoteRequest,
+    private val insertTransactionLog: InsertTransactionLog,
     application: Application
 ) : MxViewModel<CastProducersVoteIntent, CastProducersVoteRenderAction, CastProducersVoteViewState>(
     CastProducersVoteViewState(view = CastProducersVoteViewState.View.Idle),
@@ -85,7 +91,11 @@ class CastProducersVoteViewModel @Inject internal constructor(
             blockProducers
         ).flatMap { result ->
             if (result.success) {
-                Single.just(CastProducersVoteRenderAction.OnSuccess)
+                val transaction = result.data!!
+                insertTransactionLog.insert(TransactionLogEntity(
+                    transactionId = transaction.transactionId,
+                    formattedDate = Date().toLocalDateTime().fullDateTime())).toSingleDefault<CastProducersVoteRenderAction>(
+                    CastProducersVoteRenderAction.OnSuccess)
             } else {
                 Single.just(CastProducersVoteRenderAction.OnError(
                     context().getString(R.string.vote_cast_vote_error_message),

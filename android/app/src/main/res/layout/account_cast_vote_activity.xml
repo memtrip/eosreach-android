@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/cast_producers_vote_toolbar"
+        android:id="@+id/account_cast_vote_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -15,21 +15,21 @@
 
     <com.google.android.material.tabs.TabLayout
         style="@style/TabLayout"
-        android:id="@+id/cast_producer_vote_tablayout"
+        android:id="@+id/account_cast_vote_tablayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cast_producers_vote_toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/account_cast_vote_toolbar"/>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/cast_producer_vote_viewpager"
+        android:id="@+id/account_cast_vote_viewpager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cast_producer_vote_tablayout"/>
+        app:layout_constraintTop_toBottomOf="@id/account_cast_vote_tablayout"/>
     
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,20 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.memtrip.eosreach.R
 
 class ActionsRobot {
+
+    fun verifyActionsScreen(): ActionsRobot {
+        onView(withId(R.id.account_actions_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.account_actions_navigation))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.account_actions_list_swiperefresh))
+            .check(matches(isDisplayed()))
+        return this
+    }
 
     fun selectTransferButton(): ActionsRobot {
         onView(ViewMatchers.withId(R.id.account_actions_transfer_button))
