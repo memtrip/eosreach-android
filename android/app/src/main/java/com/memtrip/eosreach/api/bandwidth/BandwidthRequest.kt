@@ -20,7 +20,9 @@ import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.api.ApiError
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.transfer.ActionReceipt
+import com.memtrip.eosreach.utils.transactionDefaultExpiry
 import io.reactivex.Single
+import java.util.Date
 
 interface BandwidthRequest {
 
@@ -28,15 +30,20 @@ interface BandwidthRequest {
         fromAccount: String,
         netAmount: String,
         cpuAmount: String,
-        authorizingPrivateKey: EosPrivateKey
+        authorizingPrivateKey: EosPrivateKey,
+        transactionExpiry: Date = transactionDefaultExpiry()
     ): Single<Result<ActionReceipt, BandwidthError>>
 
     fun unDelegate(
         fromAccount: String,
         netAmount: String,
         cpuAmount: String,
-        authorizingPrivateKey: EosPrivateKey
+        authorizingPrivateKey: EosPrivateKey,
+        transactionExpiry: Date = transactionDefaultExpiry()
     ): Single<Result<ActionReceipt, BandwidthError>>
 }
 
-class BandwidthError(val body: String) : ApiError
+sealed class BandwidthError : ApiError {
+    data class TransactionError(val body: String) : BandwidthError()
+    object GenericError : BandwidthError()
+}

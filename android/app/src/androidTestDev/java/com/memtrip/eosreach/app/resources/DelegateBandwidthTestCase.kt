@@ -38,10 +38,9 @@ class DelegateBandwidthTestCase : DevTestCase() {
             .verifyManageBandwidthScreen()
             .enterNetBalance("0.0100", R.id.account_resources_delegate_bandwidth_fragment)
             .enterCpuBalance("0.0100", R.id.account_resources_delegate_bandwidth_fragment)
-            .selectDelegateButton(R.id.account_resources_delegate_bandwidth_fragment)
-            .verifyConfirmNetBalance("0.0100 SYS")
-            .verifyConfirmCpuBalance("0.0100 SYS")
-            .selectConfirmButton()
+            .selectBandwidthFormCtaButton(R.id.account_resources_delegate_bandwidth_fragment)
+            .verifyBandwidthConfirmScreen()
+            .selectBandwidthConfirmButton()
 
         transactionRobot
             .verifyTransactionReceiptScreen()

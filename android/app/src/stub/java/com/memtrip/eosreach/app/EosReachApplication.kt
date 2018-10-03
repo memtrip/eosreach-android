@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app
 
+import com.android.billingclient.api.SkuDetails
 import com.memtrip.eosreach.api.ApiConfig
 import com.memtrip.eosreach.api.HappyPathStubApi
 import com.memtrip.eosreach.api.stub.StubInterceptor
@@ -30,7 +31,8 @@ class EosReachApplication : BaseEosReachApplication() {
             .builder()
             .application(this)
             .apiConfig(ApiConfig(asList(StubInterceptor(HappyPathStubApi(this)))))
-            .billingConfig(BillingConfig(BillingConnectionResponse.BillingSetupFailed))
+            .billingConfig(BillingConfig(BillingConnectionResponse.Success(SkuDetails(
+                "{ \"productId\": \"SUCCESS\", \"price\": \"\$1.99\" }"))))
             .build()
     }
 }

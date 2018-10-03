@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.welcome.createaccount
 
-import android.os.SystemClock
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.StubTestCase
 import com.memtrip.eosreach.api.StubApi

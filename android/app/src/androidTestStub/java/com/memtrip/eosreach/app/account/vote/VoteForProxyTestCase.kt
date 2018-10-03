@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.account.vote
 
-import android.os.SystemClock
 import com.memtrip.eosreach.StubTestCase
 
 class VoteForProxyTestCase : StubTestCase() {

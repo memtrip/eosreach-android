@@ -94,7 +94,7 @@ class ResourcesRobot {
         return this
     }
 
-    fun selectDelegateButton(fragmentId: Int): ResourcesRobot {
+    fun selectBandwidthFormCtaButton(fragmentId: Int): ResourcesRobot {
         onView(allOf(
             withId(R.id.manage_bandwidth_form_cta_button),
             isDescendantOfA(withId(fragmentId))
@@ -104,22 +104,45 @@ class ResourcesRobot {
         return this
     }
 
-    fun verifyConfirmNetBalance(amount: String): ResourcesRobot {
+    fun verifyBandwidthConfirmNetBalance(amount: String): ResourcesRobot {
         onView(withId(R.id.bandwidth_details_net_value))
             .check(matches(isDisplayed()))
             .check(matches(withText(amount)))
         return this
     }
 
-    fun verifyConfirmCpuBalance(amount: String): ResourcesRobot {
+    fun verifyBandwidthConfirmCpuBalance(amount: String): ResourcesRobot {
         onView(withId(R.id.bandwidth_details_cpu_value))
             .check(matches(isDisplayed()))
             .check(matches(withText(amount)))
         return this
     }
 
-    fun selectConfirmButton(): ResourcesRobot {
+    fun verifyBandwidthConfirmScreen(): ResourcesRobot {
+        onView(withId(R.id.bandwidth_confirm_details_layout))
+            .check(matches(isDisplayed()))
         onView(withId(R.id.bandwidth_confirm_cta_button))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectBandwidthConfirmButton(): ResourcesRobot {
+        onView(withId(R.id.bandwidth_confirm_cta_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun verifyBandwidthConfirmGenericError(): ResourcesRobot {
+        onView(withText(R.string.app_dialog_generic_error_body))
+            .check(matches(isDisplayed()))
+        onView(withText(R.string.app_dialog_positive_button))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectBandwidthConfirmGenericErrorPositiveButton(): ResourcesRobot {
+        onView(withText(R.string.app_dialog_positive_button))
             .check(matches(isDisplayed()))
             .perform(click())
         return this

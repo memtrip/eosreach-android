@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.transaction.receipt
 
 import com.memtrip.eosreach.api.transfer.ActionReceipt
-import com.memtrip.eosreach.app.account.AccountActivity
 import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
 import com.memtrip.mxandroid.MxViewIntent
 

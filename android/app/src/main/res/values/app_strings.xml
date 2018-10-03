@@ -8,6 +8,9 @@
     <string name="app_empty_value">-</string>
 
     <string name="app_dialog_error_title">Sorry</string>
+    <string name="app_dialog_generic_error_body">
+        An error occurred while processing the transaction, please check your internet connection and try again.
+    </string>
     <string name="app_dialog_transaction_error_body">
         An error occurred while processing the transaction, see the log for more information.
     </string>

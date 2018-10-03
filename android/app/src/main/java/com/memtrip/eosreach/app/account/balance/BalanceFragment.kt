@@ -105,6 +105,9 @@ class BalanceFragment
     }
 
     override fun showAirdropError(message: String) {
+
+        model().publish(BalanceIntent.Idle)
+
         AlertDialog.Builder(context!!)
             .setMessage(message)
             .setPositiveButton(R.string.app_dialog_positive_button, null)

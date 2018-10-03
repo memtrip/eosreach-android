@@ -25,7 +25,8 @@ data class BandwidthConfirmViewState(val view: View) : MxViewState {
         object Idle : View()
         data class Populate(val bandwidthBundle: BandwidthBundle) : View()
         object OnProgress : View()
-        data class OnError(val message: String, val log: String, val unique: Int = id()) : View()
+        data class OnGenericError(val message: String) : View()
+        data class OnTransactionError(val message: String, val log: String, val unique: Int = id()) : View()
         data class OnSuccess(val transactionId: String) : View()
     }
 }

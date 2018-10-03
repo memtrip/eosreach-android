@@ -20,7 +20,6 @@ import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.contract.request.GetTableRows
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
-import java.io.IOException
 import javax.inject.Inject
 
 class CustomTokensRequestImpl @Inject internal constructor(
@@ -40,7 +39,7 @@ class CustomTokensRequestImpl @Inject internal constructor(
             "",
             "",
             ""
-        )).map { response ->
+        )).observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()).map { response ->
             if (response.isSuccessful) {
                 TokenParent(response.body()!!.rows.map { token ->
                     Token(
@@ -55,8 +54,7 @@ class CustomTokensRequestImpl @Inject internal constructor(
                 throw NoAirdropsFound()
             }
         }.onErrorReturn {
-            it.printStackTrace()
             throw NoAirdropsFound()
-        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
+        }
     }
 }

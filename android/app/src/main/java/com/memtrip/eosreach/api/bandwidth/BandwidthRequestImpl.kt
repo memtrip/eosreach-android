@@ -20,12 +20,11 @@ import com.memtrip.eos.chain.actions.transaction.TransactionContext
 import com.memtrip.eos.chain.actions.transaction.account.DelegateBandwidthChain
 import com.memtrip.eos.chain.actions.transaction.account.UnDelegateBandwidthChain
 import com.memtrip.eos.core.crypto.EosPrivateKey
-
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.utils.RxSchedulers
-import com.memtrip.eosreach.utils.transactionDefaultExpiry
 import io.reactivex.Single
+import java.util.Date
 import javax.inject.Inject
 
 class BandwidthRequestImpl @Inject internal constructor(
@@ -38,7 +37,8 @@ class BandwidthRequestImpl @Inject internal constructor(
         fromAccount: String,
         netAmount: String,
         cpuAmount: String,
-        authorizingPrivateKey: EosPrivateKey
+        authorizingPrivateKey: EosPrivateKey,
+        transactionExpiry: Date
     ): Single<Result<ActionReceipt, BandwidthError>> {
         return delegateBandwidthChain.delegateBandwidth(
             DelegateBandwidthChain.Args(
@@ -51,25 +51,28 @@ class BandwidthRequestImpl @Inject internal constructor(
             TransactionContext(
                 fromAccount,
                 authorizingPrivateKey,
-                transactionDefaultExpiry()
+                transactionExpiry
             )
-        ).map { response ->
+        ).observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()).map { response ->
             if (response.isSuccessful) {
-                Result<ActionReceipt, BandwidthError>(ActionReceipt(
+                Result(ActionReceipt(
                     response.body!!.transaction_id,
                     fromAccount
                 ))
             } else {
-                Result(BandwidthError(response.errorBody!!))
+                Result<ActionReceipt, BandwidthError>(BandwidthError.TransactionError(response.errorBody!!))
             }
-        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
+        }.onErrorReturn {
+            Result(BandwidthError.GenericError)
+        }
     }
 
     override fun unDelegate(
         fromAccount: String,
         netAmount: String,
         cpuAmount: String,
-        authorizingPrivateKey: EosPrivateKey
+        authorizingPrivateKey: EosPrivateKey,
+        transactionExpiry: Date
     ): Single<Result<ActionReceipt, BandwidthError>> {
         return unDelegateBandwidthChain.unDelegateBandwidth(
             UnDelegateBandwidthChain.Args(
@@ -81,17 +84,19 @@ class BandwidthRequestImpl @Inject internal constructor(
             TransactionContext(
                 fromAccount,
                 authorizingPrivateKey,
-                transactionDefaultExpiry()
+                transactionExpiry
             )
-        ).map { response ->
+        ).observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()).map { response ->
             if (response.isSuccessful) {
-                Result<ActionReceipt, BandwidthError>(ActionReceipt(
+                Result(ActionReceipt(
                     response.body!!.transaction_id,
                     fromAccount
                 ))
             } else {
-                Result(BandwidthError(response.errorBody!!))
+                Result<ActionReceipt, BandwidthError>(BandwidthError.TransactionError(response.errorBody!!))
             }
-        }.observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background())
+        }.onErrorReturn {
+            Result(BandwidthError.GenericError)
+        }
     }
 }

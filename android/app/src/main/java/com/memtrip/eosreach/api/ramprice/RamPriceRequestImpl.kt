@@ -17,14 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.api.ramprice
 
 import com.memtrip.eos.chain.actions.query.ramprice.GetRamPrice
-import com.memtrip.eos.http.rpc.ChainApi
-import com.memtrip.eos.http.rpc.model.contract.request.GetTableRows
 import com.memtrip.eosreach.api.balance.Balance
-import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
-import java.io.IOException
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import javax.inject.Inject

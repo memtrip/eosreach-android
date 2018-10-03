@@ -98,17 +98,33 @@ class BandwidthConfirmActivity
         bandwidth_confirm_cta_button.invisible()
     }
 
-    override fun showError(message: String, log: String) {
+    override fun showTransactionError(message: String, log: String) {
+
+        model().publish(BandwidthConfirmIntent.Idle)
+
         bandwidth_confirm_progress.gone()
         bandwidth_confirm_cta_button.visible()
 
         AlertDialog.Builder(this)
             .setMessage(message)
             .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
-                model().publish(BandwidthConfirmIntent.Idle)
                 startActivity(TransactionLogActivity.transactionLogIntent(log, this))
             }
             .setNegativeButton(R.string.transaction_view_log_negative_button, null)
+            .create()
+            .show()
+    }
+
+    override fun showGenericError(message: String) {
+
+        model().publish(BandwidthConfirmIntent.Idle)
+
+        bandwidth_confirm_progress.gone()
+        bandwidth_confirm_cta_button.visible()
+
+        AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton(R.string.app_dialog_positive_button, null)
             .create()
             .show()
     }

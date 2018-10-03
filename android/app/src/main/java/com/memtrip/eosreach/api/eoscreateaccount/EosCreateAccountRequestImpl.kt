@@ -38,8 +38,7 @@ class EosCreateAccountRequestImpl @Inject constructor(
             purchaseToken,
             accountName.toLowerCase(),
             publicKey
-        )).observeOn(rxSchedulers.main())
-            .subscribeOn(rxSchedulers.background()).map { response ->
+        )).observeOn(rxSchedulers.main()).subscribeOn(rxSchedulers.background()).map { response ->
                 if (response.isSuccessful) {
                     Result(CreateAccountReceipt(response.body()!!.transactionId))
                 } else {
@@ -66,6 +65,8 @@ class EosCreateAccountRequestImpl @Inject constructor(
                         Result<CreateAccountReceipt, EosCreateAccountError>(EosCreateAccountError.GenericError)
                     }
                 }
+        }.onErrorReturn {
+            Result(EosCreateAccountError.GenericError)
         }
     }
 }

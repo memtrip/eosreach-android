@@ -20,6 +20,7 @@ import android.app.Application
 import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.Balance
+import com.memtrip.eosreach.api.bandwidth.BandwidthError
 import com.memtrip.eosreach.api.bandwidth.BandwidthRequest
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.db.account.GetAccountByName
@@ -52,8 +53,10 @@ class BandwidthConfirmViewModel @Inject internal constructor(
             view = BandwidthConfirmViewState.View.OnProgress)
         is BandwidthConfirmRenderAction.Populate -> previousState.copy(
             view = BandwidthConfirmViewState.View.Populate(renderAction.bandwidthBundle))
-        is BandwidthConfirmRenderAction.OnError -> previousState.copy(
-            view = BandwidthConfirmViewState.View.OnError(renderAction.message, renderAction.log))
+        is BandwidthConfirmRenderAction.OnGenericError -> previousState.copy(
+            view = BandwidthConfirmViewState.View.OnGenericError(renderAction.message))
+        is BandwidthConfirmRenderAction.OnTransactionError -> previousState.copy(
+            view = BandwidthConfirmViewState.View.OnTransactionError(renderAction.message, renderAction.log))
         is BandwidthConfirmRenderAction.OnSuccess -> previousState.copy(
             view = BandwidthConfirmViewState.View.OnSuccess(renderAction.transactionId))
     }
@@ -88,7 +91,7 @@ class BandwidthConfirmViewModel @Inject internal constructor(
                     }
                 }
             }.onErrorReturn {
-                BandwidthConfirmRenderAction.OnError(
+                BandwidthConfirmRenderAction.OnTransactionError(
                     context().getString(R.string.app_dialog_transaction_error_body),
                     it.message!!)
             }
@@ -110,9 +113,14 @@ class BandwidthConfirmViewModel @Inject internal constructor(
             if (result.success) {
                 BandwidthConfirmRenderAction.OnSuccess(result.data!!.transactionId)
             } else {
-                BandwidthConfirmRenderAction.OnError(
-                    context().getString(R.string.app_dialog_transaction_error_body),
-                    result.apiError!!.body)
+                if (result.apiError is BandwidthError.TransactionError) {
+                    BandwidthConfirmRenderAction.OnTransactionError(
+                        context().getString(R.string.app_dialog_transaction_error_body),
+                        result.apiError.body)
+                } else {
+                    BandwidthConfirmRenderAction.OnGenericError(
+                        context().getString(R.string.app_dialog_generic_error_body))
+                }
             }
         }
     }
@@ -132,9 +140,14 @@ class BandwidthConfirmViewModel @Inject internal constructor(
             if (result.success) {
                 BandwidthConfirmRenderAction.OnSuccess(result.data!!.transactionId)
             } else {
-                BandwidthConfirmRenderAction.OnError(
-                    context().getString(R.string.app_dialog_transaction_error_body),
-                    result.apiError!!.body)
+                if (result.apiError is BandwidthError.TransactionError) {
+                    BandwidthConfirmRenderAction.OnTransactionError(
+                        context().getString(R.string.app_dialog_transaction_error_body),
+                        result.apiError.body)
+                } else {
+                    BandwidthConfirmRenderAction.OnGenericError(
+                        context().getString(R.string.app_dialog_generic_error_body))
+                }
             }
         }
     }

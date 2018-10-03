@@ -25,14 +25,16 @@ sealed class BandwidthConfirmRenderAction : MxRenderAction {
     object Idle : BandwidthConfirmRenderAction()
     data class Populate(val bandwidthBundle: BandwidthBundle) : BandwidthConfirmRenderAction()
     object OnProgress : BandwidthConfirmRenderAction()
-    data class OnError(val message: String, val log: String) : BandwidthConfirmRenderAction()
+    data class OnGenericError(val message: String) : BandwidthConfirmRenderAction()
+    data class OnTransactionError(val message: String, val log: String) : BandwidthConfirmRenderAction()
     data class OnSuccess(val transactionId: String) : BandwidthConfirmRenderAction()
 }
 
 interface BandwidthConfirmViewLayout : MxViewLayout {
     fun populate(bandwidthBundle: BandwidthBundle)
     fun showProgress()
-    fun showError(message: String, log: String)
+    fun showGenericError(message: String)
+    fun showTransactionError(message: String, log: String)
     fun showSuccess(transactionId: String)
 }
 
@@ -46,8 +48,11 @@ class BandwidthConfirmViewRenderer @Inject internal constructor() : MxViewRender
         BandwidthConfirmViewState.View.OnProgress -> {
             layout.showProgress()
         }
-        is BandwidthConfirmViewState.View.OnError -> {
-            layout.showError(state.view.message, state.view.log)
+        is BandwidthConfirmViewState.View.OnGenericError -> {
+            layout.showGenericError(state.view.message)
+        }
+        is BandwidthConfirmViewState.View.OnTransactionError -> {
+            layout.showTransactionError(state.view.message, state.view.log)
         }
         is BandwidthConfirmViewState.View.OnSuccess -> {
             layout.showSuccess(state.view.transactionId)
