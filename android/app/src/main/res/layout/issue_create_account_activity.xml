@@ -164,6 +164,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"
+        android:textIsSelectable="true"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/issue_create_account_import_key_instruction_label"/>
