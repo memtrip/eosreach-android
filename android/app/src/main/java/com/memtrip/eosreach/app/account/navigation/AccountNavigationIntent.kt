@@ -24,5 +24,4 @@ sealed class AccountNavigationIntent : MxViewIntent {
     object Idle : AccountNavigationIntent()
     data class AccountSelected(val accountName: AccountEntity) : AccountNavigationIntent()
     object RefreshAccounts : AccountNavigationIntent()
-    object NavigateToSettings : AccountNavigationIntent()
 }

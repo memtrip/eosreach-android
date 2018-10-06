@@ -22,19 +22,26 @@ import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
+
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.memtrip.eosreach.R
+import org.hamcrest.Matchers.allOf
 
 class AccountRobot {
 
-    fun verifyAccountSuccess(): AccountRobot {
+    fun verifyAccountScreen(): AccountRobot {
 
         onView(withId(R.id.account_toolbar))
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.account_balance_background))
+            .check(matches(isDisplayed()))
+
+        onView(withContentDescription(R.string.abc_action_bar_up_description))
             .check(matches(isDisplayed()))
 
         return this
@@ -76,7 +83,10 @@ class AccountRobot {
 
     fun selectAccountErrorRetry(): AccountRobot {
 
-        onView(withId(R.id.view_error_composite_retry))
+        onView(allOf(
+            withId(R.id.view_error_composite_retry),
+            isDescendantOfA(withId(R.id.account_error_view))
+        ))
             .check(matches(isDisplayed()))
             .perform(click())
 
@@ -126,7 +136,7 @@ class AccountRobot {
     }
 
     fun selectSettingsMenuItem(): AccountRobot {
-        onView(withText(R.string.account_navigation_settings))
+        onView(withId(R.id.account_menu_search))
             .check(matches(isDisplayed()))
             .perform(click())
         return this

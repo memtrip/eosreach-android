@@ -6,18 +6,10 @@ import com.memtrip.eosreach.StubTestCase
 class DelegateBandwidthTransactionErrorTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot
-            .navigateImportKey()
-        importKeyRobot
-            .typePrivateKey("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
-            .selectImportButton()
-        accountListRobot
-            .verifyAccountListScreen()
-            .verifyFirstAccountRow()
-            .verifySecondAccountRow()
-            .selectFirstAccountRow()
+        importKeyOrchestra
+            .go()
         accountRobot
-            .verifyAccountSuccess()
+            .verifyAccountScreen()
             .selectResourcesTab()
         resourcesRobot
             .selectBandwidthButton()

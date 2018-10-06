@@ -39,7 +39,6 @@ class AccountNavigationViewModel @Inject internal constructor(
         AccountNavigationIntent.Idle -> Observable.just(AccountListRenderAction.Idle)
         is AccountNavigationIntent.AccountSelected -> accountSelected(intent.accountName)
         AccountNavigationIntent.RefreshAccounts -> refreshAccounts()
-        AccountNavigationIntent.NavigateToSettings -> Observable.just(AccountListRenderAction.NavigateToSettings)
     }
 
     override fun reducer(previousState: AccountNavigationViewState, renderAction: AccountListRenderAction): AccountNavigationViewState = when (renderAction) {
@@ -55,8 +54,6 @@ class AccountNavigationViewModel @Inject internal constructor(
             view = AccountNavigationViewState.View.NavigateToAccount(renderAction.accountEntity))
         AccountListRenderAction.NoAccounts -> previousState.copy(
             view = AccountNavigationViewState.View.NoAccounts)
-        AccountListRenderAction.NavigateToSettings -> previousState.copy(
-            view = AccountNavigationViewState.View.NavigateToSettings)
     }
 
     override fun filterIntents(intents: Observable<AccountNavigationIntent>): Observable<AccountNavigationIntent> = Observable.merge(

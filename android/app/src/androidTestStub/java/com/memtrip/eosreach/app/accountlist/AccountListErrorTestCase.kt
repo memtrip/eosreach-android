@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.account
+package com.memtrip.eosreach.app.accountlist
 
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.StubTestCase
@@ -22,25 +22,41 @@ import com.memtrip.eosreach.api.StubApi
 import com.memtrip.eosreach.api.stub.Stub
 import com.memtrip.eosreach.api.stub.StubMatcher
 import com.memtrip.eosreach.api.stub.request.BasicStubRequest
+import com.memtrip.eosreach.api.stub.request.ChainedStubRequest
 
-class GetAccountPriceErrorTestCase : StubTestCase() {
+class AccountListErrorTestCase : StubTestCase() {
 
     override fun test() {
         importKeyOrchestra
             .go()
-        accountRobot
-            .verifyAccountScreen()
-            .verifyUnavailableBalance()
+        accountNavigationRobot
+            .selectNavigationIcon()
+            .verifyAccountNavigationScreen()
+            .verifyFirstAccountRow()
+            .verifySecondAccountRow()
+            .selectRefreshButton()
+            .verifyAccountListError()
+            .selectAccountErrorRetry()
+            .verifyFirstAccountRow()
+            .verifySecondAccountRow()
     }
 
     override fun stubApi(): StubApi = object : StubApi(context()) {
 
-        override fun getPriceForCurrency(): Stub = Stub(
+        val getKeyAccounts = BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_key_accounts.json")
+        })
+
+        val chainedRequest = ChainedStubRequest(getKeyAccounts)
+            .next(BasicStubRequest(400))
+            .next(getKeyAccounts)
+
+        override fun getKeyAccounts(): Stub = Stub(
             StubMatcher(
-                context.getString(R.string.app_default_utility_endpoint_root),
-                Regex("price/(.*)$")
+                context.getString(R.string.app_default_eos_endpoint_root),
+                Regex("v1/history/get_key_accounts$")
             ),
-            BasicStubRequest(400)
+            chainedRequest
         )
     }
 }

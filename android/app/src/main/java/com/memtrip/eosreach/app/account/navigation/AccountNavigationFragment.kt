@@ -88,12 +88,6 @@ class AccountNavigationFragment
         adapter.interaction.map {
             AccountNavigationIntent.AccountSelected(it.data)
         },
-        RxView.clicks(account_navigation_accounts_error_settings_button).map {
-            AccountNavigationIntent.NavigateToSettings
-        },
-        RxView.clicks(account_navigation_no_accounts_settings_button).map {
-            AccountNavigationIntent.NavigateToSettings
-        },
         Observable.merge(
             account_list_error_view.retryClick(),
             RxView.clicks(account_navigation_refresh_accounts)
@@ -140,10 +134,5 @@ class AccountNavigationFragment
     override fun showNoAccounts() {
         account_navigation_accounts_progressbar.gone()
         account_navigation_no_accounts_container.visible()
-    }
-
-    override fun navigateToSettings() {
-        model().publish(AccountNavigationIntent.Idle)
-        startActivity(settingsIntent(context!!))
     }
 }

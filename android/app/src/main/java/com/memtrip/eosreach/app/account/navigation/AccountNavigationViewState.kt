@@ -28,6 +28,5 @@ data class AccountNavigationViewState(val view: View) : MxViewState {
         object OnError : View()
         object NoAccounts : View()
         data class NavigateToAccount(val accountEntity: AccountEntity) : View()
-        object NavigateToSettings : View()
     }
 }

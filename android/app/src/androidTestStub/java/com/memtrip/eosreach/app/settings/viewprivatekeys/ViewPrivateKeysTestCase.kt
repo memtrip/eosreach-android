@@ -7,19 +7,11 @@ import com.memtrip.eosreach.api.StubApi
 class ViewPrivateKeysTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot
-            .navigateImportKey()
-        importKeyRobot
-            .typePrivateKey("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
-            .selectImportButton()
-        accountListRobot
-            .verifyAccountListScreen()
-            .verifyFirstAccountRow()
-            .verifySecondAccountRow()
-            .selectFirstAccountRow()
-        accountRobot
-            .selectOverflowMenu()
-            .selectSettingsMenuItem()
+        importKeyOrchestra
+            .go()
+        accountNavigationRobot
+            .selectNavigationIcon()
+            .selectSettingsNavigationItem()
         settingsRobot
             .verifySettingsScreen()
             .selectViewPrivateKeysSettingsItem()

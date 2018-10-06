@@ -47,8 +47,9 @@ class BillingFlowAccountCreatedErrorOnAccountsTestCase : StubTestCase() {
             .navigateCreateAccount()
         createAccountRobot
             .selectImportKeyRetryButton()
-        accountListRobot
-            .verifyAccountListScreen()
+        accountRobot
+            .verifyAccountScreen()
+            .verifyAvailableBalance()
     }
 
     override fun billingConnectionResponse(): BillingConnectionResponse {

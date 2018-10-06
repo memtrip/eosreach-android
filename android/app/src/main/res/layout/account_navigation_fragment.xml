@@ -112,15 +112,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <com.memtrip.eosreach.brand.ReachButton
-            android:id="@+id/account_navigation_accounts_error_settings_button"
-            style="?button_transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/accounts_navigation_accounts_error_settings_button"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -143,15 +134,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/accounts_navigation_no_accounts"/>
-
-        <com.memtrip.eosreach.brand.ReachButton
-            android:id="@+id/account_navigation_no_accounts_settings_button"
-            style="@style/ButtonPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/accounts_navigation_accounts_error_settings_button"/>
 
     </LinearLayout>
 

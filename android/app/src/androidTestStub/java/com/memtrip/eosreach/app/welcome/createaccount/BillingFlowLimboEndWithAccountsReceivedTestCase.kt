@@ -60,8 +60,9 @@ class BillingFlowLimboEndWithAccountsReceivedTestCase : StubTestCase() {
             .verifyAccountCreatedScreen()
         commonRobot
             .pressHomeUp()
-        accountListRobot
-            .verifyAccountListScreen()
+        accountRobot
+            .verifyAccountScreen()
+            .verifyAvailableBalance()
     }
 
     override fun billingConnectionResponse(): BillingConnectionResponse {

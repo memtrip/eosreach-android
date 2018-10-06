@@ -31,8 +31,9 @@ class BillingFlowSuccessTestCase : StubTestCase() {
             .selectCreateAccountButton()
             .verifyAccountCreatedScreen()
             .selectAccountCreatedDoneButton()
-        accountListRobot
-            .verifyAccountListScreen()
+        accountRobot
+            .verifyAccountScreen()
+            .verifyAvailableBalance()
     }
 
     override fun billingConnectionResponse(): BillingConnectionResponse {
