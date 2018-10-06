@@ -28,6 +28,5 @@ data class EntryViewState(val view: View) : MxViewState {
         object OnRsaEncryptionFailed : View()
         object NavigateToSplash : View()
         data class NavigateToAccount(val accountEntity: AccountEntity) : View()
-        object NavigateToAccountList : View()
     }
 }

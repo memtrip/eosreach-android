@@ -41,6 +41,13 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/account_vote_navigation_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="vote_cast_vote_title,vote_cast_vote_producer_button,vote_cast_vote_proxy_button"
+        tools:ignore="MissingConstraints" />
+
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/vote_cast_vote_title"
         style="@style/Typography.Medium"
@@ -53,11 +60,11 @@
 
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/vote_cast_vote_producer_button"
-        style="@style/ButtonTransparentCaption"
+        style="?button_transparent_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginRight="@dimen/padding_medium"
+        android:layout_marginEnd="@dimen/padding_medium"
         android:text="@string/vote_cast_vote_producer_button"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
@@ -65,11 +72,11 @@
 
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/vote_cast_vote_proxy_button"
-        style="@style/ButtonTransparentCaption"
+        style="?button_transparent_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginLeft="@dimen/padding_medium"
+        android:layout_marginStart="@dimen/padding_medium"
         android:text="@string/vote_cast_vote_proxy_button"
         app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
@@ -81,11 +88,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="vote_proxy_title,vote_proxy_voter"
+        app:constraint_referenced_ids="vote_proxy_label,vote_proxy_voter"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/vote_proxy_title"
+        android:id="@+id/vote_proxy_label"
         style="@style/Typography.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -105,7 +112,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/vote_proxy_title" />
+        app:layout_constraintTop_toBottomOf="@+id/vote_proxy_label" />
     <!-- / proxy -->
 
     <!-- no voteForProducer -->
@@ -142,7 +149,7 @@
 
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/vote_no_vote_castvote_button"
-        style="@style/ButtonTransparent"
+        style="?button_transparent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium_large"
@@ -162,6 +169,27 @@
         app:layout_constraintRight_toRightOf="@id/vote_no_vote_castvote_button"
         app:layout_constraintTop_toTopOf="@+id/vote_no_vote_castvote_button" />
     <!-- / no voteForProducer -->
+
+    <!-- read only no vote -->
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/vote_ready_only_no_vote_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="vote_ready_only_no_vote_body_label"
+        tools:ignore="MissingConstraints" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/vote_ready_only_no_vote_body_label"
+        style="@style/Typography.H6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/vote_no_vote_read_only_body"
+        android:textStyle="normal"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/vote_cast_vote_producer_button" />
+    <!-- / read only no vote -->
 
     <!-- block producers -->
     <androidx.constraintlayout.widget.Group

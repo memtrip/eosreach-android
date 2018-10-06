@@ -28,10 +28,11 @@ import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.account.AccountActivity.Companion.accountIntent
 import com.memtrip.eosreach.app.account.AccountBundle
 import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
-import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
+
+import com.memtrip.eosreach.app.account.DefaultAccountActivity.Companion.accountDefaultIntent
+import com.memtrip.eosreach.app.account.actions.DefaultActionsActivity.Companion.actionsDefaultIntent
 
 import dagger.android.AndroidInjection
 
@@ -90,14 +91,14 @@ class TransactionReceiptActivity
         val contractAccountBalance = contractAccountBalanceExtra(intent)
         startActivities(
             arrayOf(
-                with(accountIntent(AccountBundle(
+                with(accountDefaultIntent(AccountBundle(
                     contractAccountBalance.accountName
-                ), this)) {
+                ),this)) {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or
                         Intent.FLAG_ACTIVITY_NEW_TASK)
                     this
                 },
-                actionsIntent(
+                actionsDefaultIntent(
                     contractAccountBalance,
                     this)
             )
@@ -105,7 +106,7 @@ class TransactionReceiptActivity
     }
 
     override fun navigateToAccount(page: AccountFragmentPagerAdapter.Page) {
-        startActivity(with(accountIntent(AccountBundle(
+        startActivity(with(accountDefaultIntent(AccountBundle(
             actionReceipt.authorizingAccountName
         ), this, page)) {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or

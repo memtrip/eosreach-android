@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.account.resources.manage.manageram
 
 import android.app.Application
-import android.app.KeyguardManager
 import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.api.ram.RamRequest
 import com.memtrip.eosreach.db.account.GetAccountByName

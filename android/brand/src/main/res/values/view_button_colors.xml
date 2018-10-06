@@ -15,4 +15,9 @@
     <color name="viewButtonTransparentBorder">#55FFFFFF</color>
     <color name="viewButtonTransparentText">#FFFFFF</color>
 
+    <color name="viewButtonTransparentReadOnlyBackground">#00000000</color>
+    <color name="viewButtonTransparentReadOnlyBackgroundSelected">#55000000</color>
+    <color name="viewButtonTransparentReadOnlyBorder">#55000000</color>
+    <color name="viewButtonTransparentReadOnlyText">#000000</color>
+
 </resources>

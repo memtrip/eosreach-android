@@ -6,4 +6,8 @@
     <!-- details_layout -->
     <string name="uikit_details_layout_amount">%1$s</string>
     <string name="uikit_details_layout_amount_with_currency_pair">%1$s (%2$s)</string>
+
+    <!-- search -->
+    <string name="uikit_search_layout_view_content_description">Search</string>
+
 </resources>

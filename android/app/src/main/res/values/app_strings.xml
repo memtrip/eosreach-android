@@ -6,6 +6,7 @@
     <string name="app_database_name">eosreach</string>
     <string name="app_default_currency">USD</string>
     <string name="app_empty_value">-</string>
+    <string name="app_empty_space_value"> </string>
 
     <string name="app_dialog_error_title">Sorry</string>
     <string name="app_dialog_generic_error_body">

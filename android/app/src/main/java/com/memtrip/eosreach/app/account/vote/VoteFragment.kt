@@ -31,6 +31,8 @@ import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
 import com.memtrip.eosreach.app.account.AccountParentRefresh
+import com.memtrip.eosreach.app.account.AccountTheme
+import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity.Companion.castVoteIntent
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteFragmentPagerFragment
@@ -46,7 +48,7 @@ import kotlinx.android.synthetic.main.account_vote_fragment.*
 import kotlinx.android.synthetic.main.account_vote_fragment.view.*
 import javax.inject.Inject
 
-class VoteFragment
+abstract class VoteFragment
     : MviFragment<VoteIntent, VoteRenderAction, VoteViewState, VoteViewLayout>(), VoteViewLayout {
 
     @Inject
@@ -82,10 +84,6 @@ class VoteFragment
             resultCode == CastVoteActivity.CAST_VOTE_RESULT_CODE) {
             accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.VOTE)
         }
-    }
-
-    override fun inject() {
-        AndroidSupportInjection.inject(this)
     }
 
     override fun intents(): Observable<VoteIntent> = Observable.merge(
@@ -165,16 +163,33 @@ class VoteFragment
 
         private const val EOS_ACCOUNT = "EOS_ACCOUNT"
 
-        fun newInstance(eosAccount: EosAccount): VoteFragment = with (VoteFragment()) {
-            arguments = toBundle(eosAccount)
-            this
+        fun newInstance(
+            eosAccount: EosAccount,
+            accountTheme: AccountTheme
+        ): VoteFragment {
+            return when (accountTheme) {
+                AccountTheme.DEFAULT -> {
+                    with (DefaultVoteFragment()) {
+                        arguments = with (Bundle()) {
+                            putParcelable(EOS_ACCOUNT, eosAccount)
+                            this
+                        }
+                        this
+                    }
+                }
+                AccountTheme.READ_ONLY -> {
+                    with (ReadOnlyVoteFragment()) {
+                        arguments = with (Bundle()) {
+                            putParcelable(EOS_ACCOUNT, eosAccount)
+                            this
+                        }
+                        this
+                    }
+                }
+            }
         }
 
-        private fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
-            putParcelable(EOS_ACCOUNT, eosAccount)
-            this
-        }
-
-        private fun eosAccountBundle(bundle: Bundle): EosAccount = bundle.getParcelable(EOS_ACCOUNT)
+        private fun eosAccountBundle(bundle: Bundle): EosAccount =
+            bundle.getParcelable(EOS_ACCOUNT)
     }
 }

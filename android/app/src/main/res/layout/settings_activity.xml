@@ -88,7 +88,7 @@
     
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/settings_exchange_view_credits_button"
-        style="@style/ButtonTransparent"
+        style="?button_transparent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_large"

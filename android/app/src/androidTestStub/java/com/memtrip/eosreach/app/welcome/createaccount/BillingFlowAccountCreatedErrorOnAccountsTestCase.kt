@@ -28,7 +28,8 @@ import com.memtrip.eosreach.billing.SkuStub
 class BillingFlowAccountCreatedErrorOnAccountsTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot.navigateCreateAccount()
+        splashRobot
+            .navigateCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountName()

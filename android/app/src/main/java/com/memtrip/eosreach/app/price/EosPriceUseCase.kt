@@ -42,6 +42,7 @@ class EosPriceUseCase @Inject constructor(
                 .map {
                     if (it.success) {
                         eosPriceLastUpdated.put(System.currentTimeMillis())
+                        eosPriceValue.put(it.data!!.value.toFloat())
                         it.data
                     } else {
                         if (eosPriceLastUpdated.exists()) {

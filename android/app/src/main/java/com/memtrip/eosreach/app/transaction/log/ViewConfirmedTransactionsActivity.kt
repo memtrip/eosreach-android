@@ -91,6 +91,12 @@ class ViewConfirmedTransactionsActivity
         adapter.populate(transactionLogEntities)
     }
 
+    override fun empty() {
+        transaction_view_confirmed_progress.gone()
+        transaction_view_confirmed_empty.text = getString(R.string.transaction_view_confirmed_empty)
+        transaction_view_confirmed_empty.visible()
+    }
+
     override fun navigateToBlockExplorer(transactionId: String) {
         model().publish(ViewConfirmedTransactionsIntent.Idle)
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(

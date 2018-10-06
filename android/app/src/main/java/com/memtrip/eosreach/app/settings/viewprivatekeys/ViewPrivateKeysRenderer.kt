@@ -24,13 +24,13 @@ import javax.inject.Inject
 
 sealed class ViewPrivateKeysRenderAction : MxRenderAction {
     object Idle : ViewPrivateKeysRenderAction()
-    data class ShowPrivateKeys(val privateKeys: List<EosPrivateKey>) : ViewPrivateKeysRenderAction()
+    data class ShowPrivateKeys(val viewKeyPair: List<ViewKeyPair>) : ViewPrivateKeysRenderAction()
     object OnProgress : ViewPrivateKeysRenderAction()
     object NoPrivateKeys : ViewPrivateKeysRenderAction()
 }
 
 interface ViewPrivateKeysViewLayout : MxViewLayout {
-    fun showPrivateKeys(privateKeys: List<EosPrivateKey>)
+    fun showPrivateKeys(viewKeyPair: List<ViewKeyPair>)
     fun showProgress()
     fun showNoPrivateKeys()
 }
@@ -40,7 +40,7 @@ class ViewPrivateKeysViewRenderer @Inject internal constructor() : MxViewRendere
         ViewPrivateKeysViewState.View.Idle -> {
         }
         is ViewPrivateKeysViewState.View.ShowPrivateKeys -> {
-            layout.showPrivateKeys(state.view.privateKeys)
+            layout.showPrivateKeys(state.view.viewKeyPair)
         }
         ViewPrivateKeysViewState.View.OnProgress -> {
             layout.showProgress()

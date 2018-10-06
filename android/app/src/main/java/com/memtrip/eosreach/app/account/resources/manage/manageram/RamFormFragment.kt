@@ -28,17 +28,10 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
-import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.resources.manage.manageram.RamConfirmActivity.Companion.ramConfirmIntent
-import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
-import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
-import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptRoute
-import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.inputfilter.CurrencyFormatInputFilter
-import com.memtrip.eosreach.uikit.invisible
-import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.manage_ram_form_fragment.*

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/account_navigation_import_key"
+        style="@style/ButtonNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/account_navigation_import_key"
+        android:drawableStart="@drawable/account_navigation_import_key"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/account_navigation_create_account"
+        style="@style/ButtonNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/account_navigation_create_account"
+        android:drawableStart="@drawable/account_navigation_create_account"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_import_key"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/account_navigation_settings"
+        style="@style/ButtonNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/account_navigation_settings"
+        android:drawableStart="@drawable/account_navigation_settings"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_create_account"/>
+
+    <View
+        android:id="@+id/account_navigation_spacer"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/padding_large"
+        android:background="@color/typographyColorInverse"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_settings"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/account_navigation_accounts_label"
+        style="@style/Typography.H6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:text="@string/account_navigation_accounts"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/account_navigation_refresh_accounts"
+        app:layout_constraintTop_toTopOf="@+id/account_navigation_refresh_accounts"
+        app:layout_constraintBottom_toBottomOf="@+id/account_navigation_refresh_accounts"/>
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/account_navigation_refresh_accounts"
+        style="?button_transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:text="@string/account_navigation_refresh"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_spacer"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/account_navigation_accounts_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding_large"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_accounts_label" />
+
+    <ProgressBar
+        android:id="@+id/account_navigation_accounts_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_accounts_label" />
+
+    <LinearLayout
+        android:id="@+id/account_navigation_accounts_error_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_accounts_label" >
+
+        <com.memtrip.eosreach.uikit.ErrorCompositeView
+            android:id="@+id/account_list_error_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+
+        <com.memtrip.eosreach.brand.ReachButton
+            android:id="@+id/account_navigation_accounts_error_settings_button"
+            style="?button_transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/accounts_navigation_accounts_error_settings_button"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/account_navigation_no_accounts_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/padding_large"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_navigation_accounts_label" >
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            style="@style/Typography.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/accounts_navigation_no_accounts"/>
+
+        <com.memtrip.eosreach.brand.ReachButton
+            android:id="@+id/account_navigation_no_accounts_settings_button"
+            style="@style/ButtonPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/accounts_navigation_accounts_error_settings_button"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

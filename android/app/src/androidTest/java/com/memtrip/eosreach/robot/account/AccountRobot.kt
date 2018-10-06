@@ -16,7 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.robot.account
 
+import androidx.test.InstrumentationRegistry.getInstrumentation
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -113,6 +115,18 @@ class AccountRobot {
 
     fun selectVoteTab(): AccountRobot {
         onView(withText(R.string.account_page_vote))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun selectOverflowMenu(): AccountRobot {
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+        return this
+    }
+
+    fun selectSettingsMenuItem(): AccountRobot {
+        onView(withText(R.string.account_navigation_settings))
             .check(matches(isDisplayed()))
             .perform(click())
         return this

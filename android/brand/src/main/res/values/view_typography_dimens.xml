@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="typography_caption">12sp</dimen>
+    <dimen name="typography_body1">14sp</dimen>
+    <dimen name="typography_medium">18sp</dimen>
     <dimen name="typography_h4">34dp</dimen>
     <dimen name="typography_h5">24dp</dimen>
     <dimen name="typography_h6">20dp</dimen>
-    <dimen name="typography_body_14">14sp</dimen>
-    <dimen name="typography_caption_12">12sp</dimen>
 
     <dimen name="typography_data_line_height">4dp</dimen>
 

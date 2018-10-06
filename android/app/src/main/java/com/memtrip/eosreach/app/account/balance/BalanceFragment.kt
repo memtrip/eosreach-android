@@ -30,7 +30,9 @@ import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
 import com.memtrip.eosreach.app.account.AccountParentRefresh
-import com.memtrip.eosreach.app.account.actions.ActionsActivity.Companion.actionsIntent
+import com.memtrip.eosreach.app.account.AccountTheme
+
+import com.memtrip.eosreach.app.account.actions.DefaultActionsActivity.Companion.actionsDefaultIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -42,7 +44,7 @@ import kotlinx.android.synthetic.main.account_balance_fragment.*
 import kotlinx.android.synthetic.main.account_balance_fragment.view.*
 import javax.inject.Inject
 
-class BalanceFragment
+abstract class BalanceFragment
     : MviFragment<BalanceIntent, BalanceRenderAction, BalanceViewState, BalanceViewLayout>(), BalanceViewLayout {
 
     @Inject
@@ -72,10 +74,6 @@ class BalanceFragment
         view.balance_list_recyclerview.adapter = adapter
 
         return view
-    }
-
-    override fun inject() {
-        AndroidSupportInjection.inject(this)
     }
 
     override fun intents(): Observable<BalanceIntent> = Observable.merge(
@@ -129,37 +127,44 @@ class BalanceFragment
         startActivity(manageCreateAccountIntent(context!!))
     }
 
-    override fun navigateToActions(contractAccountBalance: ContractAccountBalance) {
-        model().publish(BalanceIntent.Idle)
-        startActivity(actionsIntent(contractAccountBalance, context!!))
-    }
-
     companion object {
 
-        private const val ACCOUNT_NAME = "ACCOUNT_NAME"
-        private const val ACCOUNT_BALANCES = "ACCOUNT_BALANCES"
-
-        fun newInstance(
-            accountName: String,
-            accountBalances: AccountBalanceList
-        ): BalanceFragment = with (BalanceFragment()) {
-            arguments = toBundle(accountName, accountBalances)
-            this
-        }
-
-        private fun toBundle(
-            accountName: String,
-            accountBalances: AccountBalanceList
-        ): Bundle = with (Bundle()) {
-            putString(ACCOUNT_NAME, accountName)
-            putParcelable(ACCOUNT_BALANCES, accountBalances)
-            this
-        }
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        const val ACCOUNT_BALANCES = "ACCOUNT_BALANCES"
 
         private fun accountBalanceListExtra(bundle: Bundle): AccountBalanceList =
             bundle.getParcelable(ACCOUNT_BALANCES)
 
         private fun accountName(bundle: Bundle): String =
             bundle.getString(ACCOUNT_NAME)
+
+        fun newInstance(
+            accountName: String,
+            accountBalances: AccountBalanceList,
+            accountTheme: AccountTheme
+        ): BalanceFragment {
+            return when (accountTheme) {
+                AccountTheme.DEFAULT -> {
+                    with (DefaultBalanceFragment()) {
+                        arguments = with (Bundle()) {
+                            putString(ACCOUNT_NAME, accountName)
+                            putParcelable(ACCOUNT_BALANCES, accountBalances)
+                            this
+                        }
+                        this
+                    }
+                }
+                AccountTheme.READ_ONLY -> {
+                    with (ReadOnlyBalanceFragment()) {
+                        arguments = with (Bundle()) {
+                            putString(ACCOUNT_NAME, accountName)
+                            putParcelable(ACCOUNT_BALANCES, accountBalances)
+                            this
+                        }
+                        this
+                    }
+                }
+            }
+        }
     }
 }

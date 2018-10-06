@@ -75,23 +75,31 @@ class ViewPrivateKeysActivity
 
     override fun render(): ViewPrivateKeysViewRenderer = render
 
-    override fun showPrivateKeys(privateKeys: List<EosPrivateKey>) {
+    override fun showPrivateKeys(viewKeyPair: List<ViewKeyPair>) {
         model().publish(ViewPrivateKeysIntent.Init)
 
         val privateKeyMarginBottom = resources.getDimensionPixelOffset(R.dimen.padding_medium)
         view_private_keys_button.gone()
         view_private_keys_progressbar.gone()
         view_private_keys_data_scrollview.visible()
-        privateKeys.forEach { key ->
+        viewKeyPair.forEach { key ->
             val privateKeyLayout = with (LayoutInflater.from(this).inflate(
                 R.layout.view_private_keys_item_layout,
                 null,
                 false
             ) as ViewGroup) {
                 findViewById<TextView>(R.id.view_private_keys_item_private)
-                    .text = key.toString()
+                    .text = key.eosPrivateKey.toString()
                 findViewById<TextView>(R.id.view_private_keys_item_public)
-                    .text = key.publicKey.toString()
+                    .text = key.eosPrivateKey.publicKey.toString()
+                findViewById<TextView>(R.id.view_private_keys_item_accounts)
+                    .text = with (key.associatedAccounts.joinToString()) {
+                        if (key.associatedAccounts.size > 1) {
+                            this.dropLast(0)
+                        } else {
+                            this
+                        }
+                    }
                 this
             }
 

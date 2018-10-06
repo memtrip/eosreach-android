@@ -2,32 +2,33 @@
 <resources>
 
     <style name="Typography.Medium" parent="@style/Base.TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">@color/typographyColorPrimary</item>
+        <item name="android:textSize">@dimen/typography_medium</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
     <style name="Typography.H4" parent="@style/Base.TextAppearance.AppCompat">
-        <item name="android:textColor">@color/typographyColorPrimary</item>
         <item name="android:textSize">@dimen/typography_h4</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Typography.H5" parent="@style/Base.TextAppearance.AppCompat">
-        <item name="android:textColor">@color/typographyColorPrimary</item>
         <item name="android:textSize">@dimen/typography_h5</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
     <style name="Typography.H6" parent="@style/Base.TextAppearance.AppCompat">
-        <item name="android:textColor">@color/typographyColorPrimary</item>
         <item name="android:textSize">@dimen/typography_h6</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Typography.Body1" parent="Base.TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">@color/typographyColorPrimary</item>
+        <item name="android:textSize">@dimen/typography_body1</item>
     </style>
 
     <style name="Typography.Caption" parent="Base.TextAppearance.AppCompat.Caption">
-        <item name="android:textColor">@color/typographyColorPrimary</item>
+        <item name="android:textSize">@dimen/typography_caption</item>
     </style>
 
     <style name="Typography.Data" parent="Typography.Body1">

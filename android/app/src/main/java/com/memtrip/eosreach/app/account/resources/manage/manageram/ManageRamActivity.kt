@@ -26,14 +26,11 @@ import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.manage_ram_activity.*
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ManageRamActivity

@@ -28,7 +28,7 @@ import com.memtrip.eosreach.uikit.SimpleAdapter
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.account_actions_list_item.view.*
+import kotlinx.android.synthetic.main.account_actions_list_item_row.view.*
 
 class AccountActionsAdapter(
     context: Context,
@@ -37,7 +37,7 @@ class AccountActionsAdapter(
 
     override fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<AccountAction> {
         return AccountActionsViewHolder(
-            inflater.inflate(R.layout.account_actions_list_item, parent, false))
+            inflater.inflate(R.layout.account_actions_list_item_row, parent, false))
     }
 }
 

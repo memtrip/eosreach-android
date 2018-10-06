@@ -21,25 +21,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.transfer.ActionReceipt
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptRoute
-import com.memtrip.eosreach.app.transfer.confirm.TransferConfirmIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import javax.inject.Inject
-
 import kotlinx.android.synthetic.main.ram_confirm_activity.*
+import javax.inject.Inject
 
 class RamConfirmActivity
     : MviActivity<RamConfirmIntent, RamConfirmRenderAction, RamConfirmViewState, RamConfirmViewLayout>(), RamConfirmViewLayout {

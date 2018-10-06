@@ -31,15 +31,17 @@ class AccountFragmentPagerAdapter(
     fragmentManager: FragmentManager,
     private val context: Context,
     private val accountView: AccountView,
+    private val accountTheme: AccountTheme,
     private val pages: List<Page> = asList(Page.BALANCE, Page.RESOURCES, Page.VOTE),
     private val balanceFragment: BalanceFragment = BalanceFragment.newInstance(
         accountView.eosAccount!!.accountName,
-        accountView.balances!!),
+        accountView.balances!!,
+        accountTheme),
     private val resourcesFragment: ResourcesFragment = ResourcesFragment.newInstance(
         accountView.eosAccount!!,
-        contractAccountBalance(accountView)
-    ),
-    private val voteFragment: VoteFragment = VoteFragment.newInstance(accountView.eosAccount!!)
+        contractAccountBalance(accountView),
+        accountTheme),
+    private val voteFragment: VoteFragment = VoteFragment.newInstance(accountView.eosAccount!!, accountTheme)
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getPageTitle(position: Int): CharSequence? {

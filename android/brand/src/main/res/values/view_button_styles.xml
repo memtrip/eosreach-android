@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--
+        default
+    -->
     <style name="ButtonPrimary" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/view_button_primary_background</item>
-        <item name="android:textColor">@color/viewButtonPrimaryText</item>
         <item name="android:minWidth">@dimen/viewButtonMinWidth</item>
         <item name="android:minHeight">@dimen/viewButtonMinHeight</item>
         <item name="android:paddingStart">@dimen/viewButtonHorizontalPadding</item>
@@ -12,7 +14,6 @@
 
     <style name="ButtonSecondary" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/view_button_secondary_background</item>
-        <item name="android:textColor">@color/viewButtonSecondaryText</item>
         <item name="android:minWidth">@dimen/viewButtonMinWidth</item>
         <item name="android:minHeight">@dimen/viewButtonMinHeight</item>
         <item name="android:paddingStart">@dimen/viewButtonHorizontalPadding</item>
@@ -21,7 +22,6 @@
 
     <style name="ButtonTransparent" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/view_button_transparent_background</item>
-        <item name="android:textColor">@color/viewButtonTransparentText</item>
         <item name="android:minWidth">@dimen/viewButtonMinWidth</item>
         <item name="android:minHeight">@dimen/viewButtonMinHeight</item>
         <item name="android:paddingStart">@dimen/viewButtonHorizontalPadding</item>
@@ -30,17 +30,15 @@
 
     <style name="ButtonTransparentCaption" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/view_button_transparent_background</item>
-        <item name="android:textColor">@color/viewButtonTransparentText</item>
-        <item name="android:textSize">@dimen/typography_caption_12</item>
+        <item name="android:textSize">@dimen/typography_caption</item>
         <item name="android:minWidth">@dimen/viewButtonCaptionMinWidth</item>
         <item name="android:minHeight">@dimen/viewButtonCaptionMinHeight</item>
         <item name="android:paddingStart">@dimen/viewButtonCaptionHorizontalPadding</item>
         <item name="android:paddingEnd">@dimen/viewButtonCaptionHorizontalPadding</item>
     </style>
 
-    <style name="ItemButtonTransparent" parent="ButtonTransparent">
+    <style name="ButtonTransparentItem" parent="ButtonTransparent">
         <item name="android:background">@drawable/view_button_transparent_background</item>
-        <item name="android:textColor">@color/viewButtonTransparentText</item>
         <item name="android:minWidth">@dimen/viewButtonMinWidth</item>
         <item name="android:minHeight">@dimen/viewButtonMinHeight</item>
         <item name="android:paddingStart">@dimen/padding_medium</item>
@@ -50,10 +48,54 @@
     <style name="ButtonPreference" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:drawableEnd">@drawable/typography_preference_arrow</item>
         <item name="android:background">@drawable/view_button_preference_background_ripple</item>
-        <item name="android:textColor">@color/typographyColorSecondary</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
         <item name="android:gravity">start|center_vertical</item>
         <item name="android:paddingStart">@dimen/padding_large</item>
         <item name="android:paddingEnd">@dimen/padding_large</item>
+    </style>
+
+    <style name="ButtonNavigation" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/view_button_navigation_background_ripple</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:paddingStart">@dimen/padding_large</item>
+        <item name="android:paddingEnd">@dimen/padding_large</item>
+        <item name="android:drawablePadding">@dimen/padding_large</item>
+    </style>
+
+    <!--
+        read only
+    -->
+    <style name="ButtonTransparentReadOnly" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/view_button_transparent_read_only_background</item>
+        <item name="android:minWidth">@dimen/viewButtonMinWidth</item>
+        <item name="android:minHeight">@dimen/viewButtonMinHeight</item>
+        <item name="android:paddingStart">@dimen/viewButtonHorizontalPadding</item>
+        <item name="android:paddingEnd">@dimen/viewButtonHorizontalPadding</item>
+    </style>
+
+    <style name="ButtonTransparentCaptionReadOnly" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/view_button_transparent_read_only_background</item>
+        <item name="android:textSize">@dimen/typography_caption</item>
+        <item name="android:minWidth">@dimen/viewButtonCaptionMinWidth</item>
+        <item name="android:minHeight">@dimen/viewButtonCaptionMinHeight</item>
+        <item name="android:paddingStart">@dimen/viewButtonCaptionHorizontalPadding</item>
+        <item name="android:paddingEnd">@dimen/viewButtonCaptionHorizontalPadding</item>
+    </style>
+
+    <style name="ButtonTransparentItemReadOnly" parent="ButtonTransparent">
+        <item name="android:background">@drawable/view_button_transparent_read_only_background</item>
+        <item name="android:minWidth">@dimen/viewButtonMinWidth</item>
+        <item name="android:minHeight">@dimen/viewButtonMinHeight</item>
+        <item name="android:paddingStart">@dimen/padding_medium</item>
+        <item name="android:paddingEnd">@dimen/padding_medium</item>
+    </style>
+
+    <!--
+        dialog
+    -->
+    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>

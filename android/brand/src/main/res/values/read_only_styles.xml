@@ -1,0 +1,18 @@
+<resources>
+
+    <style name="ReadOnlyAppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/readyOnlyColorPrimary</item>
+        <item name="colorPrimaryDark">@color/readyOnlyColorPrimaryDark</item>
+        <item name="colorAccent">@color/readyOnlyColorAccent</item>
+        <item name="buttonStyle">@style/ButtonPrimary</item>
+        <item name="android:windowBackground">@color/readyOnlyColorWindowBackground</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="android:textColorPrimary">@color/readyOnlyTypographyColorPrimary</item>
+        <item name="android:textColorSecondary">@color/readyOnlyTypographyColorSecondary</item>
+        <item name="android:textColorHintInverse">@color/typographyColorSecondary</item>
+        <item name="button_transparent">@style/ButtonTransparentReadOnly</item>
+        <item name="button_transparent_caption">@style/ButtonTransparentCaptionReadOnly</item>
+        <item name="button_transparent_item">@style/ButtonTransparentItemReadOnly</item>
+    </style>
+
+</resources>

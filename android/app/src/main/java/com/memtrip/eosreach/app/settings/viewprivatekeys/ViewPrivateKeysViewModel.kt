@@ -17,15 +17,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.settings.viewprivatekeys
 
 import android.app.Application
+import com.memtrip.eos.core.crypto.EosPrivateKey
+import com.memtrip.eosreach.db.account.GetAccountNamesForPublicKey
 import com.memtrip.eosreach.utils.RxSchedulers
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 class ViewPrivateKeysViewModel @Inject internal constructor(
     private val keyManager: EosKeyManager,
-    private val rxSchedulers: RxSchedulers,
+    private val getAccountNamesForPublicKey: GetAccountNamesForPublicKey,
     application: Application
 ) : MxViewModel<ViewPrivateKeysIntent, ViewPrivateKeysRenderAction, ViewPrivateKeysViewState>(
     ViewPrivateKeysViewState(view = ViewPrivateKeysViewState.View.Idle),
@@ -43,19 +47,41 @@ class ViewPrivateKeysViewModel @Inject internal constructor(
         ViewPrivateKeysRenderAction.OnProgress -> previousState.copy(
             view = ViewPrivateKeysViewState.View.OnProgress)
         is ViewPrivateKeysRenderAction.ShowPrivateKeys -> previousState.copy(
-            view = ViewPrivateKeysViewState.View.ShowPrivateKeys(renderAction.privateKeys))
+            view = ViewPrivateKeysViewState.View.ShowPrivateKeys(renderAction.viewKeyPair))
         ViewPrivateKeysRenderAction.NoPrivateKeys -> previousState.copy(
             view = ViewPrivateKeysViewState.View.NoPrivateKeys)
     }
 
     private fun showPrivateKeys(): Observable<ViewPrivateKeysRenderAction> {
-        return keyManager.getPrivateKeys().map<ViewPrivateKeysRenderAction> {
-            ViewPrivateKeysRenderAction.ShowPrivateKeys(it)
-        }
-            .onErrorReturn { ViewPrivateKeysRenderAction.NoPrivateKeys }
-            .observeOn(rxSchedulers.main())
-            .subscribeOn(rxSchedulers.background())
-            .toObservable()
-            .startWith(ViewPrivateKeysRenderAction.OnProgress)
+        return keyManager.getPrivateKeys().flatMap<ViewPrivateKeysRenderAction> { privateKeys ->
+            if (privateKeys.isEmpty()) {
+                Single.just(ViewPrivateKeysRenderAction.NoPrivateKeys)
+            } else {
+                getAccountsForPrivateKey(privateKeys)
+            }
+        }.onErrorReturn {
+            ViewPrivateKeysRenderAction.NoPrivateKeys
+        }.toObservable().startWith(ViewPrivateKeysRenderAction.OnProgress)
+    }
+
+    private fun getAccountsForPrivateKey(privateKeys: List<EosPrivateKey>): Single<ViewPrivateKeysRenderAction> {
+        return Observable
+            .fromIterable(privateKeys)
+            .concatMap { eosPrivateKey ->
+                Observable.zip(
+                    Observable.just(eosPrivateKey),
+                    getAccountNamesForPublicKey.names(eosPrivateKey.publicKey.toString()).toObservable(),
+                    BiFunction<EosPrivateKey, List<String>, ViewKeyPair> { _, names ->
+                        ViewKeyPair(eosPrivateKey, names)
+                    }
+                )
+            }
+            .toList()
+            .map<ViewPrivateKeysRenderAction> {
+                ViewPrivateKeysRenderAction.ShowPrivateKeys(it)
+            }
+            .onErrorReturn {
+                ViewPrivateKeysRenderAction.NoPrivateKeys
+            }
     }
 }

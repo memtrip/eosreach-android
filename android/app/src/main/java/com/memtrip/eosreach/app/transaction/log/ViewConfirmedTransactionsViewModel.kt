@@ -43,6 +43,8 @@ class ViewConfirmedTransactionsViewModel @Inject internal constructor(
             view = ViewConfirmedTransactionsViewState.View.OnProgress)
         ViewConfirmedTransactionsRenderAction.OnError -> previousState.copy(
             view = ViewConfirmedTransactionsViewState.View.OnError)
+        ViewConfirmedTransactionsRenderAction.Empty -> previousState.copy(
+            view = ViewConfirmedTransactionsViewState.View.Empty)
         is ViewConfirmedTransactionsRenderAction.Populate -> previousState.copy(
             view = ViewConfirmedTransactionsViewState.View.Populate(renderAction.transactionLogEntities))
         is ViewConfirmedTransactionsRenderAction.NavigateToBlockExplorer -> previousState.copy(
@@ -57,8 +59,12 @@ class ViewConfirmedTransactionsViewModel @Inject internal constructor(
     )
 
     private fun getLogs(): Observable<ViewConfirmedTransactionsRenderAction> {
-        return getTransactionLogs.select().map<ViewConfirmedTransactionsRenderAction> {
-            ViewConfirmedTransactionsRenderAction.Populate(it)
+        return getTransactionLogs.select().map<ViewConfirmedTransactionsRenderAction> { transactions ->
+            if (transactions.isEmpty()) {
+                ViewConfirmedTransactionsRenderAction.Empty
+            } else {
+                ViewConfirmedTransactionsRenderAction.Populate(transactions)
+            }
         }.onErrorReturn {
             ViewConfirmedTransactionsRenderAction.OnError
         }.toObservable().startWith(ViewConfirmedTransactionsRenderAction.OnProgress)

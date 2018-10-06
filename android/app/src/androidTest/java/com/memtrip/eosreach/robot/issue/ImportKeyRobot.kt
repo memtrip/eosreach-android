@@ -24,6 +24,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.memtrip.eosreach.R
 
@@ -65,6 +66,13 @@ class ImportKeyRobot {
     fun verifyGenericError(): ImportKeyRobot {
         onView(withText(R.string.issue_import_key_error_generic))
             .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectSettingsButton(): ImportKeyRobot {
+        onView(withId(R.id.import_key_menu_settings))
+            .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 }

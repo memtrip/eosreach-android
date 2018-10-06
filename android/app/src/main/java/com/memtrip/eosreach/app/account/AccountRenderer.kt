@@ -34,10 +34,6 @@ sealed class AccountRenderAction : MxRenderAction {
     data class OnSuccess(val accountView: AccountView) : AccountRenderAction()
     object OnErrorFetchingAccount : AccountRenderAction()
     object OnErrorFetchingBalances : AccountRenderAction()
-    object NavigateToAccountList : AccountRenderAction()
-    object NavigateToImportKey : AccountRenderAction()
-    object NavigateToCreateAccount : AccountRenderAction()
-    object NavigateToSettings : AccountRenderAction()
 }
 
 interface AccountViewLayout : MxViewLayout {
@@ -48,10 +44,6 @@ interface AccountViewLayout : MxViewLayout {
     fun showPriceUnavailable()
     fun showGetAccountError()
     fun showGetBalancesError()
-    fun navigateToAccountList()
-    fun navigateToImportKey()
-    fun navigateToCreateAccount()
-    fun navigateToSettings()
 }
 
 class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<AccountViewLayout, AccountViewState> {
@@ -99,18 +91,6 @@ class AccountViewRenderer @Inject internal constructor() : MxViewRenderer<Accoun
         }
         is AccountViewState.View.OnErrorFetchingBalances -> {
             layout.showGetBalancesError()
-        }
-        AccountViewState.View.NavigateToAccountList -> {
-            layout.navigateToAccountList()
-        }
-        AccountViewState.View.NavigateToImportKey -> {
-            layout.navigateToImportKey()
-        }
-        AccountViewState.View.NavigateToCreateAccount -> {
-            layout.navigateToCreateAccount()
-        }
-        AccountViewState.View.NavigateToSettings -> {
-            layout.navigateToSettings()
         }
     }
 }

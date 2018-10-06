@@ -22,13 +22,14 @@ import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountModule
 import com.memtrip.eosreach.app.account.actions.ActionsModule
+import com.memtrip.eosreach.app.account.navigation.AccountNavigationModule
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthModule
 import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamModule
 import com.memtrip.eosreach.app.account.vote.cast.CastModule
-import com.memtrip.eosreach.app.accountlist.AccountListModule
 import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListModule
 import com.memtrip.eosreach.app.manage.ManageModule
 import com.memtrip.eosreach.app.price.PriceModule
+import com.memtrip.eosreach.app.search.SearchModule
 import com.memtrip.eosreach.app.settings.SettingsModule
 import com.memtrip.eosreach.app.transaction.TransactionModule
 import com.memtrip.eosreach.app.transfer.TransferModule
@@ -59,7 +60,7 @@ import javax.inject.Singleton
         TransactionModule::class,
         PriceModule::class,
         SettingsModule::class,
-        AccountListModule::class,
+        SearchModule::class,
         BlockProducerListModule::class,
         BillingModule::class,
         DatabaseModule::class,

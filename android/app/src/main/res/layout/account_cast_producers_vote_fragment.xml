@@ -18,7 +18,7 @@
     
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/cast_producers_vote_blockproducer_form_add"
-        style="@style/ButtonTransparent"
+        style="?button_transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"

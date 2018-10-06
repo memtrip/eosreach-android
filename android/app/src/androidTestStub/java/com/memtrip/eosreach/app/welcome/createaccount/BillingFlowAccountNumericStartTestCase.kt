@@ -23,7 +23,8 @@ import com.memtrip.eosreach.billing.SkuStub
 class BillingFlowAccountNumericStartTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot.navigateCreateAccount()
+        splashRobot
+            .navigateCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountNameStartingWithNumber()

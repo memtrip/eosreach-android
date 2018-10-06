@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--
+       default
+    -->
     <style name="TabLayout" parent="Base.Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/Tab</item>
     </style>
 
     <style name="Tab" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">@dimen/typography_body_14</item>
-        <item name="android:textColor">@color/typographyColorPrimary</item>
+        <item name="android:textSize">@dimen/typography_body1</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
+
 </resources>

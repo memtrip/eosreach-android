@@ -26,12 +26,14 @@ sealed class ViewConfirmedTransactionsRenderAction : MxRenderAction {
     object Idle : ViewConfirmedTransactionsRenderAction()
     object OnProgress : ViewConfirmedTransactionsRenderAction()
     object OnError : ViewConfirmedTransactionsRenderAction()
+    object Empty : ViewConfirmedTransactionsRenderAction()
     data class Populate(val transactionLogEntities: List<TransactionLogEntity>) : ViewConfirmedTransactionsRenderAction()
     data class NavigateToBlockExplorer(val transactionId: String) : ViewConfirmedTransactionsRenderAction()
 }
 
 interface ViewConfirmedTransactionsViewLayout : MxViewLayout {
     fun populate(transactionLogEntities: List<TransactionLogEntity>)
+    fun empty()
     fun showProgress()
     fun showError()
     fun navigateToBlockExplorer(transactionId: String)
@@ -46,6 +48,9 @@ class ViewConfirmedTransactionsViewRenderer @Inject internal constructor() : MxV
         }
         ViewConfirmedTransactionsViewState.View.OnError -> {
             layout.showError()
+        }
+        ViewConfirmedTransactionsViewState.View.Empty -> {
+            layout.empty()
         }
         is ViewConfirmedTransactionsViewState.View.Populate -> {
             layout.populate(state.view.transactionLogEntities)

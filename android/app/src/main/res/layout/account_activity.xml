@@ -1,120 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/account_motionlayout"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutDescription="@xml/account_header_motion_scene">
+    android:fitsSystemWindows="true">
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/account_header_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="account_balance_background,account_balance_available_balance_container,account_tablayout"
-        tools:ignore="MissingConstraints" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/account_contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/account_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWindowBackground"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.memtrip.eosreach.brand.ReachButton
-            android:id="@+id/account_toolbar_account_name"
-            style="@style/ButtonTransparent"
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/account_header_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableEnd="@drawable/account_pick_more"
-            tools:text="memtripissue"/>
+            android:visibility="gone"
+            app:constraint_referenced_ids="account_balance_background,account_balance_available_balance_container,account_tablayout"
+            tools:ignore="MissingConstraints" />
 
-    </androidx.appcompat.widget.Toolbar>
-    
-    <FrameLayout
-        android:id="@+id/account_balance_background"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_available_balance_header_height"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/account_toolbar"/>
-
-    <LinearLayout
-        android:id="@+id/account_balance_available_balance_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/account_balance_background"
-        app:layout_constraintBottom_toBottomOf="@+id/account_balance_background">
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/account_available_balance_value"
-            style="@style/Typography.H4"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/account_toolbar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            tools:text="$160.06" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/account_available_balance_label"
-            style="@style/Typography.Body1"
-            android:layout_width="wrap_content"
+            <com.memtrip.eosreach.brand.ReachTextView
+                android:id="@+id/account_toolbar_account_name"
+                style="@style/Typography.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                tools:text="memtripissue"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <FrameLayout
+            android:id="@+id/account_balance_background"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/account_available_balance_header_height"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_toolbar"/>
+
+        <LinearLayout
+            android:id="@+id/account_balance_available_balance_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/account_available_balance" />
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/account_balance_background"
+            app:layout_constraintBottom_toBottomOf="@+id/account_balance_background">
 
-    </LinearLayout>
+            <com.memtrip.eosreach.brand.ReachTextView
+                android:id="@+id/account_available_balance_value"
+                style="@style/Typography.H4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="$160.06" />
 
-    <com.google.android.material.tabs.TabLayout
-        style="@style/TabLayout"
-        android:id="@+id/account_tablayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/account_balance_available_balance_container"/>
+            <com.memtrip.eosreach.brand.ReachTextView
+                android:id="@+id/account_available_balance_label"
+                style="@style/Typography.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/account_available_balance" />
 
-    <com.memtrip.eosreach.brand.ReachSwipeRefreshLayout
-        android:id="@+id/account_swipelayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/account_tablayout">
+        </LinearLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.google.android.material.tabs.TabLayout
+            style="@style/TabLayout"
+            android:id="@+id/account_tablayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_balance_available_balance_container"/>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/account_viewpager"
+        <com.memtrip.eosreach.brand.ReachSwipeRefreshLayout
+            android:id="@+id/account_swipelayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_tablayout">
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </androidx.core.widget.NestedScrollView>
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/account_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-    </com.memtrip.eosreach.brand.ReachSwipeRefreshLayout>
+            </androidx.core.widget.NestedScrollView>
 
-    <com.memtrip.eosreach.uikit.ErrorCompositeView
-        android:id="@+id/account_error_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padding_large"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        </com.memtrip.eosreach.brand.ReachSwipeRefreshLayout>
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+        <com.memtrip.eosreach.uikit.ErrorCompositeView
+            android:id="@+id/account_error_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/account_navigationview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="false">
+
+        <fragment
+            android:id="@+id/account_navigation_fragment"
+            android:name="com.memtrip.eosreach.app.account.navigation.AccountNavigationFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

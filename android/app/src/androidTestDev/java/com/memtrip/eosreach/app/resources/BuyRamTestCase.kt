@@ -50,5 +50,4 @@ class BuyRamTestCase : DevTestCase() {
         resourcesRobot
             .verifyResourcesScreen()
     }
-
 }

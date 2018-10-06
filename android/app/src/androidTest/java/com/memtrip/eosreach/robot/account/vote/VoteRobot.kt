@@ -51,7 +51,7 @@ class VoteRobot {
     }
 
     fun verifyProxyVoteScreen(): VoteRobot {
-        onView(withId(R.id.vote_proxy_title))
+        onView(withId(R.id.vote_proxy_label))
             .check(matches(isDisplayed()))
         onView(withId(R.id.vote_proxy_voter))
             .check(matches(isDisplayed()))

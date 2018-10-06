@@ -32,7 +32,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transaction_view_confirmed_toolbar" />
-    
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/transaction_view_confirmed_empty"
+        style="@style/Typography.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:gravity="center_horizontal"
+        android:text="@string/transaction_view_confirmed_empty"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/transaction_view_confirmed_error"
         style="@style/Typography.Medium"
@@ -41,6 +55,7 @@
         android:layout_margin="@dimen/padding_large"
         android:gravity="center_horizontal"
         android:text="@string/transaction_view_confirmed_error"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

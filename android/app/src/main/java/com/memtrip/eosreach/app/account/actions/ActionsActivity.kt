@@ -16,8 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.account.actions
 
-import android.content.Context
 import android.content.Intent
+
 import android.os.Bundle
 import com.jakewharton.rxbinding2.support.v4.widget.RxSwipeRefreshLayout
 import com.jakewharton.rxbinding2.view.RxView
@@ -27,6 +27,7 @@ import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+
 import com.memtrip.eosreach.app.account.actions.ViewTransferActionActivity.Companion.viewTransferActionIntent
 import com.memtrip.eosreach.app.transfer.form.TransferFormActivity.Companion.transferFormIntent
 import com.memtrip.eosreach.uikit.Interaction
@@ -40,7 +41,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_actions_activity.*
 import javax.inject.Inject
 
-class ActionsActivity
+abstract class ActionsActivity
     : MviActivity<ActionsIntent, ActionsRenderAction, ActionsViewState, ActionsViewLayout>(), ActionsViewLayout {
 
     @Inject
@@ -50,7 +51,6 @@ class ActionsActivity
     lateinit var render: ActionsViewRenderer
 
     private lateinit var adapter: AccountActionsAdapter
-
     private lateinit var contractAccountBalance: ContractAccountBalance
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,15 +153,7 @@ class ActionsActivity
 
     companion object {
 
-        private const val CONTRACT_ACCOUNT_BALANCE_EXTRA = "CONTRACT_ACCOUNT_BALANCE_EXTRA"
-
-        fun actionsIntent(contractAccountBalance: ContractAccountBalance, context: Context): Intent {
-            return with (Intent(context, ActionsActivity::class.java)) {
-                putExtra(CONTRACT_ACCOUNT_BALANCE_EXTRA, contractAccountBalance)
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                this
-            }
-        }
+        const val CONTRACT_ACCOUNT_BALANCE_EXTRA = "CONTRACT_ACCOUNT_BALANCE_EXTRA"
 
         fun actionsExtra(intent: Intent): ContractAccountBalance {
             return intent.getParcelableExtra(CONTRACT_ACCOUNT_BALANCE_EXTRA) as ContractAccountBalance

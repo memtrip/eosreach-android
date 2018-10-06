@@ -26,13 +26,15 @@ import com.memtrip.eosreach.api.stub.request.BasicStubRequest
 class ImportKeyErrorAccountsTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot.navigateImportKey()
+        splashRobot
+            .navigateImportKey()
         importKeyRobot
             .verifyImportKeyScreen()
             .typePrivateKey("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
             .selectImportButton()
             .verifyGenericError()
-        commonRobot.clickDialogOk()
+        commonRobot
+            .clickDialogOk()
     }
 
     override fun stubApi(): StubApi = object : StubApi(context()) {

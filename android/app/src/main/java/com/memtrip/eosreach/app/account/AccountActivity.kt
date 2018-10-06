@@ -19,17 +19,16 @@ package com.memtrip.eosreach.app.account
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import androidx.core.content.ContextCompat
-import com.jakewharton.rxbinding2.view.RxView
+import androidx.core.view.GravityCompat
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.accountlist.AccountListActivity.Companion.accountListIntent
-import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
-import com.memtrip.eosreach.app.manage.ManageImportKeyActivity.Companion.manageImportKeyIntent
-import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
+import com.memtrip.eosreach.app.search.SearchActivity.Companion.searchIntent
+
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.start
 import com.memtrip.eosreach.uikit.stop
@@ -40,7 +39,7 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_activity.*
 import javax.inject.Inject
 
-class AccountActivity
+abstract class AccountActivity
     : MviActivity<AccountIntent, AccountRenderAction, AccountViewState, AccountViewLayout>(), AccountViewLayout, AccountParentRefresh {
 
     @Inject
@@ -54,36 +53,19 @@ class AccountActivity
 
     private var loaded = false // after data has loaded a dialog is displayed for errors
 
+    abstract fun theme(): AccountTheme
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_activity)
         account_toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.account_overflow_menu)
-        account_toolbar.title = ""
         setSupportActionBar(account_toolbar)
+        supportActionBar!!.title = ""
+        supportActionBar!!.setHomeButtonEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         accountBundle = accountExtra(intent)
         page = pageExtra(intent)
         account_viewpager.currentItem = page.ordinal
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.account_menu, menu)
-
-        menu.findItem(R.id.account_menu_import_key).setOnMenuItemClickListener {
-            model().publish(AccountIntent.NavigateToImportKey)
-            true
-        }
-
-        menu.findItem(R.id.account_menu_create_account).setOnMenuItemClickListener {
-            model().publish(AccountIntent.NavigateToCreateAccount)
-            true
-        }
-
-        menu.findItem(R.id.account_menu_settings).setOnMenuItemClickListener {
-            model().publish(AccountIntent.NavigateToSettings)
-            true
-        }
-
-        return true
     }
 
     override fun inject() {
@@ -92,8 +74,7 @@ class AccountActivity
 
     override fun intents(): Observable<AccountIntent> = Observable.mergeArray(
         Observable.just(AccountIntent.Init(accountBundle, page)),
-        account_error_view.retryClick().map { AccountIntent.Retry(accountBundle) },
-        RxView.clicks(account_toolbar_account_name).map { AccountIntent.NavigateToAccountList }
+        account_error_view.retryClick().map { AccountIntent.Retry(accountBundle) }
     )
 
     override fun layout(): AccountViewLayout = this
@@ -121,11 +102,11 @@ class AccountActivity
         account_swipelayout.stop()
         account_header_group.visible()
 
-        val accountPagerFragment = AccountFragmentPagerAdapter(
+        account_viewpager.adapter = AccountFragmentPagerAdapter(
             supportFragmentManager,
             this,
-            accountView)
-        account_viewpager.adapter = accountPagerFragment
+            accountView,
+            theme())
         account_viewpager.offscreenPageLimit = 3
         account_viewpager.currentItem = page.ordinal
         account_viewpager.visible()
@@ -192,27 +173,6 @@ class AccountActivity
         )
     }
 
-    override fun navigateToAccountList() {
-        model().publish(AccountIntent.BalanceTabIdle)
-        startActivity(accountListIntent(this))
-        finish()
-    }
-
-    override fun navigateToImportKey() {
-        model().publish(AccountIntent.BalanceTabIdle)
-        startActivity(manageImportKeyIntent(this))
-    }
-
-    override fun navigateToCreateAccount() {
-        model().publish(AccountIntent.BalanceTabIdle)
-        startActivity(manageCreateAccountIntent(this))
-    }
-
-    override fun navigateToSettings() {
-        model().publish(AccountIntent.BalanceTabIdle)
-        startActivity(settingsIntent(this))
-    }
-
     override fun triggerRefresh(page: AccountFragmentPagerAdapter.Page) {
         model().publish(AccountIntent.Refresh(accountBundle))
     }
@@ -231,20 +191,8 @@ class AccountActivity
 
     companion object {
 
-        private const val ACCOUNT_EXTRA = "ACCOUNT_EXTRA"
-        private const val PAGE_SELECTION = "PAGE_SELECTION"
-
-        fun accountIntent(
-            accountBundle: AccountBundle,
-            context: Context,
-            page: AccountFragmentPagerAdapter.Page = AccountFragmentPagerAdapter.Page.BALANCE
-        ): Intent {
-            return with (Intent(context, AccountActivity::class.java)) {
-                putExtra(ACCOUNT_EXTRA, accountBundle)
-                putExtra(PAGE_SELECTION, page)
-                this
-            }
-        }
+        const val ACCOUNT_EXTRA = "ACCOUNT_EXTRA"
+        const val PAGE_SELECTION = "PAGE_SELECTION"
 
         fun accountExtra(intent: Intent): AccountBundle =
             intent.getParcelableExtra(ACCOUNT_EXTRA) as AccountBundle

@@ -23,7 +23,10 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActionsModule {
 
     @ContributesAndroidInjector(modules = [ActionsActivityModule::class])
-    internal abstract fun contributeActionsActivity(): ActionsActivity
+    internal abstract fun contributeDefaultActionsActivity(): DefaultActionsActivity
+
+    @ContributesAndroidInjector(modules = [ActionsActivityModule::class])
+    internal abstract fun contributeReadOnlyActionsActivity(): ReadOnlyActionsActivity
 
     @ContributesAndroidInjector(modules = [ViewTransferActionActivityModule::class])
     internal abstract fun contributeViewTransferActionActivity(): ViewTransferActionActivity

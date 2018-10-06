@@ -3,18 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/account_menu_import_key"
-        android:title="@string/account_menu_import_key"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/account_menu_create_account"
-        android:title="@string/account_menu_create_account"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/account_menu_settings"
-        android:title="@string/account_menu_settings"
-        app:showAsAction="never"/>
+        android:id="@+id/account_menu_search"
+        android:title="@string/account_menu_search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom"/>
 
 </menu>

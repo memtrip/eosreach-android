@@ -29,7 +29,7 @@ class SplashViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: SplashIntent): Observable<SplashRenderAction> = when (intent) {
-        SplashIntent.Init -> Observable.just(SplashRenderAction.Idle)
+        SplashIntent.Idle -> Observable.just(SplashRenderAction.Idle)
         SplashIntent.NavigateToCreateAccount -> Observable.just(SplashRenderAction.NavigateToCreateAccount)
         SplashIntent.NavigateToImportKeys -> Observable.just(SplashRenderAction.NavigateToImportKey)
     }

@@ -28,8 +28,4 @@ sealed class AccountIntent : MxViewIntent {
     ) : AccountIntent()
     data class Retry(val accountBundle: AccountBundle) : AccountIntent()
     data class Refresh(val accountBundle: AccountBundle) : AccountIntent()
-    object NavigateToAccountList : AccountIntent()
-    object NavigateToImportKey : AccountIntent()
-    object NavigateToCreateAccount : AccountIntent()
-    object NavigateToSettings : AccountIntent()
 }

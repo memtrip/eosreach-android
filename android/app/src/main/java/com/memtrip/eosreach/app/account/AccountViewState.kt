@@ -31,9 +31,5 @@ data class AccountViewState(
         object OnSuccess : View()
         object OnErrorFetchingAccount : View()
         object OnErrorFetchingBalances : View()
-        object NavigateToAccountList : View()
-        object NavigateToImportKey : View()
-        object NavigateToCreateAccount : View()
-        object NavigateToSettings : View()
     }
 }

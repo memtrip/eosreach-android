@@ -22,26 +22,24 @@ import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
-sealed class AccountListRenderAction : MxRenderAction {
-    object OnProgress : AccountListRenderAction()
-    object OnError : AccountListRenderAction()
-    object OnRsaEncryptionFailed : AccountListRenderAction()
-    object NavigateToSplash : AccountListRenderAction()
-    data class NavigateToAccount(val accountEntity: AccountEntity) : AccountListRenderAction()
-    object NavigateToAccountList : AccountListRenderAction()
+sealed class EntryRenderAction : MxRenderAction {
+    object OnProgress : EntryRenderAction()
+    object OnError : EntryRenderAction()
+    object OnRsaEncryptionFailed : EntryRenderAction()
+    object NavigateToSplash : EntryRenderAction()
+    data class NavigateToAccount(val accountEntity: AccountEntity) : EntryRenderAction()
 }
 
-interface AccountListViewLayout : MxViewLayout {
+interface EntryViewLayout : MxViewLayout {
     fun showProgress()
     fun navigateToSplash()
     fun showError()
     fun showRsaEncryptionFailed()
     fun navigateToAccount(accountEntity: AccountEntity)
-    fun navigateToAccountList()
 }
 
-class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<AccountListViewLayout, EntryViewState> {
-    override fun layout(layout: AccountListViewLayout, state: EntryViewState): Unit = when (state.view) {
+class EntryViewRenderer @Inject internal constructor() : MxViewRenderer<EntryViewLayout, EntryViewState> {
+    override fun layout(layout: EntryViewLayout, state: EntryViewState): Unit = when (state.view) {
         EntryViewState.View.Idle -> {
         }
         EntryViewState.View.NavigateToSplash -> {
@@ -58,9 +56,6 @@ class AccountListViewRenderer @Inject internal constructor() : MxViewRenderer<Ac
         }
         is EntryViewState.View.NavigateToAccount -> {
             layout.navigateToAccount(state.view.accountEntity)
-        }
-        EntryViewState.View.NavigateToAccountList -> {
-            layout.navigateToAccountList()
         }
     }
 }

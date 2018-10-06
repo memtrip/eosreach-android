@@ -88,7 +88,7 @@ class CastProducersVoteViewModel @Inject internal constructor(
     ): Observable<CastProducersVoteRenderAction> {
         return voteRequest.voteForProducer(
             voterAccountName,
-            blockProducers
+            blockProducers.sorted()
         ).flatMap { result ->
             if (result.success) {
                 val transaction = result.data!!

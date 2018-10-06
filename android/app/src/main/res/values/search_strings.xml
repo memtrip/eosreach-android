@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="search_title">Explore by account name</string>
+    <string name="search_error_title">Failed to fetch account</string>
+    <string name="search_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
+
+</resources>

@@ -20,10 +20,11 @@
 
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/cast_producers_vote_endpoint_block_producer"
-        style="@style/ButtonTransparent"
+        style="?button_transparent"
         android:layout_width="@dimen/account_cast_producers_vote_item_button_width"
         android:layout_height="@dimen/account_cast_producers_vote_item_button_height"
-        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginEnd="@dimen/padding_medium"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/vote_cast_producers_vote_remove_button"

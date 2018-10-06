@@ -19,7 +19,6 @@ package com.memtrip.eosreach.app.account.vote.cast.proxy
 import android.app.Application
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.vote.VoteRequest
-import com.memtrip.eosreach.app.account.vote.VoteIntent
 import com.memtrip.eosreach.db.transaction.InsertTransactionLog
 import com.memtrip.eosreach.db.transaction.TransactionLogEntity
 import com.memtrip.eosreach.utils.fullDateTime

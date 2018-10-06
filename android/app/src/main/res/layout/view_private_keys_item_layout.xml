@@ -8,13 +8,25 @@
     android:layout_marginRight="@dimen/padding_medium"
     android:orientation="vertical">
 
-    <TextView
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/view_private_keys_item_accounts"
         style="@style/Typography.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padding_small"
+        android:layout_margin="@dimen/padding_small"
+        android:textIsSelectable="true"
+        android:textStyle="bold"
+        android:textColor="@color/colorSecondary"
+        tools:text="memtripissue, memtripblock"/>
+
+    <TextView
+        style="@style/Typography.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_tiny"
+        android:layout_marginStart="@dimen/padding_small"
         android:textAllCaps="true"
-        android:text="@string/view_private_keys_item_title"/>
+        android:text="@string/view_private_keys_item_public_title"/>
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/view_private_keys_item_public"
@@ -26,12 +38,28 @@
         android:textIsSelectable="true"
         tools:text="EOS6cKYToC4HCRiJADKBZSgj2oFyzZW98bfpctpffyQbmxErbRFnE" />
 
+    <TextView
+        style="@style/Typography.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_tiny"
+        android:layout_marginStart="@dimen/padding_small"
+        android:textAllCaps="true"
+        android:text="@string/view_private_keys_item_private_title"/>
+
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/view_private_keys_item_private"
         style="@style/Typography.Data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textIsSelectable="true"
-        tools:text="EOS6cKYToC4HCRiJADKBZSgj2oFyzZW98bfpctpffyQbmxErbRFnE"/>
+        tools:text="5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/padding_large"
+        android:layout_marginBottom="@dimen/padding_large"
+        android:background="@color/typographyColorInverse" />
+    
 </LinearLayout>

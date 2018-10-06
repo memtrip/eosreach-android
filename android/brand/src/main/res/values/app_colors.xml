@@ -9,6 +9,9 @@
     <color name="colorWindowBackground2">#282828</color>
     <color name="colorSpacerBorder">#303030</color>
 
+    <color name="typographyColorPrimary">#FFFFFF</color>
+    <color name="typographyColorSecondary">#e7eaf0</color>
+
     <color name="viewUtilDrawableMask">#FFFFFF</color>
 
 </resources>

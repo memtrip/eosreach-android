@@ -1,17 +1,5 @@
 <resources>
 
-    <!--list -->
-    <string name="accounts_list_balance_toolbar_logo_contentdescription">eosreach</string>
-    <string name="accounts_list_accounts_title">Accounts</string>
-    <string name="accounts_list_item_balance">%1$s %2$s</string>
-    <string name="accounts_list_item_balance_empty">-</string>
-    <string name="accounts_list_item_no_accounts">
-        We could not find any accounts associated with your public keys, if this is unexpected please try changing the EOS endpoint in settings.
-    </string>
-    <string name="accounts_list_item_no_accounts_settings_button">Go to Settings</string>
-    <string name="accounts_list_error_title">Failed to fetch accounts</string>
-    <string name="accounts_list_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
-
     <!-- account -->
     <string name="account_available_balance">Available Balance</string>
     <string name="account_page_balance">Balance</string>
@@ -25,10 +13,23 @@
     <string name="account_available_balance_unavailable_value">-</string>
     <string name="account_available_balance_unavailable_label">market rates are unavailable</string>
 
-    <string name="account_menu_refresh_accounts">Refresh accounts</string>
-    <string name="account_menu_import_key">Import Key</string>
-    <string name="account_menu_create_account">Create account</string>
-    <string name="account_menu_settings">Settings</string>
+    <!-- account navigation -->
+    <string name="account_menu_search">Search</string>
+    <string name="account_navigation_import_key">Import Key</string>
+    <string name="account_navigation_create_account">Create new account</string>
+    <string name="account_navigation_settings">Settings</string>
+    <string name="account_navigation_accounts">Accounts</string>
+    <string name="account_navigation_refresh">Refresh</string>
+    <string name="accounts_navigation_no_accounts">
+        We could not find any accounts associated with your public keys, if this is unexpected please try changing the EOS endpoint in settings.
+    </string>
+    <string name="accounts_navigation_accounts_error_settings_button">Go to Settings</string>
+    <string name="accounts_navigation_error_title">Failed to fetch accounts</string>
+    <string name="accounts_navigation_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
+
+    <!--list -->
+    <string name="accounts_list_item_balance">%1$s %2$s</string>
+    <string name="accounts_list_item_balance_empty">-</string>
 
     <!-- actions -->
     <string name="account_actions_generic_error_title">Failed to fetch actions</string>

@@ -27,14 +27,12 @@
         <activity android:name=".app.welcome.createaccount.WelcomeCreateAccountActivity" />
         <activity android:name=".app.welcome.importkey.WelcomeImportKeyActivity" />
 
-        <activity
-            android:name=".app.accountlist.AccountListActivity"
-            android:launchMode="singleTop"/>
-
         <activity android:name=".app.blockproducerlist.BlockProducerListActivity" />
 
-        <activity android:name=".app.account.AccountActivity" />
-        <activity android:name=".app.account.actions.ActionsActivity" />
+        <activity android:name=".app.account.DefaultAccountActivity" />
+        <activity android:name=".app.account.ReadonlyAccountActivity" />
+        <activity android:name=".app.account.actions.DefaultActionsActivity" />
+        <activity android:name=".app.account.actions.ReadOnlyActionsActivity" />
         <activity android:name=".app.account.actions.ViewTransferActionActivity" />
         <activity android:name=".app.account.resources.manage.bandwidth.BandwidthManageActivity" />
         <activity
@@ -58,6 +56,9 @@
         <activity android:name="com.memtrip.eosreach.app.price.currencypairing.CurrencyPairingActivity" />
         <activity android:name=".app.settings.eosendpoint.EosEndpointActivity" />
         <activity android:name=".app.settings.viewprivatekeys.ViewPrivateKeysActivity" />
+
+        <activity android:name=".app.search.SearchActivity"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
 
     </application>
 

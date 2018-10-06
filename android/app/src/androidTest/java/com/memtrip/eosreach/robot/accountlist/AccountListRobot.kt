@@ -40,6 +40,7 @@ class AccountListRobot {
     fun selectRefreshButton(): AccountListRobot {
         onView(withId(R.id.accounts_list_menu_refresh_accounts))
             .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 

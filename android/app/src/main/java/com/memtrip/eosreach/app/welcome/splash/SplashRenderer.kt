@@ -35,7 +35,6 @@ interface SplashViewLayout : MxViewLayout {
 class SplashViewRenderer @Inject internal constructor() : MxViewRenderer<SplashViewLayout, SplashViewState> {
     override fun layout(layout: SplashViewLayout, state: SplashViewState) = when (state.view) {
         SplashViewState.View.Idle -> {
-            print("ok")
         }
         SplashViewState.View.NavigateToCreateAccount -> {
             layout.navigateToCreateAccount()

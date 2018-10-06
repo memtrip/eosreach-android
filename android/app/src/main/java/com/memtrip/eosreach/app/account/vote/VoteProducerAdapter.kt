@@ -27,7 +27,7 @@ import com.memtrip.eosreach.uikit.SimpleAdapter
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import io.reactivex.subjects.PublishSubject
 
-import kotlinx.android.synthetic.main.account_vote_producer_list_item.view.*
+import kotlinx.android.synthetic.main.account_vote_producer_list_item_row.view.*
 
 class VoteProducerAdapter(
     context: Context,
@@ -36,7 +36,7 @@ class VoteProducerAdapter(
 
     override fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<String> {
         return VoteProducerViewHolder(
-            inflater.inflate(R.layout.account_vote_producer_list_item, parent, false))
+            inflater.inflate(R.layout.account_vote_producer_list_item_row, parent, false))
     }
 }
 

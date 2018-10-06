@@ -34,7 +34,8 @@ import com.memtrip.eosreach.billing.SkuStub
 class BillingFlowSuccessCreateAccountFailedNoAccountsForPublicKeyTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot.navigateCreateAccount()
+        splashRobot
+            .navigateCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountName()

@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:top="@dimen/viewEditTextPrimaryHintPadding">
-        <shape xmlns:android="http://schemas.android.com/apk/res/android"
-            android:shape="rectangle">
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
 
-            <stroke
-                android:width="@dimen/viewEditTextBorderStroke"
-                android:color="@color/viewEditTextPrimaryBorder" />
+    <stroke
+        android:width="@dimen/viewEditTextBorderStroke"
+        android:color="@color/viewEditTextPrimaryBorder" />
 
-            <solid android:color="@color/viewEditTextPrimaryBackground"/>
+    <solid android:color="@color/viewEditTextPrimaryBackground"/>
 
-            <corners android:radius="@dimen/viewEditTextPrimaryBorder" />
+    <corners android:radius="@dimen/viewEditTextPrimaryBorder" />
 
-        </shape>
-    </item>
-</layer-list>
+</shape>

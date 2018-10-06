@@ -202,7 +202,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        style="@style/ButtonTransparent"
+        style="?button_transparent"
         android:id="@+id/issue_create_account_import_key_settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        style="@style/ButtonTransparent"
+        style="?button_transparent"
         android:id="@+id/issue_create_account_limbo_settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

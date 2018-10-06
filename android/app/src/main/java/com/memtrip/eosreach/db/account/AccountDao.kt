@@ -38,6 +38,9 @@ interface AccountDao {
     @Query("SELECT * FROM Account WHERE accountName = :accountName ORDER BY uid ASC LIMIT 0, 1")
     fun getAccountByName(accountName: String): List<AccountEntity>
 
+    @Query("SELECT * FROM Account WHERE publicKey = :publicKey ORDER BY uid ASC")
+    fun getAccountsByPublicKey(publicKey: String): List<AccountEntity>
+
     @Query("SELECT COUNT(*) FROM Account")
     fun count(): Int
 

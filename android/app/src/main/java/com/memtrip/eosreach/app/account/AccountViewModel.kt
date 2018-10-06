@@ -43,10 +43,6 @@ class AccountViewModel @Inject internal constructor(
         AccountIntent.BalanceTabIdle -> Observable.just(AccountRenderAction.BalanceTabIdle)
         AccountIntent.ResourceTabIdle -> Observable.just(AccountRenderAction.ResourceTabIdle)
         AccountIntent.VoteTabIdle -> Observable.just(AccountRenderAction.VoteTabIdle)
-        AccountIntent.NavigateToAccountList -> Observable.just(AccountRenderAction.NavigateToAccountList)
-        AccountIntent.NavigateToImportKey -> Observable.just(AccountRenderAction.NavigateToImportKey)
-        AccountIntent.NavigateToCreateAccount -> Observable.just(AccountRenderAction.NavigateToCreateAccount)
-        AccountIntent.NavigateToSettings -> Observable.just(AccountRenderAction.NavigateToSettings)
     }
 
     override fun reducer(previousState: AccountViewState, renderAction: AccountRenderAction): AccountViewState = when (renderAction) {
@@ -73,14 +69,6 @@ class AccountViewModel @Inject internal constructor(
             view = AccountViewState.View.OnErrorFetchingAccount)
         AccountRenderAction.OnErrorFetchingBalances -> previousState.copy(
             view = AccountViewState.View.OnErrorFetchingAccount)
-        AccountRenderAction.NavigateToAccountList -> previousState.copy(
-            view = AccountViewState.View.NavigateToAccountList)
-        AccountRenderAction.NavigateToImportKey -> previousState.copy(
-            view = AccountViewState.View.NavigateToImportKey)
-        AccountRenderAction.NavigateToCreateAccount -> previousState.copy(
-            view = AccountViewState.View.NavigateToCreateAccount)
-        AccountRenderAction.NavigateToSettings -> previousState.copy(
-            view = AccountViewState.View.NavigateToSettings)
     }
 
     override fun filterIntents(intents: Observable<AccountIntent>): Observable<AccountIntent> = Observable.merge(

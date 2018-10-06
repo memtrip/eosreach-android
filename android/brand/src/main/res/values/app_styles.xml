@@ -7,10 +7,12 @@
         <item name="buttonStyle">@style/ButtonPrimary</item>
         <item name="android:windowBackground">@color/colorWindowBackground</item>
         <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-    </style>
-
-    <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/typographyColorPrimary</item>
+        <item name="android:textColorSecondary">@color/typographyColorSecondary</item>
+        <item name="android:textColorHintInverse">@color/typographyColorSecondary</item>
+        <item name="button_transparent">@style/ButtonTransparent</item>
+        <item name="button_transparent_caption">@style/ButtonTransparentCaption</item>
+        <item name="button_transparent_item">@style/ButtonTransparentItem</item>
     </style>
 
 </resources>

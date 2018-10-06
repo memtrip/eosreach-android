@@ -27,7 +27,8 @@
     </string>
     <string name="view_private_keys_button">Show private keys</string>
     <string name="view_private_keys_empty">You have not imported any private keys.</string>
-    <string name="view_private_keys_item_title">Public / Private keypair</string>
+    <string name="view_private_keys_item_public_title">Public key</string>
+    <string name="view_private_keys_item_private_title">Private key</string>
 
     <string name="eos_endpoint_toolbar_title">Change EOS endpoint</string>
     <string name="eos_endpoint_url_label">Current EOS Endpoint</string>

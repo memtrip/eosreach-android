@@ -19,6 +19,7 @@ package com.memtrip.eosreach.app.welcome
 import android.app.Application
 import com.memtrip.eosreach.db.account.CountAccounts
 import com.memtrip.eosreach.db.account.GetAccountByName
+import com.memtrip.eosreach.db.account.GetAccounts
 import com.memtrip.eosreach.db.sharedpreferences.AccountListSelection
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
@@ -31,50 +32,52 @@ class EntryViewModel @Inject internal constructor(
     private val countAccounts: CountAccounts,
     private val getAccountByName: GetAccountByName,
     private val selectedAccount: AccountListSelection,
+    private val getAccounts: GetAccounts,
     application: Application
-) : MxViewModel<EntryIntent, AccountListRenderAction, EntryViewState>(
+) : MxViewModel<EntryIntent, EntryRenderAction, EntryViewState>(
     EntryViewState(view = EntryViewState.View.Idle),
     application
 ) {
 
-    override fun dispatcher(intent: EntryIntent): Observable<AccountListRenderAction> = when (intent) {
+    override fun dispatcher(intent: EntryIntent): Observable<EntryRenderAction> = when (intent) {
         is EntryIntent.Init -> hasAccounts()
     }
 
-    override fun reducer(previousState: EntryViewState, renderAction: AccountListRenderAction): EntryViewState = when (renderAction) {
-        AccountListRenderAction.OnProgress -> previousState.copy(view = EntryViewState.View.Idle)
-        AccountListRenderAction.NavigateToSplash -> previousState.copy(view = EntryViewState.View.NavigateToSplash)
-        AccountListRenderAction.NavigateToAccountList -> previousState.copy(view = EntryViewState.View.NavigateToAccountList)
-        is AccountListRenderAction.NavigateToAccount -> previousState.copy(view = EntryViewState.View.NavigateToAccount(renderAction.accountEntity))
-        AccountListRenderAction.OnError -> previousState.copy(view = EntryViewState.View.OnError)
-        AccountListRenderAction.OnRsaEncryptionFailed -> previousState.copy(view = EntryViewState.View.OnRsaEncryptionFailed)
+    override fun reducer(previousState: EntryViewState, renderAction: EntryRenderAction): EntryViewState = when (renderAction) {
+        EntryRenderAction.OnProgress -> previousState.copy(view = EntryViewState.View.Idle)
+        EntryRenderAction.NavigateToSplash -> previousState.copy(view = EntryViewState.View.NavigateToSplash)
+        is EntryRenderAction.NavigateToAccount -> previousState.copy(view = EntryViewState.View.NavigateToAccount(renderAction.accountEntity))
+        EntryRenderAction.OnError -> previousState.copy(view = EntryViewState.View.OnError)
+        EntryRenderAction.OnRsaEncryptionFailed -> previousState.copy(view = EntryViewState.View.OnRsaEncryptionFailed)
     }
 
-    private fun hasAccounts(): Observable<AccountListRenderAction> {
-        return eosKeyManager.verifyDeviceSupportsRsaEncryption().flatMap<AccountListRenderAction> { rsaVerified ->
+    private fun hasAccounts(): Observable<EntryRenderAction> {
+        return eosKeyManager.verifyDeviceSupportsRsaEncryption().flatMap<EntryRenderAction> { rsaVerified ->
             if (rsaVerified) {
                 countAccounts.count()
-                    .flatMap<AccountListRenderAction> { count ->
+                    .flatMap<EntryRenderAction> { count ->
                         if (count > 0) {
                             if (selectedAccount.exists()) {
                                 getAccountByName.select(selectedAccount.get())
                                     .map { accountEntity ->
-                                        AccountListRenderAction.NavigateToAccount(accountEntity)
+                                        EntryRenderAction.NavigateToAccount(accountEntity)
                                     }
                             } else {
-                                Single.just(AccountListRenderAction.NavigateToAccountList)
+                                getAccounts.select().map { accountEntity ->
+                                    EntryRenderAction.NavigateToAccount(accountEntity[0])
+                                }
                             }
                         } else {
-                            Single.just(AccountListRenderAction.NavigateToSplash)
+                            Single.just(EntryRenderAction.NavigateToSplash)
                         }
                     }
             } else {
-                Single.just(AccountListRenderAction.OnRsaEncryptionFailed)
+                Single.just(EntryRenderAction.OnRsaEncryptionFailed)
             }
         }.onErrorReturn {
-            AccountListRenderAction.OnRsaEncryptionFailed
+            EntryRenderAction.OnRsaEncryptionFailed
         }.onErrorReturn {
-            AccountListRenderAction.OnError
-        }.toObservable().startWith(AccountListRenderAction.OnProgress)
+            EntryRenderAction.OnError
+        }.toObservable().startWith(EntryRenderAction.OnProgress)
     }
 }

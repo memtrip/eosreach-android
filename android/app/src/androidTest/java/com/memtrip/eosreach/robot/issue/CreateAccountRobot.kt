@@ -231,5 +231,4 @@ class CreateAccountRobot {
             .perform(click())
         return this
     }
-
 }

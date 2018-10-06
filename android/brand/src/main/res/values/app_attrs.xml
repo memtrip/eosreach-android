@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="button_transparent" format="reference"/>
+    <attr name="button_transparent_caption" format="reference"/>
+    <attr name="button_transparent_item" format="reference"/>
+</resources>

@@ -21,12 +21,14 @@ import com.memtrip.eosreach.StubTestCase
 class ImportInvalidKeyTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot.navigateImportKey()
+        splashRobot
+            .navigateImportKey()
         importKeyRobot
             .verifyImportKeyScreen()
             .typePrivateKey("invalid_key")
             .selectImportButton()
             .verifyInvalidKeyError()
-        commonRobot.clickDialogOk()
+        commonRobot
+            .clickDialogOk()
     }
 }

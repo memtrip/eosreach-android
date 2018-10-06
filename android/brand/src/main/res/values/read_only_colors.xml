@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="readyOnlyColorPrimary">#FF7A88</color>
+    <color name="readyOnlyColorSecondary">#A10372</color>
+    <color name="readyOnlyColorPrimaryDark">#777777</color>
+    <color name="readyOnlyColorAccent">#008BBD</color>
+    <color name="readyOnlyColorWindowBackground">#E4E4E4</color>
+    <color name="readyOnlyColorWindowBackground2">#D7D7D7</color>
+    <color name="readyOnlyColorSpacerBorder">#CFCFCF</color>
+
+    <color name="readyOnlyTypographyColorPrimary">#111111</color>
+    <color name="readyOnlyTypographyColorSecondary">#18150F</color>
+
+</resources>

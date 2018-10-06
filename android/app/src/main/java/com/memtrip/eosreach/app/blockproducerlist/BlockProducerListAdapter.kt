@@ -30,7 +30,7 @@ import com.memtrip.eosreach.uikit.SimpleAdapter
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import io.reactivex.subjects.PublishSubject
 
-import kotlinx.android.synthetic.main.block_producer_list_item.view.*
+import kotlinx.android.synthetic.main.block_producer_list_item_row.view.*
 
 class BlockProducerListAdapter(
     context: Context,
@@ -39,7 +39,7 @@ class BlockProducerListAdapter(
 
     override fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<BlockProducerEntity> {
         return BlockProducerViewHolder(
-            inflater.inflate(R.layout.block_producer_list_item, parent, false))
+            inflater.inflate(R.layout.block_producer_list_item_row, parent, false))
     }
 }
 

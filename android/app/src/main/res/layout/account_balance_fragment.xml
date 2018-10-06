@@ -29,7 +29,7 @@
 
     <com.memtrip.eosreach.brand.ReachButton
         android:id="@+id/balance_airdrop_button"
-        style="@style/ButtonTransparentCaption"
+        style="?button_transparent_caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/balance_airdrop_button"

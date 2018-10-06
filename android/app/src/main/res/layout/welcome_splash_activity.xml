@@ -72,11 +72,22 @@
         app:layout_constraintBottom_toTopOf="@id/welcome_splash_import_private_key_button" />
 
     <com.memtrip.eosreach.brand.ReachButton
-        style="@style/ButtonTransparent"
+        style="?button_transparent"
         android:id="@+id/welcome_splash_import_private_key_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_medium"
         android:text="@string/welcome_splash_button_import_key"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintBottom_toTopOf="@id/welcome_splash_explore_button" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="?button_transparent"
+        android:id="@+id/welcome_splash_explore_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_splash_button_explore"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintBottom_toTopOf="@id/horizontal_end_guideline" />

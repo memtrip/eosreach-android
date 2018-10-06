@@ -79,3 +79,5 @@ intents by distinctUntilChanged)
 - Implement collapsing header for AccountActivity
 - Returning to the vote screen after an error is resetting the form
 - All EOS values in the app should be formatted with 0.0000
+- When no results actions are found for airdrop results, query another 3 sets before determining that there
+are no airdrop actions.

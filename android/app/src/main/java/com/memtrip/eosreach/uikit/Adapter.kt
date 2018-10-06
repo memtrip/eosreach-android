@@ -32,7 +32,7 @@ abstract class SimpleAdapter<T>(
     val interaction: PublishSubject<Interaction<T>>,
     protected val inflater: LayoutInflater = LayoutInflater.from(context),
     internal val data: MutableList<T> = ArrayList(),
-    private val marginSize: Int = context.resources.getDimensionPixelOffset(R.dimen.padding_large)
+    internal val marginSize: Int = context.resources.getDimensionPixelOffset(R.dimen.padding_large)
 ) : RecyclerView.Adapter<SimpleAdapterViewHolder<T>>() {
 
     fun populate(items: List<T>) {
@@ -71,19 +71,7 @@ abstract class SimpleAdapter<T>(
 
     abstract fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<T>
 
-    private fun defaultRowMargin(position: Int, view: View) {
-
-        if (position == 0) {
-            (view.layoutParams as RecyclerView.LayoutParams).topMargin = 0
-        } else {
-            (view.layoutParams as RecyclerView.LayoutParams).topMargin = marginSize
-        }
-
-        if (position == data.size - 1) {
-            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = marginSize
-        } else {
-            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
-        }
+    open fun defaultRowMargin(position: Int, view: View) {
     }
 
     fun atEnd(id: Int) {

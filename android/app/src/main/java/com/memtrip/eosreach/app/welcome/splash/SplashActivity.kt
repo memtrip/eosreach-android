@@ -24,6 +24,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.search.SearchActivity.Companion.searchIntent
 import com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountActivity.Companion.welcomeCreateAccountIntent
 import com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyActivity.Companion.welcomeImportKeyIntent
 import dagger.android.AndroidInjection
@@ -44,6 +45,10 @@ class SplashActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.welcome_splash_activity)
+        welcome_splash_explore_button.setOnClickListener {
+            model().publish(SplashIntent.Idle)
+            startActivity(searchIntent(this))
+        }
     }
 
     override fun inject() {
@@ -62,12 +67,12 @@ class SplashActivity
     override fun render(): SplashViewRenderer = render
 
     override fun navigateToCreateAccount() {
-        model().publish(SplashIntent.Init)
+        model().publish(SplashIntent.Idle)
         startActivity(welcomeCreateAccountIntent(this))
     }
 
     override fun navigateToImportKey() {
-        model().publish(SplashIntent.Init)
+        model().publish(SplashIntent.Idle)
         startActivity(welcomeImportKeyIntent(this))
     }
 

@@ -72,7 +72,7 @@ abstract class RamFormViewModel(
         val kbValue: Double = if (kb.isEmpty() || kb == ".") { 0.0 } else {
             kb.toDouble()
         }
-        val eosCost =  kbValue * costPerKb.amount
+        val eosCost = kbValue * costPerKb.amount
         return RamFormRenderAction.UpdateCostPerKiloByte(
             BalanceFormatter.formatEosBalance(eosCost, costPerKb.symbol))
     }
