@@ -2,6 +2,7 @@ package com.memtrip.eosreach.robot.account.search
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
@@ -27,6 +28,21 @@ class SearchRobot {
         ))
             .check(matches(isDisplayed()))
             .perform(typeText(accountName))
+            .perform(closeSoftKeyboard())
+        return this
+    }
+
+    fun verifySearchError(): SearchRobot {
+        onView(withId((R.id.search_input_account_error)))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectSearchErrorRetry(): SearchRobot {
+        onView(allOf(
+            withId(R.id.view_error_composite_retry),
+            isDescendantOfA(withId(R.id.search_input_account_error))
+        )).check(matches(isDisplayed())).perform(click())
         return this
     }
 

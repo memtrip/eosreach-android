@@ -50,7 +50,7 @@ class SearchActivity
             }
             SearchIntent.SearchValueChanged(value)
         },
-        RxView.clicks(search_input_account_error).map {
+        search_input_account_error.retryClick().map {
             val value = if (uikit_search_input_view_edittext.text.isNullOrEmpty()) { "" } else {
                 uikit_search_input_view_edittext.text.toString()
             }
