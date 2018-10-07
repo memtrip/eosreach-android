@@ -58,9 +58,9 @@ abstract class ImportKeyActivity
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.import_key_menu, menu)
+        menuInflater.inflate(R.menu.welcome_menu, menu)
 
-        menu.findItem(R.id.import_key_menu_settings).setOnMenuItemClickListener {
+        menu.findItem(R.id.welcome_menu_settings).setOnMenuItemClickListener {
             model().publish(ImportKeyIntent.NavigateToSettings)
             true
         }

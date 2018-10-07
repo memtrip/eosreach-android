@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/import_key_menu_settings"
-        android:title="@string/welcome_key_imported_menu_settings"
+        android:id="@+id/welcome_menu_settings"
+        android:title="@string/welcome_menu_settings"
         android:icon="@drawable/app_settings_ic"
         app:showAsAction="ifRoom"/>
 

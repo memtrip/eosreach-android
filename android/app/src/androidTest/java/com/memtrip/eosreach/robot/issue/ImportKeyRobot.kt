@@ -70,7 +70,7 @@ class ImportKeyRobot {
     }
 
     fun selectSettingsButton(): ImportKeyRobot {
-        onView(withId(R.id.import_key_menu_settings))
+        onView(withId(R.id.welcome_menu_settings))
             .check(matches(isDisplayed()))
             .perform(click())
         return this

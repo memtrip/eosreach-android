@@ -19,12 +19,15 @@ package com.memtrip.eosreach.app.welcome.splash
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import com.jakewharton.rxbinding2.view.RxView
 
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.issue.importkey.ImportKeyIntent
 import com.memtrip.eosreach.app.search.SearchActivity.Companion.searchIntent
+import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountActivity.Companion.welcomeCreateAccountIntent
 import com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyActivity.Companion.welcomeImportKeyIntent
 import dagger.android.AndroidInjection
@@ -45,10 +48,24 @@ class SplashActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.welcome_splash_activity)
+        setSupportActionBar(welcome_splash_toolbar)
+        supportActionBar!!.title = ""
         welcome_splash_explore_button.setOnClickListener {
             model().publish(SplashIntent.Idle)
             startActivity(searchIntent(this))
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.welcome_menu, menu)
+
+        menu.findItem(R.id.welcome_menu_settings).setOnMenuItemClickListener {
+            model().publish(SplashIntent.Idle)
+            startActivity(settingsIntent(this))
+            true
+        }
+
+        return true
     }
 
     override fun inject() {
