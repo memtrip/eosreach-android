@@ -37,7 +37,7 @@ class AccountNavigationRobot {
     fun selectNavigationIcon(): AccountNavigationRobot {
         onView(withContentDescription(R.string.abc_action_bar_up_description))
             .check(matches(isDisplayed()))
-            .perform(click());
+            .perform(click())
         return this
     }
 

@@ -25,7 +25,6 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
-import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory

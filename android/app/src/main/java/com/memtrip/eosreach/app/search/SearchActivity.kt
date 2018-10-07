@@ -5,23 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountBundle
-import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import javax.inject.Inject
-
 import kotlinx.android.synthetic.main.search_activity.*
 import kotlinx.android.synthetic.main.uikit_search_input_view.*
 import kotlinx.android.synthetic.main.uikit_search_input_view.view.*
+import javax.inject.Inject
 
 class SearchActivity
     : MviActivity<SearchIntent, SearchRenderAction, SearchViewState, SearchViewLayout>(), SearchViewLayout {
@@ -93,7 +90,7 @@ class SearchActivity
 
     override fun viewAccount(accountEntity: AccountEntity) {
         model().publish(SearchIntent.Idle)
-        startActivity(accountReadOnlyIntent(AccountBundle(accountEntity.accountName),this))
+        startActivity(accountReadOnlyIntent(AccountBundle(accountEntity.accountName), this))
     }
 
     companion object {

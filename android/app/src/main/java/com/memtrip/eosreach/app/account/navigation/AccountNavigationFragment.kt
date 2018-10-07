@@ -23,19 +23,14 @@ import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviFragment
-
 import com.memtrip.eosreach.app.ViewModelFactory
-
 import com.memtrip.eosreach.app.account.AccountBundle
 import com.memtrip.eosreach.app.account.AccountListAdapter
-import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.account.DefaultAccountActivity.Companion.accountDefaultIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.app.manage.ManageImportKeyActivity.Companion.manageImportKeyIntent
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
-
 import com.memtrip.eosreach.db.account.AccountEntity
-
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible

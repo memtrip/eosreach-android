@@ -93,7 +93,7 @@ class TransactionReceiptActivity
             arrayOf(
                 with(accountDefaultIntent(AccountBundle(
                     contractAccountBalance.accountName
-                ),this)) {
+                ), this)) {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or
                         Intent.FLAG_ACTIVITY_NEW_TASK)
                     this

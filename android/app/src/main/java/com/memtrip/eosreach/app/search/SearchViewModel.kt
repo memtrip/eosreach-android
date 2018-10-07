@@ -1,14 +1,10 @@
 package com.memtrip.eosreach.app.search
 
 import android.app.Application
-import com.memtrip.eos.http.rpc.model.contract.response.RawCodeForAccount
 import com.memtrip.eosreach.api.account.EosAccountRequest
 import com.memtrip.eosreach.db.account.AccountEntity
-import com.memtrip.eosreach.db.account.GetAccountByName
-import com.memtrip.eosreach.db.account.GetAccountNamesForPublicKey
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import io.reactivex.Single
 import javax.inject.Inject
 
 class SearchViewModel @Inject internal constructor(
@@ -29,7 +25,7 @@ class SearchViewModel @Inject internal constructor(
     override fun reducer(previousState: SearchViewState, renderAction: SearchRenderAction): SearchViewState = when (renderAction) {
         SearchRenderAction.OnProgress -> previousState.copy(view = SearchViewState.View.OnProgress)
         SearchRenderAction.Idle -> previousState.copy(view = SearchViewState.View.Idle)
-        is SearchRenderAction.OnError ->  previousState.copy(view = SearchViewState.View.OnError)
+        is SearchRenderAction.OnError -> previousState.copy(view = SearchViewState.View.OnError)
         is SearchRenderAction.OnSuccess -> previousState.copy(view = SearchViewState.View.OnSuccess(renderAction.accountEntity))
         is SearchRenderAction.ViewAccount -> previousState.copy(view = SearchViewState.View.ViewAccount(renderAction.accountEntity))
     }

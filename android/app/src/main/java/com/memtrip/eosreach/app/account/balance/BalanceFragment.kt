@@ -31,13 +31,10 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
 import com.memtrip.eosreach.app.account.AccountParentRefresh
 import com.memtrip.eosreach.app.account.AccountTheme
-
-import com.memtrip.eosreach.app.account.actions.DefaultActionsActivity.Companion.actionsDefaultIntent
 import com.memtrip.eosreach.app.manage.ManageCreateAccountActivity.Companion.manageCreateAccountIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.account_balance_fragment.*

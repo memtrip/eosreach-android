@@ -22,7 +22,6 @@ import com.memtrip.eosreach.api.ApiModule
 import com.memtrip.eosreach.api.RequestModule
 import com.memtrip.eosreach.app.account.AccountModule
 import com.memtrip.eosreach.app.account.actions.ActionsModule
-import com.memtrip.eosreach.app.account.navigation.AccountNavigationModule
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthModule
 import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamModule
 import com.memtrip.eosreach.app.account.vote.cast.CastModule

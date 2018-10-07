@@ -33,7 +33,6 @@ import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountTheme
-import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthManageActivity.Companion.manageBandwidthIntent
 import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamActivity.Companion.manageRamIntent
 import com.memtrip.eosreach.uikit.gone
@@ -41,7 +40,6 @@ import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_resources_fragment.*
-
 import javax.inject.Inject
 
 abstract class ResourcesFragment
@@ -216,7 +214,7 @@ abstract class ResourcesFragment
             contractBalanceAccount: ContractAccountBalance,
             accountTheme: AccountTheme
         ): ResourcesFragment {
-            return when(accountTheme) {
+            return when (accountTheme) {
                 AccountTheme.DEFAULT -> {
                     with(DefaultResourcesFragment()) {
                         arguments = with (Bundle()) {

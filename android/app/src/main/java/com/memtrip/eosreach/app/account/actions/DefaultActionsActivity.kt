@@ -2,13 +2,7 @@ package com.memtrip.eosreach.app.account.actions
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
-import android.os.Bundle
-import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
-import com.memtrip.eosreach.app.account.AccountTheme
-import com.memtrip.eosreach.uikit.gone
-import kotlinx.android.synthetic.main.account_actions_activity.*
 
 class DefaultActionsActivity : ActionsActivity() {
 

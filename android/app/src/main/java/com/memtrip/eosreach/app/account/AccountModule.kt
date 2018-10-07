@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.account
 
-import com.memtrip.eosreach.app.account.balance.BalanceFragment
 import com.memtrip.eosreach.app.account.balance.BalanceFragmentModule
 import com.memtrip.eosreach.app.account.balance.DefaultBalanceFragment
 import com.memtrip.eosreach.app.account.balance.ReadOnlyBalanceFragment
@@ -24,11 +23,9 @@ import com.memtrip.eosreach.app.account.navigation.AccountNavigationFragment
 import com.memtrip.eosreach.app.account.navigation.AccountNavigationModule
 import com.memtrip.eosreach.app.account.resources.DefaultResourcesFragment
 import com.memtrip.eosreach.app.account.resources.ReadOnlyResourcesFragment
-import com.memtrip.eosreach.app.account.resources.ResourcesFragment
 import com.memtrip.eosreach.app.account.resources.ResourcesFragmentModule
 import com.memtrip.eosreach.app.account.vote.DefaultVoteFragment
 import com.memtrip.eosreach.app.account.vote.ReadOnlyVoteFragment
-import com.memtrip.eosreach.app.account.vote.VoteFragment
 import com.memtrip.eosreach.app.account.vote.VoteFragmentModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

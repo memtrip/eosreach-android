@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModel
 import com.memtrip.eosreach.app.ViewModelKey
 import dagger.Binds
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module

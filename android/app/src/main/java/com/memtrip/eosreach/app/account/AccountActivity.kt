@@ -17,18 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.account
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
-import android.view.Menu
 import androidx.core.content.ContextCompat
-import androidx.core.view.GravityCompat
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.search.SearchActivity.Companion.searchIntent
-
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.start
 import com.memtrip.eosreach.uikit.stop

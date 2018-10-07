@@ -4,4 +4,5 @@ import com.memtrip.eos.core.crypto.EosPrivateKey
 
 data class ViewKeyPair(
     val eosPrivateKey: EosPrivateKey,
-    val associatedAccounts: List<String>)
+    val associatedAccounts: List<String>
+)
