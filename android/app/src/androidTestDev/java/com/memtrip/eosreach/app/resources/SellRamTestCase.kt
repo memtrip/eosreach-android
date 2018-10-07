@@ -23,14 +23,9 @@ import com.memtrip.eosreach.app.Config
 class SellRamTestCase : DevTestCase() {
 
     override fun test() {
-        splashRobot.navigateImportKey()
-        importKeyRobot
-            .typePrivateKey(Config.PRIVATE_KEY)
-            .selectImportButton()
-        accountListRobot
-            .selectFirstAccountRow()
+        importKeyOrchestra.go(Config.PRIVATE_KEY)
         accountRobot
-            .verifyAccountSuccess()
+            .verifyAccountScreen()
             .selectResourcesTab()
         resourcesRobot
             .verifyResourcesScreen()

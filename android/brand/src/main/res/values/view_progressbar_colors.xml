@@ -2,7 +2,7 @@
 <resources>
 
     <color name="viewProgressBarHorizontalRamBackground">#FFE242</color>
-    <color name="viewProgressBarHorizontalCpuBackground">#FF42B6</color>
+    <color name="viewProgressBarHorizontalCpuBackground">#7E42FF</color>
     <color name="viewProgressBarHorizontalNetBackground">#429AFF</color>
 
 </resources>
