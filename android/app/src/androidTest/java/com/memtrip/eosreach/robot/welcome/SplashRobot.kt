@@ -25,15 +25,22 @@ import com.memtrip.eosreach.R
 
 class SplashRobot {
 
-    fun navigateCreateAccount(): SplashRobot {
+    fun selectCreateAccount(): SplashRobot {
         onView(ViewMatchers.withId(R.id.welcome_splash_create_account_button))
             .check(ViewAssertions.matches(isDisplayed()))
             .perform(ViewActions.click())
         return this
     }
 
-    fun navigateImportKey(): SplashRobot {
+    fun selectImportKey(): SplashRobot {
         onView(ViewMatchers.withId(R.id.welcome_splash_import_private_key_button))
+            .check(ViewAssertions.matches(isDisplayed()))
+            .perform(ViewActions.click())
+        return this
+    }
+
+    fun selectExplore(): SplashRobot {
+        onView(ViewMatchers.withId(R.id.welcome_splash_explore_button))
             .check(ViewAssertions.matches(isDisplayed()))
             .perform(ViewActions.click())
         return this

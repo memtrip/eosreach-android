@@ -24,7 +24,7 @@ class BillingFlowSuccessTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountName()

@@ -6,7 +6,7 @@ import com.memtrip.eosreach.robot.account.actions.ActionsRobot
 import com.memtrip.eosreach.robot.account.balance.BalanceRobot
 import com.memtrip.eosreach.robot.account.resources.ResourcesRobot
 import com.memtrip.eosreach.robot.account.vote.VoteRobot
-import com.memtrip.eosreach.robot.accountlist.AccountNavigationRobot
+import com.memtrip.eosreach.robot.account.AccountNavigationRobot
 import com.memtrip.eosreach.robot.issue.CreateAccountRobot
 import com.memtrip.eosreach.robot.issue.ImportKeyRobot
 import com.memtrip.eosreach.robot.settings.SettingsRobot

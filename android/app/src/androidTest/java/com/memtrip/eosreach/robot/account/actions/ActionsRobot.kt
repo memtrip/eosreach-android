@@ -23,6 +23,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.memtrip.eosreach.R
+import org.hamcrest.CoreMatchers.not
 
 class ActionsRobot {
 
@@ -40,6 +41,14 @@ class ActionsRobot {
         onView(ViewMatchers.withId(R.id.account_actions_transfer_button))
             .check(matches(isDisplayed()))
             .perform(click())
+        return this
+    }
+
+    fun verifyActionsReadOnlyScreen(): ActionsRobot {
+        onView(withId(R.id.account_actions_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.account_actions_navigation))
+            .check(matches(not(isDisplayed())))
         return this
     }
 }

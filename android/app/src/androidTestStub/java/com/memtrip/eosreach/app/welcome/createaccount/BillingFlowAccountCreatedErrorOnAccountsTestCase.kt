@@ -29,7 +29,7 @@ class BillingFlowAccountCreatedErrorOnAccountsTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountName()
@@ -44,7 +44,7 @@ class BillingFlowAccountCreatedErrorOnAccountsTestCase : StubTestCase() {
             .pressBack()
             .pressBack()
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .selectImportKeyRetryButton()
         accountRobot

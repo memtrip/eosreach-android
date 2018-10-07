@@ -22,7 +22,7 @@ import com.memtrip.eosreach.billing.BillingConnectionResponse
 class BillingConnectionSkuNotAvailableTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot.navigateCreateAccount()
+        splashRobot.selectCreateAccount()
         createAccountRobot.verifySkuNotFound()
     }
 

@@ -24,7 +24,7 @@ class BillingFlowAccountNumericStartTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountNameStartingWithNumber()

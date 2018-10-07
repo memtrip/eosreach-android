@@ -35,7 +35,7 @@ class BillingFlowSuccessCreateAccountFailedNoAccountsForPublicKeyTestCase : Stub
 
     override fun test() {
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountName()

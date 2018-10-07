@@ -30,6 +30,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.memtrip.eosreach.R
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.not
 
 class AccountRobot {
 
@@ -130,15 +131,30 @@ class AccountRobot {
         return this
     }
 
-    fun selectOverflowMenu(): AccountRobot {
-        openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
-        return this
-    }
-
-    fun selectSettingsMenuItem(): AccountRobot {
+    fun selectSearchMenuItem(): AccountRobot {
         onView(withId(R.id.account_menu_search))
             .check(matches(isDisplayed()))
             .perform(click())
+        return this
+    }
+
+    fun verifyResourcesReadOnly(): AccountRobot {
+        onView(withId(R.id.resources_manage_title))
+            .check(matches(not(isDisplayed())))
+        onView(withId(R.id.resources_manage_bandwidth_button))
+            .check(matches(not(isDisplayed())))
+        onView(withId(R.id.resources_manage_ram_button))
+            .check(matches(not(isDisplayed())))
+        return this
+    }
+
+    fun verifyVoteReadOnly(): AccountRobot {
+        onView(withId(R.id.vote_cast_vote_title))
+            .check(matches(not(isDisplayed())))
+        onView(withId(R.id.vote_cast_vote_producer_button))
+            .check(matches(not(isDisplayed())))
+        onView(withId(R.id.vote_cast_vote_proxy_button))
+            .check(matches(not(isDisplayed())))
         return this
     }
 }

@@ -6,7 +6,7 @@ class NoPrivateKeysTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateImportKey()
+            .selectImportKey()
         importKeyRobot
             .selectSettingsButton()
         settingsRobot

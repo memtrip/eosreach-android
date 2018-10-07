@@ -24,7 +24,7 @@ class BillingFlowAccountLengthTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountNameUnder12Characters()

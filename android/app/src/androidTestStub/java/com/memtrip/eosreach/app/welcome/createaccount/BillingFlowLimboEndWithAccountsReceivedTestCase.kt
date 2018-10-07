@@ -40,7 +40,7 @@ class BillingFlowLimboEndWithAccountsReceivedTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountName()
@@ -53,7 +53,7 @@ class BillingFlowLimboEndWithAccountsReceivedTestCase : StubTestCase() {
             .pressBack()
             .pressBack()
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyLimboScreen()
             .selectLimboRetryButton()

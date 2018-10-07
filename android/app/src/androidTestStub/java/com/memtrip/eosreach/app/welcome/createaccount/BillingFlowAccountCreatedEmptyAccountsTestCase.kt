@@ -30,7 +30,7 @@ class BillingFlowAccountCreatedEmptyAccountsTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .verifyEnterAccountNameScreen()
             .typeAccountName()
@@ -45,7 +45,7 @@ class BillingFlowAccountCreatedEmptyAccountsTestCase : StubTestCase() {
             .pressBack()
             .pressBack()
         splashRobot
-            .navigateCreateAccount()
+            .selectCreateAccount()
         createAccountRobot
             .selectImportKeyRetryButton()
         accountRobot

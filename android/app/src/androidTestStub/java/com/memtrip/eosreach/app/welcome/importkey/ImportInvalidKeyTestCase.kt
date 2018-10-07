@@ -22,7 +22,7 @@ class ImportInvalidKeyTestCase : StubTestCase() {
 
     override fun test() {
         splashRobot
-            .navigateImportKey()
+            .selectImportKey()
         importKeyRobot
             .verifyImportKeyScreen()
             .typePrivateKey("invalid_key")

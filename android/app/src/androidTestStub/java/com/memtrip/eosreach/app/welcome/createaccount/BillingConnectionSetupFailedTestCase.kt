@@ -22,7 +22,7 @@ import com.memtrip.eosreach.billing.BillingConnectionResponse
 class BillingConnectionSetupFailedTestCase : StubTestCase() {
 
     override fun test() {
-        splashRobot.navigateCreateAccount()
+        splashRobot.selectCreateAccount()
         createAccountRobot.verifyBillingUnavailable()
     }
 
