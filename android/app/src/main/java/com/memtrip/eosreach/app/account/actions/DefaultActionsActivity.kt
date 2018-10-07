@@ -3,8 +3,11 @@ package com.memtrip.eosreach.app.account.actions
 import android.content.Context
 import android.content.Intent
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
+import com.memtrip.eosreach.app.account.AccountTheme
 
 class DefaultActionsActivity : ActionsActivity() {
+
+    override fun accountTheme(): AccountTheme = AccountTheme.DEFAULT
 
     companion object {
 

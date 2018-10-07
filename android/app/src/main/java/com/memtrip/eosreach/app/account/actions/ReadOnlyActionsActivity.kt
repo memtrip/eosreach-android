@@ -6,10 +6,13 @@ import android.content.res.Resources
 import android.os.Bundle
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
+import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.uikit.gone
 import kotlinx.android.synthetic.main.account_actions_activity.*
 
 class ReadOnlyActionsActivity : ActionsActivity() {
+
+    override fun accountTheme(): AccountTheme = AccountTheme.READ_ONLY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

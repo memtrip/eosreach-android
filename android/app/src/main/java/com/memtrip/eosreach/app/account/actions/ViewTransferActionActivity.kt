@@ -18,6 +18,7 @@ package com.memtrip.eosreach.app.account.actions
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import com.jakewharton.rxbinding2.view.RxView
@@ -25,6 +26,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountTheme
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_actions_view_transfer.*
@@ -40,8 +42,10 @@ class ViewTransferActionActivity
     lateinit var render: ViewTransferActionViewRenderer
 
     private lateinit var accountAction: AccountAction.Transfer
+    private lateinit var accountTheme: AccountTheme
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        accountTheme = accountThemeExtra(intent)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.account_actions_view_transfer)
         setSupportActionBar(account_actions_view_transfer_action_toolbar)
@@ -49,6 +53,14 @@ class ViewTransferActionActivity
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         accountAction = actionsExtra(intent)
+    }
+
+    override fun getTheme(): Resources.Theme {
+        val theme = super.getTheme()
+        if (accountTheme == AccountTheme.READ_ONLY) {
+            theme.applyStyle(R.style.ReadOnlyAppTheme, true)
+        }
+        return theme
     }
 
     override fun inject() {
@@ -90,16 +102,26 @@ class ViewTransferActionActivity
     companion object {
 
         private const val ACCOUNT_ACTION_TRANSFER = "ACCOUNT_ACTION_TRANSFER"
+        private const val ACCOUNT_THEME = "ACCOUNT_THEME"
 
-        fun viewTransferActionIntent(accountAction: AccountAction.Transfer, context: Context): Intent {
+        fun viewTransferActionIntent(
+            accountAction: AccountAction.Transfer,
+            accountTheme: AccountTheme,
+            context: Context
+        ): Intent {
             return with (Intent(context, ViewTransferActionActivity::class.java)) {
                 putExtra(ACCOUNT_ACTION_TRANSFER, accountAction)
+                putExtra(ACCOUNT_THEME, accountTheme)
                 this
             }
         }
 
         fun actionsExtra(intent: Intent): AccountAction.Transfer {
             return intent.getParcelableExtra(ACCOUNT_ACTION_TRANSFER) as AccountAction.Transfer
+        }
+
+        fun accountThemeExtra(intent: Intent): AccountTheme {
+            return intent.getSerializableExtra(ACCOUNT_THEME) as AccountTheme
         }
     }
 }

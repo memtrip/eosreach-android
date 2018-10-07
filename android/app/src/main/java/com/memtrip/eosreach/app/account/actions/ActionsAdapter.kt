@@ -19,6 +19,7 @@ package com.memtrip.eosreach.app.account.actions
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.actions.model.AccountAction
@@ -38,6 +39,14 @@ class AccountActionsAdapter(
     override fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<AccountAction> {
         return AccountActionsViewHolder(
             inflater.inflate(R.layout.account_actions_list_item_row, parent, false))
+    }
+
+    override fun defaultRowMargin(position: Int, view: View) {
+        if (position == data.size - 1) {
+            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = marginSize
+        } else {
+            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
+        }
     }
 }
 

@@ -27,6 +27,7 @@ import com.memtrip.eosreach.api.actions.model.AccountAction
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountTheme
 
 import com.memtrip.eosreach.app.account.actions.ViewTransferActionActivity.Companion.viewTransferActionIntent
 import com.memtrip.eosreach.app.transfer.form.TransferFormActivity.Companion.transferFormIntent
@@ -49,6 +50,8 @@ abstract class ActionsActivity
 
     @Inject
     lateinit var render: ActionsViewRenderer
+
+    abstract fun accountTheme(): AccountTheme
 
     private lateinit var adapter: AccountActionsAdapter
     private lateinit var contractAccountBalance: ContractAccountBalance
@@ -146,7 +149,7 @@ abstract class ActionsActivity
         model().publish(ActionsIntent.Idle)
         when (accountAction) {
             is AccountAction.Transfer -> {
-                startActivity(viewTransferActionIntent(accountAction, this))
+                startActivity(viewTransferActionIntent(accountAction, accountTheme(), this))
             }
         }
     }
