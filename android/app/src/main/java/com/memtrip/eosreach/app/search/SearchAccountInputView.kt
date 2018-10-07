@@ -27,7 +27,6 @@ class SearchAccountInputView @JvmOverloads constructor(
             InputFilter.LengthFilter(resources.getInteger(R.integer.app_account_name_length))
         )
 
-        uikit_search_input_view_icon.drawable.setTint(ContextCompat.getColor(context, R.color.colorAccent))
         uikit_search_input_view_edittext.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
     }
 }
