@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="viewProgressBarHorizontalRamBackground">#9994FF00</color>
-    <color name="viewProgressBarHorizontalCpuBackground">#99E900FF</color>
-    <color name="viewProgressBarHorizontalNetBackground">#99009DFF</color>
+    <color name="viewProgressBarHorizontalRamBackground">#FFE242</color>
+    <color name="viewProgressBarHorizontalCpuBackground">#FF42B6</color>
+    <color name="viewProgressBarHorizontalNetBackground">#429AFF</color>
 
 </resources>

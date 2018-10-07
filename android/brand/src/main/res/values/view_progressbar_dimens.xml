@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="view_progressbar_height">28dp</dimen>
+    <dimen name="view_progressbar_height">16dp</dimen>
     <dimen name="view_progressbar_corner_radius">4dp</dimen>
 
 </resources>

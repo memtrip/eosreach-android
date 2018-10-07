@@ -90,10 +90,10 @@
         <!-- ram -->
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/resources_ram_title"
-            style="@style/Typography.Medium"
+            style="@style/Typography.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_medium"
             android:text="@string/resources_ram_title"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
@@ -124,7 +124,7 @@
             android:id="@+id/resources_ram_spacer"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_medium"
             android:background="@color/colorSpacerBorder"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
@@ -135,10 +135,10 @@
         <!-- cpu -->
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/resources_cpu_title"
-            style="@style/Typography.Medium"
+            style="@style/Typography.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_medium"
             android:text="@string/resources_cpu_title"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
@@ -219,7 +219,7 @@
             android:id="@+id/resources_cpu_spacer"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_medium"
             android:background="@color/colorSpacerBorder"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
@@ -230,10 +230,10 @@
         <!-- net -->
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/resources_net_title"
-            style="@style/Typography.Medium"
+            style="@style/Typography.Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_large"
+            android:layout_marginTop="@dimen/padding_medium"
             android:text="@string/resources_net_title"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
