@@ -21,8 +21,7 @@ import com.memtrip.eosreach.StubTestCase
 class AccountListTestCase : StubTestCase() {
 
     override fun test() {
-        importKeyOrchestra
-            .go()
+        importKeyOrchestra.go("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
         accountNavigationRobot
             .selectNavigationIcon()
             .verifyAccountNavigationScreen()
