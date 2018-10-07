@@ -21,17 +21,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.jakewharton.rxbinding2.view.RxView
-
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.issue.importkey.ImportKeyIntent
 import com.memtrip.eosreach.app.search.SearchActivity.Companion.searchIntent
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountActivity.Companion.welcomeCreateAccountIntent
 import com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyActivity.Companion.welcomeImportKeyIntent
 import dagger.android.AndroidInjection
-
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.welcome_splash_activity.*
 import javax.inject.Inject

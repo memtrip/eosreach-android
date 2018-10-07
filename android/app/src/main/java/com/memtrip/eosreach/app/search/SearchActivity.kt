@@ -3,7 +3,6 @@ package com.memtrip.eosreach.app.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
