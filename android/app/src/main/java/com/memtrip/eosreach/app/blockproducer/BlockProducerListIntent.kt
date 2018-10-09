@@ -14,14 +14,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.blockproducerlist
+package com.memtrip.eosreach.app.blockproducer
 
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
+import com.memtrip.mxandroid.MxViewIntent
 
-@Module
-abstract class BlockProducerListModule {
-
-    @ContributesAndroidInjector(modules = [BlockProducerListActivityModule::class])
-    internal abstract fun contributeBlockProducerListActivity(): BlockProducerListActivity
+sealed class BlockProducerListIntent : MxViewIntent {
+    object Idle : BlockProducerListIntent()
+    object Init : BlockProducerListIntent()
+    object Retry : BlockProducerListIntent()
+    data class BlockProducerSelected(
+        val blockProducerDetails: BlockProducerDetails
+    ) : BlockProducerListIntent()
+    data class BlockProducerInformationSelected(
+        val blockProducerDetails: BlockProducerDetails
+    ) : BlockProducerListIntent()
 }

@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.api.blockproducer
 
-import com.memtrip.eos.chain.actions.query.producer.BlockProducer
 import com.memtrip.eos.chain.actions.query.producer.GetBlockProducersAggregate
 
 import com.memtrip.eosreach.api.Result
@@ -30,12 +29,23 @@ class BlockProducerRequestImpl @Inject internal constructor(
     private val rxSchedulers: RxSchedulers
 ) : BlockProducerRequest {
 
-    override fun getBlockProducers(limit: Int): Single<Result<List<BlockProducer>, BlockProducerError>> {
+    override fun getBlockProducers(limit: Int): Single<Result<List<BlockProducerDetails>, BlockProducerError>> {
         return blockProducersAggregate.getProducers(limit)
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
-            .map {
-                Result<List<BlockProducer>, BlockProducerError>(it)
+            .map { blockProducers ->
+                Result<List<BlockProducerDetails>, BlockProducerError>(blockProducers.map { blockProducer ->
+                    BlockProducerDetails(
+                        blockProducer.producer.owner,
+                        blockProducer.bpJson.org.candidate_name,
+                        blockProducer.apiEndpoint,
+                        blockProducer.bpJson.org.website,
+                        blockProducer.bpJson.org.code_of_conduct,
+                        blockProducer.bpJson.org.ownership_disclosure,
+                        blockProducer.bpJson.org.email,
+                        blockProducer.bpJson.org.branding.logo_256
+                    )
+                })
             }
             .onErrorReturn {
                 Result(BlockProducerError())

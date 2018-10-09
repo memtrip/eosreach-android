@@ -73,10 +73,21 @@ abstract class StubApi(
         StubMatcher(
             context.getString(R.string.app_default_eos_endpoint_root),
             Regex("v1/chain/get_table_rows$"),
-            readJsonFile("stub/request/request_get_customtoken_table_rows.json")
+            readJsonFile("stub/request/request_get_table_rows_customtoken.json")
         ),
         BasicStubRequest(200, {
-            readJsonFile("stub/happypath/happy_path_get_customtoken_table_rows.json")
+            readJsonFile("stub/happypath/happy_path_get_table_rows_customtoken.json")
+        })
+    )
+
+    open fun getTableRowsProducerJson(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_table_rows$"),
+            readJsonFile("stub/request/request_get_table_rows_producerjson.json")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_table_rows_producerjson.json")
         })
     )
 
@@ -87,6 +98,16 @@ abstract class StubApi(
         ),
         BasicStubRequest(200, {
             readJsonFile("stub/happypath/happy_path_get_actions.json")
+        })
+    )
+
+    open fun getBlockProducers(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_producers$")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_producers.json")
         })
     )
 
@@ -133,6 +154,8 @@ abstract class StubApi(
         pushTransaction(),
         getPriceForCurrency(),
         createAccount(),
-        getCustomTokensTableRows()
+        getCustomTokensTableRows(),
+        getTableRowsProducerJson(),
+        getBlockProducers()
     )
 }

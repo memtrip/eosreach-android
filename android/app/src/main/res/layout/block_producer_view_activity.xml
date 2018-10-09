@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/block_producer_view_details_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="96dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/block_producer_view_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:background="#FFFF00"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/block_producer_view_frame_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/view_button_transparent_background_rounded"
+        tools:background="#FF0000"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toTopOf="@+id/block_producer_view_candidate_name_label"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintBottom_toBottomOf="@+id/block_producer_view_frame_end"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/block_producer_view_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="block_producer_view_frame_background,block_producer_view_icon,block_producer_view_candidate_name_label,block_producer_view_website_label,block_producer_view_email_label,block_producer_view_owner_account_button,block_producer_view_code_of_conduct_button,block_producer_view_ownership_disclosure_button"
+        tools:ignore="MissingConstraints" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/block_producer_view_icon"
+        android:layout_width="@dimen/block_producer_logo_size"
+        android:layout_height="@dimen/block_producer_logo_size"
+        app:placeholderImage="@drawable/app_toolbar_eosio_logo"
+        android:layout_marginStart="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large_giant"
+        android:importantForAccessibility="no"
+        tools:background="#0000FF"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toTopOf="@+id/block_producer_view_candidate_name_label"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.H6"
+        android:id="@+id/block_producer_view_candidate_name_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large"
+        tools:text="EOS New York"
+        app:layout_constraintLeft_toLeftOf="@+id/block_producer_view_details_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_toolbar" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.Body1"
+        android:id="@+id/block_producer_view_website_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:textColor="@color/colorSecondary"
+        tools:text="http://www.eosnewyork.io"
+        app:layout_constraintLeft_toLeftOf="@+id/block_producer_view_details_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_candidate_name_label" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.Body1"
+        android:id="@+id/block_producer_view_email_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:textColor="@color/colorSecondary"
+        tools:text="hello@eosnewyork.io"
+        app:layout_constraintLeft_toLeftOf="@+id/block_producer_view_details_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_website_label" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonPrimary"
+        android:id="@+id/block_producer_view_owner_account_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
+        android:layout_marginStart="@dimen/padding_large"
+        android:text="@string/block_producer_view_owner_account"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_email_label" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonTransparent"
+        android:id="@+id/block_producer_view_code_of_conduct_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginStart="@dimen/padding_large"
+        android:text="@string/block_producer_code_of_conduct_button"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_owner_account_button" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        style="@style/ButtonTransparent"
+        android:id="@+id/block_producer_view_ownership_disclosure_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginStart="@dimen/padding_large"
+        android:text="@string/block_producer_ownership_disclosure_button"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_code_of_conduct_button" />
+
+    <View
+        android:id="@+id/block_producer_view_frame_end"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/padding_large"
+        android:background="@null"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_ownership_disclosure_button" />
+
+    <com.memtrip.eosreach.uikit.ErrorCompositeView
+        android:id="@+id/block_producer_view_error_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_large"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    
+    <ProgressBar
+        android:id="@+id/block_producer_view_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/block_producer_view_toolbar" />
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

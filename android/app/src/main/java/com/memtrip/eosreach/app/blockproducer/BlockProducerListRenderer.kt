@@ -14,26 +14,31 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.blockproducerlist
+package com.memtrip.eosreach.app.blockproducer
 
-import com.memtrip.eosreach.db.blockproducer.BlockProducerEntity
+import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
 import javax.inject.Inject
 
 sealed class BlockProducerListRenderAction : MxRenderAction {
+    object Idle : BlockProducerListRenderAction()
     object OnProgress : BlockProducerListRenderAction()
     object OnError : BlockProducerListRenderAction()
-    data class OnSuccess(val blockProducerList: List<BlockProducerEntity>) : BlockProducerListRenderAction()
-    data class BlockProducerSelected(val blockProducer: BlockProducerEntity) : BlockProducerListRenderAction()
+    data class OnSuccess(val blockProducerList: List<BlockProducerDetails>) : BlockProducerListRenderAction()
+    data class BlockProducerSelected(val blockProducer: BlockProducerDetails) : BlockProducerListRenderAction()
+    data class BlockProducerInformationSelected(
+        val blockProducerDetails: BlockProducerDetails
+    ) : BlockProducerListRenderAction()
 }
 
 interface BlockProducerListViewLayout : MxViewLayout {
     fun showProgress()
     fun showError()
-    fun populate(blockProducerList: List<BlockProducerEntity>)
-    fun blockProducerSelected(blockProducer: BlockProducerEntity)
+    fun populate(blockProducerList: List<BlockProducerDetails>)
+    fun blockProducerSelected(blockProducerDetails: BlockProducerDetails)
+    fun blockProducerInformationSelected(blockProducerDetails: BlockProducerDetails)
 }
 
 class BlockProducerListViewRenderer @Inject internal constructor() : MxViewRenderer<BlockProducerListViewLayout, BlockProducerListViewState> {
@@ -51,6 +56,9 @@ class BlockProducerListViewRenderer @Inject internal constructor() : MxViewRende
         }
         is BlockProducerListViewState.View.BlockProducerSelected -> {
             layout.blockProducerSelected(state.view.blockProducer)
+        }
+        is BlockProducerListViewState.View.BlockProducerInformationSelected -> {
+            layout.blockProducerInformationSelected(state.view.blockProducerDetails)
         }
     }
 }

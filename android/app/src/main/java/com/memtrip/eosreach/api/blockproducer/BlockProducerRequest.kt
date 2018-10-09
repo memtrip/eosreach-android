@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.api.blockproducer
 
-import com.memtrip.eos.chain.actions.query.producer.BlockProducer
 import com.memtrip.eosreach.api.ApiError
 import com.memtrip.eosreach.api.Result
 
@@ -24,7 +23,7 @@ import io.reactivex.Single
 
 interface BlockProducerRequest {
 
-    fun getBlockProducers(limit: Int): Single<Result<List<BlockProducer>, BlockProducerError>>
+    fun getBlockProducers(limit: Int): Single<Result<List<BlockProducerDetails>, BlockProducerError>>
 }
 
 class BlockProducerError : ApiError

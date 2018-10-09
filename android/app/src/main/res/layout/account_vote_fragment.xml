@@ -108,7 +108,6 @@
         style="@style/Typography.H6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorSecondary"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"

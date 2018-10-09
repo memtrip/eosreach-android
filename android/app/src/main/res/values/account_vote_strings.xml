@@ -26,8 +26,9 @@
         Vote for up to 30 Block Producer Candidates.
     </string>
     <string name="vote_cast_producers_vote_add_button">Add</string>
+    <string name="vote_cast_producers_vote_list_button">Add from list</string>
     <string name="vote_cast_producers_vote_remove_button">Remove</string>
-    <string name="vote_cast_vote_pick_from_blockproducer">Choose block producer</string>
+    <string name="vote_cast_vote_pick_from_block_producer">Block producer list</string>
     <string name="vote_cast_vote_button">Vote</string>
     <string name="vote_cast_vote_error_message">
         An error occurred while processing your vote transaction, see the log for more information.

@@ -14,15 +14,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.blockproducerlist
+package com.memtrip.eosreach.app.blockproducer
 
 import android.app.Application
+import com.memtrip.eosreach.api.blockproducer.BlockProducerRequest
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class BlockProducerListViewModel @Inject internal constructor(
-    private val blockProducerListUseCase: BlockProducerListUseCase,
+    private val blockProducerRequest: BlockProducerRequest,
     application: Application
 ) : MxViewModel<BlockProducerListIntent, BlockProducerListRenderAction, BlockProducerListViewState>(
     BlockProducerListViewState(view = BlockProducerListViewState.View.Idle),
@@ -30,12 +31,16 @@ class BlockProducerListViewModel @Inject internal constructor(
 ) {
 
     override fun dispatcher(intent: BlockProducerListIntent): Observable<BlockProducerListRenderAction> = when (intent) {
+        BlockProducerListIntent.Idle -> Observable.just(BlockProducerListRenderAction.Idle)
         BlockProducerListIntent.Init -> getBlockProducerList()
         BlockProducerListIntent.Retry -> getBlockProducerList()
-        is BlockProducerListIntent.BlockProducerSelected -> Observable.just(BlockProducerListRenderAction.BlockProducerSelected(intent.blockProducerEntity))
+        is BlockProducerListIntent.BlockProducerSelected -> Observable.just(BlockProducerListRenderAction.BlockProducerSelected(intent.blockProducerDetails))
+        is BlockProducerListIntent.BlockProducerInformationSelected -> Observable.just(BlockProducerListRenderAction.BlockProducerInformationSelected(intent.blockProducerDetails))
     }
 
     override fun reducer(previousState: BlockProducerListViewState, renderAction: BlockProducerListRenderAction): BlockProducerListViewState = when (renderAction) {
+        BlockProducerListRenderAction.Idle -> previousState.copy(
+            view = BlockProducerListViewState.View.Idle)
         BlockProducerListRenderAction.OnProgress -> previousState.copy(
             view = BlockProducerListViewState.View.OnProgress)
         BlockProducerListRenderAction.OnError -> previousState.copy(
@@ -43,8 +48,9 @@ class BlockProducerListViewModel @Inject internal constructor(
         is BlockProducerListRenderAction.OnSuccess -> previousState.copy(
             view = BlockProducerListViewState.View.OnSuccess(renderAction.blockProducerList))
         is BlockProducerListRenderAction.BlockProducerSelected -> previousState.copy(
-            view = BlockProducerListViewState.View.BlockProducerSelected(renderAction.blockProducer)
-        )
+            view = BlockProducerListViewState.View.BlockProducerSelected(renderAction.blockProducer))
+        is BlockProducerListRenderAction.BlockProducerInformationSelected -> previousState.copy(
+            view = BlockProducerListViewState.View.BlockProducerInformationSelected(renderAction.blockProducerDetails))
     }
 
     override fun filterIntents(intents: Observable<BlockProducerListIntent>): Observable<BlockProducerListIntent> = Observable.merge(
@@ -55,12 +61,11 @@ class BlockProducerListViewModel @Inject internal constructor(
     )
 
     private fun getBlockProducerList(): Observable<BlockProducerListRenderAction> {
-        return blockProducerListUseCase
-            .getBlockProducers()
+        return blockProducerRequest.getBlockProducers(50)
             .toObservable()
-            .flatMap<BlockProducerListRenderAction> { blockProducerEntities ->
-                if (blockProducerEntities.isNotEmpty()) {
-                    Observable.just(BlockProducerListRenderAction.OnSuccess(blockProducerEntities))
+            .flatMap<BlockProducerListRenderAction> { response ->
+                if (response.success) {
+                    Observable.just(BlockProducerListRenderAction.OnSuccess(response.data!!))
                 } else {
                     Observable.just(BlockProducerListRenderAction.OnError)
                 }

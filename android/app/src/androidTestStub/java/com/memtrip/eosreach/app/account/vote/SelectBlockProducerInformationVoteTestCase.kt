@@ -14,26 +14,30 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.vote
+package com.memtrip.eosreach.app.account.vote
 
-import com.memtrip.eosreach.DevTestCase
-import com.memtrip.eosreach.app.Config
+import com.memtrip.eosreach.StubTestCase
 
-class ProducerVoteTestCase : DevTestCase() {
+class SelectBlockProducerInformationVoteTestCase : StubTestCase() {
 
     override fun test() {
-        importKeyOrchestra.go(Config.PRIVATE_KEY)
+        importKeyOrchestra.go("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
         accountRobot
             .verifyAccountScreen()
+            .verifyAvailableBalance()
             .selectVoteTab()
         voteRobot
+            .verifyNotVotedScreen()
             .selectVoteForProducers()
             .verifyVoteForProducersScreen()
-            .selectVoteForProducersAddButton()
-            .typeCastProducerVote("memtripblock")
-            .verifyVotedSingleBlockProducersScreen()
-
-        voteRobot
-            .verifyVotedBlockProducersScreen()
+            .selectAddBlockProducerFromList()
+        blockProducerRobot
+            .verifyBlockProducerListScreen()
+            .verifyBlockProducerListFirstAccountRow()
+            .selectBlockProducerListFirstAccountRowInformation()
+            .verifyViewBlockProducerInformationScreen()
+            .selectViewOwnerAccount()
+        accountRobot
+            .verifyAccountScreen()
     }
 }

@@ -7,7 +7,7 @@
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/cast_producers_vote_blockproducer_instructions_label"
-        style="@style/Typography.Body1"
+        style="@style/Typography.Caption"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_large"
@@ -22,25 +22,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginLeft="@dimen/padding_large"
-        android:layout_marginRight="@dimen/padding_large"
+        android:layout_marginStart="@dimen/padding_large"
         android:text="@string/vote_cast_producers_vote_add_button"
         app:layout_constraintTop_toBottomOf="@id/cast_producers_vote_blockproducer_instructions_label"
         app:layout_constraintLeft_toLeftOf="parent" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/cast_producers_vote_blockproducer_form_block_producer_list"
+        style="?button_transparent_caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginStart="@dimen/padding_medium"
+        android:layout_marginEnd="@dimen/padding_large"
+        android:text="@string/vote_cast_producers_vote_list_button"
+        app:layout_constraintLeft_toRightOf="@+id/cast_producers_vote_blockproducer_form_add"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cast_producers_vote_blockproducer_instructions_label" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/cast_producers_vote_blockproducer_form_scrollview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/padding_large"
         android:layout_marginTop="@dimen/padding_medium"
-        android:layout_marginEnd="@dimen/padding_large"
+        android:layout_marginStart="@dimen/padding_large"
+        android:layout_marginEnd="@dimen/padding_medium"
         android:layout_marginBottom="@dimen/padding_medium"
-        tools:background="#FF0000"
-        app:layout_constraintTop_toBottomOf="@id/cast_producers_vote_blockproducer_form_add"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cast_producers_vote_button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cast_producers_vote_button">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cast_producers_vote_blockproducer_form_add"
+        tools:background="#FF0000">
 
         <LinearLayout
             android:id="@+id/cast_producers_vote_blockproducer_form_container"

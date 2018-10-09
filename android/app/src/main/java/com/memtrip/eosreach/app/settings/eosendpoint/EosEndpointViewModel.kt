@@ -18,11 +18,9 @@ package com.memtrip.eosreach.app.settings.eosendpoint
 
 import android.app.Application
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.db.blockproducer.DeleteBlockProducers
 import com.memtrip.eosreach.db.sharedpreferences.EosEndpoint
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
-import io.reactivex.Single
 import java.net.MalformedURLException
 import java.net.URL
 import javax.inject.Inject
@@ -30,7 +28,6 @@ import javax.inject.Inject
 class EosEndpointViewModel @Inject internal constructor(
     private val eosEndpointUseCase: EosEndpointUseCase,
     private val eosEndPoint: EosEndpoint,
-    private val deleteBlockProducers: DeleteBlockProducers,
     application: Application
 ) : MxViewModel<EosEndpointIntent, EosEndpointRenderAction, EosEndpointViewState>(
     EosEndpointViewState(
@@ -78,19 +75,17 @@ class EosEndpointViewModel @Inject internal constructor(
                 context().getString(R.string.eos_endpoint_validation_nothing_changed, endpointUrl)))
         } else {
             return eosEndpointUseCase.getInfo(endpointUrl)
-                .flatMap { result ->
+                .map { result ->
                     if (result.success) {
                         if (!endpointUrl.endsWith("/")) {
                             eosEndPoint.put("$endpointUrl/")
                         } else {
                             eosEndPoint.put(endpointUrl)
                         }
-                        deleteBlockProducers
-                            .remove()
-                            .toSingleDefault<EosEndpointRenderAction.OnSuccess>(EosEndpointRenderAction.OnSuccess)
+                        EosEndpointRenderAction.OnSuccess
                     } else {
-                        Single.just(EosEndpointRenderAction.OnError(
-                            context().getString(R.string.eos_endpoint_validation_generic)))
+                        EosEndpointRenderAction.OnError(
+                            context().getString(R.string.eos_endpoint_validation_generic))
                     }
                 }.toObservable().startWith(EosEndpointRenderAction.OnProgress)
         }

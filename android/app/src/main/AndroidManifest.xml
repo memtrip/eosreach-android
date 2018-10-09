@@ -27,7 +27,8 @@
         <activity android:name=".app.welcome.createaccount.WelcomeCreateAccountActivity" />
         <activity android:name=".app.welcome.importkey.WelcomeImportKeyActivity" />
 
-        <activity android:name=".app.blockproducerlist.BlockProducerListActivity" />
+        <activity android:name=".app.blockproducer.BlockProducerListActivity" />
+        <activity android:name=".app.blockproducer.ViewBlockProducerActivity" />
 
         <activity android:name=".app.account.DefaultAccountActivity" />
         <activity android:name=".app.account.ReadonlyAccountActivity" />

@@ -26,8 +26,9 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity
-import com.memtrip.eosreach.app.blockproducerlist.BlockProducerListActivity.Companion.blockProducerList
+import com.memtrip.eosreach.app.blockproducer.BlockProducerListActivity
+import com.memtrip.eosreach.app.blockproducer.BlockProducerListActivity.Companion.blockProducerDetailsFromIntent
+import com.memtrip.eosreach.app.blockproducer.BlockProducerListActivity.Companion.blockProducerListIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
@@ -57,7 +58,7 @@ class EosEndpointActivity
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == BlockProducerListActivity.RESULT_CODE) {
-            val blockProducerBundle = BlockProducerListActivity.fromIntent(data!!)
+            val blockProducerBundle = blockProducerDetailsFromIntent(data!!)
             eos_endpoint_url_input.setText(blockProducerBundle.apiUrl, TextView.BufferType.EDITABLE)
         }
     }
@@ -124,7 +125,7 @@ class EosEndpointActivity
 
     override fun navigateToBlockProducerList() {
         model().publish(EosEndpointIntent.Idle)
-        startActivityForResult(blockProducerList(this), BlockProducerListActivity.RESULT_CODE)
+        startActivityForResult(blockProducerListIntent(this), BlockProducerListActivity.RESULT_CODE)
     }
 
     companion object {

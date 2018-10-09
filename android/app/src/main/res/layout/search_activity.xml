@@ -16,6 +16,7 @@
         android:id="@+id/search_input_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_large"
         android:layout_marginStart="@dimen/padding_large"
         android:layout_marginEnd="@dimen/padding_large"
         app:layout_constraintLeft_toLeftOf="parent"

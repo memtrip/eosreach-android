@@ -14,20 +14,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.db.blockproducer
+package com.memtrip.eosreach.app.blockproducer
 
-import com.memtrip.eosreach.utils.RxSchedulers
-import io.reactivex.Single
-import javax.inject.Inject
+import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
+import com.memtrip.mxandroid.MxViewState
 
-class GetBlockProducers @Inject internal constructor(
-    private val blockProducerDao: BlockProducerDao,
-    private val rxSchedulers: RxSchedulers
-) {
+data class BlockProducerListViewState(val view: View) : MxViewState {
 
-    fun select(): Single<List<BlockProducerEntity>> {
-        return Single.fromCallable { blockProducerDao.getBlockProducers() }
-            .observeOn(rxSchedulers.main())
-            .subscribeOn(rxSchedulers.background())
+    sealed class View {
+        object Idle : View()
+        object OnProgress : View()
+        object OnError : View()
+        data class OnSuccess(val blockProducers: List<BlockProducerDetails>) : View()
+        data class BlockProducerSelected(val blockProducer: BlockProducerDetails) : View()
+        data class BlockProducerInformationSelected(
+            val blockProducerDetails: BlockProducerDetails
+        ) : View()
     }
 }

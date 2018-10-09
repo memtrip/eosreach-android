@@ -43,7 +43,8 @@ class CastProducersVoteViewModel @Inject internal constructor(
         CastProducersVoteIntent.Idle -> Observable.just(CastProducersVoteRenderAction.Idle)
         is CastProducersVoteIntent.Init -> Observable.just(populate(intent.eosAccountVote))
         is CastProducersVoteIntent.AddProducerField -> Observable.just(addProducerField(intent.nextPosition, intent.currentTotal))
-        is CastProducersVoteIntent.RemoveProducerField -> Observable.just(removeProducerField(intent.removePosition))
+        is CastProducersVoteIntent.InsertProducerField -> Observable.just(insertProducerField(intent.nextPosition, intent.currentTotal, intent.producerName))
+        is CastProducersVoteIntent.RemoveProducerField -> Observable.just(CastProducersVoteRenderAction.RemoveProducerField(intent.removePosition))
         is CastProducersVoteIntent.Vote -> vote(intent.voterAccountName, intent.blockProducers)
         is CastProducersVoteIntent.ViewLog -> Observable.just(CastProducersVoteRenderAction.ViewLog(intent.log))
     }
@@ -65,6 +66,9 @@ class CastProducersVoteViewModel @Inject internal constructor(
             view = CastProducersVoteViewState.View.OnSuccess)
         is CastProducersVoteRenderAction.ViewLog -> previousState.copy(
             view = CastProducersVoteViewState.View.ViewLog(renderAction.log))
+        is CastProducersVoteRenderAction.InsertProducerField -> previousState.copy(
+            view = CastProducersVoteViewState.View.InsertProducerField(
+                renderAction.nextPosition, renderAction.producerName))
     }
 
     override fun filterIntents(intents: Observable<CastProducersVoteIntent>): Observable<CastProducersVoteIntent> = Observable.merge(
@@ -78,7 +82,7 @@ class CastProducersVoteViewModel @Inject internal constructor(
         if (eosAccountVote != null && eosAccountVote.producers.isNotEmpty()) {
             return CastProducersVoteRenderAction.AddExistingProducers(eosAccountVote.producers)
         } else {
-            return CastProducersVoteRenderAction.AddProducerField(0)
+            return CastProducersVoteRenderAction.Idle
         }
     }
 
@@ -105,18 +109,18 @@ class CastProducersVoteViewModel @Inject internal constructor(
     }
 
     private fun addProducerField(position: Int, total: Int): CastProducersVoteRenderAction {
-        return if (total >= 29) {
+        return if (total >= 30) {
             CastProducersVoteRenderAction.Idle
         } else {
             CastProducersVoteRenderAction.AddProducerField(position)
         }
     }
 
-    private fun removeProducerField(position: Int): CastProducersVoteRenderAction {
-        return if (position == 0) {
+    private fun insertProducerField(position: Int, total: Int, producerName: String): CastProducersVoteRenderAction {
+        return if (total >= 30) {
             CastProducersVoteRenderAction.Idle
         } else {
-            CastProducersVoteRenderAction.RemoveProducerField(position)
+            CastProducersVoteRenderAction.InsertProducerField(position, producerName)
         }
     }
 }

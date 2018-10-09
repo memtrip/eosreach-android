@@ -3,5 +3,5 @@
     <attr name="button_transparent" format="reference"/>
     <attr name="button_transparent_caption" format="reference"/>
     <attr name="button_transparent_item" format="reference"/>
-    <attr name="transparent_border" format="reference"/>
+    <attr name="transparent_border_color" format="reference"/>
 </resources>

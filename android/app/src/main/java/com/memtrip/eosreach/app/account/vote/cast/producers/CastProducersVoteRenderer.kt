@@ -27,6 +27,7 @@ sealed class CastProducersVoteRenderAction : MxRenderAction {
     data class AddExistingProducers(val producers: List<String>) : CastProducersVoteRenderAction()
     data class AddProducerField(val nextPosition: Int) : CastProducersVoteRenderAction()
     data class RemoveProducerField(val position: Int) : CastProducersVoteRenderAction()
+    data class InsertProducerField(val nextPosition: Int, val producerName: String) : CastProducersVoteRenderAction()
     data class OnError(val message: String, val log: String) : CastProducersVoteRenderAction()
     object OnSuccess : CastProducersVoteRenderAction()
     data class ViewLog(val log: String) : CastProducersVoteRenderAction()
@@ -34,7 +35,8 @@ sealed class CastProducersVoteRenderAction : MxRenderAction {
 
 interface CastProducersVoteViewLayout : MxViewLayout {
     fun populateWidthExistingProducerList(producers: List<String>)
-    fun adProducerRow(position: Int)
+    fun addProducerRow(position: Int)
+    fun insertProducerField(position: Int, value: String = "")
     fun removeProducerField(position: Int)
     fun showProgress()
     fun showError(message: String, log: String)
@@ -47,7 +49,7 @@ class CastProducersVoteViewRenderer @Inject internal constructor() : MxViewRende
         CastProducersVoteViewState.View.Idle -> {
         }
         is CastProducersVoteViewState.View.AddProducerField -> {
-            layout.adProducerRow(state.view.nextPosition)
+            layout.addProducerRow(state.view.nextPosition)
         }
         is CastProducersVoteViewState.View.AddExistingProducers -> {
             layout.populateWidthExistingProducerList(state.view.producers)
@@ -66,6 +68,9 @@ class CastProducersVoteViewRenderer @Inject internal constructor() : MxViewRende
         }
         is CastProducersVoteViewState.View.ViewLog -> {
             layout.viewLog(state.view.log)
+        }
+        is CastProducersVoteViewState.View.InsertProducerField -> {
+            layout.insertProducerField(state.view.nextPosition, state.view.producerName)
         }
     }
 }

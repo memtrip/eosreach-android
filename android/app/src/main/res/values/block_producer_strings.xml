@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="block_producer_list_toolbar_title">Block producers</string>
+    <string name="block_producer_list_error_title">Failed to fetch block producers</string>
+    <string name="block_producer_list_error_body">
+        If this problem persists please select a different blockchain endpoint in Settings.
+    </string>
+    <string name="block_producer_list_item_details_content_description">View block producer details</string>
+
+    <string name="block_producer_view_invalid_url">The url [%s] is invalid.</string>
+
+    <string name="block_producer_code_of_conduct_button">Code of conduct</string>
+    <string name="block_producer_ownership_disclosure_button">Ownership disclosure</string>
+    <string name="block_producer_view_owner_account">View owner account</string>
+    <string name="block_producer_email">Send email to %s</string>
+
+</resources>

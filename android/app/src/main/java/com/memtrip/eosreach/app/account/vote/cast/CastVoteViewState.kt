@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.account.vote.cast
 
-import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.mxandroid.MxViewState
 
 data class CastVoteViewState(
@@ -26,6 +25,6 @@ data class CastVoteViewState(
 
     sealed class View {
         object Idle : View()
-        data class Populate(val eosAccount: EosAccount) : View()
+        object Populate : View()
     }
 }

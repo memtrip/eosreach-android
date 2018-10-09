@@ -18,6 +18,8 @@ package com.memtrip.eosreach
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -36,6 +38,23 @@ fun atPosition(position: Int, itemMatcher: Matcher<View>): Matcher<View> {
         override fun matchesSafely(view: RecyclerView): Boolean {
             val viewHolder = view.findViewHolderForAdapterPosition(position)
             return viewHolder != null && itemMatcher.matches(viewHolder.itemView)
+        }
+    }
+}
+
+fun clickChildViewWithId(id: Int): ViewAction {
+    return object : ViewAction {
+        override fun getConstraints(): Matcher<View>? {
+            return null
+        }
+
+        override fun getDescription(): String {
+            return "Click on a child view with specified id."
+        }
+
+        override fun perform(uiController: UiController, view: View) {
+            val v = view.findViewById<View>(id)
+            v.performClick()
         }
     }
 }

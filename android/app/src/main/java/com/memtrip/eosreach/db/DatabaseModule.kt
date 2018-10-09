@@ -19,9 +19,9 @@ package com.memtrip.eosreach.db
 import android.app.Application
 import androidx.room.Room
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.db.AppDatabase.Companion.MIGRATION_1_2
 import com.memtrip.eosreach.db.account.AccountDao
 import com.memtrip.eosreach.db.airdrop.BalanceDao
-import com.memtrip.eosreach.db.blockproducer.BlockProducerDao
 import com.memtrip.eosreach.db.transaction.TransactionLogDao
 import dagger.Module
 import dagger.Provides
@@ -37,7 +37,7 @@ class DatabaseModule {
             application.applicationContext,
             AppDatabase::class.java,
             application.getString(R.string.app_database_name)
-        ).fallbackToDestructiveMigration().build()
+        ).addMigrations(MIGRATION_1_2).build()
     }
 
     @Provides
@@ -47,10 +47,6 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun balanceDao(appDatabase: AppDatabase): BalanceDao = appDatabase.balanceDao()
-
-    @Provides
-    @Singleton
-    fun blockProducerDao(appDatabase: AppDatabase): BlockProducerDao = appDatabase.blockProducerDao()
 
     @Provides
     @Singleton

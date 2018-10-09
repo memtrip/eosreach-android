@@ -20,7 +20,6 @@ import android.app.Application
 import com.memtrip.eosreach.db.PurgePreferences
 import com.memtrip.eosreach.db.account.DeleteAccounts
 import com.memtrip.eosreach.db.airdrop.DeleteBalances
-import com.memtrip.eosreach.db.blockproducer.DeleteBlockProducers
 import com.memtrip.eosreach.db.sharedpreferences.EosPriceCurrencyPair
 import com.memtrip.eosreach.db.transaction.DeleteTransactionLog
 import com.memtrip.eosreach.wallet.EosKeyManager
@@ -32,7 +31,6 @@ class SettingsViewModel @Inject internal constructor(
     private val deleteAccounts: DeleteAccounts,
     private val deleteTransactionLog: DeleteTransactionLog,
     private val deleteBalances: DeleteBalances,
-    private val deleteBlockProducers: DeleteBlockProducers,
     private val eosKeyManager: EosKeyManager,
     private val purgePreferences: PurgePreferences,
     private val eosPriceCurrencyPair: EosPriceCurrencyPair,
@@ -96,9 +94,6 @@ class SettingsViewModel @Inject internal constructor(
             }
             .doOnComplete {
                 deleteBalances.remove()
-            }
-            .doOnComplete {
-                deleteBlockProducers.remove()
             }
             .doOnComplete {
                 eosKeyManager.removeKeystoreEntries()

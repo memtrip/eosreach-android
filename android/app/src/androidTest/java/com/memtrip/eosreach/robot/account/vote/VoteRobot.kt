@@ -21,13 +21,14 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.atPosition
+import org.hamcrest.CoreMatchers.allOf
 
 class VoteRobot {
 
@@ -47,6 +48,14 @@ class VoteRobot {
         onView(withId(R.id.vote_producer_vote_list_recyclerview))
             .check(matches(atPosition(0, hasDescendant(withText("memtripblock")))))
             .check(matches(atPosition(1, hasDescendant(withText("eosflareiobp")))))
+        return this
+    }
+
+    fun verifyVotedSingleBlockProducersScreen(): VoteRobot {
+        onView(withId(R.id.vote_producer_vote_title_label))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.vote_producer_vote_list_recyclerview))
+            .check(matches(atPosition(0, hasDescendant(withText("memtripblock")))))
         return this
     }
 
@@ -73,6 +82,13 @@ class VoteRobot {
         return this
     }
 
+    fun selectAddBlockProducerFromList(): VoteRobot {
+        onView(withId(R.id.cast_producers_vote_blockproducer_form_block_producer_list))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
     fun verifyVoteForProducersScreen(): VoteRobot {
         onView(withId(R.id.cast_producers_vote_blockproducer_instructions_label))
             .check(matches(isDisplayed()))
@@ -85,9 +101,36 @@ class VoteRobot {
         return this
     }
 
-    fun typeCastProducerVote(value: String): VoteRobot {
-        onView(withId(R.id.cast_producers_vote_blockproducer_form_scrollview))
+    fun selectVoteForProducersAddButton(): VoteRobot {
+        onView(withId(R.id.cast_producers_vote_blockproducer_form_add))
             .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun verifyBlockProducerFormEntryValue(value: String): VoteRobot {
+        onView(allOf(
+            withId(R.id.cast_producers_vote_blockproducer_name_input),
+            isDescendantOfA(withId(R.id.cast_producers_vote_blockproducer_form_container))
+        )).check(matches(isDisplayed()))
+            .check(matches(withText(value)))
+        return this
+    }
+
+    fun typeCastProducerVote(value: String): VoteRobot {
+        onView(allOf(
+            isDescendantOfA(withId(R.id.cast_producers_vote_blockproducer_form_container)),
+            withId(R.id.cast_producers_vote_blockproducer_name_input)
+        )).check(matches(isDisplayed()))
+            .perform(typeText(value))
+            .perform(closeSoftKeyboard())
+        return this
+    }
+
+    fun selectCastProducerVoteButton(): VoteRobot {
+        onView(withId(R.id.cast_producers_vote_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 

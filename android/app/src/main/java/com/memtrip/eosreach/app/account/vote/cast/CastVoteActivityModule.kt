@@ -30,5 +30,5 @@ abstract class CastVoteActivityModule {
     @Binds
     @IntoMap
     @ViewModelKey(CastVoteViewModel::class)
-    internal abstract fun contributesVoteViewModel(viewModel: CastVoteViewModel): ViewModel
+    internal abstract fun contributesCastVoteViewModel(viewModel: CastVoteViewModel): ViewModel
 }

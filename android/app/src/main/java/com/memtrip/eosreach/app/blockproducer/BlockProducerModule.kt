@@ -14,17 +14,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.db.blockproducer
+package com.memtrip.eosreach.app.blockproducer
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-@Entity(tableName = "BlockProducer")
-data class BlockProducerEntity(
-    @ColumnInfo(name = "accountName") val accountName: String,
-    @ColumnInfo(name = "candidateName") val candidateName: String,
-    @ColumnInfo(name = "apiUrl") val apiUrl: String,
-    @ColumnInfo(name = "logoUrl") val logoUrl: String? = null,
-    @PrimaryKey(autoGenerate = true) val uid: Int = 0
-)
+@Module
+abstract class BlockProducerModule {
+
+    @ContributesAndroidInjector(modules = [BlockProducerListActivityModule::class])
+    internal abstract fun contributeBlockProducerListActivity(): BlockProducerListActivity
+
+    @ContributesAndroidInjector(modules = [ViewBlockProducerActivityModule::class])
+    internal abstract fun contributeViewBlockProducerActivity(): ViewBlockProducerActivity
+}

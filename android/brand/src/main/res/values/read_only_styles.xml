@@ -13,7 +13,7 @@
         <item name="button_transparent">@style/ButtonTransparentReadOnly</item>
         <item name="button_transparent_caption">@style/ButtonTransparentCaptionReadOnly</item>
         <item name="button_transparent_item">@style/ButtonTransparentItemReadOnly</item>
-        <item name="transparent_border">@color/viewButtonTransparentReadOnlyBorder</item>
+        <item name="transparent_border_color">@color/viewButtonTransparentReadOnlyBorder</item>
     </style>
 
 </resources>

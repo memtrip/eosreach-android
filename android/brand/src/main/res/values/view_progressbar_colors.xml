@@ -3,6 +3,6 @@
 
     <color name="viewProgressBarHorizontalRamBackground">#FFE242</color>
     <color name="viewProgressBarHorizontalCpuBackground">#7E42FF</color>
-    <color name="viewProgressBarHorizontalNetBackground">#429AFF</color>
+    <color name="viewProgressBarHorizontalNetBackground">#77F23E</color>
 
 </resources>

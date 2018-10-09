@@ -16,8 +16,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/block_producer_list_item_logo"
-        android:layout_width="@dimen/blockproducer_list_item_logo_size"
-        android:layout_height="@dimen/blockproducer_list_item_logo_size"
+        android:layout_width="@dimen/block_producer_logo_size"
+        android:layout_height="@dimen/block_producer_logo_size"
         app:placeholderImage="@drawable/app_toolbar_eosio_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,14 +28,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/blockproducer_list_item_logo_guideline_margin" />
+        app:layout_constraintGuide_begin="@dimen/block_producer_list_item_logo_guideline_margin" />
 
     <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/block_producer_list_item_account_name"
         style="@style/Typography.H6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/padding_medium"
+        app:layout_constraintEnd_toStartOf="@+id/block_producer_list_item_information"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="memtripblock" />
@@ -45,10 +46,23 @@
         style="@style/Typography.Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_medium"
         android:textColor="@color/colorSecondary"
         app:layout_constraintStart_toStartOf="@+id/vertical_start_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/block_producer_list_item_information"
         app:layout_constraintTop_toBottomOf="@id/block_producer_list_item_account_name"
         tools:text="memtrip" />
+
+    <ImageView
+        android:id="@+id/block_producer_list_item_information"
+        android:layout_width="@dimen/block_producer_information_size"
+        android:layout_height="@dimen/block_producer_information_size"
+        android:src="@drawable/block_producer_details"
+        android:focusable="true"
+        android:clickable="true"
+        android:contentDescription="@string/block_producer_list_item_details_content_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

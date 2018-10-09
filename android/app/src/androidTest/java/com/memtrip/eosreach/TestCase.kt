@@ -25,6 +25,7 @@ import com.memtrip.eosreach.robot.account.balance.BalanceRobot
 import com.memtrip.eosreach.robot.account.resources.ResourcesRobot
 import com.memtrip.eosreach.robot.account.search.SearchRobot
 import com.memtrip.eosreach.robot.account.vote.VoteRobot
+import com.memtrip.eosreach.robot.blockproducer.BlockProducerRobot
 import com.memtrip.eosreach.robot.issue.CreateAccountRobot
 import com.memtrip.eosreach.robot.issue.ImportKeyRobot
 import com.memtrip.eosreach.robot.settings.SettingsRobot
@@ -50,6 +51,7 @@ abstract class TestCase {
     internal val actionsRobot = ActionsRobot()
     internal val transferRobot = TransferRobot()
     internal val transactionRobot = TransactionRobot()
+    internal val blockProducerRobot = BlockProducerRobot()
     internal val settingsRobot = SettingsRobot()
 
     internal val importKeyOrchestra = ImportKeyOrchestra()

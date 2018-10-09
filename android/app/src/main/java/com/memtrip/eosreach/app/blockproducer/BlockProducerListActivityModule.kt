@@ -14,15 +14,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.blockproducerlist
+package com.memtrip.eosreach.app.blockproducer
 
-import com.memtrip.eosreach.db.blockproducer.BlockProducerEntity
-import com.memtrip.mxandroid.MxViewIntent
+import androidx.lifecycle.ViewModel
+import com.memtrip.eosreach.app.ViewModelKey
 
-sealed class BlockProducerListIntent : MxViewIntent {
-    object Init : BlockProducerListIntent()
-    object Retry : BlockProducerListIntent()
-    data class BlockProducerSelected(
-        val blockProducerEntity: BlockProducerEntity
-    ) : BlockProducerListIntent()
+import dagger.Binds
+import dagger.Module
+
+import dagger.multibindings.IntoMap
+
+@Module
+abstract class BlockProducerListActivityModule {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BlockProducerListViewModel::class)
+    internal abstract fun contributesBlockProducerListViewModel(viewModel: BlockProducerListViewModel): ViewModel
 }
