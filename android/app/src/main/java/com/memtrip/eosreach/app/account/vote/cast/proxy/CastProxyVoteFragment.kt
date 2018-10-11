@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.account.vote.cast.proxy
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
@@ -31,6 +32,11 @@ import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ParentActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
+import com.memtrip.eosreach.app.account.vote.cast.producers.CastProducersVoteIntent
+import com.memtrip.eosreach.app.blockproducer.BlockProducerListActivity
+import com.memtrip.eosreach.app.proxyvoter.ProxyVoterListActivity
+import com.memtrip.eosreach.app.proxyvoter.ProxyVoterListActivity.Companion.proxyVoterDetailsFromIntent
+import com.memtrip.eosreach.app.proxyvoter.ProxyVoterListActivity.Companion.proxyVoterListIntent
 
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
 
@@ -63,7 +69,21 @@ class CastProxyVoteFragment
             AccountNameInputFilter(),
             InputFilter.LengthFilter(context!!.resources.getInteger(R.integer.app_account_name_length))
         )
+
+        view.cast_proxy_explore_proxy_accounts_button.setOnClickListener {
+            model().publish(CastProxyVoteIntent.Idle)
+            startActivityForResult(proxyVoterListIntent(context!!), 0)
+        }
+
         return view
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == ProxyVoterListActivity.RESULT_CODE) {
+            val proxyVoteDetails = proxyVoterDetailsFromIntent(data!!)
+            cast_proxy_vote_name_input.setText(proxyVoteDetails.owner)
+        }
     }
 
     override fun inject() {

@@ -28,6 +28,7 @@ import com.memtrip.eosreach.app.account.vote.cast.CastModule
 import com.memtrip.eosreach.app.blockproducer.BlockProducerModule
 import com.memtrip.eosreach.app.manage.ManageModule
 import com.memtrip.eosreach.app.price.PriceModule
+import com.memtrip.eosreach.app.proxyvoter.ProxyVoterModule
 import com.memtrip.eosreach.app.search.SearchModule
 import com.memtrip.eosreach.app.settings.SettingsModule
 import com.memtrip.eosreach.app.transaction.TransactionModule
@@ -61,6 +62,7 @@ import javax.inject.Singleton
         SettingsModule::class,
         SearchModule::class,
         BlockProducerModule::class,
+        ProxyVoterModule::class,
         BillingModule::class,
         DatabaseModule::class,
         SecurityModule::class,

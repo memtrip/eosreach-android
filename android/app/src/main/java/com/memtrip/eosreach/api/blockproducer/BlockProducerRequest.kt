@@ -24,6 +24,8 @@ import io.reactivex.Single
 interface BlockProducerRequest {
 
     fun getBlockProducers(limit: Int): Single<Result<List<BlockProducerDetails>, BlockProducerError>>
+
+    fun getSingleBlockProducer(accountName: String): Single<Result<BlockProducerDetails, BlockProducerError>>
 }
 
 class BlockProducerError : ApiError

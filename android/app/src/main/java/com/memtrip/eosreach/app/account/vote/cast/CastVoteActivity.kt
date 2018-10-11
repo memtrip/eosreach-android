@@ -88,7 +88,7 @@ class CastVoteActivity
 
     override fun populate(page: CastVoteFragmentPagerFragment.Page) {
 
-        model().publish(CastVoteIntent.CastProducerVoteTabIdle)
+        publishIdleTab(page)
 
         val castVotePagerFragment = CastVoteFragmentPagerFragment(
             supportFragmentManager,

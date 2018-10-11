@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.api.blockproducer
 
-import com.memtrip.eos.chain.actions.query.producer.GetBlockProducersAggregate
+import com.memtrip.eos.chain.actions.query.producer.GetBlockProducers
 
 import com.memtrip.eosreach.api.Result
 import com.memtrip.eosreach.utils.RxSchedulers
@@ -25,18 +25,18 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class BlockProducerRequestImpl @Inject internal constructor(
-    private val blockProducersAggregate: GetBlockProducersAggregate,
+    private val blockProducers: GetBlockProducers,
     private val rxSchedulers: RxSchedulers
 ) : BlockProducerRequest {
 
     override fun getBlockProducers(limit: Int): Single<Result<List<BlockProducerDetails>, BlockProducerError>> {
-        return blockProducersAggregate.getProducers(limit)
+        return blockProducers.getProducers(limit)
             .observeOn(rxSchedulers.main())
             .subscribeOn(rxSchedulers.background())
             .map { blockProducers ->
                 Result<List<BlockProducerDetails>, BlockProducerError>(blockProducers.map { blockProducer ->
                     BlockProducerDetails(
-                        blockProducer.producer.owner,
+                        blockProducer.bpJson.producer_account_name,
                         blockProducer.bpJson.org.candidate_name,
                         blockProducer.apiEndpoint,
                         blockProducer.bpJson.org.website,
@@ -46,6 +46,29 @@ class BlockProducerRequestImpl @Inject internal constructor(
                         blockProducer.bpJson.org.branding.logo_256
                     )
                 })
+            }
+            .onErrorReturn {
+                Result(BlockProducerError())
+            }
+    }
+
+    override fun getSingleBlockProducer(accountName: String): Single<Result<BlockProducerDetails, BlockProducerError>> {
+        return blockProducers.getSingleProducer(accountName)
+            .observeOn(rxSchedulers.main())
+            .subscribeOn(rxSchedulers.background())
+            .map { blockProducer ->
+                Result<BlockProducerDetails, BlockProducerError>(
+                    BlockProducerDetails(
+                        blockProducer.bpJson.producer_account_name,
+                        blockProducer.bpJson.org.candidate_name,
+                        blockProducer.apiEndpoint,
+                        blockProducer.bpJson.org.website,
+                        blockProducer.bpJson.org.code_of_conduct,
+                        blockProducer.bpJson.org.ownership_disclosure,
+                        blockProducer.bpJson.org.email,
+                        blockProducer.bpJson.org.branding.logo_256
+                    )
+                )
             }
             .onErrorReturn {
                 Result(BlockProducerError())

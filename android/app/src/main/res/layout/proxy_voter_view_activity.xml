@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/proxy_voter_view_details_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="96dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/padding_large" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/padding_large" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/proxy_voter_view_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/proxy_voter_view_frame_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/view_button_transparent_background_rounded"
+        tools:background="#FF0000"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toTopOf="@+id/proxy_voter_view_candidate_name_label"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintBottom_toBottomOf="@+id/proxy_voter_view_frame_end"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/proxy_voter_view_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="proxy_voter_view_frame_background,proxy_voter_view_icon,proxy_voter_view_candidate_name_label,proxy_voter_view_slogan_label,proxy_voter_view_website_button,proxy_voter_view_owner_account_button,proxy_voter_view_philosophy_container,proxy_voter_view_frame_end"
+        tools:ignore="MissingConstraints" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/proxy_voter_view_icon"
+        android:layout_width="@dimen/proxy_voter_logo_size"
+        android:layout_height="@dimen/proxy_voter_logo_size"
+        app:placeholderImage="@drawable/app_toolbar_eosio_logo"
+        android:layout_marginStart="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large_giant"
+        android:importantForAccessibility="no"
+        tools:background="#0000FF"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toTopOf="@+id/proxy_voter_view_candidate_name_label"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.H6"
+        android:id="@+id/proxy_voter_view_candidate_name_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large"
+        tools:text="EOS New York"
+        app:layout_constraintLeft_toLeftOf="@+id/proxy_voter_view_details_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/proxy_voter_view_toolbar" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.Medium"
+        android:id="@+id/proxy_voter_view_slogan_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginEnd="@dimen/padding_large"
+        tools:text="This is the slogan, I suppose it will move across multiple lines, I need to check the contract and see its length!"
+        app:layout_constraintLeft_toLeftOf="@+id/proxy_voter_view_details_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/proxy_voter_view_candidate_name_label" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/proxy_voter_view_website_button"
+        style="@style/ButtonTransparentCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/proxy_voter_view_website"
+        app:layout_constraintStart_toStartOf="@+id/proxy_voter_view_details_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/proxy_voter_view_slogan_label" />
+
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/proxy_voter_view_owner_account_button"
+        style="@style/ButtonTransparentCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/proxy_voter_view_owner_account"
+        app:layout_constraintStart_toStartOf="@+id/proxy_voter_view_details_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/proxy_voter_view_website_button" />
+
+    <ScrollView
+        android:id="@+id/proxy_voter_view_philosophy_container"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/proxy_voter_philosophy"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginEnd="@dimen/padding_large"
+        tools:background="#00FF00"
+        app:layout_constraintLeft_toLeftOf="@+id/proxy_voter_view_details_start_guideline"
+        app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/proxy_voter_view_owner_account_button">
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/proxy_voter_view_philosophy_label"
+            style="@style/Typography.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="This is the slogan, I suppose it will move across multiple lines, I need to check the contract and see its length!" />
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/proxy_voter_view_frame_end"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/padding_large"
+        android:background="@null"
+        app:layout_constraintLeft_toLeftOf="@+id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/proxy_voter_view_philosophy_container" />
+    
+    <ProgressBar
+        android:id="@+id/proxy_voter_view_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.memtrip.eosreach.uikit.ErrorCompositeView
+        android:id="@+id/proxy_voter_view_error_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/proxy_voter_view_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

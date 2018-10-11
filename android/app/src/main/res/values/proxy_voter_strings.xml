@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="proxy_voter_list_toolbar_title">Proxy voters</string>
+    <string name="proxy_voter_list_error_title">Failed to fetch vote proxies</string>
+    <string name="proxy_voter_list_error_body">
+        If this problem persists please select a different blockchain endpoint in Settings.
+    </string>
+    <string name="proxy_voter_list_item_details_content_description">View proxy voter details</string>
+
+    <string name="proxy_voter_view_website">Website</string>
+    <string name="proxy_voter_view_owner_account">View account</string>
+    <string name="proxy_voter_view_invalid_url">The url [%s] is invalid.</string>
+
+    <string name="proxy_voter_view_error_title">
+        Proxy voter not found
+    </string>
+    <string name="proxy_voter_view_error_body">
+        We only display proxy voter information that has been pushed to the regproxyinfo smart contract.
+    </string>
+
+</resources>

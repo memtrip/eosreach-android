@@ -26,4 +26,6 @@ sealed class VoteIntent : MxViewIntent {
     data class VoteForUs(val eosAccount: EosAccount) : VoteIntent()
     object NavigateToCastProducerVote : VoteIntent()
     object NavigateToCastProxyVote : VoteIntent()
+    data class NavigateToViewProducer(val accountName: String) : VoteIntent()
+    data class NavigateToViewProxy(val accountName: String) : VoteIntent()
 }

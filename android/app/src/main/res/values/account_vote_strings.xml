@@ -30,6 +30,7 @@
     <string name="vote_cast_producers_vote_remove_button">Remove</string>
     <string name="vote_cast_vote_pick_from_block_producer">Block producer list</string>
     <string name="vote_cast_vote_button">Vote</string>
+    <string name="vote_cast_vote_explore_proxy_accounts_button">Explore proxy accounts</string>
     <string name="vote_cast_vote_error_message">
         An error occurred while processing your vote transaction, see the log for more information.
     </string>

@@ -81,3 +81,7 @@ intents by distinctUntilChanged)
 - All EOS values in the app should be formatted with 0.0000
 - When no results actions are found for airdrop results, query another 3 sets before determining that there
 are no airdrop actions.
+
+### Credits
+- [Join us on telegram](http://t.me/joinchat/JcIXl0x7wC9cRI5uF_EiQA)
+- [Developed by memtrip.com](http://memtrip.com)

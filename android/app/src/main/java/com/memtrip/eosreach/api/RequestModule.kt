@@ -34,6 +34,8 @@ import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequestImpl
 import com.memtrip.eosreach.api.eosprice.EosPriceRequest
 import com.memtrip.eosreach.api.eosprice.EosPriceRequestImpl
+import com.memtrip.eosreach.api.proxyvoter.ProxyVoterRequest
+import com.memtrip.eosreach.api.proxyvoter.ProxyVoterRequestImpl
 import com.memtrip.eosreach.api.ram.RamRequest
 import com.memtrip.eosreach.api.ram.RamRequestImpl
 import com.memtrip.eosreach.api.ramprice.RamPriceRequest
@@ -102,6 +104,11 @@ internal abstract class RequestModule {
     internal abstract fun bindBlockProducerRequest(
         blockProducerRequest: BlockProducerRequestImpl
     ): BlockProducerRequest
+
+    @Binds
+    internal abstract fun bindProxyVoterRequest(
+        bindProxyVoterRequest: ProxyVoterRequestImpl
+    ): ProxyVoterRequest
 
     @Binds
     internal abstract fun bindEosPriceRequest(

@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_tiny"
         android:layout_marginStart="@dimen/padding_small"
-        android:textColor="@color/colorSecondary"
+        android:textColor="?colorSecondary"
         tools:text="http://eos.memtrip.com/"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/eos_endpoint_current_url_label"

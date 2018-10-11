@@ -35,6 +35,9 @@ import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity.Companion.castVoteIntent
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteFragmentPagerFragment
+import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerActivity.Companion.viewBlockProducerIntentWithName
+import com.memtrip.eosreach.app.proxyvoter.ViewProxyVoterActivity.Companion.viewProxyVoterIntentWithName
+import com.memtrip.eosreach.app.proxyvoter.ViewProxyVoterDisplayAction
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -58,6 +61,8 @@ abstract class VoteFragment
     private lateinit var adapter: VoteProducerAdapter
     private lateinit var eosAccount: EosAccount
     private lateinit var accountParentRefresh: AccountParentRefresh
+
+    abstract fun accountTheme(): AccountTheme
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -84,11 +89,15 @@ abstract class VoteFragment
         }
     }
 
-    override fun intents(): Observable<VoteIntent> = Observable.merge(
+    override fun intents(): Observable<VoteIntent> = Observable.mergeArray(
         Observable.just(VoteIntent.Init(eosAccountBundle(arguments!!).eosAcconuntVote)),
         RxView.clicks(vote_cast_vote_producer_button).map { VoteIntent.NavigateToCastProducerVote },
         RxView.clicks(vote_cast_vote_proxy_button).map { VoteIntent.NavigateToCastProxyVote },
-        RxView.clicks(vote_no_vote_castvote_button).map { VoteIntent.VoteForUs(eosAccount) }
+        RxView.clicks(vote_no_vote_castvote_button).map { VoteIntent.VoteForUs(eosAccount) },
+        adapter.interaction.map { VoteIntent.NavigateToViewProducer(it.data) },
+        RxView.clicks(vote_proxy_view_proxy_voter_button).map {
+            VoteIntent.NavigateToViewProxy(vote_proxy_view_proxy_voter_button.text.toString())
+        }
     )
 
     override fun layout(): VoteViewLayout = this
@@ -100,7 +109,7 @@ abstract class VoteFragment
     override fun populateProxyVote(proxyVoter: String) {
         vote_no_vote_castvote_button.gone()
         vote_proxy_group.visible()
-        vote_proxy_voter.text = proxyVoter
+        vote_proxy_view_proxy_voter_button.text = proxyVoter
     }
 
     override fun populateProducerVotes(eosAccountVote: EosAccountVote) {
@@ -155,6 +164,16 @@ abstract class VoteFragment
             .setNegativeButton(R.string.transaction_view_log_negative_button, null)
             .create()
             .show()
+    }
+
+    override fun navigateToViewProducer(accountName: String) {
+        model().publish(VoteIntent.Idle)
+        startActivity(viewBlockProducerIntentWithName(accountTheme(), accountName, context!!))
+    }
+
+    override fun navigateToViewProxyVote(accountName: String) {
+        model().publish(VoteIntent.Idle)
+        startActivity(viewProxyVoterIntentWithName(accountName, ViewProxyVoterDisplayAction.LOAD, context!!))
     }
 
     companion object {

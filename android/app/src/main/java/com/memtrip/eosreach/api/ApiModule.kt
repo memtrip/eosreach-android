@@ -18,7 +18,8 @@ package com.memtrip.eosreach.api
 
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.memtrip.eos.chain.actions.query.producer.GetBlockProducersAggregate
+import com.memtrip.eos.chain.actions.query.producer.GetBlockProducers
+import com.memtrip.eos.chain.actions.query.proxy.GetRegProxyInfo
 import com.memtrip.eos.chain.actions.query.ramprice.GetRamPrice
 import com.memtrip.eos.chain.actions.transaction.account.BuyRamBytesChain
 import com.memtrip.eos.chain.actions.transaction.account.DelegateBandwidthChain
@@ -102,9 +103,11 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun getBlockProducersAggregate(chainApi: ChainApi): GetBlockProducersAggregate {
-        return GetBlockProducersAggregate(chainApi)
-    }
+    fun getBlockProducers(chainApi: ChainApi): GetBlockProducers = GetBlockProducers(chainApi)
+
+    @JvmStatic
+    @Provides
+    fun getRegProxyInfo(chainApi: ChainApi): GetRegProxyInfo = GetRegProxyInfo(chainApi)
 
     @JvmStatic
     @Provides

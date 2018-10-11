@@ -32,6 +32,7 @@ class CustomTokensRequestImpl @Inject internal constructor(
             "customtokens",
             "customtokens",
             "tokens",
+            "",
             true,
             100,
             "",

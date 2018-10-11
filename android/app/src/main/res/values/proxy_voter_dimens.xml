@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="proxy_voter_logo_size">48dp</dimen>
+    <dimen name="proxy_voter_list_item_logo_guideline_margin">56dp</dimen>
+    <dimen name="proxy_voter_philosophy">142dp</dimen>
+    <dimen name="proxy_voter_information_size">42dp</dimen>
+
+</resources>

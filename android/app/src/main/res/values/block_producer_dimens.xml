@@ -3,7 +3,6 @@
 
     <dimen name="block_producer_logo_size">48dp</dimen>
     <dimen name="block_producer_information_size">42dp</dimen>
-
-    <dimen name="block_producer_list_logo_container_size">96dp</dimen>
     <dimen name="block_producer_list_item_logo_guideline_margin">56dp</dimen>
+
 </resources>

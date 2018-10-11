@@ -106,7 +106,7 @@
         android:layout_marginBottom="@dimen/padding_large"
         android:gravity="center"
         android:text="@string/settings_credits_headline"
-        android:textColor="@color/colorSecondary"
+        android:textColor="?colorSecondary"
         android:textStyle="bold"
         android:textAllCaps="true"
         app:layout_constraintLeft_toLeftOf="parent"

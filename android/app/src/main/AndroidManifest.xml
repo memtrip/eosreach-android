@@ -28,7 +28,11 @@
         <activity android:name=".app.welcome.importkey.WelcomeImportKeyActivity" />
 
         <activity android:name=".app.blockproducer.BlockProducerListActivity" />
-        <activity android:name=".app.blockproducer.ViewBlockProducerActivity" />
+        <activity android:name=".app.blockproducer.DefaultViewBlockProducerActivity" />
+        <activity android:name=".app.blockproducer.ReadOnlyViewBlockProducerActivity" />
+
+        <activity android:name=".app.proxyvoter.ProxyVoterListActivity" />
+        <activity android:name=".app.proxyvoter.ViewProxyVoterActivity" />
 
         <activity android:name=".app.account.DefaultAccountActivity" />
         <activity android:name=".app.account.ReadonlyAccountActivity" />

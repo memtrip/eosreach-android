@@ -1,0 +1,7 @@
+{
+  "rows": [{
+    "owner": "acroeos12345",
+    "json": "{\"producer_account_name\":\"acroeos12345\",\"org\":{\"candidate_name\":\"AcroEOS\",\"website\":\"https://acroeos.one\",\"code_of_conduct\":\"https://steemit.com/eos/@acroeos/acroeos-an-eos-block-producer-candidate\",\"ownership_disclosure\":\"https://medium.com/acroeos/acroeos-disclosures-ownership-5e927cfa4f16\",\"email\":\"community@acroeos.io\",\"branding\":{\"logo_256\":\"https://acroeos.one/acroeos_logo_256.jpg\",\"logo_1024\":\"https://acroeos.one/acroeos_logo_1024.jpg\",\"logo_svg\":\"https://acroeos.one/acroeos_logo_svg.svg\"},\"location\":{\"name\":\"Seoul\",\"country\":\"KR\",\"latitude\":37.547928,\"longitude\":126.915054},\"social\":{\"steemit\":\"acroeos\",\"twitter\":\"acroeos\",\"youtube\":\"\",\"facebook\":\"acroeos\",\"github\":\"acroeos\",\"reddit\":\"\",\"keybase\":\"acroeos\",\"telegram\":\"acroeos\",\"wechat\":\"acroeos\"}},\"nodes\":[{\"location\":{\"name\":\"Seoul, Korea\",\"country\":\"KR\",\"latitude\":37.547928,\"longitude\":126.915054},\"node_type\":\"full\",\"p2p_endpoint\":\"\",\"api_endpoint\":\"http://api1.acroeos.one\",\"ssl_endpoint\":\"https://api2.acroeos.one\"},{\"location\":{\"name\":\"Seoul, Korea\",\"country\":\"KR\",\"latitude\":37.547928,\"longitude\":126.915054},\"node_type\":\"producer\"},{\"location\":{\"name\":\"Seoul, Korea\",\"country\":\"KR\",\"latitude\":37.547928,\"longitude\":126.915054},\"node_type\":\"seed\",\"p2p_endpoint\":\"seed.acroeos.one:9876\"}]}"
+  }],
+  "more": false
+}

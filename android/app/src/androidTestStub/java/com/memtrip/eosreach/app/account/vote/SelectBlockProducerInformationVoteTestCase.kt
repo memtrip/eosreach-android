@@ -35,7 +35,10 @@ class SelectBlockProducerInformationVoteTestCase : StubTestCase() {
             .verifyBlockProducerListScreen()
             .verifyBlockProducerListFirstAccountRow()
             .selectBlockProducerListFirstAccountRowInformation()
-            .verifyViewBlockProducerInformationScreen()
+            .verifyViewBlockProducerInformationScreen(
+                "EOS New York",
+                "https://www.eosnewyork.io",
+                "community@eosnewyork.io")
             .selectViewOwnerAccount()
         accountRobot
             .verifyAccountScreen()

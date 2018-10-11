@@ -16,7 +16,7 @@
         android:layout_margin="@dimen/padding_small"
         android:textIsSelectable="true"
         android:textStyle="bold"
-        android:textColor="@color/colorSecondary"
+        android:textColor="?colorSecondary"
         tools:text="memtripissue, memtripblock"/>
 
     <TextView

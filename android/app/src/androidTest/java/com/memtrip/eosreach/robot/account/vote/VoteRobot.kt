@@ -21,6 +21,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -28,6 +29,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.atPosition
+import com.memtrip.eosreach.db.account.AccountEntity
+import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import org.hamcrest.CoreMatchers.allOf
 
 class VoteRobot {
@@ -51,6 +54,13 @@ class VoteRobot {
         return this
     }
 
+    fun selectFirstBlockProducerItem(): VoteRobot {
+        onView(withId(R.id.vote_producer_vote_list_recyclerview))
+            .check(matches(atPosition(0, hasDescendant(withText("memtripblock")))))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<SimpleAdapterViewHolder<AccountEntity>>(0, click()))
+        return this
+    }
+
     fun verifyVotedSingleBlockProducersScreen(): VoteRobot {
         onView(withId(R.id.vote_producer_vote_title_label))
             .check(matches(isDisplayed()))
@@ -62,9 +72,16 @@ class VoteRobot {
     fun verifyProxyVoteScreen(): VoteRobot {
         onView(withId(R.id.vote_proxy_label))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.vote_proxy_voter))
+        onView(withId(R.id.vote_proxy_view_proxy_voter_button))
             .check(matches(isDisplayed()))
             .check(matches(withText("memtripproxy")))
+        return this
+    }
+
+    fun selectProxyVoteItem(): VoteRobot {
+        onView(withId(R.id.vote_proxy_view_proxy_voter_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 
@@ -148,6 +165,13 @@ class VoteRobot {
             .check(matches(isDisplayed()))
         onView(withId(R.id.cast_proxy_vote_button))
             .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectExploreProxyAccountsButton(): VoteRobot {
+        onView(withId(R.id.cast_proxy_explore_proxy_accounts_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 

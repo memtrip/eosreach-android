@@ -87,6 +87,6 @@ abstract class ImportKeyViewModel(
         }.onErrorReturn {
             ImportKeyRenderAction.OnError(
                 context().getString(R.string.issue_import_key_error_invalid_private_key_format))
-        }.toObservable()
+        }.toObservable().startWith(ImportKeyRenderAction.OnProgress)
     }
 }

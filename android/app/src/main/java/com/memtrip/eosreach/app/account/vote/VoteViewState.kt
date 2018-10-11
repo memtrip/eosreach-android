@@ -28,6 +28,8 @@ data class VoteViewState(val view: View) : MxViewState {
         object NoVoteCast : View()
         object NavigateToCastProducerVote : View()
         object NavigateToCastProxyVote : View()
+        data class NavigateToViewProducer(val accountName: String) : View()
+        data class NavigateToViewProxyVote(val accountName: String) : View()
         object OnVoteForUsProgress : View()
         object OnVoteForUsSuccess : View()
         data class OnVoteForUsError(val message: String, val log: String) : View()

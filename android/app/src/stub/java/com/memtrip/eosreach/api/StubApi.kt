@@ -91,6 +91,39 @@ abstract class StubApi(
         })
     )
 
+    open fun getTableRowsProducerSingleJson(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_table_rows$"),
+            readJsonFile("stub/request/request_get_table_rows_producerjson_single.json")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_table_rows_producerjson_single.json")
+        })
+    )
+
+    open fun getTableRowsProxyVoter(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_table_rows$"),
+            readJsonFile("stub/request/request_get_table_rows_regproxyinfo.json")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_table_rows_regproxyinfo.json")
+        })
+    )
+
+    open fun getTableRowsSingleProxyVoter(): Stub = Stub(
+        StubMatcher(
+            context.getString(R.string.app_default_eos_endpoint_root),
+            Regex("v1/chain/get_table_rows$"),
+            readJsonFile("stub/request/request_get_table_rows_regproxyinfo_single.json")
+        ),
+        BasicStubRequest(200, {
+            readJsonFile("stub/happypath/happy_path_get_table_rows_regproxyinfo_single.json")
+        })
+    )
+
     open fun getActions(): Stub = Stub(
         StubMatcher(
             context.getString(R.string.app_default_eos_endpoint_root),
@@ -156,6 +189,9 @@ abstract class StubApi(
         createAccount(),
         getCustomTokensTableRows(),
         getTableRowsProducerJson(),
+        getTableRowsProducerSingleJson(),
+        getTableRowsProxyVoter(),
+        getTableRowsSingleProxyVoter(),
         getBlockProducers()
     )
 }

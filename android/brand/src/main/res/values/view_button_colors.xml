@@ -7,8 +7,8 @@
     <color name="viewButtonPrimaryText">#FFFFFF</color>
 
     <color name="viewButtonSecondaryBackgroundSelected">#55FFFFFF</color>
-    <color name="viewButtonSecondaryBorder">@color/colorSecondary</color>
-    <color name="viewButtonSecondaryText">@color/colorSecondary</color>
+    <color name="viewButtonSecondaryBorder">?colorSecondary</color>
+    <color name="viewButtonSecondaryText">?colorSecondary</color>
 
     <color name="viewButtonTransparentBackground">#00000000</color>
     <color name="viewButtonTransparentBackgroundSelected">#55FFFFFF</color>

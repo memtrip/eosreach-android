@@ -29,6 +29,8 @@ sealed class VoteRenderAction : MxRenderAction {
     object NoVoteCast : VoteRenderAction()
     object NavigateToCastProducerVote : VoteRenderAction()
     object NavigateToCastProxyVote : VoteRenderAction()
+    data class NavigateToViewProducer(val accountName: String) : VoteRenderAction()
+    data class NavigateToViewProxyVote(val accountName: String) : VoteRenderAction()
     object OnVoteForUsProgress : VoteRenderAction()
     data class OnVoteForUsError(val message: String, val log: String) : VoteRenderAction()
     object OnVoteForUsSuccess : VoteRenderAction()
@@ -43,6 +45,8 @@ interface VoteViewLayout : MxViewLayout {
     fun showVoteForUsProgress()
     fun voteForUsSuccess()
     fun voteForUsError(message: String, log: String)
+    fun navigateToViewProducer(accountName: String)
+    fun navigateToViewProxyVote(accountName: String)
 }
 
 class VoteViewRenderer @Inject internal constructor() : MxViewRenderer<VoteViewLayout, VoteViewState> {
@@ -72,6 +76,12 @@ class VoteViewRenderer @Inject internal constructor() : MxViewRenderer<VoteViewL
         }
         is VoteViewState.View.OnVoteForUsError -> {
             layout.voteForUsError(state.view.message, state.view.log)
+        }
+        is VoteViewState.View.NavigateToViewProducer -> {
+            layout.navigateToViewProducer(state.view.accountName)
+        }
+        is VoteViewState.View.NavigateToViewProxyVote -> {
+            layout.navigateToViewProxyVote(state.view.accountName)
         }
     }
 }

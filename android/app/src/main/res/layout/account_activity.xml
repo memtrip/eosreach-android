@@ -114,7 +114,7 @@
             android:id="@+id/account_error_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_large"
+            android:layout_margin="@dimen/padding_large"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -23,6 +23,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerActivity.Companion.viewBlockProducerIntentWithDetails
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -104,13 +105,13 @@ class BlockProducerListActivity
 
     override fun blockProducerSelected(blockProducerDetails: BlockProducerDetails) {
         model().publish(BlockProducerListIntent.Idle)
-        setResult(RESULT_CODE, toIntent(blockProducerDetails))
+        setResult(RESULT_CODE, resultIntent(blockProducerDetails))
         finish()
     }
 
     override fun blockProducerInformationSelected(blockProducerDetails: BlockProducerDetails) {
         model().publish(BlockProducerListIntent.Idle)
-        startActivity(viewBlockProducerIntentWithDetails(blockProducerDetails, this))
+        startActivity(viewBlockProducerIntentWithDetails(AccountTheme.DEFAULT, blockProducerDetails, this))
     }
 
     companion object {
@@ -127,7 +128,7 @@ class BlockProducerListActivity
             return intent.getParcelableExtra(BLOCK_PRODUCER_DETAILS) as BlockProducerDetails
         }
 
-        fun toIntent(blockProducerDetails: BlockProducerDetails): Intent {
+        fun resultIntent(blockProducerDetails: BlockProducerDetails): Intent {
             return with (Intent()) {
                 putExtra(BLOCK_PRODUCER_DETAILS, blockProducerDetails)
             }

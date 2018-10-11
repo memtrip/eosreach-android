@@ -1,3 +1,19 @@
+/*
+Copyright (C) 2018-present memtrip
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package com.memtrip.eosreach.app.blockproducer
 
 import android.app.AlertDialog
@@ -11,15 +27,17 @@ import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountBundle
+import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.account.ReadonlyAccountActivity
+import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-import dagger.android.AndroidInjection
+
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.block_producer_view_activity.*
 import javax.inject.Inject
 
-class ViewBlockProducerActivity
+abstract class ViewBlockProducerActivity
     : MviActivity<ViewBlockProducerIntent, ViewBlockProducerRenderAction, ViewBlockProducerViewState, ViewBlockProducerViewLayout>(), ViewBlockProducerViewLayout {
 
     @Inject
@@ -34,22 +52,19 @@ class ViewBlockProducerActivity
         super.onCreate(savedInstanceState)
         setContentView(R.layout.block_producer_view_activity)
         setSupportActionBar(block_producer_view_toolbar)
+        supportActionBar!!.title = ""
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         block_producer_view_owner_account_button.setOnClickListener {
             model().publish(ViewBlockProducerIntent.Idle)
-            startActivity(ReadonlyAccountActivity.accountReadOnlyIntent(AccountBundle(blockProducerDetails.owner), this))
+            startActivity(accountReadOnlyIntent(AccountBundle(blockProducerDetails.owner), this))
         }
 
         block_producer_view_email_label.setOnClickListener {
             model().publish(ViewBlockProducerIntent.Idle)
             triggerEmailIntent()
         }
-    }
-
-    override fun inject() {
-        AndroidInjection.inject(this)
     }
 
     override fun intents(): Observable<ViewBlockProducerIntent> = Observable.mergeArray(
@@ -62,6 +77,9 @@ class ViewBlockProducerActivity
         },
         RxView.clicks(block_producer_view_website_label).map {
             ViewBlockProducerIntent.NavigateToUrl(blockProducerDetails.website)
+        },
+        block_producer_view_error_view.retryClick().map {
+            ViewBlockProducerIntent.InitWithName(blockProducerName(intent))
         }
     )
 
@@ -92,11 +110,15 @@ class ViewBlockProducerActivity
         block_producer_view_progress.visible()
         block_producer_view_error_view.gone()
         block_producer_view_group.gone()
+        block_producer_view_owner_account_button.gone()
     }
 
     override fun showError() {
         block_producer_view_progress.gone()
         block_producer_view_error_view.visible()
+        block_producer_view_error_view.populate(
+            getString(R.string.block_producer_view_error_title),
+            getString(R.string.block_producer_view_error_body))
     }
 
     override fun showTitle(blockProducerName: String) {
@@ -120,6 +142,7 @@ class ViewBlockProducerActivity
 
         block_producer_view_progress.gone()
         block_producer_view_group.visible()
+        block_producer_view_owner_account_button.visible()
 
         this.blockProducerDetails = blockProducerDetails
 
@@ -140,24 +163,48 @@ class ViewBlockProducerActivity
         private const val BLOCK_PRODUCER_DISPLAY_ACTION = "BLOCK_PRODUCER_DISPLAY_ACTION"
 
         fun viewBlockProducerIntentWithDetails(
+            accountTheme: AccountTheme,
             blockProducerDetails: BlockProducerDetails,
             context: Context
         ): Intent {
-            return with (Intent(context, ViewBlockProducerActivity::class.java)) {
-                putExtra(BLOCK_PRODUCER_DETAILS, blockProducerDetails)
-                putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.DETAILS)
-                this
+            return when (accountTheme) {
+                AccountTheme.DEFAULT -> {
+                    with (Intent(context, DefaultViewBlockProducerActivity::class.java)) {
+                        putExtra(BLOCK_PRODUCER_DETAILS, blockProducerDetails)
+                        putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.DETAILS)
+                        this
+                    }
+                }
+                AccountTheme.READ_ONLY -> {
+                    with (Intent(context, ReadOnlyViewBlockProducerActivity::class.java)) {
+                        putExtra(BLOCK_PRODUCER_DETAILS, blockProducerDetails)
+                        putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.DETAILS)
+                        this
+                    }
+                }
             }
         }
 
         fun viewBlockProducerIntentWithName(
+            accountTheme: AccountTheme,
             blockProducerName: String,
             context: Context
         ): Intent {
-            return with (Intent(context, ViewBlockProducerActivity::class.java)) {
-                putExtra(BLOCK_PRODUCER_NAME, blockProducerName)
-                putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.LOAD)
-                this
+            return when (accountTheme) {
+                AccountTheme.DEFAULT -> {
+                    with (Intent(context, DefaultViewBlockProducerActivity::class.java)) {
+                        putExtra(BLOCK_PRODUCER_NAME, blockProducerName)
+                        putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.LOAD)
+                        this
+                    }
+                }
+                AccountTheme.READ_ONLY -> {
+                    with (Intent(context, ReadOnlyViewBlockProducerActivity::class.java)) {
+                        putExtra(BLOCK_PRODUCER_NAME, blockProducerName)
+                        putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.LOAD)
+                        this
+                    }
+                }
             }
         }
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.memtrip.eosreach.app.account.AccountTheme
 
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
@@ -13,6 +14,8 @@ import kotlinx.android.synthetic.main.account_vote_fragment.*
 import kotlinx.android.synthetic.main.account_vote_fragment.view.*
 
 class ReadOnlyVoteFragment : VoteFragment() {
+
+    override fun accountTheme(): AccountTheme = AccountTheme.READ_ONLY
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)!!

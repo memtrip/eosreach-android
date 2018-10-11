@@ -32,6 +32,7 @@ import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import io.reactivex.subjects.PublishSubject
 
 import kotlinx.android.synthetic.main.block_producer_list_item_row.view.*
+import kotlinx.android.synthetic.main.proxy_voter_list_item_row.view.*
 
 class BlockProducerListAdapter(
     context: Context,
@@ -64,6 +65,11 @@ class BlockProducerViewHolder(itemView: View) : SimpleAdapterViewHolder<BlockPro
         itemView.block_producer_list_item_account_name.text = value.owner
         itemView.block_producer_list_item_candidate_name.text = value.candidateName
         itemView.block_producer_list_item_logo.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_CROP
-        value.logo256?.let { logo -> itemView.block_producer_list_item_logo.setImageURI(logo) }
+
+        if (value.logo256 != null) {
+            itemView.block_producer_list_item_logo.setImageURI(value.logo256)
+        } else {
+            itemView.proxy_voter_list_item_logo.setActualImageResource(R.drawable.app_toolbar_eosio_logo)
+        }
     }
 }

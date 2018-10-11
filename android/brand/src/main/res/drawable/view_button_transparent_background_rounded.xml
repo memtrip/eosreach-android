@@ -4,7 +4,7 @@
 
     <stroke
         android:width="@dimen/viewButtonBorderStroke"
-        android:color="@color/viewButtonTransparentBorder" />
+        android:color="?transparent_border_color" />
 
     <solid android:color="@color/viewButtonTransparentBackground"/>
 

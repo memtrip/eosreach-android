@@ -2,6 +2,7 @@
 
     <style name="ReadOnlyAppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/readyOnlyColorPrimary</item>
+        <item name="colorSecondary">@color/readyOnlyColorSecondary</item>
         <item name="colorPrimaryDark">@color/readyOnlyColorPrimaryDark</item>
         <item name="colorAccent">@color/readyOnlyColorAccent</item>
         <item name="buttonStyle">@style/ButtonPrimary</item>

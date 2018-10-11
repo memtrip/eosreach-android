@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="vote_proxy_label,vote_proxy_voter"
+        app:constraint_referenced_ids="vote_proxy_label,vote_proxy_view_proxy_voter_button"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
@@ -103,14 +103,13 @@
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/vote_cast_vote_producer_button" />
 
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/vote_proxy_voter"
-        style="@style/Typography.H6"
-        android:layout_width="0dp"
+    <com.memtrip.eosreach.brand.ReachButton
+        android:id="@+id/vote_proxy_view_proxy_voter_button"
+        style="@style/ButtonTransparent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
-        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        android:layout_marginTop="@dimen/padding_medium"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/vote_proxy_label" />
     <!-- / proxy -->
 
@@ -140,7 +139,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/app_block_producer_name"
-        android:textColor="@color/colorSecondary"
+        android:textColor="?colorSecondary"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"

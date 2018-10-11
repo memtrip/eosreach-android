@@ -26,5 +26,8 @@ abstract class BlockProducerModule {
     internal abstract fun contributeBlockProducerListActivity(): BlockProducerListActivity
 
     @ContributesAndroidInjector(modules = [ViewBlockProducerActivityModule::class])
-    internal abstract fun contributeViewBlockProducerActivity(): ViewBlockProducerActivity
+    internal abstract fun contributeDefaultViewBlockProducerActivity(): DefaultViewBlockProducerActivity
+
+    @ContributesAndroidInjector(modules = [ViewBlockProducerActivityModule::class])
+    internal abstract fun contributeReadOnlyViewBlockProducerActivity(): ReadOnlyViewBlockProducerActivity
 }

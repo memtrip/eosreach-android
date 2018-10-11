@@ -36,7 +36,6 @@ class CastVoteViewRenderer @Inject internal constructor() : MxViewRenderer<CastV
         CastVoteViewState.View.Idle -> {
         }
         CastVoteViewState.View.Populate -> {
-            print("why")
             layout.populate(state.page)
         }
     }

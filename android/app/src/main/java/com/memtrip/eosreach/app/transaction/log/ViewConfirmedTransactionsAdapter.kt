@@ -19,6 +19,7 @@ package com.memtrip.eosreach.app.transaction.log
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.db.transaction.TransactionLogEntity
 import com.memtrip.eosreach.uikit.Interaction
@@ -35,6 +36,14 @@ class ViewConfirmedTransactionsAdapter(
     override fun createViewHolder(parent: ViewGroup): SimpleAdapterViewHolder<TransactionLogEntity> {
         return ViewConfirmedTransactionsViewHolder(
             inflater.inflate(R.layout.transaction_view_confirmed_list_item, parent, false))
+    }
+
+    override fun defaultRowMargin(position: Int, view: View) {
+        if (position == data.size - 1) {
+            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = marginSize
+        } else {
+            (view.layoutParams as RecyclerView.LayoutParams).bottomMargin = 0
+        }
     }
 }
 

@@ -5,7 +5,9 @@
     style="?button_transparent_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/padding_large"
+    android:layout_marginTop="@dimen/padding_large"
+    android:layout_marginLeft="@dimen/padding_large"
+    android:layout_marginRight="@dimen/padding_large"
     android:padding="@dimen/padding_medium">
 
     <com.memtrip.eosreach.brand.ReachTextView
@@ -24,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_tiny"
-        android:textColor="@color/colorSecondary"
+        android:textColor="?colorSecondary"
         tools:text="Sep-13-2018, 08:47:17 PM"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

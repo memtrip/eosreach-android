@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="block_producer_view_frame_background,block_producer_view_icon,block_producer_view_candidate_name_label,block_producer_view_website_label,block_producer_view_email_label,block_producer_view_owner_account_button,block_producer_view_code_of_conduct_button,block_producer_view_ownership_disclosure_button"
+        app:constraint_referenced_ids="block_producer_view_frame_background,block_producer_view_icon,block_producer_view_candidate_name_label,block_producer_view_website_label,block_producer_view_email_label,block_producer_view_code_of_conduct_button,block_producer_view_ownership_disclosure_button"
         tools:ignore="MissingConstraints" />
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -98,7 +98,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_small"
-        android:textColor="@color/colorSecondary"
+        android:textColor="?colorSecondary"
         tools:text="http://www.eosnewyork.io"
         app:layout_constraintLeft_toLeftOf="@+id/block_producer_view_details_start_guideline"
         app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
@@ -110,7 +110,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_small"
-        android:textColor="@color/colorSecondary"
+        android:textColor="?colorSecondary"
         tools:text="hello@eosnewyork.io"
         app:layout_constraintLeft_toLeftOf="@+id/block_producer_view_details_start_guideline"
         app:layout_constraintRight_toRightOf="@+id/vertical_end_guideline"
@@ -162,7 +162,7 @@
         android:id="@+id/block_producer_view_error_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/padding_large"
+        android:layout_margin="@dimen/padding_large"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

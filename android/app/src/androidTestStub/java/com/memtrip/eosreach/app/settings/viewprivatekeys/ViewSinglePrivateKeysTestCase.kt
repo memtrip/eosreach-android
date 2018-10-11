@@ -11,7 +11,10 @@ import com.memtrip.eosreach.api.stub.request.BasicStubRequest
 class ViewSinglePrivateKeysTestCase : StubTestCase() {
 
     override fun test() {
-        importKeyOrchestra.go("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
+
+        val privateKey = EosPrivateKey("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
+
+        importKeyOrchestra.go(privateKey.toString())
         accountNavigationRobot
             .selectNavigationIcon()
             .selectSettingsNavigationItem()
@@ -20,8 +23,6 @@ class ViewSinglePrivateKeysTestCase : StubTestCase() {
             .selectViewPrivateKeysSettingsItem()
             .verifyViewPrivateKeysScreen()
             .selectShowPrivateKeysButton()
-
-        val privateKey = EosPrivateKey("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
 
         settingsRobot
             .verifyViewPrivateKeyScreenPrivateKeyValue(privateKey.toString())

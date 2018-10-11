@@ -28,6 +28,7 @@ import com.memtrip.eosreach.robot.account.vote.VoteRobot
 import com.memtrip.eosreach.robot.blockproducer.BlockProducerRobot
 import com.memtrip.eosreach.robot.issue.CreateAccountRobot
 import com.memtrip.eosreach.robot.issue.ImportKeyRobot
+import com.memtrip.eosreach.robot.proxyvoter.ProxyVoterRobot
 import com.memtrip.eosreach.robot.settings.SettingsRobot
 import com.memtrip.eosreach.robot.transaction.TransactionRobot
 import com.memtrip.eosreach.robot.transfer.TransferRobot
@@ -52,6 +53,7 @@ abstract class TestCase {
     internal val transferRobot = TransferRobot()
     internal val transactionRobot = TransactionRobot()
     internal val blockProducerRobot = BlockProducerRobot()
+    internal val proxyVoterRobot = ProxyVoterRobot()
     internal val settingsRobot = SettingsRobot()
 
     internal val importKeyOrchestra = ImportKeyOrchestra()
