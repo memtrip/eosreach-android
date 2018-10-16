@@ -16,19 +16,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.transfer.confirm
 
+import android.app.Activity
 import android.content.Context
+import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import android.widget.TextView
 
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
+import com.memtrip.eosreach.app.account.AccountBundle
+
 import com.memtrip.eosreach.uikit.BalanceDetailsLayout
 import com.memtrip.eosreach.uikit.BalanceDetailsLayoutImpl
 import com.memtrip.eosreach.uikit.visible
 
 import kotlinx.android.synthetic.main.transfer_details_layout.view.*
+import android.util.TypedValue
+import androidx.appcompat.content.res.AppCompatResources
+import com.memtrip.eosreach.app.account.AccountTheme
+import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
 
 class TransferDetailLayout @JvmOverloads constructor(
     context: Context,
@@ -36,8 +46,15 @@ class TransferDetailLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr), BalanceDetailsLayout by BalanceDetailsLayoutImpl() {
 
+    private val accountNavigationDrawable: Drawable
+    private val accountNavigationDrawablePadding: Int
+    private val accentColor: Int
+
     init {
         LayoutInflater.from(context).inflate(R.layout.transfer_details_layout, this)
+        accountNavigationDrawable = AppCompatResources.getDrawable(context, R.drawable.account_view_ic)!!
+        accountNavigationDrawablePadding = context.resources.getDimensionPixelOffset(R.dimen.padding_small)
+        accentColor = getAccentColor()
     }
 
     fun populate(
@@ -45,9 +62,14 @@ class TransferDetailLayout @JvmOverloads constructor(
         to: String,
         from: String,
         memo: String,
+        accountTheme: AccountTheme,
         contractAccountBalance: ContractAccountBalance
     ) {
         populateBasicDetails(to, from, memo)
+
+        if (accountTheme == AccountTheme.DEFAULT) {
+            setupTargetAccountClickListener(to, contractAccountBalance)
+        }
 
         transfer_details_amount_value.text = formatBalance(
             transferAmount, contractAccountBalance, context)
@@ -66,5 +88,37 @@ class TransferDetailLayout @JvmOverloads constructor(
         transfer_details_to_value.text = to
         transfer_details_from_value.text = from
         transfer_details_memo_value.text = memo
+    }
+
+    private fun setupTargetAccountClickListener(
+        toAccount: String,
+        contractAccountBalance: ContractAccountBalance
+    ) {
+        if (toAccount != contractAccountBalance.accountName) {
+            setOnClickListenerTarget(transfer_details_to_value)
+        } else {
+            setOnClickListenerTarget(transfer_details_from_value)
+        }
+    }
+
+    private fun setOnClickListenerTarget(textView: TextView) {
+        textView.setOnClickListener {
+            (context as Activity).startActivity(accountReadOnlyIntent(
+                AccountBundle(textView.text.toString()),
+                context
+            ))
+        }
+        textView.setTextColor(accentColor)
+        textView.setTypeface(null, Typeface.BOLD)
+        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, accountNavigationDrawable, null)
+        textView.compoundDrawablePadding = accountNavigationDrawablePadding
+        textView.isClickable = true
+        accountNavigationDrawable.setTint(accentColor)
+    }
+
+    private fun getAccentColor(): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+        return value.data
     }
 }

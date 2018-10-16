@@ -28,6 +28,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountBundle
+import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
 import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerActivity
 import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerDisplayAction
@@ -40,7 +41,7 @@ import io.reactivex.Observable
 import kotlinx.android.synthetic.main.proxy_voter_view_activity.*
 import javax.inject.Inject
 
-class ViewProxyVoterActivity
+abstract class ViewProxyVoterActivity
     : MviActivity<ViewProxyVoterIntent, ViewProxyVoterRenderAction, ViewProxyVoterViewState, ViewProxyVoterViewLayout>(), ViewProxyVoterViewLayout {
 
     @Inject
@@ -99,6 +100,7 @@ class ViewProxyVoterActivity
 
     override fun showProgress() {
         proxy_voter_view_group.gone()
+        proxy_voter_view_owner_account_button.gone()
         proxy_voter_view_error_view.gone()
         proxy_voter_view_progress.visible()
     }
@@ -114,6 +116,7 @@ class ViewProxyVoterActivity
     override fun populate(proxyVoterDetails: ProxyVoterDetails) {
 
         proxy_voter_view_group.visible()
+        proxy_voter_view_owner_account_button.visible()
         proxy_voter_view_progress.gone()
 
         this.proxyVoterDetails = proxyVoterDetails
@@ -163,24 +166,48 @@ class ViewProxyVoterActivity
         fun viewProxyVoterIntentWithDetails(
             proxyVoterDetails: ProxyVoterDetails,
             displayAction: ViewProxyVoterDisplayAction,
+            accountTheme: AccountTheme,
             context: Context
         ): Intent {
-            return with (Intent(context, ViewProxyVoterActivity::class.java)) {
-                putExtra(PROXY_VOTER_DETAILS, proxyVoterDetails)
-                putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
-                this
+            when (accountTheme) {
+                AccountTheme.DEFAULT -> {
+                    return with (Intent(context, DefaultViewProxyVoterActivity::class.java)) {
+                        putExtra(PROXY_VOTER_DETAILS, proxyVoterDetails)
+                        putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
+                        this
+                    }
+                }
+                AccountTheme.READ_ONLY -> {
+                    return with (Intent(context, ReadOnlyViewProxyVoterActivity::class.java)) {
+                        putExtra(PROXY_VOTER_DETAILS, proxyVoterDetails)
+                        putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
+                        this
+                    }
+                }
             }
         }
 
         fun viewProxyVoterIntentWithName(
             accountName: String,
             displayAction: ViewProxyVoterDisplayAction,
+            accountTheme: AccountTheme,
             context: Context
         ): Intent {
-            return with (Intent(context, ViewProxyVoterActivity::class.java)) {
-                putExtra(PROXY_VOTER_ACCOUNT_NAME, accountName)
-                putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
-                this
+            when (accountTheme) {
+                AccountTheme.DEFAULT -> {
+                    return with (Intent(context, DefaultViewProxyVoterActivity::class.java)) {
+                        putExtra(PROXY_VOTER_ACCOUNT_NAME, accountName)
+                        putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
+                        this
+                    }
+                }
+                AccountTheme.READ_ONLY -> {
+                    return with (Intent(context, ReadOnlyViewProxyVoterActivity::class.java)) {
+                        putExtra(PROXY_VOTER_ACCOUNT_NAME, accountName)
+                        putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
+                        this
+                    }
+                }
             }
         }
 

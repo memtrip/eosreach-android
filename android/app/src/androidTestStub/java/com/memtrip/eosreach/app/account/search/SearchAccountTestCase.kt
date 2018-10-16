@@ -15,7 +15,7 @@ class SearchAccountTestCase : StubTestCase() {
             .typeAccountName("memtripissue")
             .selectAccount()
         accountRobot
-            .verifyAccountScreen()
+            .verifyReadOnlyAccountScreen()
             .verifyAvailableBalance()
     }
 }

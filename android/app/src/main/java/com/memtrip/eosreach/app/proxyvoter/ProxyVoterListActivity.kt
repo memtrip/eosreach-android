@@ -23,6 +23,7 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.proxyvoter.ViewProxyVoterActivity.Companion.viewProxyVoterIntentWithDetails
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
@@ -112,7 +113,7 @@ class ProxyVoterListActivity
 
     override fun navigateToProxyVoterDetails(proxyVoterDetails: ProxyVoterDetails) {
         model().publish(ProxyVoterListIntent.Idle)
-        startActivity(viewProxyVoterIntentWithDetails(proxyVoterDetails, ViewProxyVoterDisplayAction.DETAILS, this))
+        startActivity(viewProxyVoterIntentWithDetails(proxyVoterDetails, ViewProxyVoterDisplayAction.DETAILS, AccountTheme.DEFAULT, this))
     }
 
     override fun selectProxyVoter(proxyVoterDetails: ProxyVoterDetails) {

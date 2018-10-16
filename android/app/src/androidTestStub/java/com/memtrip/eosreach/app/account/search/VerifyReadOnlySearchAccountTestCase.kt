@@ -12,11 +12,12 @@ class VerifyReadOnlySearchAccountTestCase : StubTestCase() {
             .typeAccountName("memtripissue")
             .selectAccount()
         accountRobot
-            .verifyAccountScreen()
+            .verifyReadOnlyAccountScreen()
             .verifyAvailableBalance()
         balanceRobot
             .selectFirstTokenRow()
         actionsRobot
             .verifyActionsReadOnlyScreen()
+
     }
 }

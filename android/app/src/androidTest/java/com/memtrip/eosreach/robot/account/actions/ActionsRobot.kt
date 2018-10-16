@@ -19,10 +19,13 @@ package com.memtrip.eosreach.robot.account.actions
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.memtrip.eosreach.R
+import com.memtrip.eosreach.api.actions.model.AccountAction
+import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import org.hamcrest.CoreMatchers.not
 
 class ActionsRobot {
@@ -34,6 +37,12 @@ class ActionsRobot {
             .check(matches(isDisplayed()))
         onView(withId(R.id.account_actions_list_swiperefresh))
             .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectFirstActionRow(): ActionsRobot {
+        onView(withId(R.id.account_actions_list_recyclerview))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<SimpleAdapterViewHolder<AccountAction>>(0, click()))
         return this
     }
 
@@ -49,6 +58,23 @@ class ActionsRobot {
             .check(matches(isDisplayed()))
         onView(withId(R.id.account_actions_navigation))
             .check(matches(not(isDisplayed())))
+        return this
+    }
+
+    fun verifyViewTransferActionScreen(): ActionsRobot {
+        onView(withId(R.id.account_actions_view_transfer_action_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.account_actions_view_transfer_details))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.account_actions_view_transaction_block_explorer_button))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectViewTransferActionFromAccountLabel(): ActionsRobot {
+        onView(withId(R.id.transfer_details_from_value))
+            .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 }

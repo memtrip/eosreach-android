@@ -173,7 +173,7 @@ abstract class VoteFragment
 
     override fun navigateToViewProxyVote(accountName: String) {
         model().publish(VoteIntent.Idle)
-        startActivity(viewProxyVoterIntentWithName(accountName, ViewProxyVoterDisplayAction.LOAD, context!!))
+        startActivity(viewProxyVoterIntentWithName(accountName, ViewProxyVoterDisplayAction.LOAD, accountTheme(), context!!))
     }
 
     companion object {

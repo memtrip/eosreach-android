@@ -29,6 +29,26 @@ import com.memtrip.eosreach.R
 
 class TransferRobot {
 
+    fun verifyTransferScreen(): TransferRobot {
+        onView(withId(R.id.transfer_form_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_form_to_label))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_form_to_input))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_form_amount_label))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_form_amount_input))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_form_memo_label))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_form_memo_input))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_form_next_button))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
     fun enterRecipient(recipient: String): TransferRobot {
         onView(withId(R.id.transfer_form_to_input))
             .check(matches(isDisplayed()))
@@ -55,6 +75,23 @@ class TransferRobot {
 
     fun selectNextButton(): TransferRobot {
         onView(withId(R.id.transfer_form_next_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        return this
+    }
+
+    fun verifyTransferConfirmationScreen(): TransferRobot {
+        onView(withId(R.id.transfer_confirm_toolbar))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_confirm_form_details))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.transfer_confirm_confirm_button))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectToAccountLabel(): TransferRobot {
+        onView(withId(R.id.transfer_details_to_value))
             .check(matches(isDisplayed()))
             .perform(click())
         return this

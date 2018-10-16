@@ -32,7 +32,8 @@
         <activity android:name=".app.blockproducer.ReadOnlyViewBlockProducerActivity" />
 
         <activity android:name=".app.proxyvoter.ProxyVoterListActivity" />
-        <activity android:name=".app.proxyvoter.ViewProxyVoterActivity" />
+        <activity android:name=".app.proxyvoter.DefaultViewProxyVoterActivity" />
+        <activity android:name=".app.proxyvoter.ReadOnlyViewProxyVoterActivity" />
 
         <activity android:name=".app.account.DefaultAccountActivity" />
         <activity android:name=".app.account.ReadonlyAccountActivity" />

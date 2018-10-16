@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="proxy_voter_view_frame_background,proxy_voter_view_icon,proxy_voter_view_candidate_name_label,proxy_voter_view_slogan_label,proxy_voter_view_website_button,proxy_voter_view_owner_account_button,proxy_voter_view_philosophy_container,proxy_voter_view_frame_end"
+        app:constraint_referenced_ids="proxy_voter_view_frame_background,proxy_voter_view_icon,proxy_voter_view_candidate_name_label,proxy_voter_view_slogan_label,proxy_voter_view_website_button,proxy_voter_view_philosophy_container,proxy_voter_view_frame_end"
         tools:ignore="MissingConstraints" />
 
     <com.facebook.drawee.view.SimpleDraweeView

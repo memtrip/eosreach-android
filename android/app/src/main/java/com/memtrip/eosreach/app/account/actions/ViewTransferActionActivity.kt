@@ -87,6 +87,7 @@ class ViewTransferActionActivity
             accountAction.to,
             accountAction.from,
             accountAction.memo,
+            accountTheme,
             accountAction.contractAccountBalance)
 
         account_actions_view_transfer_details.populateDate(

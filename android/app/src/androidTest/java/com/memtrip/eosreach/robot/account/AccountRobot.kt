@@ -19,6 +19,7 @@ package com.memtrip.eosreach.robot.account
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeDown
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -41,6 +42,20 @@ class AccountRobot {
 
         onView(withContentDescription(R.string.abc_action_bar_up_description))
             .check(matches(isDisplayed()))
+
+        return this
+    }
+
+    fun verifyReadOnlyAccountScreen(): AccountRobot {
+
+        onView(withId(R.id.account_toolbar))
+            .check(matches(isDisplayed()))
+
+        onView(withId(R.id.account_balance_background))
+            .check(matches(isDisplayed()))
+
+        onView(withId(R.id.account_menu_search))
+            .check(doesNotExist())
 
         return this
     }

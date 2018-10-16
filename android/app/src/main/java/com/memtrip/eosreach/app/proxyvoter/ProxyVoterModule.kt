@@ -26,5 +26,8 @@ abstract class ProxyVoterModule {
     internal abstract fun contributeProxyVoterListActivity(): ProxyVoterListActivity
 
     @ContributesAndroidInjector(modules = [ViewProxyVoterActivityModule::class])
-    internal abstract fun contributeViewProxyVoterActivity(): ViewProxyVoterActivity
+    internal abstract fun contributeReadOnlyViewProxyVoterActivity(): ReadOnlyViewProxyVoterActivity
+
+    @ContributesAndroidInjector(modules = [ViewProxyVoterActivityModule::class])
+    internal abstract fun contributeDefaultViewProxyVoterActivity(): DefaultViewProxyVoterActivity
 }

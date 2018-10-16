@@ -25,6 +25,7 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.transfer.ActionReceipt
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity.Companion.transactionLogIntent
 import com.memtrip.eosreach.app.transaction.receipt.TransactionReceiptActivity.Companion.transactionReceiptIntent
@@ -94,6 +95,7 @@ class TransferConfirmActivity
             transferFormData.toAccountName,
             transferFormData.contractAccountBalance.accountName,
             transferFormData.memo,
+            AccountTheme.DEFAULT,
             transferFormData.contractAccountBalance
         )
     }
