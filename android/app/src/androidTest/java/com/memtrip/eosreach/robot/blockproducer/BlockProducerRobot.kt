@@ -54,8 +54,14 @@ class BlockProducerRobot {
         return this
     }
 
+    fun verifyViewBlockProducerOnChainMissingLabel(): BlockProducerRobot {
+        onView(withId(R.id.block_producer_view_empty_label))
+            .check(matches(isDisplayed()))
+        return this
+    }
+
     fun selectViewBlockProducerErrorRetryButton(): BlockProducerRobot {
-        onView(withId(R.id.block_producer_view_error_view))
+        onView(withId(R.id.block_producer_view_error))
             .check(matches(isDisplayed()))
         onView(withId(R.id.view_error_composite_retry))
             .check(matches(isDisplayed()))

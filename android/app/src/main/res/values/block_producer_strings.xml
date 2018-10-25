@@ -9,10 +9,10 @@
     <string name="block_producer_list_item_details_content_description">View block producer details</string>
 
     <string name="block_producer_view_invalid_url">The url [%s] is invalid.</string>
-    <string name="block_producer_view_error_title">
-        Block producer not found
-    </string>
     <string name="block_producer_view_error_body">
+        We could not fetch the block producer information, please try again.
+    </string>
+    <string name="block_producer_view_empty_body">
         We only display block producer information that has been pushed to the producerjson smart contract.
     </string>
 

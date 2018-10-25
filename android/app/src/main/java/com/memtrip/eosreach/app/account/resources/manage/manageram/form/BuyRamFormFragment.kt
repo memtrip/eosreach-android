@@ -36,7 +36,7 @@ class BuyRamFormFragment : RamFormFragment() {
             contractAccountBalance: ContractAccountBalance,
             ramPricePerKb: Balance
         ): BuyRamFormFragment {
-            return with (BuyRamFormFragment()) {
+            return with(BuyRamFormFragment()) {
                 arguments = RamFormFragment.toBundle(
                     eosAccount,
                     contractAccountBalance,

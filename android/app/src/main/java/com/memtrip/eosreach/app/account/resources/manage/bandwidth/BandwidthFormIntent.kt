@@ -20,13 +20,17 @@ import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class BandwidthFormIntent : MxViewIntent {
-    data class Init(val contractAccountBalance: ContractAccountBalance) : BandwidthFormIntent()
+    data class Init(
+        val contractAccountBalance: ContractAccountBalance,
+        val bandwidthFormBundle: BandwidthFormBundle
+    ) : BandwidthFormIntent()
     object Idle : BandwidthFormIntent()
     data class Confirm(
         val bandwidthCommitType: BandwidthCommitType,
         val netAmount: String,
         val cpuAmount: String,
-        val fromAccount: String,
+        val toAccount: String,
+        val transfer: Boolean,
         val contractAccountBalance: ContractAccountBalance
     ) : BandwidthFormIntent()
 }

@@ -32,6 +32,7 @@ import com.memtrip.eosreach.atPosition
 import com.memtrip.eosreach.db.account.AccountEntity
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.Matchers
 
 class VoteRobot {
 
@@ -45,12 +46,28 @@ class VoteRobot {
         return this
     }
 
+    fun verifyVoteReadOnly(): VoteRobot {
+        onView(withId(R.id.vote_cast_vote_title))
+            .check(matches(Matchers.not(isDisplayed())))
+        onView(withId(R.id.vote_cast_vote_producer_button))
+            .check(matches(Matchers.not(isDisplayed())))
+        onView(withId(R.id.vote_cast_vote_proxy_button))
+            .check(matches(Matchers.not(isDisplayed())))
+        return this
+    }
+
     fun verifyVotedBlockProducersScreen(): VoteRobot {
         onView(withId(R.id.vote_producer_vote_title_label))
             .check(matches(isDisplayed()))
         onView(withId(R.id.vote_producer_vote_list_recyclerview))
             .check(matches(atPosition(0, hasDescendant(withText("memtripblock")))))
             .check(matches(atPosition(1, hasDescendant(withText("eosflareiobp")))))
+        return this
+    }
+
+    fun verifyFirstBlockProducerItem(producerName: String): VoteRobot {
+        onView(withId(R.id.vote_producer_vote_list_recyclerview))
+            .check(matches(atPosition(0, hasDescendant(withText(producerName)))))
         return this
     }
 
@@ -115,6 +132,13 @@ class VoteRobot {
             .check(matches(isDisplayed()))
         onView(withId(R.id.cast_producers_vote_button))
             .check(matches(isDisplayed()))
+        return this
+    }
+
+    fun selectRemoveProducerButton(): VoteRobot {
+        onView(withId(R.id.cast_producers_vote_item_remove))
+            .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 

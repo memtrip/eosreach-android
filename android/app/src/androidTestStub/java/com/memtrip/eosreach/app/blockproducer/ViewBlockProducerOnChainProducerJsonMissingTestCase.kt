@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.account
+package com.memtrip.eosreach.app.blockproducer
 
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.StubTestCase
@@ -22,34 +22,43 @@ import com.memtrip.eosreach.api.StubApi
 import com.memtrip.eosreach.api.stub.Stub
 import com.memtrip.eosreach.api.stub.StubMatcher
 import com.memtrip.eosreach.api.stub.request.BasicStubRequest
-import com.memtrip.eosreach.api.stub.request.ChainedStubRequest
 
-class SwipeRefreshAccountErrorTestCase : StubTestCase() {
+class ViewBlockProducerOnChainProducerJsonMissingTestCase : StubTestCase() {
 
     override fun test() {
         importKeyOrchestra.go("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3")
         accountRobot
             .verifyAccountScreen()
-            .swipeToRefresh()
-            .showErrorDialog()
+            .verifyAvailableBalance()
+            .selectVoteTab()
+        voteRobot
+            .verifyVotedBlockProducersScreen()
+            .selectFirstBlockProducerItem()
+        blockProducerRobot
+            .verifyViewBlockProducerOnChainMissingLabel()
     }
 
     override fun stubApi(): StubApi = object : StubApi(context()) {
-
-        private val request = ChainedStubRequest(
-            BasicStubRequest(200, {
-                readJsonFile("stub/happypath/happy_path_get_account_unstaked.json")
-            })
-        ).next(
-            BasicStubRequest(400)
-        )
 
         override fun getAccount(): Stub = Stub(
             StubMatcher(
                 context.getString(R.string.app_default_eos_endpoint_root),
                 Regex("v1/chain/get_account$")
             ),
-            request
+            BasicStubRequest(200, {
+                readJsonFile("stub/happypath/happy_path_get_account_voter_info_producer_vote.json")
+            })
+        )
+
+        override fun getTableRowsProducerSingleJson(): Stub = Stub(
+            StubMatcher(
+                context.getString(R.string.app_default_eos_endpoint_root),
+                Regex("v1/chain/get_table_rows$"),
+                readJsonFile("stub/request/request_get_table_rows_producerjson_single.json")
+            ),
+            BasicStubRequest(200, {
+                readJsonFile("stub/happypath/happy_path_get_table_rows_producerjson_empty.json")
+            })
         )
     }
 }

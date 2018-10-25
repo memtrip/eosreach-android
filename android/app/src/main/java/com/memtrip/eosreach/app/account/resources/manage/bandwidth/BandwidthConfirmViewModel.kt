@@ -20,6 +20,7 @@ import android.app.Application
 import com.memtrip.eos.core.crypto.EosPrivateKey
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.Balance
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.api.bandwidth.BandwidthError
 import com.memtrip.eosreach.api.bandwidth.BandwidthRequest
 import com.memtrip.eosreach.app.price.BalanceFormatter
@@ -43,7 +44,7 @@ class BandwidthConfirmViewModel @Inject internal constructor(
     override fun dispatcher(intent: BandwidthConfirmIntent): Observable<BandwidthConfirmRenderAction> = when (intent) {
         is BandwidthConfirmIntent.Init -> Observable.just(BandwidthConfirmRenderAction.Populate(intent.bandwidthBundle))
         BandwidthConfirmIntent.Idle -> Observable.just(BandwidthConfirmRenderAction.Idle)
-        is BandwidthConfirmIntent.Commit -> commit(intent.bandwidthBundle)
+        is BandwidthConfirmIntent.Commit -> commit(intent.bandwidthBundle, intent.contractAccountBalance)
     }
 
     override fun reducer(previousState: BandwidthConfirmViewState, renderAction: BandwidthConfirmRenderAction): BandwidthConfirmViewState = when (renderAction) {
@@ -69,22 +70,26 @@ class BandwidthConfirmViewModel @Inject internal constructor(
     )
 
     private fun commit(
-        bandwidthBundle: BandwidthBundle
+        bandwidthBundle: BandwidthBundle,
+        contractAccountBalance: ContractAccountBalance
     ): Observable<BandwidthConfirmRenderAction> {
 
-        return getAccountByName.select(bandwidthBundle.fromAccount).flatMap { accountEntity ->
+        return getAccountByName.select(contractAccountBalance.accountName).flatMap { accountEntity ->
             eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { privateKey ->
                 when (bandwidthBundle.bandwidthCommitType) {
                     BandwidthCommitType.DELEGATE -> {
                         delegateBandwidth(
-                            bandwidthBundle.fromAccount,
+                            contractAccountBalance.accountName,
+                            bandwidthBundle.targetAccount,
                             bandwidthBundle.netAmount,
                             bandwidthBundle.cpuAmount,
+                            bandwidthBundle.transfer,
                             privateKey)
                     }
                     BandwidthCommitType.UNDELEGATE -> {
                         unDelegateBandwidth(
-                            bandwidthBundle.fromAccount,
+                            contractAccountBalance.accountName,
+                            bandwidthBundle.targetAccount,
                             bandwidthBundle.netAmount,
                             bandwidthBundle.cpuAmount,
                             privateKey)
@@ -100,14 +105,18 @@ class BandwidthConfirmViewModel @Inject internal constructor(
 
     private fun delegateBandwidth(
         fromAccount: String,
+        toAccount: String,
         netAmount: Balance,
         cpuAmount: Balance,
+        transfer: Boolean,
         privateKey: EosPrivateKey
     ): Single<BandwidthConfirmRenderAction> {
         return bandWidthRequest.delegate(
             fromAccount,
+            toAccount,
             BalanceFormatter.formatEosBalance(netAmount),
             BalanceFormatter.formatEosBalance(cpuAmount),
+            transfer,
             privateKey
         ).map { result ->
             if (result.success) {
@@ -127,12 +136,14 @@ class BandwidthConfirmViewModel @Inject internal constructor(
 
     private fun unDelegateBandwidth(
         fromAccount: String,
+        toAccount: String,
         netAmount: Balance,
         cpuAmount: Balance,
         privateKey: EosPrivateKey
     ): Single<BandwidthConfirmRenderAction> {
         return bandWidthRequest.unDelegate(
             fromAccount,
+            toAccount,
             BalanceFormatter.formatEosBalance(netAmount),
             BalanceFormatter.formatEosBalance(cpuAmount),
             privateKey

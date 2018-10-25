@@ -37,4 +37,7 @@ abstract class BandwidthModule {
 
     @ContributesAndroidInjector(modules = [BandwidthConfirmActivityModule::class])
     internal abstract fun contributeBandwidthConfirmActivity(): BandwidthConfirmActivity
+
+    @ContributesAndroidInjector(modules = [DelegateBandwidthListFragmentModule::class])
+    internal abstract fun contributeDelegateBandwidthListFragment(): DelegateBandwidthListFragment
 }

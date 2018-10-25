@@ -29,6 +29,7 @@ data class ResourcesViewState(val view: View) : MxViewState {
             val contractAccountBalance: ContractAccountBalance
         ) : View()
         object NavigateToManageBandwidth : View()
+        object NavigateToManageBandwidthWithAccountName : View()
         object NavigateToManageRam : View()
     }
 }

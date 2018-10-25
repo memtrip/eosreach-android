@@ -126,8 +126,8 @@ abstract class BalanceFragment
 
     companion object {
 
-        const val ACCOUNT_NAME = "ACCOUNT_NAME"
-        const val ACCOUNT_BALANCES = "ACCOUNT_BALANCES"
+        private const val ACCOUNT_NAME = "ACCOUNT_NAME"
+        private const val ACCOUNT_BALANCES = "ACCOUNT_BALANCES"
 
         private fun accountBalanceListExtra(bundle: Bundle): AccountBalanceList =
             bundle.getParcelable(ACCOUNT_BALANCES)
@@ -142,8 +142,8 @@ abstract class BalanceFragment
         ): BalanceFragment {
             return when (accountTheme) {
                 AccountTheme.DEFAULT -> {
-                    with (DefaultBalanceFragment()) {
-                        arguments = with (Bundle()) {
+                    with(DefaultBalanceFragment()) {
+                        arguments = with(Bundle()) {
                             putString(ACCOUNT_NAME, accountName)
                             putParcelable(ACCOUNT_BALANCES, accountBalances)
                             this
@@ -152,8 +152,8 @@ abstract class BalanceFragment
                     }
                 }
                 AccountTheme.READ_ONLY -> {
-                    with (ReadOnlyBalanceFragment()) {
-                        arguments = with (Bundle()) {
+                    with(ReadOnlyBalanceFragment()) {
+                        arguments = with(Bundle()) {
                             putString(ACCOUNT_NAME, accountName)
                             putParcelable(ACCOUNT_BALANCES, accountBalances)
                             this

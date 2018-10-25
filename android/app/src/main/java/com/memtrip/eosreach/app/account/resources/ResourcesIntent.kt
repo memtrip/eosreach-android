@@ -27,5 +27,6 @@ sealed class ResourcesIntent : MxViewIntent {
     ) : ResourcesIntent()
     object Idle : ResourcesIntent()
     object NavigateToManageBandwidth : ResourcesIntent()
+    data class NavigateToManageBandwidthWithAccountName(val accountName: String) : ResourcesIntent()
     object NavigateToManageRam : ResourcesIntent()
 }

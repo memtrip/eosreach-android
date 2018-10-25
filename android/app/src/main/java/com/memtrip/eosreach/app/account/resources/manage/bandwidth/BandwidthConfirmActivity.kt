@@ -76,7 +76,7 @@ class BandwidthConfirmActivity
     override fun intents(): Observable<BandwidthConfirmIntent> = Observable.merge(
         Observable.just(BandwidthConfirmIntent.Init(bandwidthBundle)),
         RxView.clicks(bandwidth_confirm_cta_button).map {
-            BandwidthConfirmIntent.Commit(bandwidthBundle)
+            BandwidthConfirmIntent.Commit(bandwidthBundle, contractAccountBalance)
         }
     )
 
@@ -88,8 +88,10 @@ class BandwidthConfirmActivity
 
     override fun populate(bandwidthBundle: BandwidthBundle) {
         bandwidth_confirm_details_layout.populate(
+            bandwidthBundle.targetAccount,
             bandwidthBundle.cpuAmount,
             bandwidthBundle.netAmount,
+            bandwidthBundle.transfer,
             contractAccountBalance)
     }
 
@@ -131,7 +133,7 @@ class BandwidthConfirmActivity
 
     override fun showSuccess(transactionId: String) {
         startActivity(transactionReceiptIntent(
-            ActionReceipt(transactionId, bandwidthBundle.fromAccount),
+            ActionReceipt(transactionId, contractAccountBalance.accountName),
             contractAccountBalance,
             TransactionReceiptRoute.ACCOUNT_RESOURCES,
             this))
@@ -148,7 +150,7 @@ class BandwidthConfirmActivity
             contractAccountBalance: ContractAccountBalance,
             context: Context
         ): Intent {
-            return with (Intent(context, BandwidthConfirmActivity::class.java)) {
+            return with(Intent(context, BandwidthConfirmActivity::class.java)) {
                 putExtra(BANDWIDTH_BUNDLE, bandwidthBundle)
                 putExtra(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
                 this

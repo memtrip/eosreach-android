@@ -124,7 +124,7 @@ class CastVoteActivity
             page: CastVoteFragmentPagerFragment.Page,
             context: Context
         ): Intent {
-            return with (Intent(context, CastVoteActivity::class.java)) {
+            return with(Intent(context, CastVoteActivity::class.java)) {
                 putExtra(EOS_ACCOUNT_EXTRA, eosAccount)
                 putExtra(PAGE_EXTRA, page)
                 this

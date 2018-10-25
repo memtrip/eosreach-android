@@ -1,6 +1,5 @@
 package com.memtrip.eosreach.app.voterproxy
 
-import android.os.SystemClock
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.StubTestCase
 import com.memtrip.eosreach.api.StubApi

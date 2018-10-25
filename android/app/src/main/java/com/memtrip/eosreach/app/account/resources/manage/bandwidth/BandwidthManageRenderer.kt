@@ -24,6 +24,7 @@ import javax.inject.Inject
 sealed class BandwidthManageRenderAction : MxRenderAction {
     object DelegateBandwidthTabIdle : BandwidthManageRenderAction()
     object UnDelegateBandwidthTabIdle : BandwidthManageRenderAction()
+    object AllocatedTabIdle : BandwidthManageRenderAction()
     object Init : BandwidthManageRenderAction()
 }
 

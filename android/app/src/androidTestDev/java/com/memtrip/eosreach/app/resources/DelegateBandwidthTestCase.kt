@@ -30,7 +30,9 @@ class DelegateBandwidthTestCase : DevTestCase() {
         resourcesRobot
             .verifyResourcesScreen()
             .selectBandwidthButton()
+        bandwidthRobot
             .verifyManageBandwidthScreen()
+            .enterUsername("memtripadmin", R.id.account_resources_delegate_bandwidth_fragment)
             .enterNetBalance("0.0100", R.id.account_resources_delegate_bandwidth_fragment)
             .enterCpuBalance("0.0100", R.id.account_resources_delegate_bandwidth_fragment)
             .selectBandwidthFormCtaButton(R.id.account_resources_delegate_bandwidth_fragment)

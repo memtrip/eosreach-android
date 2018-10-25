@@ -23,7 +23,10 @@ data class BandwidthFormViewState(val view: View) : MxViewState {
 
     sealed class View {
         object Idle : View()
-        data class Populate(val contractAccountBalance: ContractAccountBalance) : View()
+        data class Populate(
+            val contractAccountBalance: ContractAccountBalance,
+            val bandwidthBundle: BandwidthFormBundle
+        ) : View()
         data class NavigateToConfirm(val bandwidthBundle: BandwidthBundle) : View()
     }
 }

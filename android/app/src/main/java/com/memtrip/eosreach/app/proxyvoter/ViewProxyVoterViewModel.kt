@@ -19,7 +19,6 @@ package com.memtrip.eosreach.app.proxyvoter
 import android.app.Application
 import android.net.Uri
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterRequest
-import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerRenderAction
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject

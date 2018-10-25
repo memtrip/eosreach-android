@@ -22,16 +22,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.drawee.drawable.ScalingUtils
 import com.jakewharton.rxbinding2.view.RxView
-
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
-
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.SimpleAdapter
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 import io.reactivex.subjects.PublishSubject
-
-import kotlinx.android.synthetic.main.block_producer_list_item_row.view.*
 import kotlinx.android.synthetic.main.proxy_voter_list_item_row.view.*
 
 class ProxyVoterListAdapter(

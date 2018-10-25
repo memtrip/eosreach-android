@@ -22,6 +22,8 @@ import com.memtrip.eosreach.robot.account.AccountNavigationRobot
 import com.memtrip.eosreach.robot.account.AccountRobot
 import com.memtrip.eosreach.robot.account.actions.ActionsRobot
 import com.memtrip.eosreach.robot.account.balance.BalanceRobot
+import com.memtrip.eosreach.robot.account.resources.BandwidthRobot
+import com.memtrip.eosreach.robot.account.resources.RamRobot
 import com.memtrip.eosreach.robot.account.resources.ResourcesRobot
 import com.memtrip.eosreach.robot.account.search.SearchRobot
 import com.memtrip.eosreach.robot.account.vote.VoteRobot
@@ -49,6 +51,8 @@ abstract class TestCase {
     internal val balanceRobot = BalanceRobot()
     internal val voteRobot = VoteRobot()
     internal val resourcesRobot = ResourcesRobot()
+    internal val bandwidthRobot = BandwidthRobot()
+    internal val ramRobot = RamRobot()
     internal val actionsRobot = ActionsRobot()
     internal val transferRobot = TransferRobot()
     internal val transactionRobot = TransactionRobot()

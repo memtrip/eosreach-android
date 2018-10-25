@@ -68,7 +68,7 @@ internal class TransactionLogActivity
         private const val TRANSACTION_LOG = "TRANSACTION_LOG"
 
         fun transactionLogIntent(log: String, context: Context): Intent {
-            return with (Intent(context, TransactionLogActivity::class.java)) {
+            return with(Intent(context, TransactionLogActivity::class.java)) {
                 putExtra(TRANSACTION_LOG, log)
                 this
             }

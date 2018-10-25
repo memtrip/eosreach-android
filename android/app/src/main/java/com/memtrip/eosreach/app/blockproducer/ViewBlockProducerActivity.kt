@@ -28,7 +28,6 @@ import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountBundle
 import com.memtrip.eosreach.app.account.AccountTheme
-import com.memtrip.eosreach.app.account.ReadonlyAccountActivity
 import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
@@ -78,7 +77,7 @@ abstract class ViewBlockProducerActivity
         RxView.clicks(block_producer_view_website_label).map {
             ViewBlockProducerIntent.NavigateToUrl(blockProducerDetails.website)
         },
-        block_producer_view_error_view.retryClick().map {
+        block_producer_view_error.retryClick().map {
             ViewBlockProducerIntent.InitWithName(blockProducerName(intent))
         }
     )
@@ -108,17 +107,22 @@ abstract class ViewBlockProducerActivity
 
     override fun showProgress() {
         block_producer_view_progress.visible()
-        block_producer_view_error_view.gone()
+        block_producer_view_error.gone()
         block_producer_view_group.gone()
         block_producer_view_owner_account_button.gone()
     }
 
     override fun showError() {
         block_producer_view_progress.gone()
-        block_producer_view_error_view.visible()
-        block_producer_view_error_view.populate(
-            getString(R.string.block_producer_view_error_title),
+        block_producer_view_error.visible()
+        block_producer_view_error.populate(
+            getString(R.string.app_dialog_error_title),
             getString(R.string.block_producer_view_error_body))
+    }
+
+    override fun showEmpty() {
+        block_producer_view_progress.gone()
+        block_producer_view_empty_label.visible()
     }
 
     override fun showTitle(blockProducerName: String) {
@@ -169,14 +173,14 @@ abstract class ViewBlockProducerActivity
         ): Intent {
             return when (accountTheme) {
                 AccountTheme.DEFAULT -> {
-                    with (Intent(context, DefaultViewBlockProducerActivity::class.java)) {
+                    with(Intent(context, DefaultViewBlockProducerActivity::class.java)) {
                         putExtra(BLOCK_PRODUCER_DETAILS, blockProducerDetails)
                         putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.DETAILS)
                         this
                     }
                 }
                 AccountTheme.READ_ONLY -> {
-                    with (Intent(context, ReadOnlyViewBlockProducerActivity::class.java)) {
+                    with(Intent(context, ReadOnlyViewBlockProducerActivity::class.java)) {
                         putExtra(BLOCK_PRODUCER_DETAILS, blockProducerDetails)
                         putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.DETAILS)
                         this
@@ -192,14 +196,14 @@ abstract class ViewBlockProducerActivity
         ): Intent {
             return when (accountTheme) {
                 AccountTheme.DEFAULT -> {
-                    with (Intent(context, DefaultViewBlockProducerActivity::class.java)) {
+                    with(Intent(context, DefaultViewBlockProducerActivity::class.java)) {
                         putExtra(BLOCK_PRODUCER_NAME, blockProducerName)
                         putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.LOAD)
                         this
                     }
                 }
                 AccountTheme.READ_ONLY -> {
-                    with (Intent(context, ReadOnlyViewBlockProducerActivity::class.java)) {
+                    with(Intent(context, ReadOnlyViewBlockProducerActivity::class.java)) {
                         putExtra(BLOCK_PRODUCER_NAME, blockProducerName)
                         putExtra(BLOCK_PRODUCER_DISPLAY_ACTION, ViewBlockProducerDisplayAction.LOAD)
                         this

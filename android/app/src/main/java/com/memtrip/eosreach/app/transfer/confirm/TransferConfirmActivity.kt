@@ -138,7 +138,7 @@ class TransferConfirmActivity
         private const val TRANSFER_FORM_EXTRA = "TRANSFER_FORM_EXTRA"
 
         fun transferConfirmIntent(transferFormData: TransferFormData, context: Context): Intent {
-            return with (Intent(context, TransferConfirmActivity::class.java)) {
+            return with(Intent(context, TransferConfirmActivity::class.java)) {
                 putExtra(TRANSFER_FORM_EXTRA, transferFormData)
                 this
             }

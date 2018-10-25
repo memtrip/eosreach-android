@@ -32,7 +32,7 @@ class RamPriceRequestImpl @Inject internal constructor(
 
     override fun getRamPrice(symbol: String): Single<Balance> {
         return getRamPrice.getPricePerKilobyte().map { price ->
-            val formattedPrice = with (DecimalFormat("0.00000000")) {
+            val formattedPrice = with(DecimalFormat("0.00000000")) {
                 roundingMode = RoundingMode.CEILING
                 this
             }.format(price)

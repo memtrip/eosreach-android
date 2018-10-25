@@ -39,6 +39,66 @@
         tools:ignore="UselessLeaf" />
 
     <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_details_target_account_label"
+        style="@style/Typography.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/resources_bandwidth_details_target_account_label"
+        android:textColor="@color/typographyColorInverse"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_middle_guideline"
+        app:layout_constraintStart_toStartOf="@id/bandwidth_details_label_start_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_details_target_account_value"
+        style="@style/Typography.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginEnd="@dimen/padding_medium"
+        android:textColor="@color/typographyColorInverse"
+        android:gravity="end"
+        app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/bandwidth_details_label_middle_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:hint="20 EOS ($5000)" />
+
+    <View
+        android:id="@+id/bandwidth_details_target_account_spacer"
+        style="@style/ViewFormSpacer"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@id/bandwidth_details_label_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_details_target_account_label"
+        app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_end_guideline"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_details_transfer_funds_label"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/resources_bandwidth_details_transfer_funds_label"
+        android:textColor="?colorAccent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/bandwidth_details_label_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_details_target_account_spacer" />
+
+    <View
+        android:id="@+id/bandwidth_details_transfer_funds_spacer"
+        style="@style/ViewFormSpacer"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/bandwidth_details_label_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_details_transfer_funds_label"
+        app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_end_guideline"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/bandwidth_details_net_label"
         style="@style/Typography.Medium"
         android:layout_width="0dp"
@@ -49,7 +109,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_middle_guideline"
         app:layout_constraintStart_toStartOf="@id/bandwidth_details_label_start_guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_details_transfer_funds_spacer" />
 
     <HorizontalScrollView
         android:id="@+id/bandwidth_details_net_scrollview"
@@ -59,7 +119,7 @@
         android:layout_marginEnd="@dimen/padding_medium"
         app:layout_constraintEnd_toEndOf="@id/bandwidth_details_label_end_guideline"
         app:layout_constraintStart_toStartOf="@id/bandwidth_details_label_middle_guideline"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_details_transfer_funds_spacer">
 
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/bandwidth_details_net_value"

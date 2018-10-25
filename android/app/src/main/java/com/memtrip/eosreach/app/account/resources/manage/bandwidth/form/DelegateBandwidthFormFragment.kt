@@ -17,9 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.account.resources.manage.bandwidth.form
 
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthCommitType
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormBundle
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormFragment
 
 class DelegateBandwidthFormFragment : BandwidthFormFragment() {
@@ -30,11 +30,11 @@ class DelegateBandwidthFormFragment : BandwidthFormFragment() {
     companion object {
 
         fun newInstance(
-            eosAccount: EosAccount,
+            bandwidthFormBundle: BandwidthFormBundle,
             contractAccountBalance: ContractAccountBalance
         ): DelegateBandwidthFormFragment {
-            return with (DelegateBandwidthFormFragment()) {
-                arguments = BandwidthFormFragment.toBundle(eosAccount, contractAccountBalance)
+            return with(DelegateBandwidthFormFragment()) {
+                arguments = BandwidthFormFragment.toBundle(bandwidthFormBundle, contractAccountBalance)
                 this
             }
         }

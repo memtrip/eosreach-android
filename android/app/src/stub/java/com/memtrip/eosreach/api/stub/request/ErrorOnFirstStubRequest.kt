@@ -28,13 +28,13 @@ class ErrorOnFirstStubRequest(
     private val headers: Headers = Headers.of()
 ) : StubRequest {
 
-    private val requests: LinkedList<StubRequest> = with (LinkedList<StubRequest>()) {
+    private val requests: LinkedList<StubRequest> = with(LinkedList<StubRequest>()) {
         add(BasicStubRequest(400))
         this
     }
 
     override fun call(request: Request): Response {
-        return with (requests.removeFirst().call(request)) {
+        return with(requests.removeFirst().call(request)) {
             requests.add(BasicStubRequest(code, body, headers))
             this
         }

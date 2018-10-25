@@ -48,7 +48,7 @@ class BlockProducerRequestImpl @Inject internal constructor(
                 })
             }
             .onErrorReturn {
-                Result(BlockProducerError())
+                Result(BlockProducerError.GenericError)
             }
     }
 
@@ -70,8 +70,12 @@ class BlockProducerRequestImpl @Inject internal constructor(
                     )
                 )
             }
-            .onErrorReturn {
-                Result(BlockProducerError())
+            .onErrorReturn { throwable ->
+                if (throwable is GetBlockProducers.OnChainProducerJsonMissing) {
+                    Result(BlockProducerError.OnChainProducerJsonMissing)
+                } else {
+                    Result(BlockProducerError.GenericError)
+                }
             }
     }
 }

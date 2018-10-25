@@ -4,7 +4,7 @@ import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetAccountNamesForPublicKey @Inject internal constructor(
+class GetAccountsNamesForPublicKey @Inject internal constructor(
     private val accountDao: AccountDao,
     private val rxSchedulers: RxSchedulers
 ) {

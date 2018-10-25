@@ -35,18 +35,20 @@ class BandwidthRequestImpl @Inject internal constructor(
 
     override fun delegate(
         fromAccount: String,
+        toAccount: String,
         netAmount: String,
         cpuAmount: String,
+        transfer: Boolean,
         authorizingPrivateKey: EosPrivateKey,
         transactionExpiry: Date
     ): Single<Result<ActionReceipt, BandwidthError>> {
         return delegateBandwidthChain.delegateBandwidth(
             DelegateBandwidthChain.Args(
                 fromAccount,
-                fromAccount,
+                toAccount,
                 netAmount,
                 cpuAmount,
-                false
+                transfer
             ),
             TransactionContext(
                 fromAccount,
@@ -69,6 +71,7 @@ class BandwidthRequestImpl @Inject internal constructor(
 
     override fun unDelegate(
         fromAccount: String,
+        toAccount: String,
         netAmount: String,
         cpuAmount: String,
         authorizingPrivateKey: EosPrivateKey,
@@ -77,7 +80,7 @@ class BandwidthRequestImpl @Inject internal constructor(
         return unDelegateBandwidthChain.unDelegateBandwidth(
             UnDelegateBandwidthChain.Args(
                 fromAccount,
-                fromAccount,
+                toAccount,
                 netAmount,
                 cpuAmount
             ),

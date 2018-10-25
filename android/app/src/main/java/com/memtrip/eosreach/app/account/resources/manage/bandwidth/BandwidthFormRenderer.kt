@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.account.resources.manage.bandwidth
 
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
+import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer
@@ -24,12 +25,16 @@ import javax.inject.Inject
 
 sealed class BandwidthFormRenderAction : MxRenderAction {
     object Idle : BandwidthFormRenderAction()
-    data class Populate(val contractAccountBalance: ContractAccountBalance) : BandwidthFormRenderAction()
+    data class Populate(
+        val contractAccountBalance: ContractAccountBalance,
+        val bandwidthFormBundle: BandwidthFormBundle
+    ) : BandwidthFormRenderAction()
     data class NavigateToConfirm(
         val bandwidthCommitType: BandwidthCommitType,
+        val toAccount: String,
         val netAmount: String,
         val cpuAmount: String,
-        val fromAccount: String,
+        val transfer: Boolean,
         val contractAccountBalance: ContractAccountBalance
     ) : BandwidthFormRenderAction()
 }
@@ -37,6 +42,9 @@ sealed class BandwidthFormRenderAction : MxRenderAction {
 interface BandwidthFormViewLayout : MxViewLayout {
     fun navigateToConfirm(bandwidthBundle: BandwidthBundle)
     fun populate(formattedBalance: String)
+    fun stakeSelfAccountName(accountName: String)
+    fun stakedNet(net: String)
+    fun stakedCpu(cpu: String)
 }
 
 class BandwidthFormViewRenderer @Inject internal constructor() : MxViewRenderer<BandwidthFormViewLayout, BandwidthFormViewState> {
@@ -44,6 +52,18 @@ class BandwidthFormViewRenderer @Inject internal constructor() : MxViewRenderer<
         BandwidthFormViewState.View.Idle -> {
         }
         is BandwidthFormViewState.View.Populate -> {
+            if (state.view.bandwidthBundle.delegateTarget == DelegateTarget.SELF) {
+                state.view.bandwidthBundle.net?.let { net ->
+                    layout.stakedNet(BalanceFormatter.formatBalanceDigits(net.amount))
+                }
+                state.view.bandwidthBundle.cpu?.let { cpu ->
+                    layout.stakedCpu(BalanceFormatter.formatBalanceDigits(cpu.amount))
+                }
+                state.view.bandwidthBundle.targetAccount?.let { targetAccount ->
+                    layout.stakeSelfAccountName(targetAccount)
+                }
+            }
+
             val contractAccountBalance = state.view.contractAccountBalance
             layout.populate(
                 "${contractAccountBalance.balance.amount} ${contractAccountBalance.balance.symbol}")

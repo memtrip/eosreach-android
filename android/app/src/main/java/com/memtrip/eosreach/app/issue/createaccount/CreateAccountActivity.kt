@@ -134,17 +134,13 @@ abstract class CreateAccountActivity
     override fun startBillingConnection() {
         issue_create_account_sku_error.gone()
         issue_create_account_sku_progress.visible()
+
         billing.startConnection({ response ->
-            handler.post {
-                model().publish(CreateAccountIntent.BillingFlowComplete(
-                    issue_create_account_name_input.text.toString(),
-                    response
-                ))
-            }
+            handler.post(StartConnectionRunnable(model(), CreateAccountIntent.BillingFlowComplete(
+                issue_create_account_name_input.text.toString(),
+                response)))
         }, { response ->
-            handler.post {
-                handleBillingConnection(response)
-            }
+            handler.post(BillingConnectionRunnable(model(), response))
         })
     }
 

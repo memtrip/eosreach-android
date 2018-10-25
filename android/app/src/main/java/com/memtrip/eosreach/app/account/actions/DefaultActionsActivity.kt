@@ -15,7 +15,7 @@ class DefaultActionsActivity : ActionsActivity() {
             contractAccountBalance: ContractAccountBalance,
             context: Context
         ): Intent {
-            return with (Intent(context, DefaultActionsActivity::class.java)) {
+            return with(Intent(context, DefaultActionsActivity::class.java)) {
                 putExtra(CONTRACT_ACCOUNT_BALANCE_EXTRA, contractAccountBalance)
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 this

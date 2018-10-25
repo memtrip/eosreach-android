@@ -28,7 +28,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.memtrip.eosreach.R
 import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.not
 
 class AccountRobot {
 
@@ -37,7 +36,7 @@ class AccountRobot {
         onView(withId(R.id.account_toolbar))
             .check(matches(isDisplayed()))
 
-        onView(withId(R.id.account_balance_background))
+        onView(withId(R.id.account_balance_available_appbarlayout))
             .check(matches(isDisplayed()))
 
         onView(withContentDescription(R.string.abc_action_bar_up_description))
@@ -51,7 +50,7 @@ class AccountRobot {
         onView(withId(R.id.account_toolbar))
             .check(matches(isDisplayed()))
 
-        onView(withId(R.id.account_balance_background))
+        onView(withId(R.id.account_balance_available_appbarlayout))
             .check(matches(isDisplayed()))
 
         onView(withId(R.id.account_menu_search))
@@ -108,7 +107,7 @@ class AccountRobot {
 
     fun swipeToRefresh(): AccountRobot {
 
-        onView(withId(R.id.account_swipelayout))
+        onView(withId(R.id.account_nestedscrollview))
             .check(matches(isDisplayed()))
             .perform(swipeDown())
 
@@ -126,6 +125,13 @@ class AccountRobot {
         onView(withText(R.string.app_dialog_positive_button))
             .check(matches(isDisplayed()))
 
+        return this
+    }
+
+    fun selectBalanceTab(): AccountRobot {
+        onView(withText(R.string.account_page_balance))
+            .check(matches(isDisplayed()))
+            .perform(click())
         return this
     }
 
@@ -147,26 +153,6 @@ class AccountRobot {
         onView(withId(R.id.account_menu_search))
             .check(matches(isDisplayed()))
             .perform(click())
-        return this
-    }
-
-    fun verifyResourcesReadOnly(): AccountRobot {
-        onView(withId(R.id.resources_manage_title))
-            .check(matches(not(isDisplayed())))
-        onView(withId(R.id.resources_manage_bandwidth_button))
-            .check(matches(not(isDisplayed())))
-        onView(withId(R.id.resources_manage_ram_button))
-            .check(matches(not(isDisplayed())))
-        return this
-    }
-
-    fun verifyVoteReadOnly(): AccountRobot {
-        onView(withId(R.id.vote_cast_vote_title))
-            .check(matches(not(isDisplayed())))
-        onView(withId(R.id.vote_cast_vote_producer_button))
-            .check(matches(not(isDisplayed())))
-        onView(withId(R.id.vote_cast_vote_proxy_button))
-            .check(matches(not(isDisplayed())))
         return this
     }
 }

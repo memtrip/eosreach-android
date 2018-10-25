@@ -82,7 +82,7 @@ class ViewPrivateKeysActivity
         view_private_keys_progressbar.gone()
         view_private_keys_data_scrollview.visible()
         viewKeyPair.forEach { key ->
-            val privateKeyLayout = with (LayoutInflater.from(this).inflate(
+            val privateKeyLayout = with(LayoutInflater.from(this).inflate(
                 R.layout.view_private_keys_item_layout,
                 null,
                 false
@@ -92,7 +92,7 @@ class ViewPrivateKeysActivity
                 findViewById<TextView>(R.id.view_private_keys_item_public)
                     .text = key.eosPrivateKey.publicKey.toString()
                 findViewById<TextView>(R.id.view_private_keys_item_accounts)
-                    .text = with (key.associatedAccounts.joinToString()) {
+                    .text = with(key.associatedAccounts.joinToString()) {
                         if (key.associatedAccounts.size > 1) {
                             this.dropLast(0)
                         } else {

@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/padding_medium">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vertical_start_guideline"
@@ -61,7 +62,7 @@
             android:text="@string/resources_manage_title"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_start_guideline"/>
+            app:layout_constraintTop_toBottomOf="@id/horizontal_start_guideline" />
 
         <com.memtrip.eosreach.brand.ReachButton
             android:id="@+id/resources_manage_bandwidth_button"
@@ -123,7 +124,7 @@
         <View
             android:id="@+id/resources_ram_spacer"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_medium"
             android:background="@color/colorSpacerBorder"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
@@ -165,65 +166,17 @@
             app:layout_constraintTop_toBottomOf="@id/resources_cpu_progressbar"
             tools:text="2.861ms / 10.115ms" />
 
-        <!-- cpu -> staked/delegated -->
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_cpu_staked_label"
-            style="@style/Typography.Caption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:text="@string/resources_staked"
-            android:textAllCaps="true"
-            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
-            app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_cpu_values" />
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_cpu_staked_value"
-            style="@style/Typography.Caption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding_medium"
-            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
-            app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_cpu_staked_label"
-            tools:text="0.1000345345345534534354345345 EOS" />
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_cpu_delegated_label"
-            style="@style/Typography.Caption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_medium"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:text="@string/resources_delegated"
-            android:textAllCaps="true"
-            app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
-            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_cpu_values" />
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_cpu_delegated_value"
-            style="@style/Typography.Caption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_medium"
-            app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
-            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_cpu_delegated_label"
-            tools:text="0.10005545466454654654654 EOS" />
-
         <!-- / cpu -> staked/delegated -->
 
         <View
             android:id="@+id/resources_cpu_spacer"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_medium"
             android:background="@color/colorSpacerBorder"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_cpu_delegated_value"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_cpu_values"/>
 
         <!-- / cpu -->
 
@@ -260,66 +213,224 @@
             app:layout_constraintTop_toBottomOf="@id/resources_net_progressbar"
             tools:text="296.00B / 197.57KB" />
 
-        <!-- net -> staked/delegated -->
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_net_staked_label"
-            style="@style/Typography.Caption"
+        <View
+            android:id="@+id/resources_net_spacer"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/padding_medium"
-            android:text="@string/resources_staked"
-            android:textAllCaps="true"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
-            app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_values" />
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_net_staked_value"
-            style="@style/Typography.Caption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/padding_medium"
-            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
-            app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_staked_label"
-            tools:text="0.1000 EOS"/>
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_net_delegated_label"
-            style="@style/Typography.Caption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_medium"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:text="@string/resources_delegated"
-            android:textAllCaps="true"
-            app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_values" />
-
-        <com.memtrip.eosreach.brand.ReachTextView
-            android:id="@+id/resources_net_delegated_value"
-            style="@style/Typography.Caption"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_medium"
-            app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
-            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_delegated_label"
-            tools:text="0.1000 EOS"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_net_values"/>
 
         <!-- / net -> staked/delegated -->
 
         <!-- / net -->
 
-        <View
-            android:id="@+id/resources_bottom_spacer"
+        <!-- staked -->
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/resources_stake_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="resources_stake_title,resources_stake_cpu_label,resources_stake_cpu_value,resources_stake_net_label,resources_stake_net_value"
+            tools:ignore="MissingConstraints" />
+
+        <FrameLayout
+            android:id="@+id/resources_stake_click_area"
             android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/padding_large"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/resources_stake_title"
+            app:layout_constraintBottom_toBottomOf="@id/resources_stake_spacer"/>
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_stake_title"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="@string/resources_staked"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+            app:layout_constraintEnd_toStartOf="@id/resources_stake_update"
+            app:layout_constraintTop_toBottomOf="@id/resources_net_spacer"/>
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_stake_update"
+            style="@style/Typography.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="@string/resources_update_stake"
+            android:drawableStart="@drawable/app_config_ic"
+            android:textColor="?colorAccent"
+            android:drawablePadding="@dimen/padding_small"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_net_spacer"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/resources_stake_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="resources_stake_cpu_value,resources_stake_net_value"
+            tools:ignore="MissingConstraints" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_stake_cpu_label"
+            style="@style/Typography.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:text="@string/resources_stake_cpu"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_title" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_stake_cpu_value"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:padding="@dimen/padding_medium"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:background="@drawable/view_button_transparent_background"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_cpu_label"
+            tools:text="123.0034 EOS"/>
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_stake_net_label"
+            style="@style/Typography.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:text="@string/resources_stake_net"
+            app:layout_constraintStart_toStartOf="@id/vertical_middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_title" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_stake_net_value"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_small"
+            android:padding="@dimen/padding_medium"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:background="@drawable/view_button_transparent_background"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_net_label"
+            tools:text="12342342423.0034 EOS"/>
+
+        <View
+            android:id="@+id/resources_stake_spacer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_medium"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_delegated_value"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_barrier"/>
+
+        <!-- / staked -->
+
+        <!-- delegate -->
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/resources_delegate_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="resources_delegate_title,bandwidth_delegate_list_cpu_label,bandwidth_delegate_list_cpu_value,bandwidth_delegate_list_net_label,bandwidth_delegate_list_net_value"
+            tools:ignore="MissingConstraints" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_delegate_title"
+            style="@style/Typography.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="@string/resources_delegated"
+            android:drawablePadding="@dimen/padding_small"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_spacer"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/bandwidth_delegate_list_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="bandwidth_delegate_list_cpu_value,bandwidth_delegate_list_net_value"
+            tools:ignore="MissingConstraints" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/bandwidth_delegate_list_cpu_label"
+            style="@style/Typography.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:textAllCaps="true"
+            android:text="@string/resources_stake_cpu"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_delegate_title" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/bandwidth_delegate_list_cpu_value"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:padding="@dimen/padding_medium"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:background="@drawable/view_button_transparent_background"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_cpu_label"
+            tools:text="123.0034 EOS"/>
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/bandwidth_delegate_list_net_label"
+            style="@style/Typography.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_small"
+            android:textAllCaps="true"
+            android:text="@string/resources_stake_net"
+            app:layout_constraintStart_toStartOf="@id/vertical_middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_delegate_title" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/bandwidth_delegate_list_net_value"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_small"
+            android:padding="@dimen/padding_medium"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:background="@drawable/view_button_transparent_background"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_net_label"
+            tools:text="12342342423.0034 EOS"/>
+
+        <!-- / delegate -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -30,28 +30,32 @@ abstract class BandwidthFormViewModel(
 ) {
 
     override fun dispatcher(intent: BandwidthFormIntent): Observable<BandwidthFormRenderAction> = when (intent) {
-        is BandwidthFormIntent.Init -> Observable.just(BandwidthFormRenderAction.Populate(intent.contractAccountBalance))
+        is BandwidthFormIntent.Init -> Observable.just(BandwidthFormRenderAction.Populate(
+            intent.contractAccountBalance, intent.bandwidthFormBundle))
         BandwidthFormIntent.Idle -> Observable.just(BandwidthFormRenderAction.Idle)
         is BandwidthFormIntent.Confirm -> Observable.just(BandwidthFormRenderAction.NavigateToConfirm(
             intent.bandwidthCommitType,
-            intent.fromAccount,
-            intent.cpuAmount,
+            intent.toAccount,
             intent.netAmount,
-            intent.contractAccountBalance
-        ))
+            intent.cpuAmount,
+            intent.transfer,
+            intent.contractAccountBalance))
     }
 
     override fun reducer(previousState: BandwidthFormViewState, renderAction: BandwidthFormRenderAction): BandwidthFormViewState = when (renderAction) {
         BandwidthFormRenderAction.Idle -> previousState.copy(
             view = BandwidthFormViewState.View.Idle)
         is BandwidthFormRenderAction.Populate -> previousState.copy(
-            view = BandwidthFormViewState.View.Populate(renderAction.contractAccountBalance))
+            view = BandwidthFormViewState.View.Populate(
+                renderAction.contractAccountBalance,
+                renderAction.bandwidthFormBundle))
         is BandwidthFormRenderAction.NavigateToConfirm -> previousState.copy(
             view = BandwidthFormViewState.View.NavigateToConfirm(createBandwidthBundle(
                 renderAction.bandwidthCommitType,
-                renderAction.fromAccount,
-                renderAction.cpuAmount,
+                renderAction.toAccount,
                 renderAction.netAmount,
+                renderAction.cpuAmount,
+                renderAction.transfer,
                 renderAction.contractAccountBalance)))
     }
 
@@ -64,16 +68,17 @@ abstract class BandwidthFormViewModel(
 
     private fun createBandwidthBundle(
         bandwidthCommitType: BandwidthCommitType,
+        toAccount: String,
         netAmount: String,
         cpuAmount: String,
-        fromAccount: String,
+        transfer: Boolean,
         contractAccountBalance: ContractAccountBalance
     ): BandwidthBundle {
         return BandwidthBundle(
+            toAccount,
             bandwidthCommitType,
             BalanceFormatter.create(netAmount, contractAccountBalance.balance.symbol),
             BalanceFormatter.create(cpuAmount, contractAccountBalance.balance.symbol),
-            fromAccount
-        )
+            transfer)
     }
 }

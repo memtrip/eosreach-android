@@ -32,7 +32,7 @@ class AccountItemLayout @JvmOverloads constructor(
         if (accountEntity.symbol != null && accountEntity.balance != null) {
             accounts_list_item_balance.text = context.getString(
                 R.string.accounts_list_item_balance,
-                with (DecimalFormat("0.0000")) {
+                with(DecimalFormat("0.0000")) {
                     roundingMode = RoundingMode.CEILING
                     this
                 }.format(accountEntity.balance),

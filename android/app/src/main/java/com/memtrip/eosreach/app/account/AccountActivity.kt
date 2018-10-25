@@ -20,6 +20,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import com.google.android.material.appbar.AppBarLayout
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
@@ -60,6 +61,11 @@ abstract class AccountActivity
         accountBundle = accountExtra(intent)
         page = pageExtra(intent)
         account_viewpager.currentItem = page.ordinal
+
+        account_balance_available_appbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appbar, _ ->
+            val offsetAlpha = appbar.y / appbar.totalScrollRange
+            account_balance_available_balance_container.alpha = 1 - offsetAlpha * -1
+        })
     }
 
     override fun inject() {
@@ -94,7 +100,7 @@ abstract class AccountActivity
 
         account_toolbar_account_name.text = accountView.eosAccount!!.accountName
         account_swipelayout.stop()
-        account_header_group.visible()
+        account_balance_available_balance_container.visible()
 
         account_viewpager.adapter = AccountFragmentPagerAdapter(
             supportFragmentManager,

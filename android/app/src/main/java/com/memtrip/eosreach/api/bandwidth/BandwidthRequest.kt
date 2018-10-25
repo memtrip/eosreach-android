@@ -28,14 +28,17 @@ interface BandwidthRequest {
 
     fun delegate(
         fromAccount: String,
+        toAccount: String,
         netAmount: String,
         cpuAmount: String,
+        transfer: Boolean,
         authorizingPrivateKey: EosPrivateKey,
         transactionExpiry: Date = transactionDefaultExpiry()
     ): Single<Result<ActionReceipt, BandwidthError>>
 
     fun unDelegate(
         fromAccount: String,
+        toAccount: String,
         netAmount: String,
         cpuAmount: String,
         authorizingPrivateKey: EosPrivateKey,

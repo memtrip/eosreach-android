@@ -26,6 +26,7 @@ sealed class ViewBlockProducerRenderAction : MxRenderAction {
     object Idle : ViewBlockProducerRenderAction()
     object OnProgress : ViewBlockProducerRenderAction()
     object OnError : ViewBlockProducerRenderAction()
+    object OnChainProducerJsonMissing : ViewBlockProducerRenderAction()
     data class OnInvalidUrl(val url: String) : ViewBlockProducerRenderAction()
     data class NavigateToUrl(val url: String) : ViewBlockProducerRenderAction()
     data class Populate(val blockProducerDetails: BlockProducerDetails) : ViewBlockProducerRenderAction()
@@ -34,6 +35,7 @@ sealed class ViewBlockProducerRenderAction : MxRenderAction {
 interface ViewBlockProducerViewLayout : MxViewLayout {
     fun showProgress()
     fun showError()
+    fun showEmpty()
     fun showTitle(blockProducerName: String)
     fun populate(blockProducerDetails: BlockProducerDetails)
     fun invalidUrl(url: String)
@@ -58,6 +60,9 @@ class ViewBlockProducerViewRenderer @Inject internal constructor() : MxViewRende
         }
         is ViewBlockProducerViewState.View.Populate -> {
             layout.populate(state.view.blockProducerDetails)
+        }
+        ViewBlockProducerViewState.View.Empty -> {
+            layout.showEmpty()
         }
     }
 }

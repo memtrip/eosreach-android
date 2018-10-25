@@ -186,8 +186,8 @@ abstract class VoteFragment
         ): VoteFragment {
             return when (accountTheme) {
                 AccountTheme.DEFAULT -> {
-                    with (DefaultVoteFragment()) {
-                        arguments = with (Bundle()) {
+                    with(DefaultVoteFragment()) {
+                        arguments = with(Bundle()) {
                             putParcelable(EOS_ACCOUNT, eosAccount)
                             this
                         }
@@ -195,8 +195,8 @@ abstract class VoteFragment
                     }
                 }
                 AccountTheme.READ_ONLY -> {
-                    with (ReadOnlyVoteFragment()) {
-                        arguments = with (Bundle()) {
+                    with(ReadOnlyVoteFragment()) {
+                        arguments = with(Bundle()) {
                             putParcelable(EOS_ACCOUNT, eosAccount)
                             this
                         }

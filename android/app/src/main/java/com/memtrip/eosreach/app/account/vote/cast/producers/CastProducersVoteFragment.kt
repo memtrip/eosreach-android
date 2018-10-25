@@ -109,7 +109,7 @@ class CastProducersVoteFragment
     private fun getTotalInForm(): Int = cast_producers_vote_blockproducer_form_container.childCount
 
     private fun getFormData(): List<String> {
-        return with (ArrayList<String>()) {
+        return with(ArrayList<String>()) {
             for (i in 0 until cast_producers_vote_blockproducer_form_container.childCount) {
                 val formItem: ViewGroup = cast_producers_vote_blockproducer_form_container.getChildAt(i) as ViewGroup
                 val editText = formItem.getChildAt(0) as EditText
@@ -140,7 +140,7 @@ class CastProducersVoteFragment
     override fun insertProducerField(position: Int, value: String) {
         model().publish(CastProducersVoteIntent.Idle)
         cast_producers_vote_blockproducer_form_container.addView(
-            with (LayoutInflater.from(context!!).inflate(
+            with(LayoutInflater.from(context!!).inflate(
                 R.layout.account_cast_producers_vote_item_layout,
                 null,
                 false)) {
@@ -206,12 +206,12 @@ class CastProducersVoteFragment
 
         private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
 
-        fun newInstance(eosAccount: EosAccount): CastProducersVoteFragment = with (CastProducersVoteFragment()) {
+        fun newInstance(eosAccount: EosAccount): CastProducersVoteFragment = with(CastProducersVoteFragment()) {
             arguments = toBundle(eosAccount)
             this
         }
 
-        private fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
+        private fun toBundle(eosAccount: EosAccount): Bundle = with(Bundle()) {
             putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
             this
         }

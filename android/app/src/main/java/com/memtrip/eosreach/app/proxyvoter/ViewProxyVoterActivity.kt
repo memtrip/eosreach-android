@@ -23,19 +23,15 @@ import android.net.Uri
 import android.os.Bundle
 import com.facebook.drawee.drawable.ScalingUtils
 import com.jakewharton.rxbinding2.view.RxView
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountBundle
 import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
-import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerActivity
-import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerDisplayAction
-import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.proxy_voter_view_activity.*
@@ -162,7 +158,6 @@ abstract class ViewProxyVoterActivity
         private const val PROXY_VOTER_ACCOUNT_NAME = "PROXY_VOTER_ACCOUNT_NAME"
         private const val PROXY_VOTER_DISPLAY_ACTION = "PROXY_VOTER_DISPLAY_ACTION"
 
-
         fun viewProxyVoterIntentWithDetails(
             proxyVoterDetails: ProxyVoterDetails,
             displayAction: ViewProxyVoterDisplayAction,
@@ -171,14 +166,14 @@ abstract class ViewProxyVoterActivity
         ): Intent {
             when (accountTheme) {
                 AccountTheme.DEFAULT -> {
-                    return with (Intent(context, DefaultViewProxyVoterActivity::class.java)) {
+                    return with(Intent(context, DefaultViewProxyVoterActivity::class.java)) {
                         putExtra(PROXY_VOTER_DETAILS, proxyVoterDetails)
                         putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
                         this
                     }
                 }
                 AccountTheme.READ_ONLY -> {
-                    return with (Intent(context, ReadOnlyViewProxyVoterActivity::class.java)) {
+                    return with(Intent(context, ReadOnlyViewProxyVoterActivity::class.java)) {
                         putExtra(PROXY_VOTER_DETAILS, proxyVoterDetails)
                         putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
                         this
@@ -195,14 +190,14 @@ abstract class ViewProxyVoterActivity
         ): Intent {
             when (accountTheme) {
                 AccountTheme.DEFAULT -> {
-                    return with (Intent(context, DefaultViewProxyVoterActivity::class.java)) {
+                    return with(Intent(context, DefaultViewProxyVoterActivity::class.java)) {
                         putExtra(PROXY_VOTER_ACCOUNT_NAME, accountName)
                         putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
                         this
                     }
                 }
                 AccountTheme.READ_ONLY -> {
-                    return with (Intent(context, ReadOnlyViewProxyVoterActivity::class.java)) {
+                    return with(Intent(context, ReadOnlyViewProxyVoterActivity::class.java)) {
                         putExtra(PROXY_VOTER_ACCOUNT_NAME, accountName)
                         putExtra(PROXY_VOTER_DISPLAY_ACTION, displayAction)
                         this

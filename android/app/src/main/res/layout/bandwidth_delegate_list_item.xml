@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/padding_large"
+    android:padding="@dimen/padding_medium"
+    android:clickable="true"
+    android:focusable="true"
+    style="?button_transparent_item">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/padding_small" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/padding_medium" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/padding_medium" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/padding_medium" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_middle_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_delegate_list_item_account_name"
+        style="@style/Typography.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/padding_small"
+        android:textStyle="bold"
+        tools:text="memtripissue"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_delegate_list_cpu_label"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_small"
+        android:textAllCaps="true"
+        android:text="@string/resources_stake_cpu"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_item_account_name" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_delegate_list_cpu_value"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_cpu_label"
+        tools:text="123.0034 EOS"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_delegate_list_net_label"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_medium"
+        android:layout_marginTop="@dimen/padding_small"
+        android:textAllCaps="true"
+        android:text="@string/resources_stake_net"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/vertical_middle_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_item_account_name" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/bandwidth_delegate_list_net_value"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_medium"
+        android:textAllCaps="true"
+        app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
+        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_net_label"
+        tools:text="12343.0034 EOS" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

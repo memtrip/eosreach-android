@@ -18,6 +18,7 @@ package com.memtrip.eosreach.api
 
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.memtrip.eos.chain.actions.query.bandwidth.GetDelegatedBandwidth
 import com.memtrip.eos.chain.actions.query.producer.GetBlockProducers
 import com.memtrip.eos.chain.actions.query.proxy.GetRegProxyInfo
 import com.memtrip.eos.chain.actions.query.ramprice.GetRamPrice
@@ -128,6 +129,10 @@ internal object ApiModule {
     @JvmStatic
     @Provides
     fun buyRamBytesChain(chainApi: ChainApi): BuyRamBytesChain = BuyRamBytesChain(chainApi)
+
+    @JvmStatic
+    @Provides
+    fun getBandwidth(chainApi: ChainApi): GetDelegatedBandwidth = GetDelegatedBandwidth(chainApi)
 
     @JvmStatic
     @Provides

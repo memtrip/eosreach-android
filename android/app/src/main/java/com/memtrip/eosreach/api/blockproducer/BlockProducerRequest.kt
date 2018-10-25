@@ -28,4 +28,7 @@ interface BlockProducerRequest {
     fun getSingleBlockProducer(accountName: String): Single<Result<BlockProducerDetails, BlockProducerError>>
 }
 
-class BlockProducerError : ApiError
+sealed class BlockProducerError : ApiError {
+    object GenericError : BlockProducerError()
+    object OnChainProducerJsonMissing : BlockProducerError()
+}

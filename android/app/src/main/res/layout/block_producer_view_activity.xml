@@ -159,7 +159,7 @@
         app:layout_constraintTop_toBottomOf="@+id/block_producer_view_ownership_disclosure_button" />
 
     <com.memtrip.eosreach.uikit.ErrorCompositeView
-        android:id="@+id/block_producer_view_error_view"
+        android:id="@+id/block_producer_view_error"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_large"
@@ -167,6 +167,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/block_producer_view_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/block_producer_view_empty_label"
+        style="@style/Typography.Medium"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/padding_large"
+        android:text="@string/block_producer_view_empty_body"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
     
     <ProgressBar

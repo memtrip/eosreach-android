@@ -31,9 +31,12 @@ class ProducerVoteTestCase : DevTestCase() {
             .verifyVoteForProducersScreen()
             .selectVoteForProducersAddButton()
             .typeCastProducerVote("memtripblock")
+            .selectCastProducerVoteButton()
             .verifyVotedSingleBlockProducersScreen()
-
-        voteRobot
-            .verifyVotedBlockProducersScreen()
+            .verifyFirstBlockProducerItem("memtripblock")
+            .selectVoteForProxy()
+            .verifyCastProxyVoteScreen()
+            .selectCastProxyVoteButton()
+            .verifyNotVotedScreen()
     }
 }

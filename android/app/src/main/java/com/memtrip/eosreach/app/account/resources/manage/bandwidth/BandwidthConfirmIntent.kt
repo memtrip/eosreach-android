@@ -16,10 +16,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.account.resources.manage.bandwidth
 
+import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class BandwidthConfirmIntent : MxViewIntent {
     object Idle : BandwidthConfirmIntent()
     data class Init(val bandwidthBundle: BandwidthBundle) : BandwidthConfirmIntent()
-    data class Commit(val bandwidthBundle: BandwidthBundle) : BandwidthConfirmIntent()
+    data class Commit(
+        val bandwidthBundle: BandwidthBundle,
+        val contractAccountBalance: ContractAccountBalance
+    ) : BandwidthConfirmIntent()
 }

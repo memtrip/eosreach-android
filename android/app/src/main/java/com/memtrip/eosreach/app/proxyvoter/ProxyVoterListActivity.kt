@@ -19,22 +19,20 @@ package com.memtrip.eosreach.app.proxyvoter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
+import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.proxyvoter.ViewProxyVoterActivity.Companion.viewProxyVoterIntentWithDetails
 import com.memtrip.eosreach.uikit.Interaction
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import javax.inject.Inject
-
 import kotlinx.android.synthetic.main.proxy_voter_list_activity.*
+import javax.inject.Inject
 
 class ProxyVoterListActivity
     : MviActivity<ProxyVoterListIntent, ProxyVoterListRenderAction, ProxyVoterListViewState, ProxyVoterListViewLayout>(), ProxyVoterListViewLayout {
@@ -77,7 +75,7 @@ class ProxyVoterListActivity
                 }
                 R.id.proxy_voter_list_item_information -> {
                 ProxyVoterListIntent.ProxyVoterInformationSelected(row.data)
-                }else -> {
+                } else -> {
                 ProxyVoterListIntent.ProxyVoterSelected(row.data)
                 }
             }
@@ -143,7 +141,7 @@ class ProxyVoterListActivity
         }
 
         fun resultIntent(proxyVoterDetails: ProxyVoterDetails): Intent {
-            return with (Intent()) {
+            return with(Intent()) {
                 putExtra(PROXY_VOTER_DETAILS, proxyVoterDetails)
             }
         }

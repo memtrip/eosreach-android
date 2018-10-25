@@ -132,7 +132,7 @@ class ManageRamActivity
             contractAccountBalance: ContractAccountBalance,
             context: Context
         ): Intent {
-            return with (Intent(context, ManageRamActivity::class.java)) {
+            return with(Intent(context, ManageRamActivity::class.java)) {
                 putExtra(EOS_ACCOUNT_EXTRA, eosAccount)
                 putExtra(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
                 this

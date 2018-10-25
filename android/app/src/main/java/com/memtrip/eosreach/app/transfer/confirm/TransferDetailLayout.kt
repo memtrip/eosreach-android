@@ -21,24 +21,21 @@ import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
-
+import androidx.appcompat.content.res.AppCompatResources
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.account.AccountBundle
-
+import com.memtrip.eosreach.app.account.AccountTheme
+import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
 import com.memtrip.eosreach.uikit.BalanceDetailsLayout
 import com.memtrip.eosreach.uikit.BalanceDetailsLayoutImpl
 import com.memtrip.eosreach.uikit.visible
-
 import kotlinx.android.synthetic.main.transfer_details_layout.view.*
-import android.util.TypedValue
-import androidx.appcompat.content.res.AppCompatResources
-import com.memtrip.eosreach.app.account.AccountTheme
-import com.memtrip.eosreach.app.account.ReadonlyAccountActivity.Companion.accountReadOnlyIntent
 
 class TransferDetailLayout @JvmOverloads constructor(
     context: Context,

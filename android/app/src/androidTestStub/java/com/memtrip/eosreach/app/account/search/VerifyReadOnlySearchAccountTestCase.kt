@@ -14,10 +14,18 @@ class VerifyReadOnlySearchAccountTestCase : StubTestCase() {
         accountRobot
             .verifyReadOnlyAccountScreen()
             .verifyAvailableBalance()
+            .selectVoteTab()
+        voteRobot
+            .verifyVoteReadOnly()
+        accountRobot
+            .selectResourcesTab()
+        resourcesRobot
+            .verifyResourcesReadOnly()
+        accountRobot
+            .selectBalanceTab()
         balanceRobot
             .selectFirstTokenRow()
         actionsRobot
             .verifyActionsReadOnlyScreen()
-
     }
 }

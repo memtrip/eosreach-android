@@ -30,8 +30,10 @@ class UnDelegateBandwidthTestCase : DevTestCase() {
         resourcesRobot
             .verifyResourcesScreen()
             .selectBandwidthButton()
+        bandwidthRobot
             .verifyManageBandwidthScreen()
             .selectUndelegateTab()
+            .enterUsername("memtripadmin", R.id.account_resources_undelegate_bandwidth_fragment)
             .enterNetBalance("0.0100", R.id.account_resources_undelegate_bandwidth_fragment)
             .enterCpuBalance("0.0100", R.id.account_resources_undelegate_bandwidth_fragment)
             .selectBandwidthFormCtaButton(R.id.account_resources_undelegate_bandwidth_fragment)

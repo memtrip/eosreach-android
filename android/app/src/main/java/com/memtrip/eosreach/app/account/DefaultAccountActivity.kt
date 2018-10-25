@@ -57,7 +57,7 @@ class DefaultAccountActivity : AccountActivity() {
             context: Context,
             page: AccountFragmentPagerAdapter.Page = AccountFragmentPagerAdapter.Page.BALANCE
         ): Intent {
-            return with (Intent(context, DefaultAccountActivity::class.java)) {
+            return with(Intent(context, DefaultAccountActivity::class.java)) {
                 putExtra(AccountActivity.ACCOUNT_EXTRA, accountBundle)
                 putExtra(PAGE_SELECTION, page)
                 this

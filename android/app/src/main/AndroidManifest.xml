@@ -40,12 +40,15 @@
         <activity android:name=".app.account.actions.DefaultActionsActivity" />
         <activity android:name=".app.account.actions.ReadOnlyActionsActivity" />
         <activity android:name=".app.account.actions.ViewTransferActionActivity" />
-        <activity android:name=".app.account.resources.manage.bandwidth.BandwidthManageActivity" />
+        <activity android:name=".app.account.resources.manage.bandwidth.BandwidthManageActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".app.account.resources.manage.manageram.ManageRamActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".app.account.resources.manage.manageram.RamConfirmActivity" />
         <activity android:name=".app.account.resources.manage.bandwidth.BandwidthConfirmActivity" />
+        <activity android:name=".app.account.resources.manage.bandwidth.UndelegateBandwidthContainerActivity" />
+
         <activity android:name=".app.account.vote.cast.CastVoteActivity" />
 
         <activity android:name=".app.transfer.form.TransferFormActivity" />

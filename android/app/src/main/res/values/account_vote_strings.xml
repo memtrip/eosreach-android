@@ -7,7 +7,7 @@
 
     <string name="vote_proxy_title">Proxy voter is</string>
 
-    <string name="vote_no_vote_body">It looks like you haven\'t voted for a block producer yet. Please vote for us, and help us build the future of EOS on mobile.</string>
+    <string name="vote_no_vote_body">It looks like you haven\'t voted for a block producer yet. Please vote for us, and help build the future of EOS on mobile.</string>
     <string name="vote_no_vote_cast_vote_button">Give us your vote</string>
     <string name="vote_producer_vote_title">Voting for</string>
     <string name="vote_no_vote_for_us_error">

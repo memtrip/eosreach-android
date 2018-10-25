@@ -13,10 +13,14 @@
     <string name="resources_net_values">%1$s / %2$s</string>
 
     <string name="resources_staked">Staked</string>
+    <string name="resources_update_stake">Update stake</string>
     <string name="resources_delegated">Delegated</string>
     <string name="resources_manage_title">Manage resources</string>
     <string name="resources_manage_bandwidth_button">Bandwidth</string>
     <string name="resources_manage_ram_button">Ram</string>
+
+    <string name="resources_stake_cpu">cpu</string>
+    <string name="resources_stake_net">net</string>
 
     <!-- manage ram -->
     <string name="resources_manage_ram_title">Manage RAM</string>
@@ -49,12 +53,20 @@
     <string name="resources_manage_bandwidth_title">Manage bandwidth</string>
     <string name="resources_manage_bandwidth_tab_delegate">Delegate</string>
     <string name="resources_manage_bandwidth_tab_undelegate">Undelegate</string>
+    <string name="resources_manage_bandwidth_tab_allocated">Allocated</string>
+
+    <string name="resources_manage_bandwidth_delegate_form_target_account_label">Target account</string>
+    <string name="resources_manage_bandwidth_delegate_form_target_account_hint">Enter account name</string>
 
     <string name="resources_manage_bandwidth_delegate_form_net_amount_label">Net amount (balance: %s)</string>
+    <string name="resources_manage_bandwidth_delegate_form_net_stake_label">Net stake</string>
     <string name="resources_manage_bandwidth_delegate_form_net_amount_hint">Enter the amount in EOS</string>
 
     <string name="resources_manage_bandwidth_delegate_form_cpu_amount_label">Cpu amount (balance: %s)</string>
+    <string name="resources_manage_bandwidth_delegate_form_cpu_stake_label">Cpu stake</string>
     <string name="resources_manage_bandwidth_delegate_form_cpu_amount_hint">Enter the amount in EOS</string>
+
+    <string name="resources_manage_bandwidth_delegate_form_transfer_checkbox">Delegate funds permanently</string>
 
     <string name="resources_manage_bandwidth_delegate_form_delegate_button">Delegate</string>
     <string name="resources_manage_bandwidth_delegate_form_undelegate_button">Undelegate</string>
@@ -64,7 +76,13 @@
     <string name="resources_bandwidth_confirm_undelegate_title">Undelegate bandwidth</string>
     <string name="resources_bandwidth_confirm_cta_button">Confirm</string>
 
+    <string name="resources_bandwidth_details_target_account_label">To</string>
+    <string name="resources_bandwidth_details_transfer_funds_label">Delegate funds permanently</string>
     <string name="resources_bandwidth_details_net_label">Net</string>
     <string name="resources_bandwidth_details_cpu_label">Cpu</string>
+
+    <!-- delegated bandwidth list -->
+    <string name="bandwidth_delegated_list_error_body">Could not fetch delegated bandwidth</string>
+    <string name="bandwidth_delegated_list_empty_body">You have not delegated any bandwidth.</string>
 
 </resources>

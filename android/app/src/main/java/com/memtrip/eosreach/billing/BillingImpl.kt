@@ -62,8 +62,8 @@ class BillingImpl @Inject constructor(
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(responseCode: Int) {
                 if (responseCode == BillingClient.BillingResponse.OK) {
-                    billingClient.querySkuDetailsAsync(with (SkuDetailsParams.newBuilder()) {
-                        setSkusList(with (ArrayList<String>()) {
+                    billingClient.querySkuDetailsAsync(with(SkuDetailsParams.newBuilder()) {
+                        setSkusList(with(ArrayList<String>()) {
                             add(skuId)
                             this
                         })

@@ -129,7 +129,7 @@ class BlockProducerListActivity
         }
 
         fun resultIntent(blockProducerDetails: BlockProducerDetails): Intent {
-            return with (Intent()) {
+            return with(Intent()) {
                 putExtra(BLOCK_PRODUCER_DETAILS, blockProducerDetails)
             }
         }

@@ -113,7 +113,7 @@ class TransferFormActivity
         private const val ACCOUNT_BALANCE_EXTRA = "ACCOUNT_BALANCE_EXTRA"
 
         fun transferFormIntent(contractAccountBalance: ContractAccountBalance, context: Context): Intent {
-            return with (Intent(context, TransferFormActivity::class.java)) {
+            return with(Intent(context, TransferFormActivity::class.java)) {
                 putExtra(ACCOUNT_BALANCE_EXTRA, contractAccountBalance)
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 this

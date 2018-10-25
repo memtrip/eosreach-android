@@ -34,6 +34,30 @@
         app:layout_constraintGuide_end="@dimen/padding_large" />
 
     <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/manage_bandwidth_target_account_form_label"
+        style="@style/Typography.Caption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:layout_marginStart="@dimen/padding_small"
+        android:text="@string/resources_manage_bandwidth_delegate_form_target_account_label"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_start_guideline"/>
+
+    <com.memtrip.eosreach.brand.ReachEditText
+        android:id="@+id/manage_bandwidth_target_account_form_input"
+        style="@style/EditTextPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/resources_manage_bandwidth_delegate_form_target_account_hint"
+        android:imeOptions="actionNext"
+        android:inputType="textNoSuggestions"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/manage_bandwidth_target_account_form_label" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
         android:id="@+id/manage_bandwidth_net_amount_form_label"
         style="@style/Typography.Caption"
         android:layout_width="0dp"
@@ -43,7 +67,7 @@
         android:text="@string/resources_manage_bandwidth_delegate_form_net_amount_label"
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_start_guideline"/>
+        app:layout_constraintTop_toBottomOf="@id/manage_bandwidth_target_account_form_input"/>
 
     <com.memtrip.eosreach.brand.ReachEditText
         android:id="@+id/manage_bandwidth_net_amount_form_input"
@@ -80,6 +104,15 @@
         app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
         app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
         app:layout_constraintTop_toBottomOf="@id/manage_bandwidth_cpu_amount_form_label" />
+
+    <CheckBox
+        android:id="@+id/manage_bandwidth_transfer_perm_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:text="@string/resources_manage_bandwidth_delegate_form_transfer_checkbox"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/manage_bandwidth_cpu_amount_form_input"/>
 
     <ProgressBar
         android:id="@+id/manage_bandwidth_form_progress"

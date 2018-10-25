@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.account.resources
 
 import com.memtrip.eosreach.api.account.EosAccount
+import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.price.BalanceFormatter
 import com.memtrip.mxandroid.MxRenderAction
@@ -31,6 +32,7 @@ sealed class ResourcesRenderAction : MxRenderAction {
         val contractAccountBalance: ContractAccountBalance
     ) : ResourcesRenderAction()
     object NavigateToManageBandwidth : ResourcesRenderAction()
+    object NavigateToManageBandwidthWithAccountName : ResourcesRenderAction()
     object NavigateToManageRam : ResourcesRenderAction()
 }
 
@@ -39,14 +41,17 @@ interface ResourcesViewLayout : MxViewLayout {
     fun hideManageResourcesNavigation()
     fun populate(eosAccount: EosAccount)
     fun populateNetStake(staked: String)
-    fun emptyNetStake()
-    fun populateNetDelegated(delegated: String)
-    fun emptyNetDelegated()
     fun populateCpuStake(staked: String)
+    fun emptyStakedResources()
+    fun emptyNetStake()
     fun emptyCpuStake()
+    fun populateNetDelegated(delegated: String)
     fun populateCpuDelegated(delegated: String)
+    fun emptyDelegatedResources()
+    fun emptyNetDelegated()
     fun emptyCpuDelegated()
     fun navigateToManageBandwidth()
+    fun navigateToManageBandwidthWithAccountName()
     fun navigateToManageRam()
 }
 
@@ -63,31 +68,40 @@ class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<Reso
             }
 
             val netStaked = state.view.eosAccount.netResource.staked
-            if (netStaked != null) {
-                layout.populateNetStake(BalanceFormatter.formatEosBalance(netStaked))
+            val cpuStaked = state.view.eosAccount.cpuResource.staked
+
+            if (emptyBalance(netStaked) && emptyBalance(cpuStaked)) {
+                layout.emptyStakedResources()
             } else {
-                layout.emptyNetStake()
+                if (cpuStaked != null) {
+                    layout.populateCpuStake(BalanceFormatter.formatEosBalance(cpuStaked))
+                } else {
+                    layout.emptyCpuStake()
+                }
+                if (netStaked != null) {
+                    layout.populateNetStake(BalanceFormatter.formatEosBalance(netStaked))
+                } else {
+                    layout.emptyNetStake()
+                }
             }
 
             val netDelegated = state.view.eosAccount.netResource.delegated
-            if (netDelegated != null) {
-                layout.populateNetDelegated(BalanceFormatter.formatEosBalance(netDelegated))
-            } else {
-                layout.emptyNetDelegated()
-            }
-
-            val cpuStaked = state.view.eosAccount.cpuResource.staked
-            if (cpuStaked != null) {
-                layout.populateCpuStake(BalanceFormatter.formatEosBalance(cpuStaked))
-            } else {
-                layout.emptyCpuStake()
-            }
-
             val cpuDelegated = state.view.eosAccount.cpuResource.delegated
-            if (cpuDelegated != null) {
-                layout.populateCpuDelegated(BalanceFormatter.formatEosBalance(cpuDelegated))
+
+            if (emptyBalance(netDelegated) && emptyBalance(cpuDelegated)) {
+                layout.emptyDelegatedResources()
             } else {
-                layout.emptyCpuDelegated()
+                if (cpuDelegated != null) {
+                    layout.populateCpuDelegated(BalanceFormatter.formatEosBalance(cpuDelegated))
+                } else {
+                    layout.emptyCpuDelegated()
+                }
+
+                if (netDelegated != null) {
+                    layout.populateNetDelegated(BalanceFormatter.formatEosBalance(netDelegated))
+                } else {
+                    layout.emptyNetDelegated()
+                }
             }
 
             layout.populate(state.view.eosAccount)
@@ -98,5 +112,12 @@ class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<Reso
         ResourcesViewState.View.NavigateToManageRam -> {
             layout.navigateToManageRam()
         }
+        is ResourcesViewState.View.NavigateToManageBandwidthWithAccountName -> {
+            layout.navigateToManageBandwidthWithAccountName()
+        }
+    }
+
+    private fun emptyBalance(balance: Balance?): Boolean {
+        return balance == null || balance.amount <= 0
     }
 }

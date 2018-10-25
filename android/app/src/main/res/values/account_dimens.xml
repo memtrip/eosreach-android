@@ -3,7 +3,8 @@
     <dimen name="accounts_list_logo_size">64dp</dimen>
     <dimen name="accounts_list_logo_container_size">96dp</dimen>
 
-    <dimen name="account_available_balance_header_height">96dp</dimen>
+    <dimen name="account_available_balance_header_height">196dp</dimen>
+    <dimen name="account_available_balance_tabs_height">48dp</dimen>
 
     <dimen name="account_actions_icon_size">24dp</dimen>
     <dimen name="account_actions_icon_guideline">32dp</dimen>

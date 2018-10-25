@@ -23,7 +23,7 @@ import java.util.LinkedList
 
 class ChainedStubRequest(first: StubRequest) : StubRequest {
 
-    private val requests: LinkedList<StubRequest> = with (LinkedList<StubRequest>()) {
+    private val requests: LinkedList<StubRequest> = with(LinkedList<StubRequest>()) {
         add(first)
         this
     }

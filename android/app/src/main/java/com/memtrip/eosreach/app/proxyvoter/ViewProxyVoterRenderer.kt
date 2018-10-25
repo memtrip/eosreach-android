@@ -16,9 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.proxyvoter
 
-import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
-import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerRenderAction
 import com.memtrip.mxandroid.MxRenderAction
 import com.memtrip.mxandroid.MxViewLayout
 import com.memtrip.mxandroid.MxViewRenderer

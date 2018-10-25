@@ -30,6 +30,7 @@ class BuyRamTestCase : DevTestCase() {
         resourcesRobot
             .verifyResourcesScreen()
             .selectRamButton()
+        ramRobot
             .verifyManageRamScreen()
             .enterRamAmount("1000", R.id.account_resources_manage_ram_buy_fragment)
             .selectCtaButton(R.id.account_resources_manage_ram_buy_fragment)

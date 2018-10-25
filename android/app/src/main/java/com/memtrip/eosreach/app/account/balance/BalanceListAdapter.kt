@@ -44,7 +44,7 @@ class AccountBalanceViewHolder(itemView: View) : SimpleAdapterViewHolder<Contrac
 
     override fun populate(position: Int, value: ContractAccountBalance) {
         itemView.welcome_accounts_list_item_account_name.text = value.balance.symbol
-        itemView.welcome_accounts_list_item_balance.text = with (DecimalFormat("0.0000")) {
+        itemView.welcome_accounts_list_item_balance.text = with(DecimalFormat("0.0000")) {
             roundingMode = RoundingMode.CEILING
             this
         }.format(value.balance.amount)

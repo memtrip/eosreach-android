@@ -110,7 +110,7 @@ class ViewTransferActionActivity
             accountTheme: AccountTheme,
             context: Context
         ): Intent {
-            return with (Intent(context, ViewTransferActionActivity::class.java)) {
+            return with(Intent(context, ViewTransferActionActivity::class.java)) {
                 putExtra(ACCOUNT_ACTION_TRANSFER, accountAction)
                 putExtra(ACCOUNT_THEME, accountTheme)
                 this

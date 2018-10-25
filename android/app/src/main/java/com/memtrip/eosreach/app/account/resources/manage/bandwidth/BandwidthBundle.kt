@@ -22,8 +22,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class BandwidthBundle(
+    val targetAccount: String,
     val bandwidthCommitType: BandwidthCommitType,
     val netAmount: Balance,
     val cpuAmount: Balance,
-    val fromAccount: String
+    val transfer: Boolean = false
 ) : Parcelable

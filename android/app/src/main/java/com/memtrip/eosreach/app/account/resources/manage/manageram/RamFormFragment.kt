@@ -139,7 +139,7 @@ abstract class RamFormFragment
             eosAccount: EosAccount,
             contractAccountBalance: ContractAccountBalance,
             ramPricePerKb: Balance
-        ): Bundle = with (Bundle()) {
+        ): Bundle = with(Bundle()) {
             putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
             putParcelable(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
             putParcelable(RAM_PRICE_PER_KB, ramPricePerKb)

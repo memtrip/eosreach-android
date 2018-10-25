@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.proxyvoter
 
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
-import com.memtrip.eosreach.app.blockproducer.ViewBlockProducerIntent
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class ViewProxyVoterIntent : MxViewIntent {

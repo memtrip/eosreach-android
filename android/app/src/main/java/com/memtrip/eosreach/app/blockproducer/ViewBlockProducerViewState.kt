@@ -26,6 +26,7 @@ data class ViewBlockProducerViewState(val view: View) : MxViewState {
         object Idle : View()
         object OnProgress : View()
         object OnError : View()
+        object Empty : View()
         data class OnInvalidUrl(val url: String, val unique: Int = id()) : View()
         data class NavigateToUrl(val url: String) : View()
         data class Populate(val blockProducerDetails: BlockProducerDetails) : View()

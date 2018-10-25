@@ -30,6 +30,7 @@ class SellRamTestCase : DevTestCase() {
         resourcesRobot
             .verifyResourcesScreen()
             .selectRamButton()
+        ramRobot
             .verifyManageRamScreen()
             .selectSellTab()
             .enterRamAmount("1000", R.id.account_resources_manage_ram_sell_fragment)

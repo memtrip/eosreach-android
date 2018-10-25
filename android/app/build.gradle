@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.android.billingclient:billing:1.1'
 
     /* eos-jvm */
-    implementation ('com.memtrip.eos-jvm:eos-chain-actions:1.0.0-alpha16') {
+    implementation ('com.memtrip.eos-jvm:eos-chain-actions:1.0.0-alpha20') {
         exclude group: "com.lambdaworks", module: "scrypt"
     }
 

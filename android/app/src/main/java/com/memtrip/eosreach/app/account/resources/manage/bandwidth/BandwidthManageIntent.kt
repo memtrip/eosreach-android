@@ -21,5 +21,6 @@ import com.memtrip.mxandroid.MxViewIntent
 sealed class BandwidthManageIntent : MxViewIntent {
     object DelegateBandwidthTabIdle : BandwidthManageIntent()
     object UnDelegateBandwidthTabIdle : BandwidthManageIntent()
+    object AllocatedTabIdle : BandwidthManageIntent()
     object Init : BandwidthManageIntent()
 }

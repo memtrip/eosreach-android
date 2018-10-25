@@ -27,24 +27,18 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
-
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ParentActivity
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.vote.cast.CastVoteActivity
-import com.memtrip.eosreach.app.account.vote.cast.producers.CastProducersVoteIntent
-import com.memtrip.eosreach.app.blockproducer.BlockProducerListActivity
 import com.memtrip.eosreach.app.proxyvoter.ProxyVoterListActivity
 import com.memtrip.eosreach.app.proxyvoter.ProxyVoterListActivity.Companion.proxyVoterDetailsFromIntent
 import com.memtrip.eosreach.app.proxyvoter.ProxyVoterListActivity.Companion.proxyVoterListIntent
-
 import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
-
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
 import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
-
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.account_cast_proxy_vote_fragment.*
@@ -146,12 +140,12 @@ class CastProxyVoteFragment
 
         private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
 
-        fun newInstance(eosAccount: EosAccount): CastProxyVoteFragment = with (CastProxyVoteFragment()) {
+        fun newInstance(eosAccount: EosAccount): CastProxyVoteFragment = with(CastProxyVoteFragment()) {
             arguments = toBundle(eosAccount)
             this
         }
 
-        private fun toBundle(eosAccount: EosAccount): Bundle = with (Bundle()) {
+        private fun toBundle(eosAccount: EosAccount): Bundle = with(Bundle()) {
             putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
             this
         }

@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.blockproducer
 
 import android.content.res.Resources
-import android.os.Bundle
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
 import com.memtrip.eosreach.uikit.gone

@@ -30,4 +30,3 @@ class NavigateToAccountFromActionTestCase : StubTestCase() {
             .verifyViewTransferActionScreen()
     }
 }
-

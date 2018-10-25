@@ -35,6 +35,7 @@ class BandwidthManageViewModel @Inject internal constructor(
         is BandwidthManageIntent.Init -> Observable.just(BandwidthManageRenderAction.Init)
         BandwidthManageIntent.DelegateBandwidthTabIdle -> Observable.just(BandwidthManageRenderAction.DelegateBandwidthTabIdle)
         BandwidthManageIntent.UnDelegateBandwidthTabIdle -> Observable.just(BandwidthManageRenderAction.UnDelegateBandwidthTabIdle)
+        BandwidthManageIntent.AllocatedTabIdle -> Observable.just(BandwidthManageRenderAction.AllocatedTabIdle)
     }
 
     override fun reducer(previousState: BandwidthManageViewState, renderAction: BandwidthManageRenderAction): BandwidthManageViewState = when (renderAction) {
@@ -46,6 +47,9 @@ class BandwidthManageViewModel @Inject internal constructor(
         BandwidthManageRenderAction.UnDelegateBandwidthTabIdle -> previousState.copy(
             view = BandwidthManageViewState.View.Idle,
             page = BandwidthManageFragmentPagerAdapter.Page.UNDELEGATE)
+        BandwidthManageRenderAction.AllocatedTabIdle -> previousState.copy(
+            view = BandwidthManageViewState.View.Idle,
+            page = BandwidthManageFragmentPagerAdapter.Page.ALLOCATED)
     }
 
     override fun filterIntents(intents: Observable<BandwidthManageIntent>): Observable<BandwidthManageIntent> = Observable.merge(

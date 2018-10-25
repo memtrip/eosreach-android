@@ -8,9 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.api.blockproducer.BlockProducerDetails
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
-import com.memtrip.eosreach.robot.blockproducer.BlockProducerRobot
 import com.memtrip.eosreach.uikit.SimpleAdapterViewHolder
 
 class ProxyVoterRobot {

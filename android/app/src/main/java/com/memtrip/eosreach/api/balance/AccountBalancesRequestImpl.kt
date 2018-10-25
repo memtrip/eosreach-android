@@ -26,7 +26,7 @@ import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AccountBalanceRequestImp @Inject internal constructor(
+class AccountBalancesRequestImpl @Inject internal constructor(
     private val chainApi: ChainApi,
     private val rxSchedulers: RxSchedulers
 ) : AccountBalanceRequest {

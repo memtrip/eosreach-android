@@ -25,6 +25,8 @@ import com.memtrip.eosreach.api.balance.Balance
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.uikit.BalanceDetailsLayout
 import com.memtrip.eosreach.uikit.BalanceDetailsLayoutImpl
+import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.visible
 import kotlinx.android.synthetic.main.bandwidth_details_layout.view.*
 
 class BandwidthDetailLayout @JvmOverloads constructor(
@@ -38,11 +40,20 @@ class BandwidthDetailLayout @JvmOverloads constructor(
     }
 
     fun populate(
+        targetAccount: String,
         cpu: Balance,
         net: Balance,
+        transfer: Boolean,
         contractAccountBalance: ContractAccountBalance
     ) {
         bandwidth_details_cpu_value.text = formatBalance(cpu, contractAccountBalance, context)
         bandwidth_details_net_value.text = formatBalance(net, contractAccountBalance, context)
+        bandwidth_details_target_account_value.text = targetAccount
+
+        if (transfer) {
+            bandwidth_details_transfer_funds_label.visible()
+        } else {
+            bandwidth_details_transfer_funds_label.gone()
+        }
     }
 }

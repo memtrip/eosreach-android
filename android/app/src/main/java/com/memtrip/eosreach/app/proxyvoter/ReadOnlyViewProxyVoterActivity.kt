@@ -4,9 +4,8 @@ import android.content.res.Resources
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.proxyvoter.ProxyVoterDetails
 import com.memtrip.eosreach.uikit.gone
-import kotlinx.android.synthetic.main.proxy_voter_view_activity.*
-
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.proxy_voter_view_activity.*
 
 class ReadOnlyViewProxyVoterActivity : ViewProxyVoterActivity() {
 

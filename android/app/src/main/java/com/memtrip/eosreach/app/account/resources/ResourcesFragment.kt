@@ -33,7 +33,9 @@ import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.account.AccountTheme
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormBundle
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthManageActivity.Companion.manageBandwidthIntent
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.DelegateTarget
 import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamActivity.Companion.manageRamIntent
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.visible
@@ -72,6 +74,9 @@ abstract class ResourcesFragment
         },
         RxView.clicks(resources_manage_ram_button).map {
             ResourcesIntent.NavigateToManageRam
+        },
+        RxView.clicks(resources_stake_click_area).map {
+            ResourcesIntent.NavigateToManageBandwidthWithAccountName(eosAccount.accountName)
         }
     )
 
@@ -129,7 +134,7 @@ abstract class ResourcesFragment
         progressBar.progress = resourcePercentage(resource).toInt()
 
         if (progressBar.progress == 0) {
-            progressBar.background = with (progressBar.progressDrawable) {
+            progressBar.background = with(progressBar.progressDrawable) {
                 setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.MULTIPLY)
                 this
             }
@@ -146,52 +151,79 @@ abstract class ResourcesFragment
     }
 
     private fun resourcePercentage(resource: EosAccountResource): Long {
-        return if (resource.used <= 0) {
-            100
-        } else if (resource.available == resource.used) {
-            0
-        } else {
-            val remaining = resource.available.toFloat() - resource.used.toFloat()
-            ((remaining * 100) / resource.available.toFloat()).toLong()
+        return when {
+            resource.used <= 0 ->
+                100
+            resource.available == resource.used ->
+                0
+            else -> {
+                val remaining = resource.available.toFloat() - resource.used.toFloat()
+                ((remaining * 100) / resource.available.toFloat()).toLong()
+            }
         }
     }
 
     override fun populateNetStake(staked: String) {
-        resources_net_staked_value.text = staked
-    }
-
-    override fun emptyNetStake() {
-        resources_net_staked_value.text = getString(R.string.app_empty_value)
-    }
-
-    override fun populateNetDelegated(delegated: String) {
-        resources_net_delegated_value.text = delegated
-    }
-
-    override fun emptyNetDelegated() {
-        resources_net_delegated_value.text = getString(R.string.app_empty_value)
+        resources_stake_net_value.text = staked
     }
 
     override fun populateCpuStake(staked: String) {
-        resources_cpu_staked_value.text = staked
+        resources_stake_cpu_value.text = staked
+    }
+
+    override fun emptyStakedResources() {
+        resources_stake_group.gone()
+        resources_stake_update.gone()
+        resources_stake_click_area.gone()
+        resources_net_spacer.gone()
+    }
+
+    override fun emptyNetStake() {
+        resources_stake_net_value.text = getString(R.string.app_empty_value)
     }
 
     override fun emptyCpuStake() {
-        resources_cpu_staked_value.text = getString(R.string.app_empty_value)
+        resources_stake_cpu_value.text = getString(R.string.app_empty_value)
+    }
+
+    override fun populateNetDelegated(delegated: String) {
+        bandwidth_delegate_list_net_value.text = delegated
     }
 
     override fun populateCpuDelegated(delegated: String) {
-        resources_cpu_delegated_value.text = delegated
+        bandwidth_delegate_list_cpu_value.text = delegated
+    }
+
+    override fun emptyDelegatedResources() {
+        resources_delegate_group.gone()
+        resources_stake_spacer.gone()
+    }
+
+    override fun emptyNetDelegated() {
+        bandwidth_delegate_list_net_value.text = getString(R.string.app_empty_value)
     }
 
     override fun emptyCpuDelegated() {
-        resources_cpu_delegated_value.text = getString(R.string.app_empty_value)
+        bandwidth_delegate_list_cpu_value.text = getString(R.string.app_empty_value)
     }
 
     override fun navigateToManageBandwidth() {
         model().publish(ResourcesIntent.Idle)
         startActivity(manageBandwidthIntent(
-            eosAccount,
+            BandwidthFormBundle(),
+            contractAccountBalance,
+            context!!))
+    }
+
+    override fun navigateToManageBandwidthWithAccountName() {
+        model().publish(ResourcesIntent.Idle)
+        startActivity(manageBandwidthIntent(
+            BandwidthFormBundle(
+                contractAccountBalance.accountName,
+                DelegateTarget.SELF,
+                eosAccount.netResource.staked,
+                eosAccount.cpuResource.staked
+            ),
             contractAccountBalance,
             context!!))
     }
@@ -217,7 +249,7 @@ abstract class ResourcesFragment
             return when (accountTheme) {
                 AccountTheme.DEFAULT -> {
                     with(DefaultResourcesFragment()) {
-                        arguments = with (Bundle()) {
+                        arguments = with(Bundle()) {
                             putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
                             putParcelable(CONTRACT_ACCOUNT_BALANCE, contractBalanceAccount)
                             this
@@ -227,7 +259,7 @@ abstract class ResourcesFragment
                 }
                 AccountTheme.READ_ONLY -> {
                     with(ReadOnlyResourcesFragment()) {
-                        arguments = with (Bundle()) {
+                        arguments = with(Bundle()) {
                             putParcelable(EOS_ACCOUNT_EXTRA, eosAccount)
                             putParcelable(CONTRACT_ACCOUNT_BALANCE, contractBalanceAccount)
                             this

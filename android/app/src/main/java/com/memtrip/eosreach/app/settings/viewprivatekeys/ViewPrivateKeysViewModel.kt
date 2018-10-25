@@ -18,7 +18,7 @@ package com.memtrip.eosreach.app.settings.viewprivatekeys
 
 import android.app.Application
 import com.memtrip.eos.core.crypto.EosPrivateKey
-import com.memtrip.eosreach.db.account.GetAccountNamesForPublicKey
+import com.memtrip.eosreach.db.account.GetAccountsNamesForPublicKey
 import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 class ViewPrivateKeysViewModel @Inject internal constructor(
     private val keyManager: EosKeyManager,
-    private val getAccountNamesForPublicKey: GetAccountNamesForPublicKey,
+    private val getAccountNamesForPublicKey: GetAccountsNamesForPublicKey,
     application: Application
 ) : MxViewModel<ViewPrivateKeysIntent, ViewPrivateKeysRenderAction, ViewPrivateKeysViewState>(
     ViewPrivateKeysViewState(view = ViewPrivateKeysViewState.View.Idle),

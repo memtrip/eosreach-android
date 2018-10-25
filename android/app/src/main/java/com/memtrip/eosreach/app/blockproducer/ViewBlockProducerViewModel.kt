@@ -18,6 +18,7 @@ package com.memtrip.eosreach.app.blockproducer
 
 import android.app.Application
 import android.net.Uri
+import com.memtrip.eosreach.api.blockproducer.BlockProducerError
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequest
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
@@ -45,6 +46,7 @@ class ViewBlockProducerViewModel @Inject internal constructor(
         is ViewBlockProducerRenderAction.OnInvalidUrl -> previousState.copy(view = ViewBlockProducerViewState.View.OnInvalidUrl(renderAction.url))
         is ViewBlockProducerRenderAction.NavigateToUrl -> previousState.copy(view = ViewBlockProducerViewState.View.NavigateToUrl(renderAction.url))
         is ViewBlockProducerRenderAction.Populate -> previousState.copy(view = ViewBlockProducerViewState.View.Populate(renderAction.blockProducerDetails))
+        ViewBlockProducerRenderAction.OnChainProducerJsonMissing -> previousState.copy(view = ViewBlockProducerViewState.View.Empty)
     }
 
     override fun filterIntents(intents: Observable<ViewBlockProducerIntent>): Observable<ViewBlockProducerIntent> = Observable.merge(
@@ -76,11 +78,15 @@ class ViewBlockProducerViewModel @Inject internal constructor(
             if (result.success) {
                 ViewBlockProducerRenderAction.Populate(result.data!!)
             } else {
-                ViewBlockProducerRenderAction.OnError
+                blockProducerError(result.apiError!!)
             }
-        }.onErrorReturn {
-            it.printStackTrace()
+        }.onErrorReturn { throwable ->
             ViewBlockProducerRenderAction.OnError
         }.toObservable().startWith(ViewBlockProducerRenderAction.OnProgress)
+    }
+
+    private fun blockProducerError(blockProducerError: BlockProducerError): ViewBlockProducerRenderAction = when (blockProducerError) {
+        BlockProducerError.GenericError -> ViewBlockProducerRenderAction.OnError
+        BlockProducerError.OnChainProducerJsonMissing -> ViewBlockProducerRenderAction.OnChainProducerJsonMissing
     }
 }

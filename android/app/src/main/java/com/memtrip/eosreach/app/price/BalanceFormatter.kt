@@ -48,11 +48,14 @@ object BalanceFormatter {
     }
 
     fun formatEosBalance(balance: Balance): String {
-        val value = with (DecimalFormat("0.0000")) {
+        val value = formatBalanceDigits(balance.amount)
+        return "$value ${balance.symbol}"
+    }
+
+    fun formatBalanceDigits(amount: Double): String {
+        return with(DecimalFormat("0.0000")) {
             roundingMode = RoundingMode.CEILING
             this
-        }.format(balance.amount)
-
-        return "$value ${balance.symbol}"
+        }.format(amount)
     }
 }

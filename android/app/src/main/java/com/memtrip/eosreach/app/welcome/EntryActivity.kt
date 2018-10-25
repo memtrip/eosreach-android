@@ -96,7 +96,7 @@ class EntryActivity
     companion object {
 
         fun entryIntent(context: Context): Intent {
-            return with (Intent(context, EntryActivity::class.java)) {
+            return with(Intent(context, EntryActivity::class.java)) {
                 addFlags(
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or
                         Intent.FLAG_ACTIVITY_CLEAR_TOP or

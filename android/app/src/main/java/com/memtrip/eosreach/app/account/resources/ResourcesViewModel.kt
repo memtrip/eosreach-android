@@ -35,6 +35,8 @@ class ResourcesViewModel @Inject internal constructor(
         ResourcesIntent.Idle -> Observable.just(ResourcesRenderAction.Idle)
         ResourcesIntent.NavigateToManageBandwidth -> Observable.just(ResourcesRenderAction.NavigateToManageBandwidth)
         ResourcesIntent.NavigateToManageRam -> Observable.just(ResourcesRenderAction.NavigateToManageRam)
+        is ResourcesIntent.NavigateToManageBandwidthWithAccountName ->
+            Observable.just(ResourcesRenderAction.NavigateToManageBandwidthWithAccountName)
     }
 
     override fun reducer(previousState: ResourcesViewState, renderAction: ResourcesRenderAction): ResourcesViewState = when (renderAction) {
@@ -46,6 +48,8 @@ class ResourcesViewModel @Inject internal constructor(
             view = ResourcesViewState.View.NavigateToManageBandwidth)
         ResourcesRenderAction.NavigateToManageRam -> previousState.copy(
             view = ResourcesViewState.View.NavigateToManageRam)
+        is ResourcesRenderAction.NavigateToManageBandwidthWithAccountName -> previousState.copy(
+            view = ResourcesViewState.View.NavigateToManageBandwidthWithAccountName)
     }
 
     override fun filterIntents(intents: Observable<ResourcesIntent>): Observable<ResourcesIntent> = Observable.merge(

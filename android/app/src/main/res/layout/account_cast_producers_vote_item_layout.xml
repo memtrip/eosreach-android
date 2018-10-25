@@ -15,11 +15,11 @@
         android:layout_marginEnd="@dimen/padding_medium"
         android:hint="@string/vote_cast_block_producer_name_hint"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/cast_producers_vote_endpoint_block_producer"
+        app:layout_constraintRight_toLeftOf="@+id/cast_producers_vote_item_remove"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <com.memtrip.eosreach.brand.ReachButton
-        android:id="@+id/cast_producers_vote_endpoint_block_producer"
+        android:id="@+id/cast_producers_vote_item_remove"
         style="?button_transparent_caption"
         android:layout_width="@dimen/account_cast_producers_vote_item_button_width"
         android:layout_height="wrap_content"

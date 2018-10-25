@@ -143,7 +143,7 @@ class TransactionReceiptActivity
             transactionReceiptRoute: TransactionReceiptRoute,
             context: Context
         ): Intent {
-            return with (Intent(context, TransactionReceiptActivity::class.java)) {
+            return with(Intent(context, TransactionReceiptActivity::class.java)) {
                 putExtra(ACTION_RECEIPT, actionReceipt)
                 putExtra(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
                 putExtra(TRANSACTION_RECEIPT_ROUTE, transactionReceiptRoute)

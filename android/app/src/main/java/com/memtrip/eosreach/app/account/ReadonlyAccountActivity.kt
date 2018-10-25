@@ -24,7 +24,7 @@ class ReadonlyAccountActivity : AccountActivity() {
             context: Context,
             page: AccountFragmentPagerAdapter.Page = AccountFragmentPagerAdapter.Page.BALANCE
         ): Intent {
-            return with (Intent(context, ReadonlyAccountActivity::class.java)) {
+            return with(Intent(context, ReadonlyAccountActivity::class.java)) {
                 putExtra(AccountActivity.ACCOUNT_EXTRA, accountBundle)
                 putExtra(PAGE_SELECTION, page)
                 this
