@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/padding_large" />
+        app:layout_constraintGuide_begin="@dimen/padding_medium" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal_end_guideline"

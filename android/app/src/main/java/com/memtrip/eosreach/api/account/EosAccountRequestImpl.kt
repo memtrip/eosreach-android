@@ -72,7 +72,10 @@ class EosAccountRequestImpl @Inject internal constructor(
                     Result<EosAccount, AccountError>(
                         AccountError.FailedRetrievingAccount(it.code(), it.errorBody()))
                 }
-        }.onErrorReturn { Result(AccountError.GenericError) }
+        }.onErrorReturn {
+            it.printStackTrace()
+            Result(AccountError.GenericError)
+        }
     }
 
     private fun inferBalanceSymbol(
