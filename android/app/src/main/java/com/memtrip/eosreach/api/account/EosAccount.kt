@@ -28,5 +28,6 @@ data class EosAccount(
     val cpuResource: EosAccountResource,
     val ramResource: EosAccountResource,
     val eosAcconuntVote: EosAccountVote?,
+    val eosRefundRequest: EosRefundRequest?,
     val hasVoted: Boolean = eosAcconuntVote != null
 ) : Parcelable

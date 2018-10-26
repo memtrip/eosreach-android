@@ -207,6 +207,15 @@ abstract class ResourcesFragment
         bandwidth_delegate_list_cpu_value.text = getString(R.string.app_empty_value)
     }
 
+    override fun emptyRefundRequest() {
+        resources_refund_group.gone()
+    }
+
+    override fun populateRefundRequest(net: String, cpu: String) {
+        resources_refund_net_value.text = net
+        resources_refund_cpu_value.text = cpu
+    }
+
     override fun navigateToManageBandwidth() {
         model().publish(ResourcesIntent.Idle)
         startActivity(manageBandwidthIntent(

@@ -50,6 +50,8 @@ interface ResourcesViewLayout : MxViewLayout {
     fun emptyDelegatedResources()
     fun emptyNetDelegated()
     fun emptyCpuDelegated()
+    fun emptyRefundRequest()
+    fun populateRefundRequest(net: String, cpu: String)
     fun navigateToManageBandwidth()
     fun navigateToManageBandwidthWithAccountName()
     fun navigateToManageRam()
@@ -102,6 +104,16 @@ class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<Reso
                 } else {
                     layout.emptyNetDelegated()
                 }
+            }
+
+            val eosRefundRequest = state.view.eosAccount.eosRefundRequest
+            if (eosRefundRequest == null) {
+                layout.emptyRefundRequest()
+            } else {
+                layout.populateRefundRequest(
+                    BalanceFormatter.formatEosBalance(eosRefundRequest.net),
+                    BalanceFormatter.formatEosBalance(eosRefundRequest.cpu)
+                )
             }
 
             layout.populate(state.view.eosAccount)

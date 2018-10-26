@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -74,19 +73,19 @@
             android:text="@string/resources_manage_bandwidth_button"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_manage_title"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_manage_title" />
 
         <com.memtrip.eosreach.brand.ReachButton
             android:id="@+id/resources_manage_ram_button"
             style="?button_transparent_caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_medium"
             android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_medium"
             android:text="@string/resources_manage_ram_button"
             app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_manage_title"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_manage_title" />
 
         <!-- ram -->
         <com.memtrip.eosreach.brand.ReachTextView
@@ -98,7 +97,7 @@
             android:text="@string/resources_ram_title"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_manage_bandwidth_button"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_manage_bandwidth_button" />
 
         <ProgressBar
             android:id="@+id/resources_ram_progressbar"
@@ -120,7 +119,7 @@
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_ram_progressbar"
             tools:text="3.71KB / 3.92KB" />
-        
+
         <View
             android:id="@+id/resources_ram_spacer"
             android:layout_width="0dp"
@@ -129,7 +128,7 @@
             android:background="@color/colorSpacerBorder"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_ram_values"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_ram_values" />
 
         <!-- / ram -->
 
@@ -143,7 +142,7 @@
             android:text="@string/resources_cpu_title"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_ram_spacer"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_ram_spacer" />
 
         <ProgressBar
             android:id="@+id/resources_cpu_progressbar"
@@ -176,7 +175,7 @@
             android:background="@color/colorSpacerBorder"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_cpu_values"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_cpu_values" />
 
         <!-- / cpu -->
 
@@ -190,7 +189,7 @@
             android:text="@string/resources_net_title"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_cpu_spacer"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_cpu_spacer" />
 
         <ProgressBar
             android:id="@+id/resources_net_progressbar"
@@ -220,7 +219,7 @@
             android:layout_marginTop="@dimen/padding_medium"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_values"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_net_values" />
 
         <!-- / net -> staked/delegated -->
 
@@ -241,10 +240,10 @@
             android:layout_height="0dp"
             android:clickable="true"
             android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@id/resources_stake_spacer"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/resources_stake_title"
-            app:layout_constraintBottom_toBottomOf="@id/resources_stake_spacer"/>
+            app:layout_constraintTop_toTopOf="@id/resources_stake_title" />
 
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/resources_stake_title"
@@ -254,9 +253,9 @@
             android:layout_marginTop="@dimen/padding_medium"
             android:text="@string/resources_staked"
             android:textAllCaps="true"
-            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
             app:layout_constraintEnd_toStartOf="@id/resources_stake_update"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_spacer"/>
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_net_spacer" />
 
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/resources_stake_update"
@@ -264,13 +263,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_medium"
-            android:text="@string/resources_update_stake"
             android:drawableStart="@drawable/app_config_ic"
-            android:textColor="?colorAccent"
             android:drawablePadding="@dimen/padding_small"
             android:gravity="end"
+            android:text="@string/resources_update_stake"
+            android:textColor="?colorAccent"
             app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_net_spacer"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_net_spacer" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/resources_stake_barrier"
@@ -286,9 +285,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_small"
-            android:textAllCaps="true"
             android:gravity="center"
             android:text="@string/resources_stake_cpu"
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_stake_title" />
 
@@ -298,25 +297,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_small"
+            android:background="@drawable/view_button_transparent_background"
+            android:gravity="center"
             android:padding="@dimen/padding_medium"
             android:textAllCaps="true"
-            android:gravity="center"
-            android:background="@drawable/view_button_transparent_background"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_stake_cpu_label"
-            tools:text="123.0034 EOS"/>
+            tools:text="123.0034 EOS" />
 
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/resources_stake_net_label"
             style="@style/Typography.Caption"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_small"
             android:layout_marginStart="@dimen/padding_medium"
-            android:textAllCaps="true"
+            android:layout_marginTop="@dimen/padding_small"
             android:gravity="center"
             android:text="@string/resources_stake_net"
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="@id/vertical_middle_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_stake_title" />
 
@@ -327,14 +326,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_medium"
             android:layout_marginTop="@dimen/padding_small"
-            android:padding="@dimen/padding_medium"
-            android:gravity="center"
-            android:textAllCaps="true"
             android:background="@drawable/view_button_transparent_background"
+            android:gravity="center"
+            android:padding="@dimen/padding_medium"
+            android:textAllCaps="true"
             app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_stake_net_label"
-            tools:text="12342342423.0034 EOS"/>
+            tools:text="12342342423.0034 EOS" />
 
         <View
             android:id="@+id/resources_stake_spacer"
@@ -343,9 +342,106 @@
             android:layout_marginTop="@dimen/padding_medium"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_stake_barrier"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_barrier" />
 
         <!-- / staked -->
+
+        <!-- refund -->
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/resources_refund_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="resources_refund_title,resources_refund_cpu_label,resources_refund_cpu_value,resources_refund_net_label,resources_refund_net_value"
+            tools:ignore="MissingConstraints" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_refund_title"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:text="@string/resources_refund"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_spacer"
+            tools:background="#FF00FF" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/resources_refund_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="resources_refund_cpu_value,resources_refund_net_value"
+            tools:ignore="MissingConstraints" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_refund_cpu_label"
+            style="@style/Typography.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:gravity="center"
+            android:text="@string/resources_stake_cpu"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_refund_title" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_refund_cpu_value"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@drawable/view_button_transparent_background"
+            android:gravity="center"
+            android:padding="@dimen/padding_medium"
+            android:textAllCaps="true"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_refund_cpu_label"
+            tools:text="123.0034 EOS" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_refund_net_label"
+            style="@style/Typography.Caption"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_small"
+            android:gravity="center"
+            android:text="@string/resources_stake_net"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="@id/vertical_middle_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_refund_title" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_refund_net_value"
+            style="@style/Typography.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@drawable/view_button_transparent_background"
+            android:gravity="center"
+            android:padding="@dimen/padding_medium"
+            android:textAllCaps="true"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_refund_net_label"
+            tools:text="12342342423.0034 EOS" />
+
+        <View
+            android:id="@+id/resources_refund_spacer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_medium"
+            app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
+            app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_refund_barrier" />
+
+        <!-- / refund -->
 
         <!-- delegate -->
 
@@ -362,11 +458,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_medium"
-            android:text="@string/resources_delegated"
             android:drawablePadding="@dimen/padding_small"
+            android:text="@string/resources_delegated"
             android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
-            app:layout_constraintTop_toBottomOf="@id/resources_stake_spacer"/>
+            app:layout_constraintTop_toBottomOf="@id/resources_refund_spacer" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/bandwidth_delegate_list_barrier"
@@ -382,8 +478,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_small"
-            android:textAllCaps="true"
             android:text="@string/resources_stake_cpu"
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_delegate_title" />
 
@@ -393,14 +489,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_small"
+            android:background="@drawable/view_button_transparent_background"
+            android:gravity="center"
             android:padding="@dimen/padding_medium"
             android:textAllCaps="true"
-            android:gravity="center"
-            android:background="@drawable/view_button_transparent_background"
             app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_middle_guideline"
             app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_cpu_label"
-            tools:text="123.0034 EOS"/>
+            tools:text="123.0034 EOS" />
 
         <com.memtrip.eosreach.brand.ReachTextView
             android:id="@+id/bandwidth_delegate_list_net_label"
@@ -409,8 +505,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_medium"
             android:layout_marginTop="@dimen/padding_small"
-            android:textAllCaps="true"
             android:text="@string/resources_stake_net"
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="@id/vertical_middle_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_delegate_title" />
 
@@ -421,14 +517,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_medium"
             android:layout_marginTop="@dimen/padding_small"
-            android:padding="@dimen/padding_medium"
-            android:gravity="center"
-            android:textAllCaps="true"
             android:background="@drawable/view_button_transparent_background"
+            android:gravity="center"
+            android:padding="@dimen/padding_medium"
+            android:textAllCaps="true"
             app:layout_constraintLeft_toLeftOf="@id/vertical_middle_guideline"
             app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
             app:layout_constraintTop_toBottomOf="@id/bandwidth_delegate_list_net_label"
-            tools:text="12342342423.0034 EOS"/>
+            tools:text="12342342423.0034 EOS" />
 
         <!-- / delegate -->
 

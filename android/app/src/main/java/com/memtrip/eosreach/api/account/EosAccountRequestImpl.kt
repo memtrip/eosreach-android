@@ -18,6 +18,7 @@ package com.memtrip.eosreach.api.account
 
 import com.memtrip.eos.http.rpc.ChainApi
 import com.memtrip.eos.http.rpc.model.account.request.AccountName
+import com.memtrip.eos.http.rpc.model.account.response.RefundRequest
 import com.memtrip.eos.http.rpc.model.account.response.SelfDelegatedBandwidth
 import com.memtrip.eos.http.rpc.model.account.response.TotalResources
 import com.memtrip.eos.http.rpc.model.account.response.VoterInfo
@@ -65,7 +66,8 @@ class EosAccountRequestImpl @Inject internal constructor(
                             EosAccountResource(
                                 account.ram_usage,
                                 account.ram_quota),
-                            eosCurrentVote(account.voter_info)
+                            eosCurrentVote(account.voter_info),
+                            eosRefundRequest(account.refund_request)
                         )
                     )
                 } else {
@@ -132,6 +134,19 @@ class EosAccountRequestImpl @Inject internal constructor(
             BalanceFormatter.create(delegateBalance, totalCpuBalance.symbol)
         } else {
             null
+        }
+    }
+
+    private fun eosRefundRequest(refundRequest: RefundRequest?): EosRefundRequest? {
+        if (refundRequest != null) {
+            return EosRefundRequest(
+                refundRequest.owner,
+                refundRequest.request_time,
+                BalanceFormatter.deserialize(refundRequest.net_amount),
+                BalanceFormatter.deserialize(refundRequest.cpu_amount)
+            )
+        } else {
+            return null
         }
     }
 
