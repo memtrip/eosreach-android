@@ -42,6 +42,8 @@ import com.memtrip.eosreach.api.ram.RamRequest
 import com.memtrip.eosreach.api.ram.RamRequestImpl
 import com.memtrip.eosreach.api.ramprice.RamPriceRequest
 import com.memtrip.eosreach.api.ramprice.RamPriceRequestImpl
+import com.memtrip.eosreach.api.refund.BandwidthRefundRequest
+import com.memtrip.eosreach.api.refund.BandwidthRefundRequestImpl
 import com.memtrip.eosreach.api.transfer.TransferRequest
 import com.memtrip.eosreach.api.transfer.TransferRequestImpl
 import com.memtrip.eosreach.api.vote.VoteRequest
@@ -91,6 +93,11 @@ internal abstract class RequestModule {
     internal abstract fun bindBandwidthRequest(
         bandwidthRequest: BandwidthRequestImpl
     ): BandwidthRequest
+
+    @Binds
+    internal abstract fun bandwidthRefundRequest(
+        bandwidthRefundRequest: BandwidthRefundRequestImpl
+    ): BandwidthRefundRequest
 
     @Binds
     internal abstract fun bindRamRequest(

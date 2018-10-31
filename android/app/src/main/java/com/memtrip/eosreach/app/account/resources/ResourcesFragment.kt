@@ -16,6 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.account.resources
 
+import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,12 +34,16 @@ import com.memtrip.eosreach.api.account.EosAccountResource
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.MviFragment
 import com.memtrip.eosreach.app.ViewModelFactory
+import com.memtrip.eosreach.app.account.AccountFragmentPagerAdapter
+import com.memtrip.eosreach.app.account.AccountParentRefresh
 import com.memtrip.eosreach.app.account.AccountTheme
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormBundle
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthManageActivity.Companion.manageBandwidthIntent
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.DelegateTarget
 import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamActivity.Companion.manageRamIntent
+import com.memtrip.eosreach.app.transaction.log.TransactionLogActivity
 import com.memtrip.eosreach.uikit.gone
+import com.memtrip.eosreach.uikit.invisible
 import com.memtrip.eosreach.uikit.visible
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Observable
@@ -55,6 +61,12 @@ abstract class ResourcesFragment
 
     lateinit var eosAccount: EosAccount
     lateinit var contractAccountBalance: ContractAccountBalance
+    private lateinit var accountParentRefresh: AccountParentRefresh
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        accountParentRefresh = context as AccountParentRefresh
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.account_resources_fragment, container, false)
@@ -67,7 +79,7 @@ abstract class ResourcesFragment
         AndroidSupportInjection.inject(this)
     }
 
-    override fun intents(): Observable<ResourcesIntent> = Observable.merge(
+    override fun intents(): Observable<ResourcesIntent> = Observable.mergeArray(
         Observable.just(ResourcesIntent.Init(eosAccount, contractAccountBalance)),
         RxView.clicks(resources_manage_bandwidth_button).map {
             ResourcesIntent.NavigateToManageBandwidth
@@ -77,6 +89,9 @@ abstract class ResourcesFragment
         },
         RxView.clicks(resources_stake_click_area).map {
             ResourcesIntent.NavigateToManageBandwidthWithAccountName(eosAccount.accountName)
+        },
+        RxView.clicks(resources_refund_claim_label ).map {
+            ResourcesIntent.RequestRefund(eosAccount.accountName)
         }
     )
 
@@ -209,6 +224,7 @@ abstract class ResourcesFragment
 
     override fun emptyRefundRequest() {
         resources_refund_group.gone()
+        resources_refund_claim_label.gone()
     }
 
     override fun populateRefundRequest(net: String, cpu: String) {
@@ -243,6 +259,41 @@ abstract class ResourcesFragment
             eosAccount,
             contractAccountBalance,
             context!!))
+    }
+
+    override fun refundProgress() {
+        resources_refund_progress.visible()
+        resources_refund_claim_label.invisible()
+    }
+
+    override fun refundSuccess() {
+        resources_refund_progress.gone()
+        resources_refund_claim_label.visible()
+        accountParentRefresh.triggerRefresh(AccountFragmentPagerAdapter.Page.RESOURCES)
+    }
+
+    override fun refundFailed() {
+        resources_refund_progress.gone()
+        resources_refund_claim_label.visible()
+        AlertDialog.Builder(context!!)
+            .setMessage(getString(R.string.resources_refund_error))
+            .setPositiveButton(R.string.app_dialog_positive_button, null)
+            .create()
+            .show()
+    }
+
+    override fun refundFailedWithLog(log: String) {
+        resources_refund_progress.gone()
+        resources_refund_claim_label.visible()
+        AlertDialog.Builder(context!!)
+            .setMessage(R.string.app_dialog_transaction_error_body)
+            .setPositiveButton(R.string.transaction_view_log_position_button) { _, _ ->
+                model().publish(ResourcesIntent.Idle)
+                startActivity(TransactionLogActivity.transactionLogIntent(log, context!!))
+            }
+            .setNegativeButton(R.string.transaction_view_log_negative_button, null)
+            .create()
+            .show()
     }
 
     companion object {

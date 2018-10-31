@@ -17,11 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.account.resources
 
 import android.app.Application
+import com.memtrip.eosreach.api.refund.BandwidthRefundError
+import com.memtrip.eosreach.api.refund.BandwidthRefundRequest
+import com.memtrip.eosreach.db.account.GetAccountByName
+import com.memtrip.eosreach.wallet.EosKeyManager
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class ResourcesViewModel @Inject internal constructor(
+    private val getAccountByName: GetAccountByName,
+    private val bandwidthRefundRequest: BandwidthRefundRequest,
+    private val eosKeyManager: EosKeyManager,
     application: Application
 ) : MxViewModel<ResourcesIntent, ResourcesRenderAction, ResourcesViewState>(
     ResourcesViewState(view = ResourcesViewState.View.Idle),
@@ -37,6 +44,7 @@ class ResourcesViewModel @Inject internal constructor(
         ResourcesIntent.NavigateToManageRam -> Observable.just(ResourcesRenderAction.NavigateToManageRam)
         is ResourcesIntent.NavigateToManageBandwidthWithAccountName ->
             Observable.just(ResourcesRenderAction.NavigateToManageBandwidthWithAccountName)
+        is ResourcesIntent.RequestRefund -> requestRefund(intent.accountName)
     }
 
     override fun reducer(previousState: ResourcesViewState, renderAction: ResourcesRenderAction): ResourcesViewState = when (renderAction) {
@@ -50,6 +58,14 @@ class ResourcesViewModel @Inject internal constructor(
             view = ResourcesViewState.View.NavigateToManageRam)
         is ResourcesRenderAction.NavigateToManageBandwidthWithAccountName -> previousState.copy(
             view = ResourcesViewState.View.NavigateToManageBandwidthWithAccountName)
+        ResourcesRenderAction.RefundProgress -> previousState.copy(
+            view = ResourcesViewState.View.RefundProgress)
+        ResourcesRenderAction.RefundSuccess -> previousState.copy(
+            view = ResourcesViewState.View.RefundSuccess)
+        ResourcesRenderAction.RefundFailed -> previousState.copy(
+            view = ResourcesViewState.View.RefundFailed)
+        is ResourcesRenderAction.RefundFailedWithLog -> previousState.copy(
+            view = ResourcesViewState.View.RefundFailedWithLog(renderAction.log))
     }
 
     override fun filterIntents(intents: Observable<ResourcesIntent>): Observable<ResourcesIntent> = Observable.merge(
@@ -58,4 +74,30 @@ class ResourcesViewModel @Inject internal constructor(
             !ResourcesIntent.Init::class.java.isInstance(it)
         }
     )
+
+    private fun requestRefund(accountName: String): Observable<ResourcesRenderAction> {
+        return getAccountByName.select(accountName).flatMap { accountEntity ->
+            eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { privateKey ->
+                bandwidthRefundRequest.requestRefund(
+                    accountName,
+                    privateKey
+                ).map { result ->
+                    if (result.success) {
+                        ResourcesRenderAction.RefundSuccess
+                    } else {
+                        bandwidthRefundError(result.apiError!!)
+                    }
+                }
+            }
+        }.toObservable().startWith(ResourcesRenderAction.RefundProgress)
+    }
+
+    private fun bandwidthRefundError(bandwidthRefundError: BandwidthRefundError): ResourcesRenderAction = when (bandwidthRefundError) {
+        is BandwidthRefundError.TransactionError -> {
+            ResourcesRenderAction.RefundFailedWithLog(bandwidthRefundError.body)
+        }
+        BandwidthRefundError.GenericError -> {
+            ResourcesRenderAction.RefundFailed
+        }
+    }
 }

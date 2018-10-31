@@ -34,6 +34,10 @@ sealed class ResourcesRenderAction : MxRenderAction {
     object NavigateToManageBandwidth : ResourcesRenderAction()
     object NavigateToManageBandwidthWithAccountName : ResourcesRenderAction()
     object NavigateToManageRam : ResourcesRenderAction()
+    object RefundProgress : ResourcesRenderAction()
+    object RefundSuccess : ResourcesRenderAction()
+    object RefundFailed : ResourcesRenderAction()
+    data class RefundFailedWithLog(val log: String) : ResourcesRenderAction()
 }
 
 interface ResourcesViewLayout : MxViewLayout {
@@ -55,6 +59,10 @@ interface ResourcesViewLayout : MxViewLayout {
     fun navigateToManageBandwidth()
     fun navigateToManageBandwidthWithAccountName()
     fun navigateToManageRam()
+    fun refundProgress()
+    fun refundSuccess()
+    fun refundFailed()
+    fun refundFailedWithLog(log: String)
 }
 
 class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<ResourcesViewLayout, ResourcesViewState> {
@@ -126,6 +134,18 @@ class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<Reso
         }
         is ResourcesViewState.View.NavigateToManageBandwidthWithAccountName -> {
             layout.navigateToManageBandwidthWithAccountName()
+        }
+        ResourcesViewState.View.RefundProgress -> {
+            layout.refundProgress()
+        }
+        ResourcesViewState.View.RefundSuccess -> {
+            layout.refundSuccess()
+        }
+        ResourcesViewState.View.RefundFailed -> {
+            layout.refundFailed()
+        }
+        is ResourcesViewState.View.RefundFailedWithLog -> {
+            layout.refundFailedWithLog(state.view.log)
         }
     }
 

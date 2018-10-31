@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_resources_nestedscrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -263,7 +265,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_medium"
-            android:drawableStart="@drawable/app_config_ic"
+            android:drawableStart="@drawable/account_resources_update_stake"
             android:drawablePadding="@dimen/padding_small"
             android:gravity="end"
             android:text="@string/resources_update_stake"
@@ -367,6 +369,30 @@
             app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
             app:layout_constraintTop_toBottomOf="@id/resources_stake_spacer"
             tools:background="#FF00FF" />
+
+        <com.memtrip.eosreach.brand.ReachTextView
+            android:id="@+id/resources_refund_claim_label"
+            style="@style/Typography.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:drawableStart="@drawable/account_resources_claim_refund"
+            android:drawablePadding="@dimen/padding_small"
+            android:gravity="end"
+            android:text="@string/resources_refund_claim"
+            android:textColor="?colorAccent"
+            app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+            app:layout_constraintTop_toBottomOf="@id/resources_stake_spacer" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:id="@+id/resources_refund_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/resources_refund_claim_label"
+            app:layout_constraintTop_toTopOf="@id/resources_refund_claim_label"
+            app:layout_constraintEnd_toEndOf="@id/resources_refund_claim_label"
+            app:layout_constraintBottom_toBottomOf="@id/resources_refund_claim_label"/>
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/resources_refund_barrier"

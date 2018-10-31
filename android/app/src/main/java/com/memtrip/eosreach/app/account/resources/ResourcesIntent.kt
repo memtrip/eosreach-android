@@ -29,4 +29,5 @@ sealed class ResourcesIntent : MxViewIntent {
     object NavigateToManageBandwidth : ResourcesIntent()
     data class NavigateToManageBandwidthWithAccountName(val accountName: String) : ResourcesIntent()
     object NavigateToManageRam : ResourcesIntent()
+    data class RequestRefund(val accountName: String) : ResourcesIntent()
 }

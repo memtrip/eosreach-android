@@ -24,6 +24,7 @@ import com.memtrip.eos.chain.actions.query.proxy.GetRegProxyInfo
 import com.memtrip.eos.chain.actions.query.ramprice.GetRamPrice
 import com.memtrip.eos.chain.actions.transaction.account.BuyRamBytesChain
 import com.memtrip.eos.chain.actions.transaction.account.DelegateBandwidthChain
+import com.memtrip.eos.chain.actions.transaction.account.RefundChain
 import com.memtrip.eos.chain.actions.transaction.account.SellRamChain
 import com.memtrip.eos.chain.actions.transaction.account.UnDelegateBandwidthChain
 import com.memtrip.eos.chain.actions.transaction.transfer.TransferChain
@@ -125,6 +126,10 @@ internal object ApiModule {
     @JvmStatic
     @Provides
     fun unDelegateBandwidthChain(chainApi: ChainApi): UnDelegateBandwidthChain = UnDelegateBandwidthChain(chainApi)
+
+    @JvmStatic
+    @Provides
+    fun refundChain(chainApi: ChainApi): RefundChain = RefundChain(chainApi)
 
     @JvmStatic
     @Provides

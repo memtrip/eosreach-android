@@ -62,9 +62,11 @@ abstract class AccountActivity
         page = pageExtra(intent)
         account_viewpager.currentItem = page.ordinal
 
-        account_balance_available_appbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appbar, _ ->
-            val offsetAlpha = appbar.y / appbar.totalScrollRange
-            account_balance_available_balance_container.alpha = 1 - offsetAlpha * -1
+        account_balance_available_appbarlayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appbar, verticalOffset ->
+            if (account_balance_available_appbarlayout.isEnabled) {
+                val offsetAlpha = appbar.y / appbar.totalScrollRange
+                account_balance_available_balance_container.alpha = 1 - offsetAlpha * -1
+            }
         })
     }
 

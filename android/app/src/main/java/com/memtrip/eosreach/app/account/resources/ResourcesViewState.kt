@@ -31,5 +31,9 @@ data class ResourcesViewState(val view: View) : MxViewState {
         object NavigateToManageBandwidth : View()
         object NavigateToManageBandwidthWithAccountName : View()
         object NavigateToManageRam : View()
+        object RefundProgress : View()
+        object RefundSuccess : View()
+        object RefundFailed : View()
+        data class RefundFailedWithLog(val log: String) : View()
     }
 }
