@@ -28,6 +28,7 @@ sealed class ActionsRenderAction : MxRenderAction {
     object Idle : ActionsRenderAction()
     object OnProgress : ActionsRenderAction()
     data class OnSuccess(val accountActionList: AccountActionList) : ActionsRenderAction()
+    object NoResults : ActionsRenderAction()
     object OnError : ActionsRenderAction()
     object OnLoadMoreProgress : ActionsRenderAction()
     data class OnLoadMoreSuccess(val accountActionList: AccountActionList) : ActionsRenderAction()
@@ -56,12 +57,10 @@ class ActionsViewRenderer @Inject internal constructor() : MxViewRenderer<Action
             layout.showProgress()
         }
         is ActionsViewState.View.OnSuccess -> {
-            val actions = state.view.accountActionList.actions
-            if (actions.isEmpty()) {
-                layout.showNoActions()
-            } else {
-                layout.showActions(state.view.accountActionList)
-            }
+            layout.showActions(state.view.accountActionList)
+        }
+        ActionsViewState.View.NoResults -> {
+            layout.showNoActions()
         }
         ActionsViewState.View.OnError -> {
             layout.showError()

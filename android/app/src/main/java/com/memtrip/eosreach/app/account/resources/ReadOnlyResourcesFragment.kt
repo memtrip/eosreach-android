@@ -17,6 +17,7 @@ class ReadOnlyResourcesFragment : ResourcesFragment() {
         (view.resources_ram_title.layoutParams as ConstraintLayout.LayoutParams).topMargin = 0
         view.resources_stake_update.gone()
         view.resources_stake_click_area.gone()
+        view.resources_refund_claim_label.gone()
         return view
     }
 

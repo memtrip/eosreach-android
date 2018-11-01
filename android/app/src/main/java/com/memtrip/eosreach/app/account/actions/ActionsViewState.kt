@@ -27,6 +27,7 @@ data class ActionsViewState(val view: View) : MxViewState {
         object Idle : View()
         object OnProgress : View()
         data class OnSuccess(val accountActionList: AccountActionList) : View()
+        object NoResults : View()
         object OnError : View()
         object OnLoadMoreProgress : View()
         data class OnLoadMoreSuccess(val accountActionList: AccountActionList) : View()

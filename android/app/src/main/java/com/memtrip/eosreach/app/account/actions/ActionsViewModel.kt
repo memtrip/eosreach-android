@@ -24,6 +24,7 @@ import com.memtrip.eosreach.api.balance.ContractAccountBalance
 
 import com.memtrip.mxandroid.MxViewModel
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class ActionsViewModel @Inject internal constructor(
@@ -36,9 +37,12 @@ class ActionsViewModel @Inject internal constructor(
 
     override fun dispatcher(intent: ActionsIntent): Observable<ActionsRenderAction> = when (intent) {
         ActionsIntent.Idle -> Observable.just(ActionsRenderAction.Idle)
-        is ActionsIntent.Init -> getInitialActions(intent.contractAccountBalance, intent.startingPosition)
-        is ActionsIntent.Retry -> getInitialActions(intent.contractAccountBalance, intent.startingPosition)
+        is ActionsIntent.Init -> getInitialActions(intent.contractAccountBalance)
+            .toObservable().startWith(ActionsRenderAction.OnProgress)
+        is ActionsIntent.Retry -> getInitialActions(intent.contractAccountBalance)
+            .toObservable().startWith(ActionsRenderAction.OnProgress)
         is ActionsIntent.LoadMoreActions -> getMoreActions(intent.contractAccountBalance, intent.lastItem)
+            .toObservable().startWith(ActionsRenderAction.OnLoadMoreProgress)
         is ActionsIntent.NavigateToViewAction ->
             Observable.just(ActionsRenderAction.NavigateToViewAction(intent.accountAction))
         is ActionsIntent.NavigateToTransfer ->
@@ -52,6 +56,8 @@ class ActionsViewModel @Inject internal constructor(
             view = ActionsViewState.View.OnProgress)
         is ActionsRenderAction.OnSuccess -> previousState.copy(
             view = ActionsViewState.View.OnSuccess(renderAction.accountActionList))
+        ActionsRenderAction.NoResults -> previousState.copy(
+            view = ActionsViewState.View.NoResults)
         ActionsRenderAction.OnError -> previousState.copy(
             view = ActionsViewState.View.OnError)
         ActionsRenderAction.OnLoadMoreProgress -> previousState.copy(
@@ -75,39 +81,82 @@ class ActionsViewModel @Inject internal constructor(
 
     private fun getInitialActions(
         contractAccountBalance: ContractAccountBalance,
-        startingPosition: Int
-    ): Observable<ActionsRenderAction> {
-        return accountActionsRequest.getActionsForAccountName(
-            contractAccountBalance,
-            -1,
-            startingPosition
-        ).map {
-            if (it.success) {
-                ActionsRenderAction.OnSuccess(it.data!!)
-            } else {
-                ActionsRenderAction.OnError
+        position: Int = -1,
+        recursivePosition: Int = 0
+    ): Single<ActionsRenderAction> {
+        if (recursivePosition >= RECURSIVE_LIMIT) {
+            return Single.just(ActionsRenderAction.NoResults)
+        } else {
+            return accountActionsRequest.getActionsForAccountName(
+                contractAccountBalance,
+                position,
+                ITEM_OFFSET
+            ).flatMap { result ->
+                if (result.success) {
+                    val results = result.data!!
+                    if (results.actions.isEmpty()) {
+                        if (results.noResultsNext > 0) {
+                            getInitialActions(
+                                contractAccountBalance,
+                                results.noResultsNext,
+                                recursivePosition + 1)
+                        } else {
+                            Single.just(ActionsRenderAction.NoResults)
+                        }
+                    } else {
+                        Single.just(ActionsRenderAction.OnSuccess(results))
+                    }
+                } else {
+                    Single.just(ActionsRenderAction.OnError)
+                }
             }
-        }.toObservable().startWith(ActionsRenderAction.OnProgress)
+        }
     }
 
     private fun getMoreActions(
         contractAccountBalance: ContractAccountBalance,
-        accountAction: AccountAction
-    ): Observable<ActionsRenderAction> {
-        return if (accountAction.next > 0) {
-            accountActionsRequest.getActionsForAccountName(
-                contractAccountBalance,
-                accountAction.next - 1,
-                -500
-            ).map {
-                if (it.success) {
-                    ActionsRenderAction.OnLoadMoreSuccess(it.data!!)
-                } else {
-                    ActionsRenderAction.OnLoadMoreError
-                }
-            }.toObservable().startWith(ActionsRenderAction.OnLoadMoreProgress)
+        lastAccountActionItem: AccountAction,
+        recursivePosition: Int = 0
+    ): Single<ActionsRenderAction> {
+        if (recursivePosition >= RECURSIVE_LIMIT) {
+            // end
+            return Single.just(ActionsRenderAction.OnLoadMoreSuccess(AccountActionList(emptyList())))
         } else {
-            Observable.just(ActionsRenderAction.OnLoadMoreSuccess(AccountActionList(emptyList())))
+            return if (lastAccountActionItem.next > 0) {
+                accountActionsRequest.getActionsForAccountName(
+                    contractAccountBalance,
+                    lastAccountActionItem.next - 1,
+                    ITEM_OFFSET
+                ).flatMap { result ->
+                    if (result.success) {
+                        val results = result.data!!
+                        if (results.actions.isEmpty()) {
+                            if (results.noResultsNext > 0) {
+                                getMoreActions(
+                                    contractAccountBalance,
+                                    lastAccountActionItem,
+                                    recursivePosition + 1
+                                )
+                            } else {
+                                Single.just(ActionsRenderAction.OnLoadMoreSuccess(results))
+                            }
+                        } else {
+                            // end
+                            Single.just(ActionsRenderAction.OnLoadMoreSuccess(AccountActionList(emptyList())))
+                        }
+                    } else {
+                        Single.just(ActionsRenderAction.OnLoadMoreError)
+                    }
+                }
+            } else {
+                // end
+                Single.just(ActionsRenderAction.OnLoadMoreSuccess(AccountActionList(emptyList())))
+            }
         }
+    }
+
+    companion object {
+        const val ITEM_OFFSET = -1000
+        const val RECURSIVE_LIMIT = 10
     }
 }

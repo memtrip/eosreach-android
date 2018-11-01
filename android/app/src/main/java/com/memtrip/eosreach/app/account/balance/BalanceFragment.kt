@@ -111,6 +111,7 @@ abstract class BalanceFragment
     }
 
     override fun showAirdropProgress() {
+        balance_empty_group.gone()
         balance_list_group.gone()
         balance_airdrop_progress_group.visible()
     }

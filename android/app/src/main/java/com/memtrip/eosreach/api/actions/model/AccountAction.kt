@@ -34,7 +34,7 @@ sealed class AccountAction(
     @Parcelize
     data class Transfer(
         val tranactionId: String,
-        val actionActionSequence: Int,
+        val accountActionSequence: Int,
         val from: String,
         val to: String,
         val memo: String,
@@ -46,7 +46,7 @@ sealed class AccountAction(
         val transferIncomingIcon: Int,
         val transferInteractingAccountName: String,
         val contractAccountBalance: ContractAccountBalance
-    ) : AccountAction(actionActionSequence), Parcelable
+    ) : AccountAction(accountActionSequence), Parcelable
 
     companion object {
 

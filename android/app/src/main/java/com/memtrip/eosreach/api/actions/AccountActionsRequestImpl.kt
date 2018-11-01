@@ -45,6 +45,7 @@ class AccountActionsRequestImpl @Inject internal constructor(
                 Result<AccountActionList, AccountActionsError>(AccountActionsError.Generic)
             }
         }.onErrorReturn {
+            it.printStackTrace()
             Result(AccountActionsError.Generic)
         }.subscribeOn(rxSchedulers.background()).observeOn(rxSchedulers.main())
     }
@@ -63,7 +64,11 @@ class AccountActionsRequestImpl @Inject internal constructor(
         return if (historicActions.isNotEmpty()) {
             Result(AccountActionList(historicActions.reversed().map { createAccountAction(contractAccountBalance, it) }))
         } else {
-            Result(AccountActionList(emptyList()))
+            if (historicAccountActionParent.actions.isNotEmpty()) {
+                Result(AccountActionList(emptyList(), historicAccountActionParent.actions.last().account_action_seq))
+            } else {
+                Result(AccountActionList(emptyList()))
+            }
         }
     }
 

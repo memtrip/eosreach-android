@@ -68,19 +68,13 @@ intents by distinctUntilChanged)
 ### Backlog
 - Import key / create account should trigger an account list refresh
 - Support a generic action type in the action list
-- Filter duplicate actions
-- Explore accounts without importing a private key
 - use https://github.com/ThreeTen/threetenbp rather than Date for times
 - pull to refresh on block producer screen
 - Add a loading indicator to the action lazy loading
 - Add an error indicator to the action lazy loading
 - Handle all airdrop token decimal formats, currently only supporting `0.0000`
 - stop the lazy loading from triggering multiple network requests
-- Implement collapsing header for AccountActivity
-- Returning to the vote screen after an error is resetting the form
 - All EOS values in the app should be formatted with 0.0000
-- When no results actions are found for airdrop results, query another 3 sets before determining that there
-are no airdrop actions.
 
 ### Credits
 - [Join us on telegram](http://t.me/joinchat/JcIXl0x7wC9cRI5uF_EiQA)
