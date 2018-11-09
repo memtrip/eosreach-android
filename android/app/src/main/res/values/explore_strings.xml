@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="explore_title">Explore</string>
+    <string name="explore_tab_search">Search</string>
+    <string name="explore_tab_block_producers">Block producers</string>
+
+    <!-- search -->
+    <string name="explore_search_account_instruction">Enter an EOS account name</string>
+    <string name="explore_search_error_title">Failed to fetch account</string>
+    <string name="explore_search_error_body">If this problem persists please select a different blockchain endpoint in Settings.</string>
+
+    <!-- registered block producers -->
+    <string name="explore_registered_block_producers_error">Sorry, we could not fetch block producers. Please check your internet connection and try again.</string>
+    <string name="explore_registered_block_producers_empty">We could not find any block producers on this chain.</string>
+
+</resources>

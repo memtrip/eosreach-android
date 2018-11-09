@@ -389,6 +389,7 @@
             android:id="@+id/resources_refund_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/resources_refund_claim_label"
             app:layout_constraintTop_toTopOf="@id/resources_refund_claim_label"
             app:layout_constraintEnd_toEndOf="@id/resources_refund_claim_label"

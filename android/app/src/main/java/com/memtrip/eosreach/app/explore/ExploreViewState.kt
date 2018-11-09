@@ -14,14 +14,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.memtrip.eosreach.app.search
+package com.memtrip.eosreach.app.explore
 
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.memtrip.mxandroid.MxViewState
 
-@Module
-abstract class SearchModule {
+data class ExploreViewState(
+    val view: View,
+    val page: ExploreFragmentPagerFragment.Page = ExploreFragmentPagerFragment.Page.SEARCH
+) : MxViewState {
 
-    @ContributesAndroidInjector(modules = [SearchActivityModule::class])
-    internal abstract fun contributeSearchActivity(): SearchActivity
+    sealed class View {
+        object Idle : View()
+        object Populate : View()
+    }
 }

@@ -4,16 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/search_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <com.memtrip.eosreach.app.search.SearchAccountInputView
-        android:id="@+id/search_input_view"
+    <com.memtrip.eosreach.app.explore.SearchAccountInputView
+        android:id="@+id/explore_search_input_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_large"
@@ -21,10 +13,24 @@
         android:layout_marginEnd="@dimen/padding_large"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_toolbar" />
-    
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        style="@style/Typography.Body1"
+        android:id="@+id/explore_search_instruction_label"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_large"
+        android:layout_marginTop="@dimen/padding_large"
+        android:layout_marginRight="@dimen/padding_large"
+        android:gravity="center"
+        android:text="@string/explore_search_account_instruction"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/explore_search_input_view"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <com.memtrip.eosreach.app.account.AccountItemLayout
-        android:id="@+id/search_input_account_item_view"
+        android:id="@+id/explore_search_input_account_item_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/padding_large"
@@ -32,27 +38,27 @@
         android:layout_marginRight="@dimen/padding_large"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_input_view"
+        app:layout_constraintTop_toBottomOf="@+id/explore_search_input_view"
         app:layout_constraintRight_toRightOf="parent" />
 
     <com.memtrip.eosreach.uikit.ErrorCompositeView
-        android:id="@+id/search_input_account_error"
+        android:id="@+id/explore_search_input_account_error"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_large"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_input_view"
+        app:layout_constraintTop_toBottomOf="@+id/explore_search_input_view"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <ProgressBar
-        android:id="@+id/search_progress"
+        android:id="@+id/explore_search_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/padding_large"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_input_view" />
+        app:layout_constraintTop_toBottomOf="@+id/explore_search_input_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
