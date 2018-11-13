@@ -26,10 +26,10 @@ import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthModu
 import com.memtrip.eosreach.app.account.resources.manage.manageram.ManageRamModule
 import com.memtrip.eosreach.app.account.vote.cast.CastModule
 import com.memtrip.eosreach.app.blockproducer.BlockProducerModule
+import com.memtrip.eosreach.app.explore.SearchModule
 import com.memtrip.eosreach.app.manage.ManageModule
 import com.memtrip.eosreach.app.price.PriceModule
 import com.memtrip.eosreach.app.proxyvoter.ProxyVoterModule
-import com.memtrip.eosreach.app.search.SearchModule
 import com.memtrip.eosreach.app.settings.SettingsModule
 import com.memtrip.eosreach.app.transaction.TransactionModule
 import com.memtrip.eosreach.app.transfer.TransferModule

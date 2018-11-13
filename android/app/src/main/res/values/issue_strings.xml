@@ -10,6 +10,14 @@
         your public key as its owner. Your private key is RSA encrypted using a key stored in the AndroidKeyStore,
         it will never leave this device.
     </string>
+    <string name="issue_create_account_resource_allocation_label">
+        We will stake your new account with resources to get you started. This comes at a small cost, but
+        it is required to issue you a new account on the EOS network.
+    </string>
+    <string name="issue_create_account_resource_allocation_cpu_label">CPU</string>
+    <string name="issue_create_account_resource_allocation_cpu_value">0.3000 EOS</string>
+    <string name="issue_create_account_resource_allocation_net_label">NET</string>
+    <string name="issue_create_account_resource_allocation_net_value">0.1000 EOS</string>
     <string name="issue_create_account_private_key_instruction_title_label">Your account has been created.</string>
     <string name="issue_create_account_private_key_instruction_label">
         The private key below was added as both the active and owner permission

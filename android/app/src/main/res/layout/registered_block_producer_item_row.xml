@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="?button_transparent_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/padding_large"
+    android:layout_marginTop="@dimen/padding_large"
+    android:layout_marginRight="@dimen/padding_large"
+    android:padding="@dimen/padding_medium"
+    android:clickable="true"
+    android:focusable="true">
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/registered_block_producer_account_name"
+        style="@style/Typography.H6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/registered_block_producer_list_item_information"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="memtriblock" />
+
+    <com.memtrip.eosreach.brand.ReachTextView
+        android:id="@+id/registered_block_producer_list_item_vote_weight"
+        style="@style/Typography.Body1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="?colorSecondary"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/registered_block_producer_list_item_information"
+        app:layout_constraintTop_toBottomOf="@id/registered_block_producer_account_name"
+        tools:text="2040.90" />
+
+    <ImageView
+        android:id="@+id/registered_block_producer_list_item_information"
+        android:layout_width="@dimen/proxy_voter_information_size"
+        android:layout_height="@dimen/proxy_voter_information_size"
+        android:src="@drawable/ic_details"
+        android:focusable="true"
+        android:clickable="true"
+        android:contentDescription="@string/proxy_voter_list_item_details_content_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

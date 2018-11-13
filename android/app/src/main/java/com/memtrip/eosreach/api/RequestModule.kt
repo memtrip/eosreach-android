@@ -30,6 +30,8 @@ import com.memtrip.eosreach.api.bandwidth.GetBandwidthRequest
 import com.memtrip.eosreach.api.bandwidth.GetBandwidthRequestImpl
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequest
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequestImpl
+import com.memtrip.eosreach.api.blockproducer.RegisteredBlockProducerRequest
+import com.memtrip.eosreach.api.blockproducer.RegisteredBlockProducerRequestImpl
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequestImpl
 import com.memtrip.eosreach.api.eoscreateaccount.EosCreateAccountRequest
@@ -113,6 +115,11 @@ internal abstract class RequestModule {
     internal abstract fun bindBlockProducerRequest(
         blockProducerRequest: BlockProducerRequestImpl
     ): BlockProducerRequest
+
+    @Binds
+    internal abstract fun bindRegisteredBlockProducers(
+        registeredBlockProducerRequest: RegisteredBlockProducerRequestImpl
+    ): RegisteredBlockProducerRequest
 
     @Binds
     internal abstract fun bindProxyVoterRequest(

@@ -55,7 +55,7 @@ class CreateAccountRobot {
             .check(matches(isDisplayed()))
         onView(withId(R.id.issue_create_account_name_input))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.issue_create_account_instructions_label))
+        onView(withId(R.id.issue_create_account_resource_allocation))
             .check(matches(isDisplayed()))
         onView(withId(R.id.issue_create_account_create_button))
             .check(matches(isDisplayed()))

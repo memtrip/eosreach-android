@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_instructions_label"
+        app:constraint_referenced_ids="issue_create_account_name_label,issue_create_account_name_input,issue_create_account_resource_allocation"
         tools:ignore="MissingConstraints" />
 
     <com.memtrip.eosreach.brand.ReachTextView
@@ -94,14 +94,12 @@
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/issue_create_account_name_label" />
 
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/issue_create_account_instructions_label"
-        style="@style/Typography.Body1"
+    <include
+        android:id="@+id/issue_create_account_resource_allocation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/issue_create_account_instructions_label"
+        android:layout_marginTop="@dimen/padding_medium"
+        layout="@layout/issue_create_account_resource_allocation"
         app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toBottomOf="@+id/issue_create_account_name_input" />

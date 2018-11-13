@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.core.view.GravityCompat
 import com.memtrip.eosreach.R
-import com.memtrip.eosreach.app.search.SearchActivity
+import com.memtrip.eosreach.app.explore.ExploreActivity.Companion.exploreIntent
 import kotlinx.android.synthetic.main.account_activity.*
 
 class DefaultAccountActivity : AccountActivity() {
@@ -44,7 +44,7 @@ class DefaultAccountActivity : AccountActivity() {
 
         menu.findItem(R.id.account_menu_search).setOnMenuItemClickListener {
             model().publish(AccountIntent.BalanceTabIdle)
-            startActivity(SearchActivity.searchIntent(this))
+            startActivity(exploreIntent(this))
             true
         }
         return true

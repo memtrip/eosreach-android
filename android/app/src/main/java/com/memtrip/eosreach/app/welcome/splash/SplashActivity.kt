@@ -24,7 +24,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.memtrip.eosreach.R
 import com.memtrip.eosreach.app.MviActivity
 import com.memtrip.eosreach.app.ViewModelFactory
-import com.memtrip.eosreach.app.search.SearchActivity.Companion.searchIntent
+import com.memtrip.eosreach.app.explore.ExploreActivity.Companion.exploreIntent
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.app.welcome.createaccount.WelcomeCreateAccountActivity.Companion.welcomeCreateAccountIntent
 import com.memtrip.eosreach.app.welcome.importkey.WelcomeImportKeyActivity.Companion.welcomeImportKeyIntent
@@ -49,7 +49,7 @@ class SplashActivity
         supportActionBar!!.title = ""
         welcome_splash_explore_button.setOnClickListener {
             model().publish(SplashIntent.Idle)
-            startActivity(searchIntent(this))
+            startActivity(exploreIntent(this))
         }
     }
 

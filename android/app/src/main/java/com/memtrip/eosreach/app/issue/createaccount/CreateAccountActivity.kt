@@ -31,8 +31,6 @@ import com.memtrip.eosreach.app.ViewModelFactory
 import com.memtrip.eosreach.app.settings.SettingsActivity.Companion.settingsIntent
 import com.memtrip.eosreach.app.welcome.EntryActivity
 import com.memtrip.eosreach.billing.Billing
-import com.memtrip.eosreach.billing.BillingConnectionResponse
-import com.memtrip.eosreach.billing.BillingError
 
 import com.memtrip.eosreach.uikit.gone
 import com.memtrip.eosreach.uikit.inputfilter.AccountNameInputFilter
@@ -107,27 +105,6 @@ abstract class CreateAccountActivity
             model().publish(CreateAccountIntent.Done)
         } else {
             super.onBackPressed()
-        }
-    }
-
-    private fun handleBillingConnection(response: BillingConnectionResponse): Unit = when (response) {
-        is BillingConnectionResponse.Success -> {
-            model().publish(CreateAccountIntent.BillingSetupSuccess(response.skuDetails))
-        }
-        BillingConnectionResponse.SkuNotFound -> {
-            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuNotFound))
-        }
-        BillingConnectionResponse.SkuBillingUnavailable -> {
-            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuBillingUnavailable))
-        }
-        BillingConnectionResponse.SkuNotAvailable -> {
-            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuNotAvailable))
-        }
-        BillingConnectionResponse.SkuRequestFailed -> {
-            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.SkuRequestFailed))
-        }
-        BillingConnectionResponse.BillingSetupFailed -> {
-            model().publish(CreateAccountIntent.BillingSetupFailed(BillingError.BillingSetupFailed))
         }
     }
 

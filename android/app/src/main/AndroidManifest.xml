@@ -66,8 +66,7 @@
         <activity android:name=".app.settings.eosendpoint.EosEndpointActivity" />
         <activity android:name=".app.settings.viewprivatekeys.ViewPrivateKeysActivity" />
 
-        <activity android:name=".app.search.SearchActivity"
-            android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:name=".app.explore.ExploreActivity" />
 
     </application>
 
