@@ -28,13 +28,13 @@ import com.memtrip.eosreach.utils.toLocalDateTime
 import kotlinx.android.parcel.Parcelize
 
 sealed class AccountAction(
-    val next: Int
+    val next: Long
 ) {
 
     @Parcelize
     data class Transfer(
         val tranactionId: String,
-        val accountActionSequence: Int,
+        val accountActionSequence: Long,
         val from: String,
         val to: String,
         val memo: String,

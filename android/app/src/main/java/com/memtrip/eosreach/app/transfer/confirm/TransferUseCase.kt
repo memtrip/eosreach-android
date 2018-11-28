@@ -32,6 +32,7 @@ class TransferUseCase @Inject internal constructor(
 ) {
 
     fun transfer(
+        contract: String,
         fromAccount: String,
         toAccount: String,
         quantity: String,
@@ -41,6 +42,7 @@ class TransferUseCase @Inject internal constructor(
         return getAccountByName.select(fromAccount).flatMap { accountEntity ->
             eosKeyManager.getPrivateKey(accountEntity.publicKey).flatMap { privateKey ->
                 transferRequest.transfer(
+                    contract,
                     accountEntity.accountName,
                     toAccount,
                     quantity,

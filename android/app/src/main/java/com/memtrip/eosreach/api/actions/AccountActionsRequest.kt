@@ -25,8 +25,8 @@ interface AccountActionsRequest {
 
     fun getActionsForAccountName(
         contractAccountBalance: ContractAccountBalance,
-        position: Int = -1,
-        offset: Int = -500
+        position: Long = -1,
+        offset: Long = -500
     ): Single<Result<AccountActionList, AccountActionsError>>
 }
 

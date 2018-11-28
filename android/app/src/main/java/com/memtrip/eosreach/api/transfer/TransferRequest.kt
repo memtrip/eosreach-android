@@ -25,6 +25,7 @@ import io.reactivex.Single
 interface TransferRequest {
 
     fun transfer(
+        contract: String,
         fromAccount: String,
         toAccount: String,
         quantity: String,

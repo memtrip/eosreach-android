@@ -53,21 +53,6 @@
         app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
         app:layout_constraintTop_toTopOf="@id/horizontal_start_guideline" />
 
-    <com.memtrip.eosreach.brand.ReachTextView
-        android:id="@+id/welcome_splash_blurb_label"
-        style="@style/Typography.Body1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large_giant"
-        android:text="@string/welcome_splash_blurb"
-        android:gravity="center_horizontal"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textColor="@color/typographyColorSecondary"
-        app:layout_constraintLeft_toLeftOf="@id/vertical_start_guideline"
-        app:layout_constraintRight_toRightOf="@id/vertical_end_guideline"
-        app:layout_constraintTop_toBottomOf="@id/welcome_splash_logo" />
-
     <com.memtrip.eosreach.brand.ReachButton
         style="@style/ButtonPrimary"
         android:id="@+id/welcome_splash_create_account_button"

@@ -61,9 +61,7 @@
         We could not create an account at this time, please check your connection and try again.
     </string>
     <string name="issue_create_account_fatal_error">
-        We could not create an account at this time, please check your connection and try again. If you
-        continue to encounter difficulties, please contact support@memtrip.com and quote your purchase id.
-        The purchase id will have been sent to your google play email account.
+        We could not create an account at this time, please check your connection and try again. If you continue to encounter difficulties, please contact support@memtrip.com and quote your purchase id. The purchase id will have been sent to your google play email account.
     </string>
     <string name="issue_create_account_account_name_exists">
         The account name you chose already exists, please choose another name.

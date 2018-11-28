@@ -81,8 +81,8 @@ class ActionsViewModel @Inject internal constructor(
 
     private fun getInitialActions(
         contractAccountBalance: ContractAccountBalance,
-        position: Int = -1,
-        recursivePosition: Int = 0
+        position: Long = -1,
+        recursivePosition: Long = 0
     ): Single<ActionsRenderAction> {
         if (recursivePosition >= RECURSIVE_LIMIT) {
             return Single.just(ActionsRenderAction.NoResults)
@@ -116,7 +116,7 @@ class ActionsViewModel @Inject internal constructor(
     private fun getMoreActions(
         contractAccountBalance: ContractAccountBalance,
         lastAccountActionItem: AccountAction,
-        recursivePosition: Int = 0
+        recursivePosition: Long = 0
     ): Single<ActionsRenderAction> {
         if (recursivePosition >= RECURSIVE_LIMIT) {
             // end
@@ -156,7 +156,7 @@ class ActionsViewModel @Inject internal constructor(
     }
 
     companion object {
-        const val ITEM_OFFSET = -1000
-        const val RECURSIVE_LIMIT = 10
+        const val ITEM_OFFSET = -1000L
+        const val RECURSIVE_LIMIT = 10L
     }
 }

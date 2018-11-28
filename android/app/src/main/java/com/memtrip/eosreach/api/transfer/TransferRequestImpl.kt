@@ -33,6 +33,7 @@ class TransferRequestImpl @Inject constructor(
 ) : TransferRequest {
 
     override fun transfer(
+        contract: String,
         fromAccount: String,
         toAccount: String,
         quantity: String,
@@ -40,6 +41,7 @@ class TransferRequestImpl @Inject constructor(
         authorizingPrivateKey: EosPrivateKey
     ): Single<Result<TransactionCommitted, TransferError>> {
         return transferChain.transfer(
+            contract,
             TransferChain.Args(
                 fromAccount,
                 toAccount,

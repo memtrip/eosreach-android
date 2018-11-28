@@ -35,8 +35,8 @@ class AccountActionsRequestImpl @Inject internal constructor(
 
     override fun getActionsForAccountName(
         contractAccountBalance: ContractAccountBalance,
-        position: Int,
-        offset: Int
+        position: Long,
+        offset: Long
     ): Single<Result<AccountActionList, AccountActionsError>> {
         return historyApi.getActions(GetActions(contractAccountBalance.accountName, position, offset)).map { response ->
             if (response.isSuccessful) {

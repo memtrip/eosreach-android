@@ -70,6 +70,7 @@ class TransferConfirmViewModel @Inject internal constructor(
 
     private fun transfer(transferRequestData: TransferRequestData): Observable<TransferConfirmRenderAction> {
         return transferUseCase.transfer(
+            transferRequestData.contractAccountBalance.contractName,
             transferRequestData.fromAccount,
             transferRequestData.toAccount,
             transferRequestData.quantity,

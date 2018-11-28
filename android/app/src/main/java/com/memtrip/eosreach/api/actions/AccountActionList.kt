@@ -20,5 +20,5 @@ import com.memtrip.eosreach.api.actions.model.AccountAction
 
 data class AccountActionList(
     val actions: List<AccountAction>,
-    val noResultsNext: Int = -1
+    val noResultsNext: Long = -1
 )
