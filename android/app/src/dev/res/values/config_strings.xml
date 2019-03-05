@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_default_eos_endpoint_root">http://10.0.2.2:8888/</string>
+    <string name="app_default_eos_endpoint_root">https://api.jungle.alohaeos.com:443/</string>
     <string name="app_default_create_account_sku_id">android.test.purchased</string>
-    <string name="app_default_utility_endpoint_root">http://10.0.2.2:8080/</string>
+    <string name="app_default_utility_endpoint_root">https://eosreach.memtrip.com/</string>
 </resources>

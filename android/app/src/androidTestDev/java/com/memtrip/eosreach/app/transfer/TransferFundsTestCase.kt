@@ -41,7 +41,7 @@ class TransferFundsTestCase : DevTestCase() {
             .enterAmount(amount)
             .enterMemo(memo)
             .selectNextButton()
-            .verifyAmount("$amount SYS")
+            .verifyAmount("$amount EOS")
             .verifyTo(to)
             .verifyFrom(from)
             .verifyMemo(memo)

@@ -90,7 +90,7 @@ abstract class ResourcesFragment
         RxView.clicks(resources_stake_click_area).map {
             ResourcesIntent.NavigateToManageBandwidthWithAccountName(eosAccount.accountName)
         },
-        RxView.clicks(resources_refund_claim_label ).map {
+        RxView.clicks(resources_refund_claim_label).map {
             ResourcesIntent.RequestRefund(eosAccount.accountName)
         }
     )

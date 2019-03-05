@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app.explore
 
 import android.app.Application
+import android.net.Uri
 import com.memtrip.eosreach.api.blockproducer.RegisteredBlockProducerError
 import com.memtrip.eosreach.api.blockproducer.RegisteredBlockProducerRequest
 import com.memtrip.mxandroid.MxViewModel
@@ -36,7 +37,7 @@ class RegisteredBlockProducersViewModel @Inject internal constructor(
         is RegisteredBlockProducersIntent.Init -> getRegisteredBlockProducers()
         RegisteredBlockProducersIntent.Retry -> getRegisteredBlockProducers()
         is RegisteredBlockProducersIntent.LoadMore -> getRegisteredBlockProducers(intent.lastAccountName)
-        is RegisteredBlockProducersIntent.WebsiteSelected -> Observable.just(RegisteredBlockProducersRenderAction.WebsiteSelected(intent.website))
+        is RegisteredBlockProducersIntent.WebsiteSelected -> Observable.just(validateUrl(intent.website))
         is RegisteredBlockProducersIntent.RegisteredBlockProducersSelected -> Observable.just(RegisteredBlockProducersRenderAction.RegisteredBlockProducersSelected(intent.accountName))
     }
 
@@ -50,6 +51,7 @@ class RegisteredBlockProducersViewModel @Inject internal constructor(
         RegisteredBlockProducersRenderAction.OnLoadMoreError -> previousState.copy(view = RegisteredBlockProducersViewState.View.OnLoadMoreError)
         is RegisteredBlockProducersRenderAction.WebsiteSelected -> previousState.copy(view = RegisteredBlockProducersViewState.View.WebsiteSelected(renderAction.url))
         is RegisteredBlockProducersRenderAction.RegisteredBlockProducersSelected -> previousState.copy(view = RegisteredBlockProducersViewState.View.RegisteredBlockProducersSelected(renderAction.accountName))
+        is RegisteredBlockProducersRenderAction.InvalidUrl -> previousState.copy(view = RegisteredBlockProducersViewState.View.InvalidUrl(renderAction.url))
     }
 
     override fun filterIntents(intents: Observable<RegisteredBlockProducersIntent>): Observable<RegisteredBlockProducersIntent> = Observable.merge(
@@ -88,6 +90,23 @@ class RegisteredBlockProducersViewModel @Inject internal constructor(
             RegisteredBlockProducersRenderAction.OnLoadMoreProgress
         } else {
             RegisteredBlockProducersRenderAction.OnProgress
+        }
+    }
+
+    private fun validateUrl(url: String): RegisteredBlockProducersRenderAction {
+        return if (checkParseUrl(url) && url.trim().isNotEmpty()) {
+            RegisteredBlockProducersRenderAction.WebsiteSelected(url)
+        } else {
+            RegisteredBlockProducersRenderAction.InvalidUrl(url)
+        }
+    }
+
+    private fun checkParseUrl(url: String): Boolean {
+        return try {
+            Uri.parse(url)
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 }

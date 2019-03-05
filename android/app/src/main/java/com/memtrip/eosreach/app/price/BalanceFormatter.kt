@@ -19,6 +19,7 @@ package com.memtrip.eosreach.app.price
 import com.memtrip.eosreach.api.balance.Balance
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 object BalanceFormatter {
 
@@ -53,8 +54,12 @@ object BalanceFormatter {
     }
 
     fun formatBalanceDigits(amount: Double): String {
+
         return with(DecimalFormat("0.0000")) {
             roundingMode = RoundingMode.CEILING
+            decimalFormatSymbols = DecimalFormatSymbols().apply {
+                decimalSeparator = '.'
+            }
             this
         }.format(amount)
     }

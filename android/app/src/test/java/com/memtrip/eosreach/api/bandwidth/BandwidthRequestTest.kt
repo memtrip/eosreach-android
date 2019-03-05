@@ -62,8 +62,10 @@ class BandwidthRequestTest : Spek({
 
             val result = bandwidthRequest.delegate(
                 fromAccount,
+                fromAccount,
                 netAmount,
                 cpuAmount,
+                false,
                 authorizingPrivateKey,
                 date).blockingGet()
 
@@ -95,6 +97,7 @@ class BandwidthRequestTest : Spek({
             )).thenReturn(Single.error(SocketTimeoutException()))
 
             val result = bandwidthRequest.unDelegate(
+                fromAccount,
                 fromAccount,
                 netAmount,
                 cpuAmount,

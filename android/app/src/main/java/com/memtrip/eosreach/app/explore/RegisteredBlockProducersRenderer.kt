@@ -31,6 +31,7 @@ sealed class RegisteredBlockProducersRenderAction : MxRenderAction {
     object OnLoadMoreError : RegisteredBlockProducersRenderAction()
     data class OnSuccess(val registeredBlockProducers: List<RegisteredBlockProducer>) : RegisteredBlockProducersRenderAction()
     data class WebsiteSelected(val url: String) : RegisteredBlockProducersRenderAction()
+    data class InvalidUrl(val url: String) : RegisteredBlockProducersRenderAction()
     data class RegisteredBlockProducersSelected(val accountName: String) : RegisteredBlockProducersRenderAction()
 }
 

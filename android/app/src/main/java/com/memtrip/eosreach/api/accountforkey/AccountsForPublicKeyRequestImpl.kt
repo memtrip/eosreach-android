@@ -45,6 +45,8 @@ internal class AccountsForPublicKeyRequestImpl @Inject internal constructor(
                     Single.just(Result<AccountsForPublicKey, AccountForKeyError>(
                         AccountForKeyError.FailedRetrievingAccountList))
                 }
+            }.onErrorReturn {
+                Result(AccountForKeyError.FailedRetrievingAccountList)
             }
     }
 

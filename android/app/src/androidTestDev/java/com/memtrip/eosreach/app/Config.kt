@@ -17,6 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 package com.memtrip.eosreach.app
 
 object Config {
-
-    const val PRIVATE_KEY = "5JKonnU5r895a1r9iSBRbAxo2CeuCDfNCNnJtUN6tuGWoXp49mg"
+    const val PRIVATE_KEY = "5HwXVYnA6Y2qhPp2VZ4EUFq52aXwWmBjp3r1K29wJxCbSYwyiNV"
 }

@@ -33,10 +33,10 @@ class SellRamTestCase : DevTestCase() {
         ramRobot
             .verifyManageRamScreen()
             .selectSellTab()
-            .enterRamAmount("1000", R.id.account_resources_manage_ram_sell_fragment)
+            .enterRamAmount("100", R.id.account_resources_manage_ram_sell_fragment)
             .selectCtaButton(R.id.account_resources_manage_ram_sell_fragment)
             .verifyConfirmSellTitle()
-            .verifyConfirmKb("1000")
+            .verifyConfirmKb("100")
             .verifyPrice()
             .selectConfirmCta()
 

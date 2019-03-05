@@ -57,7 +57,8 @@ class RegisteredBlockProducerRequestImpl @Inject constructor(
     }
 
     private fun dropFirstItemWhenPaginationResult(
-        results: List<RegisteredBlockProducer>, lowerLimit: String
+        results: List<RegisteredBlockProducer>,
+        lowerLimit: String
     ): List<RegisteredBlockProducer> {
         return if (lowerLimit.isNotEmpty()) {
             results.drop(1)

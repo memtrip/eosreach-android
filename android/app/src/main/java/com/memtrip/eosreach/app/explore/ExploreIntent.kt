@@ -19,7 +19,7 @@ package com.memtrip.eosreach.app.explore
 import com.memtrip.mxandroid.MxViewIntent
 
 sealed class ExploreIntent : MxViewIntent {
-    object Init: ExploreIntent()
+    object Init : ExploreIntent()
     object SearchTabIdle : ExploreIntent()
     object BlockProducerTabIdle : ExploreIntent()
 }
