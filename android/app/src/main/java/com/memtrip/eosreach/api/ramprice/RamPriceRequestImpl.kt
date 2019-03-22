@@ -23,6 +23,7 @@ import com.memtrip.eosreach.utils.RxSchedulers
 import io.reactivex.Single
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import javax.inject.Inject
 
 class RamPriceRequestImpl @Inject internal constructor(
@@ -32,8 +33,11 @@ class RamPriceRequestImpl @Inject internal constructor(
 
     override fun getRamPrice(symbol: String): Single<Balance> {
         return getRamPrice.getPricePerKilobyte().map { price ->
-            val formattedPrice = with(DecimalFormat("0.00000000")) {
+            val formattedPrice = with(DecimalFormat("0.0000")) {
                 roundingMode = RoundingMode.CEILING
+                decimalFormatSymbols = DecimalFormatSymbols().apply {
+                    decimalSeparator = '.'
+                }
                 this
             }.format(price)
             BalanceFormatter.deserialize("$formattedPrice $symbol")

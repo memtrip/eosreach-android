@@ -72,7 +72,7 @@ class EosPriceUseCase @Inject constructor(
     }
 
     private fun expired(lastUpdated: Long): Boolean {
-        return lastUpdated > (System.currentTimeMillis() - TEN_MINUTES)
+        return (System.currentTimeMillis() - TEN_MINUTES) > lastUpdated
     }
 
     companion object {

@@ -47,7 +47,7 @@ class ManageRamViewRenderer @Inject internal constructor() : MxViewRenderer<Mana
         ManageRamViewState.View.Idle -> {
         }
         is ManageRamViewState.View.Populate -> {
-            val formattedRamPrice = with(DecimalFormat("0.00000000")) {
+            val formattedRamPrice = with(DecimalFormat("0.0000")) {
                 roundingMode = RoundingMode.CEILING
                 this
             }.format(state.view.ramPrice.amount)
