@@ -1,5 +1,5 @@
 # EOSREACH
-An open source EOS wallet developed in Kotlin using the [eos-jvm](https://github.com/memtrip/eos-jvm) SDK.
+An EOS wallet developed in Kotlin using the [eos-jvm](https://github.com/memtrip/eos-jvm) SDK.
 
 ## Foreword
 The current generation of browser plugin dependant DApps are not fit for mass market consumption,
