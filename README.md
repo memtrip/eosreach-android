@@ -9,7 +9,6 @@ in comparison to native mobile experiences, the UX is slow and cumbersome.
 
 This wallet serves as a blueprint for how other developers might want to utilise [eos-jvm](https://github.com/memtrip/eos-jvm)
 to develop native Android apps that consume the EOS blockchain.
-[App on Google play](https://play.google.com/store/apps/details?id=com.memtrip.eosreach)
 
 ## Design pattern
 The app uses the model view intent (MVI) design pattern, a unidirectional data flow driven by a single
